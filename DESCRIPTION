@@ -17,3 +17,5 @@ RoxygenNote: 7.1.1
 Suggests:
     spelling
 Language: en-US
+URL: https://github.com/JauntyJJS/DCVtestkit
+BugReports: https://github.com/JauntyJJS/DCVtestkit/issues
