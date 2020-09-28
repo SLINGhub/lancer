@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "bchjjs@nus.edu.sg")
 Description: The package is meant to assess if a transition can be used, 
-             based on different tests (check for linearity, etc...) applied, 
+             based on different tests (check for linearity) applied, 
              on its corresponding dilution curve.
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -15,7 +15,18 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Suggests:
-    spelling
-Language: en-US
+    spelling,
+    testthat,
+    roxygen2
+Language: en-GB
 URL: https://github.com/JauntyJJS/DCVtestkit
 BugReports: https://github.com/JauntyJJS/DCVtestkit/issues
+Imports: 
+    magrittr,
+    broom,
+    dplyr,
+    purrr,
+    rlang (>= 0.1.2),
+    assertr,
+    tibble,
+    tidyr
