@@ -201,29 +201,29 @@ calculate_pra <- function(dilution_data, conc_var, signal_var) {
   return(percent_ra)
 }
 
-# validate_dilution_data <- function(dilution_data, conc_var, signal_var) {
-#
-#   validator <- data.validator::create_validator()
-#
-#   #Check if conc_var and signal_var is are valid columns in dilution_data
-#   #Drop rows whose value of signal_var is NA
-#   #assertr::verify(assertr::has_all_names(conc_var, signal_var)) %>%
-#   dilution_data <- dilution_data %>%
-#     assertr::verify(description = "Column has correct names",
-#                     assertr::has_all_names("Dilution_Percen"),
-#                     success_fun = assertr::success_continue,
-#                     error_fun = assertr::error_append
-#                     ) %>%
-#     assertr::verify(description = "Column has correct names",
-#                     assertr::has_all_names("Area"),
-#                     success_fun = assertr::success_continue,
-#                     error_fun = assertr::error_append
-#     ) %>%
-#     data.validator::add_results(validator)
-#
-#   print(dilution_data)
-#
-# }
+validate_dilution_data <- function(dilution_data, conc_var, signal_var,
+                                   validator) {
+
+  #Check if conc_var and signal_var is are present in dilution_data
+  #Drop rows whose value of signal_var is NA
+  dilution_data %>%
+    assertr::chain_start() %>%
+    assertr::verify(description = paste0("Column \"",conc_var,"\" is absent in data"),
+                    assertr::has_all_names(conc_var),
+                    success_fun = assertr::success_continue,
+                    error_fun = assertr::error_append
+                    ) %>%
+    assertr::verify(description = paste0("Column \"",signal_var,"\" is absent in data"),
+                    assertr::has_all_names(signal_var),
+                    success_fun = assertr::success_continue,
+                    error_fun = assertr::error_append
+    ) %>%
+    assertr::chain_end(error_fun = assertr::error_append) %>%
+    data.validator::add_results(validator)
+
+  return(validator)
+
+}
 
 get_dilution_summary <- function(dilution_data, conc_var, signal_var) {
 
