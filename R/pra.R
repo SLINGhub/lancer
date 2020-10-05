@@ -1,3 +1,19 @@
+#' @title Create Dilution Linear Model
+#' @description A wrapper to create a linear model for dilution data
+#' @param dilution_data A data frame or tibble containing dilution data
+#' @param conc_var Column name in `diltuion_data` to indicate concentration
+#' @param signal_var Column name in `diltuion_data` to indicate signal
+#' @return A linear model object from `stats:lm()` with formula
+#' `signal_var ~ conc_var` from data `diltuion_data`
+#' @examples
+#' dilution_percent <- c(10, 20, 40, 60, 80, 100)
+#' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+#' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+#' linear_model <- create_dil_linear_model(dilution_data,
+#'                                         "Dilution_Percent",
+#'                                         "Area")
+#' @rdname create_dil_linear_model
+#' @export
 create_dil_linear_model <- function(dilution_data, conc_var, signal_var) {
 
   #Create the formula
@@ -13,6 +29,23 @@ create_dil_linear_model <- function(dilution_data, conc_var, signal_var) {
 
 }
 
+#' @title Create Dilution Quadratic Model
+#' @description A wrapper to create a quadratic model for dilution data
+#' @param dilution_data A data frame or tibble containing dilution data
+#' @param conc_var Column name in `diltuion_data` to indicate concentration
+#' @param signal_var Column name in `diltuion_data` to indicate signal
+#' @return A linear model object from `stats:lm()` with formula
+#' `signal_var ~ conc_var + I(conc_var * conc_var)`
+#' from data `diltuion_data`
+#' @examples
+#' dilution_percent <- c(10, 20, 40, 60, 80, 100)
+#' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+#' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+#' linear_model <- create_dil_quad_model(dilution_data,
+#'                                         "Dilution_Percent",
+#'                                         "Area")
+#' @rdname create_dil_quad_model
+#' @export
 create_dil_quad_model <- function(dilution_data, conc_var, signal_var) {
 
   #Create the formula
@@ -31,6 +64,22 @@ create_dil_quad_model <- function(dilution_data, conc_var, signal_var) {
 
 }
 
+#' @title Calculate concavity
+#' @description Calculate the concavity of the Dilution Quadratic Model
+#' @param dilution_data A data frame or tibble containing dilution data
+#' @param conc_var Column name in `diltuion_data` to indicate concentration
+#' @param signal_var Column name in `diltuion_data` to indicate signal
+#' @return The concavity of the Dilution Quadratic Model
+#' @details The function will return NA if the number of dilution points
+#' is less than or equal to three
+#' @examples
+#' dilution_percent <- c(10, 20, 40, 60, 80, 100)
+#' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+#' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+#' concavity_value <- calculate_concavity(dilution_data,
+#'                                        "Dilution_Percent", "Area")
+#' @rdname calculate_concavity
+#' @export
 calculate_concavity <- function(dilution_data, conc_var, signal_var) {
 
   concavity <- NA
@@ -187,7 +236,8 @@ calculate_pra <- function(dilution_data, conc_var, signal_var) {
 
   fit_aug <- tibble::tibble(
     .xfitted = (dilution_data[[signal_var]] - intercept) / (slope),
-    .xerror = (dilution_data[[conc_var]] - .data$.xfitted) / dilution_data[[conc_var]]
+    .xerror = (dilution_data[[conc_var]] - .data$.xfitted) /
+      dilution_data[[conc_var]]
     )
 
   # Get GOF summary for linear model
@@ -208,12 +258,14 @@ validate_dilution_data <- function(dilution_data, conc_var, signal_var,
   #Drop rows whose value of signal_var is NA
   dilution_data %>%
     assertr::chain_start() %>%
-    assertr::verify(description = paste0("Column \"",conc_var,"\" is absent in data"),
+    assertr::verify(description = paste0("Column \"", conc_var,
+                                         "\" is absent in data"),
                     assertr::has_all_names(conc_var),
                     success_fun = assertr::success_continue,
                     error_fun = assertr::error_append
                     ) %>%
-    assertr::verify(description = paste0("Column \"",signal_var,"\" is absent in data"),
+    assertr::verify(description = paste0("Column \"", signal_var,
+                                         "\" is absent in data"),
                     assertr::has_all_names(signal_var),
                     success_fun = assertr::success_continue,
                     error_fun = assertr::error_append
