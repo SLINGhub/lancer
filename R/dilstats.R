@@ -109,6 +109,25 @@ calculate_concavity <- function(dilution_data, conc_var, signal_var) {
 
 }
 
+#' @title Calculate Goodness of Linear Fit
+#' @description Calculate the Goodness of Fit of the Dilution Linear Model
+#' @param dilution_data A data frame or tibble containing dilution data
+#' @param conc_var Column name in `diltuion_data` to indicate concentration
+#' @param signal_var Column name in `diltuion_data` to indicate signal
+#' @return A tibble containing the Goodness of Fit measures of the linear model
+#' The Goodness of Fit measures are the Pearson correlation coefficient (R),
+#' the R^2, the adjusted R^2, the Bayesian Information Criterion (BIC) and the
+#' Pearson correlation p value
+#' @details The function will return a tibble with NA values
+#' if the number of dilution points is less than or equal to three
+#' @examples
+#' dilution_percent <- c(10, 20, 40, 60, 80, 100)
+#' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+#' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+#' dil_linear_gof <- calculate_dil_linear_gof(dilution_data,
+#'                                            "Dilution_Percent", "Area")
+#' @rdname calculate_dil_linear_gof
+#' @export
 calculate_dil_linear_gof <- function(dilution_data, conc_var, signal_var) {
 
   dil_linear_gof <- tibble::tibble(r_corr = NA,
@@ -161,6 +180,25 @@ calculate_dil_linear_gof <- function(dilution_data, conc_var, signal_var) {
 
 }
 
+
+#' @title Calculate the Mandel fitting test
+#' @description Calculate the Mandel fitting test for dilution data
+#' @param dilution_data A data frame or tibble containing dilution data
+#' @param conc_var Column name in `diltuion_data` to indicate concentration
+#' @param signal_var Column name in `diltuion_data` to indicate signal
+#' @return A tibble containing Mandel test statistics. The values are
+#' the Mandel test value and its corresponding p value. More information
+#' of the test can be found in
+#' \url{https://link.springer.com/article/10.1007/s00769-002-0487-6}
+#' @details The function will return a tibble with NA values
+#' if the number of dilution points is less than or equal to three.
+#' @examples
+#' dilution_percent <- c(10, 20, 40, 60, 80, 100)
+#' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+#' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+#' mandel_result <- calculate_mandel(dilution_data, "Dilution_Percent", "Area")
+#' @rdname calculate_mandel
+#' @export
 calculate_mandel <- function(dilution_data, conc_var, signal_var) {
 
   mandel_result <- tibble::tibble(mandel_stats = NA,
@@ -206,6 +244,24 @@ calculate_mandel <- function(dilution_data, conc_var, signal_var) {
 
 }
 
+#' @title Calculate the Percent Residual Accuracy (PRA)
+#' @description Calculate the Percent Residual Accuracy (PRA) of the
+#' Dilution Linear Model
+#' @param dilution_data A data frame or tibble containing dilution data
+#' @param conc_var Column name in `diltuion_data` to indicate concentration
+#' @param signal_var Column name in `diltuion_data` to indicate signal
+#' @return The Percent Residual Accuracy (PRA) of the
+#' Dilution Linear Model. More information of this value can be found in
+#' \url{https://www.sciencedirect.com/science/article/abs/pii/S0039914018307549}
+#' @details The function will return NA if the number of dilution points
+#' is less than or equal to three
+#' @examples
+#' dilution_percent <- c(10, 20, 40, 60, 80, 100)
+#' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+#' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+#' pra_value <- calculate_pra(dilution_data, "Dilution_Percent", "Area")
+#' @rdname calculate_pra
+#' @export
 calculate_pra <- function(dilution_data, conc_var, signal_var) {
 
   pra <- NA
@@ -251,6 +307,27 @@ calculate_pra <- function(dilution_data, conc_var, signal_var) {
   return(percent_ra)
 }
 
+#' @title Calculate the Percent Residual Accuracy (PRA)
+#' @description Calculate the Percent Residual Accuracy (PRA) of the
+#' Dilution Linear Model
+#' @param dilution_data A data frame or tibble containing dilution data
+#' @param conc_var Column name in `diltuion_data` to indicate concentration
+#' @param signal_var Column name in `diltuion_data` to indicate signal
+#' @param validator An R object created by `data.validator::create_validator()`
+#' @return An updated `data.validator::create_validator()` R object to be used
+#' to generate a reports based on `assertr`'s validation
+#' @details More information on the R package `data.validator` can be found in
+#' \url{https://github.com/Appsilon/data.validator}
+#' @examples
+#' dilution_percent <- c(10, 20, 40, 60, 80, 100)
+#' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+#' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+#' validator <- data.validator::create_validator()
+#' validator <- validate_dilution_data(dilution_data,
+#'                                    "Dilution_Percen", "Are",
+#'                                    validator)
+#' @rdname validate_dilution_data
+#' @export
 validate_dilution_data <- function(dilution_data, conc_var, signal_var,
                                    validator) {
 
@@ -277,6 +354,25 @@ validate_dilution_data <- function(dilution_data, conc_var, signal_var,
 
 }
 
+#' @title Get dilution data summary statistic
+#' @description Get the summary statistics of the dilution data
+#' @param dilution_data A data frame or tibble containing dilution data
+#' @param conc_var Column name in `diltuion_data` to indicate concentration
+#' @param signal_var Column name in `diltuion_data` to indicate signal
+#' @return A tibble containing the Goodness of Fit measures of the linear model
+#' The Goodness of Fit measures are the Pearson correlation coefficient (R),
+#' R^2, adjusted R^2, Bayesian Information Criterion (BIC), Pearson correlation
+#' p value, Mandel test statistics and p value, Percent Residual Accuracy and
+#' Concavity.
+#' @details The function will return a tibble with NA values
+#' if the number of dilution points is less than or equal to three
+#' dilution_percent <- c(10, 20, 40, 60, 80, 100)
+#' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+#' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+#' dilution_summary <- get_dilution_summary(dilution_data,
+#'                                          "Dilution_Percent", "Area")
+#' @rdname get_dilution_summary
+#' @export
 get_dilution_summary <- function(dilution_data, conc_var, signal_var) {
 
   #Try to add validation checks
