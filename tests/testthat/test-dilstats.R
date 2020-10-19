@@ -1,20 +1,20 @@
-test_that("calculate pra", {
+test_that("calculate pra of linear model", {
   dilution_percent <- c(10, 8, 13, 9, 11, 14, 6, 4, 12, 7, 5)
   area <- c(5.23, 4.23, 6.35, 4.75, 5.65, 6.62, 3.03, 1.62, 6.03, 3.65, 2.35)
   dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-  pra_value <- calculate_pra(dilution_data, "Dilution_Percent", "Area")
+  pra_value <- calculate_pra_linear(dilution_data, "Dilution_Percent", "Area")
   testthat::expect_equal(94.80, unname(pra_value), tolerance  = 0.01)
 
   dilution_data <- data.frame(Dilution_Percent = c(NA, NA), Area =  c(NA, NA))
-  pra_value <- calculate_pra(dilution_data, "Dilution_Percent", "Area")
+  pra_value <- calculate_pra_linear(dilution_data, "Dilution_Percent", "Area")
   testthat::expect_equal(NA, unname(pra_value))
 
   dilution_data <- data.frame(Dilution_Percent = NA, Area = NA)
-  pra_value <- calculate_pra(dilution_data, "Dilution_Percent", "Area")
+  pra_value <- calculate_pra_linear(dilution_data, "Dilution_Percent", "Area")
   testthat::expect_equal(NA, unname(pra_value))
 
   dilution_data <- NA
-  pra_value <- calculate_pra(dilution_data, "Dilution_Percent", "Area")
+  pra_value <- calculate_pra_linear(dilution_data, "Dilution_Percent", "Area")
   testthat::expect_equal(NA, unname(pra_value))
 
 })
@@ -120,15 +120,15 @@ test_that("calculate dil linear GOF", {
 })
 
 
-test_that("validate_dilution_data", {
-
-  dilution_percent <- c(10, 20, 40, 60, 80, 100)
-  area <- c(22561, 31178, 39981, 48390, 52171, 53410)
-  dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-  validator <- data.validator::create_validator()
-  validator <- validate_dilution_data(dilution_data,
-                                      "Dilution_Percen", "Are",
-                                      validator)
-
-
-})
+# test_that("validate_dilution_data", {
+#
+#   dilution_percent <- c(10, 20, 40, 60, 80, 100)
+#   area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+#   dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+#   validator <- data.validator::create_validator()
+#   validator <- validate_dilution_data(dilution_data,
+#                                       "Dilution_Percen", "Are",
+#                                       validator)
+#
+#
+# })

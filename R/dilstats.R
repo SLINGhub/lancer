@@ -244,7 +244,7 @@ calculate_mandel <- function(dilution_data, conc_var, signal_var) {
 
 }
 
-#' @title Calculate the Percent Residual Accuracy (PRA)
+#' @title Linear Model's Percent Residual Accuracy (PRA)
 #' @description Calculate the Percent Residual Accuracy (PRA) of the
 #' Dilution Linear Model
 #' @param dilution_data A data frame or tibble containing dilution data
@@ -259,10 +259,10 @@ calculate_mandel <- function(dilution_data, conc_var, signal_var) {
 #' dilution_percent <- c(10, 20, 40, 60, 80, 100)
 #' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
 #' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-#' pra_value <- calculate_pra(dilution_data, "Dilution_Percent", "Area")
-#' @rdname calculate_pra
+#' pra_value <- calculate_pra_linear(dilution_data, "Dilution_Percent", "Area")
+#' @rdname calculate_pra_linear
 #' @export
-calculate_pra <- function(dilution_data, conc_var, signal_var) {
+calculate_pra_linear <- function(dilution_data, conc_var, signal_var) {
 
   pra <- NA
 
@@ -327,7 +327,6 @@ calculate_pra <- function(dilution_data, conc_var, signal_var) {
 #'                                    "Dilution_Percen", "Are",
 #'                                    validator)
 #' @rdname validate_dilution_data
-#' @export
 validate_dilution_data <- function(dilution_data, conc_var, signal_var,
                                    validator) {
 
@@ -381,7 +380,7 @@ get_dilution_summary <- function(dilution_data, conc_var, signal_var) {
   dil_linear_gof <- calculate_dil_linear_gof(dilution_data,
                                              conc_var, signal_var)
   one_value_tibble <- tibble::tibble(
-    pra = calculate_pra(dilution_data, conc_var, signal_var),
+    pra = calculate_pra_linear(dilution_data, conc_var, signal_var),
     concavity = calculate_concavity(dilution_data, conc_var, signal_var)
   )
 
