@@ -307,49 +307,52 @@ calculate_pra_linear <- function(dilution_data, conc_var, signal_var) {
   return(percent_ra)
 }
 
-#' @title Calculate the Percent Residual Accuracy (PRA)
-#' @description Calculate the Percent Residual Accuracy (PRA) of the
-#' Dilution Linear Model
+# validate_dilution_data2 <- function(dilution_data, conc_var, signal_var,
+#                                    validator) {
+#
+#   #Check if conc_var and signal_var is are present in dilution_data
+#   #Drop rows whose value of signal_var is NA
+#   dilution_data %>%
+#     assertr::chain_start() %>%
+#     assertr::verify(description = paste0("Column \"", conc_var,
+#                                          "\" is absent in data"),
+#                     assertr::has_all_names(conc_var),
+#                     success_fun = assertr::success_continue,
+#                     error_fun = assertr::error_append
+#                     ) %>%
+#     assertr::verify(description = paste0("Column \"", signal_var,
+#                                          "\" is absent in data"),
+#                     assertr::has_all_names(signal_var),
+#                     success_fun = assertr::success_continue,
+#                     error_fun = assertr::error_append
+#     ) %>%
+#     assertr::chain_end(error_fun = assertr::error_append) %>%
+#     data.validator::add_results(validator)
+#
+#   return(validator)
+#
+# }
+
+#' @title Validate Dilution Data
+#' @description Validate Dilution Data
 #' @param dilution_data A data frame or tibble containing dilution data
 #' @param conc_var Column name in `diltuion_data` to indicate concentration
 #' @param signal_var Column name in `diltuion_data` to indicate signal
-#' @param validator An R object created by `data.validator::create_validator()`
-#' @return An updated `data.validator::create_validator()` R object to be used
-#' to generate a reports based on `assertr`'s validation
-#' @details More information on the R package `data.validator` can be found in
-#' \url{https://github.com/Appsilon/data.validator}
+#' @return An error if the column name is not found in the Dilution Data
 #' @examples
 #' dilution_percent <- c(10, 20, 40, 60, 80, 100)
 #' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
 #' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-#' validator <- data.validator::create_validator()
-#' validator <- validate_dilution_data(dilution_data,
-#'                                    "Dilution_Percen", "Are",
-#'                                    validator)
+#' validate_dilution_data(dilution_data,
+#'                        "Dilution_Percent", "Area")
 #' @rdname validate_dilution_data
-validate_dilution_data <- function(dilution_data, conc_var, signal_var,
-                                   validator) {
+#' @export
+validate_dilution_data <- function(dilution_data, conc_var, signal_var) {
 
   #Check if conc_var and signal_var is are present in dilution_data
-  #Drop rows whose value of signal_var is NA
-  dilution_data %>%
-    assertr::chain_start() %>%
-    assertr::verify(description = paste0("Column \"", conc_var,
-                                         "\" is absent in data"),
-                    assertr::has_all_names(conc_var),
-                    success_fun = assertr::success_continue,
-                    error_fun = assertr::error_append
-                    ) %>%
-    assertr::verify(description = paste0("Column \"", signal_var,
-                                         "\" is absent in data"),
-                    assertr::has_all_names(signal_var),
-                    success_fun = assertr::success_continue,
-                    error_fun = assertr::error_append
-    ) %>%
-    assertr::chain_end(error_fun = assertr::error_append) %>%
-    data.validator::add_results(validator)
+  assertable::assert_colnames(dilution_data,conc_var,only_colnames = FALSE, quiet = TRUE)
+  assertable::assert_colnames(dilution_data,signal_var,only_colnames = FALSE, quiet = TRUE)
 
-  return(validator)
 
 }
 

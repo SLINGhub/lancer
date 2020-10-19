@@ -27,11 +27,7 @@ Imports:
     dplyr,
     purrr,
     rlang (>= 0.1.2),
-    assertr (>= 2.6.9000),
     tibble,
     tidyr,
-    data.validator (>= 0.1.3),
-    tidyselect
-Remotes:  
-    github::Appsilon/data.validator,
-    github::ropensci/assertr
+    tidyselect,
+    assertable

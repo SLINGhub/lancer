@@ -2,9 +2,9 @@
 % Please edit documentation in R/dilstats.R
 \name{validate_dilution_data}
 \alias{validate_dilution_data}
-\title{Calculate the Percent Residual Accuracy (PRA)}
+\title{Validate Dilution Data}
 \usage{
-validate_dilution_data(dilution_data, conc_var, signal_var, validator)
+validate_dilution_data(dilution_data, conc_var, signal_var)
 }
 \arguments{
 \item{dilution_data}{A data frame or tibble containing dilution data}
@@ -12,27 +12,17 @@ validate_dilution_data(dilution_data, conc_var, signal_var, validator)
 \item{conc_var}{Column name in \code{diltuion_data} to indicate concentration}
 
 \item{signal_var}{Column name in \code{diltuion_data} to indicate signal}
-
-\item{validator}{An R object created by \code{data.validator::create_validator()}}
 }
 \value{
-An updated \code{data.validator::create_validator()} R object to be used
-to generate a reports based on \code{assertr}'s validation
+An error if the column name is not found in the Dilution Data
 }
 \description{
-Calculate the Percent Residual Accuracy (PRA) of the
-Dilution Linear Model
-}
-\details{
-More information on the R package \code{data.validator} can be found in
-\url{https://github.com/Appsilon/data.validator}
+Validate Dilution Data
 }
 \examples{
 dilution_percent <- c(10, 20, 40, 60, 80, 100)
 area <- c(22561, 31178, 39981, 48390, 52171, 53410)
 dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-validator <- data.validator::create_validator()
-validator <- validate_dilution_data(dilution_data,
-                                   "Dilution_Percen", "Are",
-                                   validator)
+validate_dilution_data(dilution_data,
+                       "Dilution_Percent", "Area")
 }
