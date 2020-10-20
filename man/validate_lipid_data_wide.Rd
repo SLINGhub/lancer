@@ -4,7 +4,7 @@
 \alias{validate_lipid_data_wide}
 \title{Validate Lipid Data Wide}
 \usage{
-validate_lipid_data_wide(lipid_data_wide, common_column = c("Sample_Name"))
+validate_lipid_data_wide(lipid_data_wide, needed_column = c("Sample_Name"))
 }
 \arguments{
 \item{lipid_data_wide}{A wide format data frame or tibble
@@ -12,12 +12,12 @@ that contains the Sample Name usually at the first column followed
 by different Transitions/Lipids. Each Transition/Lipid is meant to provide
 a \code{signal_var} for each sample.}
 
-\item{common_column}{A vector consisting of common column names that
+\item{needed_column}{A vector consisting of needed column names that
 must be found in \code{lipid_data_wide},
 Default: c("Sample_Name")}
 }
 \value{
-An error if the things in \code{common_column}
+An error if the things in \code{needed_column}
 is not found in the Lipid Data in wide form
 }
 \description{
@@ -36,5 +36,5 @@ lipid_data_wide <- tibble::tibble(Sample_Name = sample_name,
                                   Lipid1 = lipid1_area,
                                   Lipid2 = lipid2_area)
 validate_lipid_data_wide(lipid_data_wide,
-                         common_column =c("Sample_Name"))
+                         needed_column =c("Sample_Name"))
 }

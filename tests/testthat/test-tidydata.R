@@ -28,11 +28,20 @@ test_that("create dilution table and statistical summary", {
                                    Lipid2 = lipid2_area)
 
   # Create dilution table
-  dil_data <- create_dilution_table(dilution_annot, lipid_data,
-                                    common_column = "Sample_Name",
-                                    signal_var = "Area",
-                                    column_group = "Transition_Name")
+  dilution_table <- create_dilution_table(dilution_annot, lipid_data,
+                                          common_column = "Sample_Name",
+                                          signal_var = "Area",
+                                          column_group = "Transition_Name")
 
+  # Get dilution statistical summary
+  dilution_summary <- dilution_table %>%
+    summarise_dilution_table(grouping_variable = c("Transition_Name",
+                                                   "Dilution_Batch"),
+                             conc_var = "Dilution_Percent",
+                             signal_var = "Area") %>%
+    dplyr::arrange(.data$Transition_Name)
+
+  #Validating bad inputs for create_dilution_table
   testthat::expect_error(create_dilution_table(dilution_annot, lipid_data,
                                               common_column = "Sample_Nam")
   )
@@ -44,16 +53,29 @@ test_that("create dilution table and statistical summary", {
   )
 
 
-  # Get dilution statistical summary
-  dil_summary <- dil_data %>%
-    dplyr::group_by(.data$Transition_Name, .data$Dilution_Batch) %>%
-    tidyr::nest() %>%
-    dplyr::mutate(dil_summary = purrr::map(.data$data, get_dilution_summary,
-                                           conc_var = "Dilution_Percent",
-                                           signal_var = "Area")) %>%
-    tidyr::unnest(.data$dil_summary) %>%
-    dplyr::select(-c("data")) %>%
-    dplyr::arrange(.data$Transition_Name)
+  #Validating bad inputs for summarise_dilution_table
+  testthat::expect_error(
+    summarise_dilution_table(dilution_table,
+                             grouping_variable = c("Transition_Name",
+                                                   "Dilution_Batc"),
+                             conc_var = "Dilution_Percent",
+                             signal_var = "Area")
+  )
+  testthat::expect_error(
+    summarise_dilution_table(dilution_table,
+                             grouping_variable = c("Transition_Name",
+                                                   "Dilution_Batch"),
+                             conc_var = "Dilution_Percen",
+                             signal_var = "Area")
+  )
+  testthat::expect_error(
+    summarise_dilution_table(dilution_table,
+                             grouping_variable = c("Transition_Name",
+                                                   "Dilution_Batch"),
+                             conc_var = "Dilution_Percent",
+                             signal_var = "Are")
+  )
+
 
 
 })

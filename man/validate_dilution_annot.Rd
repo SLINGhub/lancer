@@ -4,18 +4,18 @@
 \alias{validate_dilution_annot}
 \title{Validate Dilution Annotation}
 \usage{
-validate_dilution_annot(dilution_annot, common_column = c("Sample_Name"))
+validate_dilution_annot(dilution_annot, needed_column = c("Sample_Name"))
 }
 \arguments{
 \item{dilution_annot}{A data frame or tibble that contains information
 of your dilution batch. A column with sample name should be present.}
 
-\item{common_column}{A vector consisting of common column names that
+\item{needed_column}{A vector consisting of needed column names that
 must be found in \code{dilution_annot},
 Default: c("Sample_Name")}
 }
 \value{
-An error if the things in \code{common_column}
+An error if the things in \code{needed_column}
 is not found in the Dilution Data
 }
 \description{
@@ -34,5 +34,5 @@ dilution_annot <- tibble::tibble(Sample_Name = sample_name,
                                  Dilution_Batch = dilution_batch,
                                  Dilution_Percent = dilution_percent)
 validate_dilution_annot(dilution_annot,
-                        common_column = c("Sample_Name"))
+                        needed_column = c("Sample_Name"))
 }
