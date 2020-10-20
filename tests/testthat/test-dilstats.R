@@ -58,17 +58,17 @@ test_that("calculate Mandel", {
   dilution_data <- data.frame(Dilution_Percent = c(NA, NA), Area =  c(NA, NA))
   mandel_result <- calculate_mandel(dilution_data, "Dilution_Percent", "Area")
   testthat::expect_equal(NA, unname(mandel_result$mandel_stats))
-  testthat::expect_equal(NA,unname(mandel_result$mandel_p_val))
+  testthat::expect_equal(NA, unname(mandel_result$mandel_p_val))
 
   dilution_data <- data.frame(Dilution_Percent = NA, Area = NA)
   mandel_result <- calculate_mandel(dilution_data, "Dilution_Percent", "Area")
   testthat::expect_equal(NA, unname(mandel_result$mandel_stats))
-  testthat::expect_equal(NA,unname(mandel_result$mandel_p_val))
+  testthat::expect_equal(NA, unname(mandel_result$mandel_p_val))
 
   dilution_data <- NA
   mandel_result <- calculate_mandel(dilution_data, "Dilution_Percent", "Area")
   testthat::expect_equal(NA, unname(mandel_result$mandel_stats))
-  testthat::expect_equal(NA,unname(mandel_result$mandel_p_val))
+  testthat::expect_equal(NA, unname(mandel_result$mandel_p_val))
 
 })
 
