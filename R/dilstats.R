@@ -264,10 +264,10 @@ calculate_mandel <- function(dilution_data, conc_var, signal_var) {
 #' @export
 calculate_pra_linear <- function(dilution_data, conc_var, signal_var) {
 
-  pra <- NA
+  pra_linear <- NA
 
   if (is.null(nrow(dilution_data))) {
-    return(pra)
+    return(pra_linear)
   }
 
   #Drop rows whose value of signal_var is NA
@@ -275,7 +275,7 @@ calculate_pra_linear <- function(dilution_data, conc_var, signal_var) {
     tidyr::drop_na(.data[[signal_var]])
 
   if (nrow(dilution_data) <= 3) {
-    return(pra)
+    return(pra_linear)
     }
 
   #Create the linear model on dilution data
@@ -300,11 +300,11 @@ calculate_pra_linear <- function(dilution_data, conc_var, signal_var) {
   valid_xerror_data <- fit_aug$.xerror[is.finite(fit_aug$.xerror)]
 
   valid_dilution_point_amount <- sum(!is.na(valid_xerror_data), na.rm = TRUE)
-  percent_ra <- 100 *
+  pra_linear <- 100 *
     sum((1 - abs(valid_xerror_data)), na.rm = TRUE) /
     valid_dilution_point_amount
 
-  return(percent_ra)
+  return(pra_linear)
 }
 
 # validate_dilution_data2 <- function(dilution_data, conc_var, signal_var,
@@ -350,8 +350,10 @@ calculate_pra_linear <- function(dilution_data, conc_var, signal_var) {
 validate_dilution_data <- function(dilution_data, conc_var, signal_var) {
 
   #Check if conc_var and signal_var is are present in dilution_data
-  assertable::assert_colnames(dilution_data,conc_var,only_colnames = FALSE, quiet = TRUE)
-  assertable::assert_colnames(dilution_data,signal_var,only_colnames = FALSE, quiet = TRUE)
+  assertable::assert_colnames(dilution_data, conc_var,
+                              only_colnames = FALSE, quiet = TRUE)
+  assertable::assert_colnames(dilution_data, signal_var,
+                              only_colnames = FALSE, quiet = TRUE)
 
 
 }
@@ -383,7 +385,7 @@ get_dilution_summary <- function(dilution_data, conc_var, signal_var) {
   dil_linear_gof <- calculate_dil_linear_gof(dilution_data,
                                              conc_var, signal_var)
   one_value_tibble <- tibble::tibble(
-    pra = calculate_pra_linear(dilution_data, conc_var, signal_var),
+    pra_linear = calculate_pra_linear(dilution_data, conc_var, signal_var),
     concavity = calculate_concavity(dilution_data, conc_var, signal_var)
   )
 
