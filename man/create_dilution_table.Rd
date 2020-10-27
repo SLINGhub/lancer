@@ -67,7 +67,7 @@ dilution_annot <- tibble::tibble(Sample_Name = sample_name,
 lipid_data <- tibble::tibble(Sample_Name = sample_name,
                              Lipid1 = lipid1_area,
                              Lipid2 = lipid2_area)
-#Create dilution table
+# Create dilution table
 dil_data <- create_dilution_table(dilution_annot,lipid_data,
                                   common_column = "Sample_Name",
                                   signal_var = "Area",

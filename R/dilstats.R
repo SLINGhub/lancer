@@ -16,13 +16,13 @@
 #' @export
 create_dil_linear_model <- function(dilution_data, conc_var, signal_var) {
 
-  #Create the formula
+  # Create the formula
   linear_formula <- stats::as.formula(paste(signal_var, "~",
                                             paste(conc_var, collapse = " + ")
   )
   )
 
-  #Create the linear model on dilution data
+  # Create the linear model on dilution data
   linear_model <- stats::lm(linear_formula, data = dilution_data)
 
   return(linear_model)
@@ -48,7 +48,7 @@ create_dil_linear_model <- function(dilution_data, conc_var, signal_var) {
 #' @export
 create_dil_quad_model <- function(dilution_data, conc_var, signal_var) {
 
-  #Create the formula
+  # Create the formula
   quad_formula <- stats::as.formula(paste(signal_var, "~",
                                           paste(conc_var, "+",
                                                 paste0("I(", conc_var, " * ",
@@ -57,7 +57,7 @@ create_dil_quad_model <- function(dilution_data, conc_var, signal_var) {
   )
   )
 
-  #Create the quadratic model on dilution data
+  # Create the quadratic model on dilution data
   quad_model <- stats::lm(quad_formula, data = dilution_data)
 
   return(quad_model)
@@ -88,7 +88,7 @@ calculate_concavity <- function(dilution_data, conc_var, signal_var) {
     return(concavity)
   }
 
-  #Drop rows whose value of signal_var is NA
+  # Drop rows whose value of signal_var is NA
   dilution_data <- dilution_data %>%
     tidyr::drop_na(.data[[signal_var]])
 
@@ -96,10 +96,10 @@ calculate_concavity <- function(dilution_data, conc_var, signal_var) {
     return(concavity)
   }
 
-  #Create the quadratic model on dilution data
+  # Create the quadratic model on dilution data
   quad_model <- create_dil_quad_model(dilution_data, conc_var, signal_var)
 
-  #Get concanvity Value for (x^2) of Quadratic model
+  # Get concanvity Value for (x^2) of Quadratic model
   quad_tidy <- broom::tidy(quad_model)
   concavity <- quad_tidy %>%
     dplyr::slice(3) %>%
@@ -140,7 +140,7 @@ calculate_dil_linear_gof <- function(dilution_data, conc_var, signal_var) {
     return(dil_linear_gof)
   }
 
-  #Drop rows whose value of signal_var is NA
+  # Drop rows whose value of signal_var is NA
   dilution_data <- dilution_data %>%
     tidyr::drop_na(.data[[signal_var]])
 
@@ -148,14 +148,14 @@ calculate_dil_linear_gof <- function(dilution_data, conc_var, signal_var) {
     return(dil_linear_gof)
   }
 
-  #Get the correlation results
+  # Get the correlation results
   cor_result <- broom::tidy(stats::cor.test(dilution_data[[signal_var]],
                                             dilution_data[[conc_var]],
                                             method = "pearson"))
   r_corr <- round(cor_result$estimate, digits = 6)
   corr_p_val <- cor_result$p.value
 
-  #Create the linear model on dilution data
+  # Create the linear model on dilution data
   linear_model <- create_dil_linear_model(dilution_data, conc_var, signal_var)
 
   # Get GOF for each model
@@ -208,7 +208,7 @@ calculate_mandel <- function(dilution_data, conc_var, signal_var) {
     return(mandel_result)
   }
 
-  #Drop rows whose value of signal_var is NA
+  # Drop rows whose value of signal_var is NA
   dilution_data <- dilution_data %>%
     tidyr::drop_na(.data[[signal_var]])
 
@@ -216,13 +216,13 @@ calculate_mandel <- function(dilution_data, conc_var, signal_var) {
     return(mandel_result)
   }
 
-  #Create the linear model on dilution data
+  # Create the linear model on dilution data
   linear_model <- create_dil_linear_model(dilution_data, conc_var, signal_var)
 
-  #Create the quadratic model on dilution data
+  # Create the quadratic model on dilution data
   quad_model <- create_dil_quad_model(dilution_data, conc_var, signal_var)
 
-  #Get some statistics for each point in the linear model
+  # Get some statistics for each point in the linear model
   linear_stat <- broom::augment(linear_model)
   quad_stat <- broom::augment(quad_model)
 
@@ -270,7 +270,7 @@ calculate_pra_linear <- function(dilution_data, conc_var, signal_var) {
     return(pra_linear)
   }
 
-  #Drop rows whose value of signal_var is NA
+  # Drop rows whose value of signal_var is NA
   dilution_data <- dilution_data %>%
     tidyr::drop_na(.data[[signal_var]])
 
@@ -278,10 +278,10 @@ calculate_pra_linear <- function(dilution_data, conc_var, signal_var) {
     return(pra_linear)
     }
 
-  #Create the linear model on dilution data
+  # Create the linear model on dilution data
   linear_model <- create_dil_linear_model(dilution_data, conc_var, signal_var)
 
-  #Get Intercept Value and Slope of Linear model
+  # Get Intercept Value and Slope of Linear model
   linear_tidy <- broom::tidy(linear_model)
   intercept <- linear_tidy %>%
     dplyr::slice(1) %>%
@@ -349,7 +349,7 @@ calculate_pra_linear <- function(dilution_data, conc_var, signal_var) {
 #' @export
 validate_dilution_data <- function(dilution_data, conc_var, signal_var) {
 
-  #Check if conc_var and signal_var is are present in dilution_data
+  # Check if conc_var and signal_var is are present in dilution_data
   assertable::assert_colnames(dilution_data, conc_var,
                               only_colnames = FALSE, quiet = TRUE)
   assertable::assert_colnames(dilution_data, signal_var,
@@ -379,8 +379,6 @@ validate_dilution_data <- function(dilution_data, conc_var, signal_var) {
 #' @export
 get_dilution_summary <- function(dilution_data, conc_var, signal_var) {
 
-  #Try to add validation checks
-
   mandel_result <- calculate_mandel(dilution_data, conc_var, signal_var)
   dil_linear_gof <- calculate_dil_linear_gof(dilution_data,
                                              conc_var, signal_var)
@@ -393,8 +391,6 @@ get_dilution_summary <- function(dilution_data, conc_var, signal_var) {
                                        mandel_result,
                                        one_value_tibble
                                        )
-
-  #arrange them in the right order
 
   return(dilution_summary)
 }
