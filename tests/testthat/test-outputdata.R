@@ -47,7 +47,6 @@ test_that("Able to print dilution summary data to excel", {
     dplyr::arrange(.data$Transition_Name)
 
   #Output to excel
-
   create_excel_report(dilution_summary)
 
 
