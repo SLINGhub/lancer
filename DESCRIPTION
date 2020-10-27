@@ -30,4 +30,5 @@ Imports:
     tibble,
     tidyr,
     tidyselect,
-    assertable
+    assertable,
+    openxlsx

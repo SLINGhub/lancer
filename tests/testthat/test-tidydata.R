@@ -1,6 +1,6 @@
 test_that("create dilution table and statistical summary", {
 
-  #Data Creation
+  # Data Creation
   dilution_percent <- c(10, 20, 40, 60, 80, 100,
                         10, 20, 40, 60, 80, 100)
   dilution_batch <- c("B1", "B1", "B1", "B1", "B1", "B1",
@@ -41,7 +41,7 @@ test_that("create dilution table and statistical summary", {
                              signal_var = "Area") %>%
     dplyr::arrange(.data$Transition_Name)
 
-  #Validating bad inputs for create_dilution_table
+  # Validating bad inputs for create_dilution_table
   testthat::expect_error(create_dilution_table(dilution_annot, lipid_data,
                                               common_column = "Sample_Nam")
   )
@@ -53,7 +53,7 @@ test_that("create dilution table and statistical summary", {
   )
 
 
-  #Validating bad inputs for summarise_dilution_table
+  # Validating bad inputs for summarise_dilution_table
   testthat::expect_error(
     summarise_dilution_table(dilution_table,
                              grouping_variable = c("Transition_Name",

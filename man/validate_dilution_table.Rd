@@ -16,7 +16,8 @@ annotations about the dilution points}
 
 \item{needed_column}{A vector consisting of needed column names that
 must be found in \code{dilution_table},
-Default: c("Sample_Name")}
+Default: c("Transition_Name", "Dilution_Batch",
+"Dilution_Percent", "Area")}
 }
 \value{
 An error if the things in \code{needed_column}
@@ -40,5 +41,10 @@ dilution_table <- tibble::tibble(Transition_Name = transition_name,
                                  Dilution_Batch = dilution_batch,
                                  Area = lipid1_area,
                                  Dilution_Percent = dilution_percent)
+validate_lipid_data_wide(dilution_table,
+                         needed_column = c("Transition_Name",
+                                           "Dilution_Batch",
+                                           "Dilution_Percent",
+                                           "Area"))
 
 }
