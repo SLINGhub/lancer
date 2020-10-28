@@ -7,7 +7,7 @@
 create_excel_report(
   dilution_summary,
   file_name = "dilution_summary.xlsx",
-  sheet_name = "DilutionSummary"
+  sheet_name = "Dilution Summary"
 )
 }
 \arguments{
@@ -15,7 +15,7 @@ create_excel_report(
 
 \item{file_name}{Name of the excel file, Default: 'dilution_summary.xlsx'}
 
-\item{sheet_name}{Sheet name to output the results in Excel, Default: 'DilutionSummary'}
+\item{sheet_name}{Sheet name to output the results in Excel, Default: 'Dilution Summary'}
 }
 \description{
 Create Excel Report

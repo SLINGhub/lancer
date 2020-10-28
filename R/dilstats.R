@@ -387,10 +387,14 @@ get_dilution_summary <- function(dilution_data, conc_var, signal_var) {
     concavity = calculate_concavity(dilution_data, conc_var, signal_var)
   )
 
-  dilution_summary <- dplyr::bind_cols(dil_linear_gof,
-                                       mandel_result,
-                                       one_value_tibble
-                                       )
+  dilution_summary <- dil_linear_gof %>%
+    dplyr::bind_cols(mandel_result,
+                     one_value_tibble
+    ) %>%
+    evaluate_linearity() %>%
+    dplyr::relocate(.data$curve_group1,.data$curve_group2,
+                    .data$r_corr,.data$pra_linear,
+                    .data$mandel_p_val,.data$concavity)
 
   return(dilution_summary)
 }

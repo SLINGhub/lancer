@@ -42,22 +42,54 @@ get_column_number_style <- function(dilution_summary,workbook,sheet) {
 
 }
 
-two_col_cond_format <- function(workbook,sheet,
-                                data,conditional_column,
-                                threshold_value,
-                                pass_criteria = c("above", "below")) {
+two_col_word_cond_format <- function(workbook,sheet,
+                                     data, conditional_column,
+                                     pass_criteria_words) {
 
   col_index <- which(colnames(dilution_summary) %in% conditional_column)
 
   posStyle <- openxlsx::createStyle(fontColour = "#006100", bgFill = "#C6EFCE")
   negStyle <- openxlsx::createStyle(fontColour = "#9C0006", bgFill = "#FFC7CE")
 
+  if(length(col_index) != 0) {
+
+    for(words in pass_criteria_words) {
+      openxlsx::conditionalFormatting(workbook, sheet, cols = col_index,
+                                      rows = 2:(nrow(dilution_summary) + 1),
+                                      rule = words, style = posStyle, type = "contains")
+      openxlsx::conditionalFormatting(workbook, sheet, cols = col_index,
+                                      rows = 2:(nrow(dilution_summary) + 1),
+                                      rule = words, style = negStyle, type = "notContains")
+
+    }
+  }
+
+
+
+
+}
+
+two_col_num_cond_format <- function(workbook,sheet,
+                                    data, conditional_column,
+                                    threshold_value,
+                                    pass_criteria = c("above", "below")) {
+
+
+  col_index <- which(colnames(dilution_summary) %in% conditional_column)
+
+  posStyle <- openxlsx::createStyle(fontColour = "#006100", bgFill = "#C6EFCE")
+  negStyle <- openxlsx::createStyle(fontColour = "#9C0006", bgFill = "#FFC7CE")
+
+  pass_criteria <- match.arg(pass_criteria)
+
   if(pass_criteria == "above") {
-    posRule <- paste0(">",threshold_value)
-    negRule <- paste0("<=",threshold_value)
-  } else if(pass_criteria == "below") {
     posRule <- paste0(">=",threshold_value)
     negRule <- paste0("<",threshold_value)
+  } else if(pass_criteria == "below") {
+    posRule <- paste0("<=",threshold_value)
+    negRule <- paste0(">",threshold_value)
+  } else {
+    stop("We only accept \"above\" and \"below\" as input for pass_criteria")
   }
 
   if(length(col_index) != 0) {
@@ -117,18 +149,33 @@ create_excel_report <- function(dilution_summary,
                            )
 
   # Conditional formatting can only be done after data is written to excel sheet
-  two_col_cond_format(workbook = my_workbook,sheet = sheet_name,
-                      data = dilution_summary,
-                      conditional_column = "r_corr",
-                      threshold_value = "0.8",
-                      pass_criteria = "above"
+  two_col_num_cond_format(workbook = my_workbook,sheet = sheet_name,
+                          data = dilution_summary,
+                          conditional_column = "r_corr",
+                          threshold_value = "0.8",
+                          pass_criteria = "above"
   )
-  two_col_cond_format(workbook = my_workbook,sheet = sheet_name,
-                      data = dilution_summary,
-                      conditional_column = "pra_linear",
-                      threshold_value = "80",
-                      pass_criteria = "above"
+  two_col_num_cond_format(workbook = my_workbook,sheet = sheet_name,
+                          data = dilution_summary,
+                          conditional_column = "pra_linear",
+                          threshold_value = "80",
+                          pass_criteria = "above"
   )
+  two_col_num_cond_format(workbook = my_workbook,sheet = sheet_name,
+                          data = dilution_summary,
+                          conditional_column = "mandel_p_val",
+                          threshold_value = "0.05",
+                          pass_criteria = "above"
+  )
+
+  two_col_word_cond_format(workbook = my_workbook,sheet = sheet_name,
+                           data = dilution_summary,
+                           conditional_column = "curve_group1",
+                           pass_criteria_words = c("Good Linearity"))
+  two_col_word_cond_format(workbook = my_workbook,sheet = sheet_name,
+                           data = dilution_summary,
+                           conditional_column = "curve_group2",
+                           pass_criteria_words = c("Good Linearity"))
 
 
   # Export to file
