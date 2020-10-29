@@ -26,13 +26,18 @@ test_that("Able to print dilution summary data to excel", {
                           232881, 283780, 298289, 344519, 430432,
                           25463, 63387, 90624, 131274, 138069,
                           205353, 202407, 260205, 292257, 367924)
+  lipid3_area_lod <- c(544, 397, 829, 1437, 1808, 2231,
+                       3343, 2915, 5268, 8031, 11045,
+                       500, 903, 1267, 2031, 2100,
+                       3563, 4500, 5300, 8500, 10430)
 
   dilution_annot <- tibble::tibble(Sample_Name = sample_name,
                                    Dilution_Batch = dilution_batch,
                                    Dilution_Percent = dilution_percent)
   lipid_data <- tibble::tibble(Sample_Name = sample_name,
                                Lipid1 = lipid1_area_saturated,
-                               Lipid2 = lipid2_area_linear)
+                               Lipid2 = lipid2_area_linear,
+                               Lipid3 = lipid3_area_lod)
 
   # Create dilution table and dilution statistical summary
   dilution_summary <- create_dilution_table(dilution_annot, lipid_data,
@@ -45,6 +50,29 @@ test_that("Able to print dilution summary data to excel", {
                              conc_var = "Dilution_Percent",
                              signal_var = "Area") %>%
     dplyr::arrange(.data$Transition_Name)
+
+  # Create a new workbook
+  my_workbook <- openxlsx::createWorkbook()
+
+  # Create a new worksheet
+  openxlsx::addWorksheet(wb = my_workbook, sheetName = "Dilution Summary")
+
+  # Testing if the change in class for near zero column works
+  class_change_check <- dilution_summary %>%
+    mark_near_zero_columns %>%
+    purrr::map_chr(class)
+
+  testthat::expect_equal("scientific", unname(class_change_check["mandel_p_val"]))
+
+  # Testing
+  dilution_summary %>%
+    mark_near_zero_columns() %>%
+    get_column_number_style(workbook = my_workbook,
+                            sheet = "Dilution Summary")
+
+
+
+  #getStyles
 
   #Output to excel
   create_excel_report(dilution_summary)
