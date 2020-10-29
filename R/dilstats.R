@@ -391,10 +391,7 @@ get_dilution_summary <- function(dilution_data, conc_var, signal_var) {
     dplyr::bind_cols(mandel_result,
                      one_value_tibble
     ) %>%
-    evaluate_linearity() %>%
-    dplyr::relocate(.data$curve_group1,.data$curve_group2,
-                    .data$r_corr,.data$pra_linear,
-                    .data$mandel_p_val,.data$concavity)
+    evaluate_linearity()
 
   return(dilution_summary)
 }
