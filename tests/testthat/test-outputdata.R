@@ -30,6 +30,10 @@ test_that("Able to print dilution summary data to excel", {
                        3343, 2915, 5268, 8031, 11045,
                        500, 903, 1267, 2031, 2100,
                        3563, 4500, 5300, 8500, 10430)
+  lipid4_area_nonlinear <- c(380519, 485372, 478770, 474467, 531640, 576301,
+                             501068, 550201, 515110, 499543, 474745,
+                             197417, 322846, 478398, 423174, 418577,
+                             426089, 413292, 450190, 415309, 457618)
 
   dilution_annot <- tibble::tibble(Sample_Name = sample_name,
                                    Dilution_Batch = dilution_batch,
@@ -37,14 +41,14 @@ test_that("Able to print dilution summary data to excel", {
   lipid_data <- tibble::tibble(Sample_Name = sample_name,
                                Lipid1 = lipid1_area_saturated,
                                Lipid2 = lipid2_area_linear,
-                               Lipid3 = lipid3_area_lod)
+                               Lipid3 = lipid3_area_lod,
+                               Lipid4 = lipid4_area_nonlinear)
 
   # Create dilution table and dilution statistical summary
   dilution_summary <- create_dilution_table(dilution_annot, lipid_data,
                                             common_column = "Sample_Name",
                                             signal_var = "Area",
                                             column_group = "Transition_Name") %>%
-
     summarise_dilution_table(grouping_variable = c("Transition_Name",
                                                    "Dilution_Batch"),
                              conc_var = "Dilution_Percent",
@@ -59,7 +63,8 @@ test_that("Able to print dilution summary data to excel", {
   testthat::expect_equal("scientific", unname(class_change_check["mandel_p_val"]))
 
   #Output to excel
-  create_excel_report(dilution_summary)
+  create_excel_report(dilution_summary, file_name = "dilution_summary.xlsx",
+                      testing = TRUE)
 
 
 })

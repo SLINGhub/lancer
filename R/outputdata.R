@@ -7,12 +7,14 @@
 #' @details We mark these columns as scientific so that `openxlsx` can output these columns
 #' in scientific notations
 #' @examples
-#' r_corr <- c(0.951956, 0.948683, 0.978057, 0.976462, 0.970618, 0.969348)
-#' pra_linear <- c(65.78711, 64.58687, 90.21257, 89.95473, 72.91220, 72.36528)
+#' r_corr <- c(0.951956, 0.948683, 0.978057, 0.976462,
+#'             0.970618, 0.969348, 0.343838, 0.383552)
+#' pra_linear <- c(65.78711, 64.58687, 90.21257, 89.95473,
+#'                 72.91220, 72.36528, -233.05949, -172.13659)
 #' mandel_p_val <- c(2.899006e-07, 7.922290e-07, 2.903365e-01, 3.082930e-01,
-#'                   3.195779e-08, 6.366588e-08)
+#'                   3.195779e-08, 6.366588e-08, 3.634004e-02, 1.864090e-02)
 #' concavity <- c(-4133.501328, -4146.745747, -3.350942, -3.393617,
-#'                0.3942824, 0.4012963)
+#'                0.3942824, 0.4012963, -19.9469621, -22.6144875)
 #' dilution_summary <- data.frame(r_corr = r_corr, pra_linear = pra_linear,
 #'                                mandel_p_val = mandel_p_val, concavity = concavity)
 #' dilution_summary <- mark_near_zero_columns(dilution_summary)
@@ -48,12 +50,14 @@ mark_near_zero_columns <- function(dilution_summary) {
 #' @param workbook A workbook object from `openxlsx`
 #' @param sheet The name of the sheet to apply the numeric style on `workbook`
 #' @examples
-#' r_corr <- c(0.951956, 0.948683, 0.978057, 0.976462, 0.970618, 0.969348)
-#' pra_linear <- c(65.78711, 64.58687, 90.21257, 89.95473, 72.91220, 72.36528)
+#' r_corr <- c(0.951956, 0.948683, 0.978057, 0.976462,
+#'             0.970618, 0.969348, 0.343838, 0.383552)
+#' pra_linear <- c(65.78711, 64.58687, 90.21257, 89.95473,
+#'                 72.91220, 72.36528, -233.05949, -172.13659)
 #' mandel_p_val <- c(2.899006e-07, 7.922290e-07, 2.903365e-01, 3.082930e-01,
-#'                   3.195779e-08, 6.366588e-08)
+#'                   3.195779e-08, 6.366588e-08, 3.634004e-02, 1.864090e-02)
 #' concavity <- c(-4133.501328, -4146.745747, -3.350942, -3.393617,
-#'                0.3942824, 0.4012963)
+#'                0.3942824, 0.4012963, -19.9469621, -22.6144875)
 #' dilution_summary <- data.frame(r_corr = r_corr, pra_linear = pra_linear,
 #'                                mandel_p_val = mandel_p_val, concavity = concavity)
 #' dilution_summary <- mark_near_zero_columns(dilution_summary)
@@ -91,6 +95,50 @@ get_column_number_style <- function(dilution_summary,workbook,sheet) {
 
 }
 
+
+
+#' @title Two colour word conditional formatting
+#' @description Perform conditional formatting of two colours based on if a given word
+#' on a given character column from `dilution summary`
+#' @param workbook A workbook object from `openxlsx`
+#' @param sheet The name of the sheet to apply the numeric style on `workbook`
+#' @param dilution_summary A data frame or tibble output from the function `get_dilution_summary`
+#' @param conditional_column A string to indicate which column in `dilution_summary` to use
+#' @param pass_criteria_words A character vector to highlight which words it must contain to
+#' give a passing colour on the cell.
+#' @examples
+#' r_corr <- c(0.951956, 0.948683, 0.978057, 0.976462,
+#'             0.970618, 0.969348, 0.343838, 0.383552)
+#' pra_linear <- c(65.78711, 64.58687, 90.21257, 89.95473,
+#'                 72.91220, 72.36528, -233.05949, -172.13659)
+#' mandel_p_val <- c(2.899006e-07, 7.922290e-07, 2.903365e-01, 3.082930e-01,
+#'                   3.195779e-08, 6.366588e-08, 3.634004e-02, 1.864090e-02)
+#' concavity <- c(-4133.501328, -4146.745747, -3.350942, -3.393617,
+#'                0.3942824, 0.4012963, -19.9469621, -22.6144875)
+#' dilution_summary <- data.frame(r_corr = r_corr, pra_linear = pra_linear,
+#'                                mandel_p_val = mandel_p_val, concavity = concavity)
+#' dilution_summary <- mark_near_zero_columns(dilution_summary)
+#' # Create a new workbook
+#' my_workbook <- openxlsx::createWorkbook()
+#'
+#' # Create a new worksheet
+#' openxlsx::addWorksheet(wb = my_workbook, sheetName = "Dilution Summary")
+#'
+#' # Write to worksheet as an Excel Table
+#' openxlsx::writeDataTable(wb = my_workbook, sheet = "Dilution Summary",
+#'                          x = dilution_summary,
+#'                          withFilter = TRUE,
+#'                          bandedRows = FALSE
+#'                         )
+#'
+#  # Conditional formatting can only be done after data is written to excel sheet
+#' two_col_word_cond_format(workbook = my_workbook,sheet = "Dilution Summary",
+#'                          dilution_summary = dilution_summary,
+#'                          conditional_column = "curve_group1",
+#'                          pass_criteria_words = c("Good Linearity")
+#'                          )
+#' @rdname two_col_word_cond_format
+#' @export
 two_col_word_cond_format <- function(workbook,sheet,
                                      dilution_summary, conditional_column,
                                      pass_criteria_words) {
@@ -130,14 +178,15 @@ two_col_word_cond_format <- function(workbook,sheet,
 #' Default: c("above", "below")
 #' @param pass_equality TO indicate if equality to the threshold value is considered a pass or fail,
 #' Default: TRUE
-#' @details DETAILS
 #' @examples
-#' r_corr <- c(0.951956, 0.948683, 0.978057, 0.976462, 0.970618, 0.969348)
-#' pra_linear <- c(65.78711, 64.58687, 90.21257, 89.95473, 72.91220, 72.36528)
+#' r_corr <- c(0.951956, 0.948683, 0.978057, 0.976462,
+#'             0.970618, 0.969348, 0.343838, 0.383552)
+#' pra_linear <- c(65.78711, 64.58687, 90.21257, 89.95473,
+#'                 72.91220, 72.36528, -233.05949, -172.13659)
 #' mandel_p_val <- c(2.899006e-07, 7.922290e-07, 2.903365e-01, 3.082930e-01,
-#'                   3.195779e-08, 6.366588e-08)
+#'                   3.195779e-08, 6.366588e-08, 3.634004e-02, 1.864090e-02)
 #' concavity <- c(-4133.501328, -4146.745747, -3.350942, -3.393617,
-#'                0.3942824, 0.4012963)
+#'                0.3942824, 0.4012963, -19.9469621, -22.6144875)
 #' dilution_summary <- data.frame(r_corr = r_corr, pra_linear = pra_linear,
 #'                                mandel_p_val = mandel_p_val, concavity = concavity)
 #' dilution_summary <- mark_near_zero_columns(dilution_summary)
@@ -147,14 +196,14 @@ two_col_word_cond_format <- function(workbook,sheet,
 #' # Create a new worksheet
 #' openxlsx::addWorksheet(wb = my_workbook, sheetName = "Dilution Summary")
 #'
-#'# Write to worksheet as an Excel Table
+#' # Write to worksheet as an Excel Table
 #' openxlsx::writeDataTable(wb = my_workbook, sheet = "Dilution Summary",
 #'                          x = dilution_summary,
 #'                          withFilter = TRUE,
 #'                          bandedRows = FALSE
 #'                         )
 #'
-# Conditional formatting can only be done after data is written to excel sheet
+#  # Conditional formatting can only be done after data is written to excel sheet
 #' two_col_num_cond_format(workbook = my_workbook,sheet = "Dilution Summary",
 #'                         dilution_summary = dilution_summary,
 #'                         conditional_column = "r_corr",
@@ -206,13 +255,28 @@ two_col_num_cond_format <- function(workbook,sheet,
 
 
 #' @title Create Excel Report
+#'
 #' @param dilution_summary The summary table generated by function `summarise_dilution_table`
-#' @param file_name Name of the excel file, Default: 'dilution_summary.xlsx'
+#' @param file_name Name of the excel file
 #' @param sheet_name Sheet name to output the results in Excel, Default: 'Dilution Summary'
+#' @param testing To indicate if we are running a test, if so, no excel file is given out
+#'
+#' @examples
+#' r_corr <- c(0.951956, 0.948683, 0.978057, 0.976462,
+#'             0.970618, 0.969348, 0.343838, 0.383552)
+#' pra_linear <- c(65.78711, 64.58687, 90.21257, 89.95473,
+#'                 72.91220, 72.36528, -233.05949, -172.13659)
+#' mandel_p_val <- c(2.899006e-07, 7.922290e-07, 2.903365e-01, 3.082930e-01,
+#'                   3.195779e-08, 6.366588e-08, 3.634004e-02, 1.864090e-02)
+#' concavity <- c(-4133.501328, -4146.745747, -3.350942, -3.393617,
+#'                0.3942824, 0.4012963, -19.9469621, -22.6144875)
+#' dilution_summary <- data.frame(r_corr = r_corr, pra_linear = pra_linear,
+#'                                mandel_p_val = mandel_p_val, concavity = concavity)
+#' create_excel_report(dilution_summary, file_name = "dilution_summary.xlsx", testing = TRUE)
 #' @export
-create_excel_report <- function(dilution_summary,
-                                file_name = "dilution_summary.xlsx",
-                                sheet_name = "Dilution Summary"
+create_excel_report <- function(dilution_summary, file_name,
+                                sheet_name = "Dilution Summary",
+                                testing = FALSE
                                 ) {
 
   ## Excel setup ##
@@ -277,8 +341,10 @@ create_excel_report <- function(dilution_summary,
                            pass_criteria_words = c("Good Linearity"))
 
 
-  # Export to file
-  openxlsx::saveWorkbook(wb = my_workbook, file = file_name,
-                         overwrite = TRUE)
+  # Export to file if we are not testing
+  if(!testing) {
+    openxlsx::saveWorkbook(wb = my_workbook, file = file_name,
+                           overwrite = TRUE)
+  }
 
 }
