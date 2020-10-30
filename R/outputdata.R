@@ -47,7 +47,6 @@ mark_near_zero_columns <- function(dilution_summary) {
 #' but it can also be any generic data frame or tibble
 #' @param workbook A workbook object from `openxlsx`
 #' @param sheet The name of the sheet to apply the numeric style on `workbook`
-#' @details DETAILS
 #' @examples
 #' r_corr <- c(0.951956, 0.948683, 0.978057, 0.976462, 0.970618, 0.969348)
 #' pra_linear <- c(65.78711, 64.58687, 90.21257, 89.95473, 72.91220, 72.36528)
@@ -119,10 +118,56 @@ two_col_word_cond_format <- function(workbook,sheet,
 
 }
 
+#' @title Two colour number conditional formatting
+#' @description Perform conditional formatting of two colours based on a given threshold value
+#' on a given numeric column from `dilution summary`
+#' @param workbook A workbook object from `openxlsx`
+#' @param sheet The name of the sheet to apply the numeric style on `workbook`
+#' @param dilution_summary A data frame or tibble output from the function `get_dilution_summary`
+#' @param conditional_column A character vector to indicate which column in `dilution_summary` to use
+#' @param threshold_value The threshold value to indicate a pass or fail
+#' @param pass_criteria To indicate pass if the value is above or below threshold value,
+#' Default: c("above", "below")
+#' @param pass_equality TO indicate if equality to the threshold value is considered a pass or fail,
+#' Default: TRUE
+#' @details DETAILS
+#' @examples
+#' r_corr <- c(0.951956, 0.948683, 0.978057, 0.976462, 0.970618, 0.969348)
+#' pra_linear <- c(65.78711, 64.58687, 90.21257, 89.95473, 72.91220, 72.36528)
+#' mandel_p_val <- c(2.899006e-07, 7.922290e-07, 2.903365e-01, 3.082930e-01,
+#'                   3.195779e-08, 6.366588e-08)
+#' concavity <- c(-4133.501328, -4146.745747, -3.350942, -3.393617,
+#'                0.3942824, 0.4012963)
+#' dilution_summary <- data.frame(r_corr = r_corr, pra_linear = pra_linear,
+#'                                mandel_p_val = mandel_p_val, concavity = concavity)
+#' dilution_summary <- mark_near_zero_columns(dilution_summary)
+#' # Create a new workbook
+#' my_workbook <- openxlsx::createWorkbook()
+#'
+#' # Create a new worksheet
+#' openxlsx::addWorksheet(wb = my_workbook, sheetName = "Dilution Summary")
+#'
+#'# Write to worksheet as an Excel Table
+#' openxlsx::writeDataTable(wb = my_workbook, sheet = "Dilution Summary",
+#'                          x = dilution_summary,
+#'                          withFilter = TRUE,
+#'                          bandedRows = FALSE
+#'                         )
+#'
+# Conditional formatting can only be done after data is written to excel sheet
+#' two_col_num_cond_format(workbook = my_workbook,sheet = "Dilution Summary",
+#'                         dilution_summary = dilution_summary,
+#'                         conditional_column = "r_corr",
+#'                         threshold_value = "0.8",
+#'                         pass_criteria = "above"
+#'                        )
+#' @rdname two_col_num_cond_format
+#' @export
 two_col_num_cond_format <- function(workbook,sheet,
                                     dilution_summary, conditional_column,
                                     threshold_value,
-                                    pass_criteria = c("above", "below")) {
+                                    pass_criteria = c("above", "below"),
+                                    pass_equality = TRUE) {
 
 
   col_index <- which(colnames(dilution_summary) %in% conditional_column)
@@ -130,16 +175,20 @@ two_col_num_cond_format <- function(workbook,sheet,
   posStyle <- openxlsx::createStyle(fontColour = "#006100", bgFill = "#C6EFCE")
   negStyle <- openxlsx::createStyle(fontColour = "#9C0006", bgFill = "#FFC7CE")
 
-  pass_criteria <- match.arg(pass_criteria)
+  pass_criteria <- strex::match_arg(pass_criteria)
 
-  if(pass_criteria == "above") {
+  if(pass_criteria == "above" && pass_equality) {
     posRule <- paste0(">=",threshold_value)
     negRule <- paste0("<",threshold_value)
-  } else if(pass_criteria == "below") {
+  } else if(pass_criteria == "above" && !pass_equality) {
+    posRule <- paste0(">",threshold_value)
+    negRule <- paste0("<=",threshold_value)
+  } else if(pass_criteria == "below" && pass_equality) {
     posRule <- paste0("<=",threshold_value)
     negRule <- paste0(">",threshold_value)
-  } else {
-    stop("We only accept \"above\" and \"below\" as input for pass_criteria")
+  } else if(pass_criteria == "below" && !pass_equality) {
+    posRule <- paste0("<",threshold_value)
+    negRule <- paste0(">=",threshold_value)
   }
 
   if(length(col_index) != 0) {

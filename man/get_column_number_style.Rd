@@ -17,9 +17,6 @@ but it can also be any generic data frame or tibble}
 \description{
 Get column number style for excel
 }
-\details{
-DETAILS
-}
 \examples{
 r_corr <- c(0.951956, 0.948683, 0.978057, 0.976462, 0.970618, 0.969348)
 pra_linear <- c(65.78711, 64.58687, 90.21257, 89.95473, 72.91220, 72.36528)

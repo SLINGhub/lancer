@@ -51,28 +51,12 @@ test_that("Able to print dilution summary data to excel", {
                              signal_var = "Area") %>%
     dplyr::arrange(.data$Transition_Name)
 
-  # Create a new workbook
-  my_workbook <- openxlsx::createWorkbook()
-
-  # Create a new worksheet
-  openxlsx::addWorksheet(wb = my_workbook, sheetName = "Dilution Summary")
-
   # Testing if the change in class for near zero column works
   class_change_check <- dilution_summary %>%
     mark_near_zero_columns %>%
     purrr::map_chr(class)
 
   testthat::expect_equal("scientific", unname(class_change_check["mandel_p_val"]))
-
-  # Testing
-  dilution_summary %>%
-    mark_near_zero_columns() %>%
-    get_column_number_style(workbook = my_workbook,
-                            sheet = "Dilution Summary")
-
-
-
-  #getStyles
 
   #Output to excel
   create_excel_report(dilution_summary)
