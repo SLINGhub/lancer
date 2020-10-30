@@ -48,7 +48,8 @@ test_that("Able to print dilution summary data to excel", {
   dilution_summary <- create_dilution_table(dilution_annot, lipid_data,
                                             common_column = "Sample_Name",
                                             signal_var = "Area",
-                                            column_group = "Transition_Name") %>%
+                                            column_group = "Transition_Name"
+                                            ) %>%
     summarise_dilution_table(grouping_variable = c("Transition_Name",
                                                    "Dilution_Batch"),
                              conc_var = "Dilution_Percent",
@@ -57,10 +58,11 @@ test_that("Able to print dilution summary data to excel", {
 
   # Testing if the change in class for near zero column works
   class_change_check <- dilution_summary %>%
-    mark_near_zero_columns %>%
+    mark_near_zero_columns() %>%
     purrr::map_chr(class)
 
-  testthat::expect_equal("scientific", unname(class_change_check["mandel_p_val"]))
+  testthat::expect_equal("scientific",
+                         unname(class_change_check["mandel_p_val"]))
 
   #Output to excel
   create_excel_report(dilution_summary, file_name = "dilution_summary.xlsx",

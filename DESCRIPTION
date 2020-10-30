@@ -17,7 +17,8 @@ RoxygenNote: 7.1.1
 Suggests:
     spelling,
     testthat,
-    roxygen2
+    roxygen2,
+    covr
 Language: en-GB
 URL: https://github.com/JauntyJJS/DCVtestkit
 BugReports: https://github.com/JauntyJJS/DCVtestkit/issues

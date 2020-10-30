@@ -17,16 +17,19 @@ two_col_word_cond_format(
 
 \item{sheet}{The name of the sheet to apply the numeric style on \code{workbook}}
 
-\item{dilution_summary}{A data frame or tibble output from the function \code{get_dilution_summary}}
+\item{dilution_summary}{A data frame or tibble output
+from the function \code{get_dilution_summary}}
 
-\item{conditional_column}{A string to indicate which column in \code{dilution_summary} to use}
+\item{conditional_column}{A string to indicate which column
+in \code{dilution_summary} to use}
 
-\item{pass_criteria_words}{A character vector to highlight which words it must contain to
+\item{pass_criteria_words}{A character vector to highlight
+which words it must contain to
 give a passing colour on the cell.}
 }
 \description{
-Perform conditional formatting of two colours based on if a given word
-on a given character column from \verb{dilution summary}
+Perform conditional formatting of two colours
+based on if a given word on a given character column from \verb{dilution summary}
 }
 \examples{
 r_corr <- c(0.951956, 0.948683, 0.978057, 0.976462,
@@ -38,7 +41,8 @@ mandel_p_val <- c(2.899006e-07, 7.922290e-07, 2.903365e-01, 3.082930e-01,
 concavity <- c(-4133.501328, -4146.745747, -3.350942, -3.393617,
                0.3942824, 0.4012963, -19.9469621, -22.6144875)
 dilution_summary <- data.frame(r_corr = r_corr, pra_linear = pra_linear,
-                               mandel_p_val = mandel_p_val, concavity = concavity)
+                               mandel_p_val = mandel_p_val,
+                               concavity = concavity)
 dilution_summary <- mark_near_zero_columns(dilution_summary)
 # Create a new workbook
 my_workbook <- openxlsx::createWorkbook()
@@ -53,6 +57,8 @@ openxlsx::writeDataTable(wb = my_workbook, sheet = "Dilution Summary",
                          bandedRows = FALSE
                         )
 
+# Conditional formatting can only be done
+# after data is written to excel sheet
 two_col_word_cond_format(workbook = my_workbook,sheet = "Dilution Summary",
                          dilution_summary = dilution_summary,
                          conditional_column = "curve_group1",

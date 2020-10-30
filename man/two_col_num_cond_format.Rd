@@ -19,20 +19,25 @@ two_col_num_cond_format(
 
 \item{sheet}{The name of the sheet to apply the numeric style on \code{workbook}}
 
-\item{dilution_summary}{A data frame or tibble output from the function \code{get_dilution_summary}}
+\item{dilution_summary}{A data frame or tibble
+output from the function \code{get_dilution_summary}}
 
-\item{conditional_column}{A character vector to indicate which column in \code{dilution_summary} to use}
+\item{conditional_column}{A character vector to
+indicate which column in \code{dilution_summary} to use}
 
 \item{threshold_value}{The threshold value to indicate a pass or fail}
 
-\item{pass_criteria}{To indicate pass if the value is above or below threshold value,
+\item{pass_criteria}{To indicate pass if the value
+is above or below threshold value,
 Default: c("above", "below")}
 
-\item{pass_equality}{TO indicate if equality to the threshold value is considered a pass or fail,
+\item{pass_equality}{TO indicate if equality to the
+threshold value is considered a pass or fail,
 Default: TRUE}
 }
 \description{
-Perform conditional formatting of two colours based on a given threshold value
+Perform conditional formatting of
+two colours based on a given threshold value
 on a given numeric column from \verb{dilution summary}
 }
 \examples{
@@ -45,7 +50,8 @@ mandel_p_val <- c(2.899006e-07, 7.922290e-07, 2.903365e-01, 3.082930e-01,
 concavity <- c(-4133.501328, -4146.745747, -3.350942, -3.393617,
                0.3942824, 0.4012963, -19.9469621, -22.6144875)
 dilution_summary <- data.frame(r_corr = r_corr, pra_linear = pra_linear,
-                               mandel_p_val = mandel_p_val, concavity = concavity)
+                               mandel_p_val = mandel_p_val,
+                               concavity = concavity)
 dilution_summary <- mark_near_zero_columns(dilution_summary)
 # Create a new workbook
 my_workbook <- openxlsx::createWorkbook()
@@ -60,6 +66,8 @@ openxlsx::writeDataTable(wb = my_workbook, sheet = "Dilution Summary",
                          bandedRows = FALSE
                         )
 
+# Conditional formatting can only be done
+# after data is written to excel sheet
 two_col_num_cond_format(workbook = my_workbook,sheet = "Dilution Summary",
                         dilution_summary = dilution_summary,
                         conditional_column = "r_corr",

@@ -202,8 +202,9 @@ create_dilution_table <- function(dilution_annot, lipid_data_wide,
 #' Default: 'Dilution_Percent'
 #' @param signal_var Column name in `dilution_table` to indicate signal
 #' Default: 'Area'
-#' @param grouping_variable A character vector of column names in `dilution_table`
-#' to indicate how each dilution curve should be grouped by.
+#' @param grouping_variable A character vector of
+#' column names in `dilution_table`to indicate how each dilution curve
+#' should be grouped by.
 #' @return A summary table output from the function `get_dilution_summary`
 #' @details Look at the function `get_dilution_summary` for more details on
 #' what summary data is given

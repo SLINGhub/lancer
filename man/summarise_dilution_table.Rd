@@ -17,8 +17,9 @@ It is in long table format with columns indicating at least the
 lipid/transition name, the concentration and signal. Other columns may be
 present if it is used to group the dilution curve together}
 
-\item{grouping_variable}{A character vector of column names in \code{dilution_table}
-to indicate how each dilution curve should be grouped by.}
+\item{grouping_variable}{A character vector of
+column names in \code{dilution_table}to indicate how each dilution curve
+should be grouped by.}
 
 \item{conc_var}{Column name in \code{dilution_table} to indicate concentration
 Default: 'Dilution_Percent'}

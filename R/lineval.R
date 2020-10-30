@@ -15,20 +15,22 @@
 #' concavity <- c(-4133.501328, -4146.745747, -3.350942, -3.393617,
 #'                0.3942824, 0.4012963)
 #' dilution_summary <- data.frame(r_corr = r_corr, pra_linear = pra_linear,
-#'                                mandel_p_val = mandel_p_val, concavity = concavity)
+#'                                mandel_p_val = mandel_p_val,
+#'                                concavity = concavity)
 #' dilution_summary <- evaluate_linearity(dilution_summary)
 #' @rdname evaluate_linearity
 #' @export
 evaluate_linearity <- function(dilution_summary) {
 
   #Check if these column name existed
-  col_names <- c("r_corr","pra_linear")
+  col_names <- c("r_corr", "pra_linear")
   non_df_cols <- col_names[!col_names %in% colnames(dilution_summary)]
 
-  if(length(non_df_cols) > 0) {
+  if (length(non_df_cols) > 0) {
     #If no, return the summary data with a warning
-    warning(paste0("These columns exist in colnames but not in your dataframe: ",
-                paste(non_df_cols, collapse=" ")))
+    warning(paste0("These columns exist in colnames
+                    but not in your dataframe: ",
+                paste(non_df_cols, collapse = " ")))
     return(dilution_summary)
   } else {
     #Else perform the evaluation
@@ -45,17 +47,19 @@ evaluate_linearity <- function(dilution_summary) {
   }
 
   #Check if these column name existed
-  col_names <- c("mandel_p_val","concavity")
+  col_names <- c("mandel_p_val", "concavity")
   non_df_cols <- col_names[!col_names %in% colnames(dilution_summary)]
 
-  if(length(non_df_cols) > 0) {
+  if (length(non_df_cols) > 0) {
     #If no, return the summary data with a warning
-    warning(paste0("These columns exist in colnames but not in your dataframe: ",
-                   paste(non_df_cols, collapse=" ")))
+    warning(paste0("These columns exist in colnames
+                    but not in your dataframe: ",
+                   paste(non_df_cols, collapse = " ")))
 
     #Rearrange the column based on the first evaluation
     dilution_summary <- dilution_summary %>%
-    dplyr::relocate(.data[["curve_group1"]],.data[["r_corr"]],.data[["pra_linear"]])
+    dplyr::relocate(.data[["curve_group1"]], .data[["r_corr"]],
+                    .data[["pra_linear"]])
 
     return(dilution_summary)
   } else {
@@ -79,7 +83,7 @@ evaluate_linearity <- function(dilution_summary) {
 
   #Rearrange the column based on the first evaluation
   dilution_summary <- dilution_summary %>%
-    dplyr::relocate(.data[["curve_group1"]],.data[["curve_group2"]],
+    dplyr::relocate(.data[["curve_group1"]], .data[["curve_group2"]],
                     .data[["r_corr"]], .data[["pra_linear"]],
                     .data[["mandel_p_val"]], .data[["concavity"]]
                     )

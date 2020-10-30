@@ -7,19 +7,20 @@
 mark_near_zero_columns(dilution_summary)
 }
 \arguments{
-\item{dilution_summary}{A data frame or tibble output from the function \code{get_dilution_summary}
+\item{dilution_summary}{A data frame or tibble output
+from the function \code{get_dilution_summary}
 but it can also be any generic data frame or tibble}
 }
 \value{
-A data frame or tibble with the class with numeric columns with near zero values
-changed from numeric to scientific
+A data frame or tibble with the class with numeric columns
+with near zero values changed from numeric to scientific
 }
 \description{
 Mark numeric columns with near zero values from a dataset
 }
 \details{
-We mark these columns as scientific so that \code{openxlsx} can output these columns
-in scientific notations
+We mark these columns as scientific so that \code{openxlsx} can
+output these columns n scientific notations
 }
 \examples{
 r_corr <- c(0.951956, 0.948683, 0.978057, 0.976462,
@@ -31,6 +32,7 @@ mandel_p_val <- c(2.899006e-07, 7.922290e-07, 2.903365e-01, 3.082930e-01,
 concavity <- c(-4133.501328, -4146.745747, -3.350942, -3.393617,
                0.3942824, 0.4012963, -19.9469621, -22.6144875)
 dilution_summary <- data.frame(r_corr = r_corr, pra_linear = pra_linear,
-                               mandel_p_val = mandel_p_val, concavity = concavity)
+                               mandel_p_val = mandel_p_val,
+                               concavity = concavity)
 dilution_summary <- mark_near_zero_columns(dilution_summary)
 }

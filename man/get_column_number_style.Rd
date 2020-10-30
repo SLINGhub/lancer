@@ -7,7 +7,8 @@
 get_column_number_style(dilution_summary, workbook, sheet)
 }
 \arguments{
-\item{dilution_summary}{A data frame or tibble output from the function \code{get_dilution_summary}
+\item{dilution_summary}{A data frame or tibble output
+from the function \code{get_dilution_summary}
 but it can also be any generic data frame or tibble}
 
 \item{workbook}{A workbook object from \code{openxlsx}}
@@ -27,12 +28,13 @@ mandel_p_val <- c(2.899006e-07, 7.922290e-07, 2.903365e-01, 3.082930e-01,
 concavity <- c(-4133.501328, -4146.745747, -3.350942, -3.393617,
                0.3942824, 0.4012963, -19.9469621, -22.6144875)
 dilution_summary <- data.frame(r_corr = r_corr, pra_linear = pra_linear,
-                               mandel_p_val = mandel_p_val, concavity = concavity)
+                               mandel_p_val = mandel_p_val,
+                               concavity = concavity)
 dilution_summary <- mark_near_zero_columns(dilution_summary)
 # Create a new workbook
 my_workbook <- openxlsx::createWorkbook()
 # Create a new worksheet
 openxlsx::addWorksheet(wb = my_workbook, sheetName = "Dilution Summary")
 get_column_number_style(dilution_summary,
-                        workbook = my_workbook,sheet = "Dilution Summary")
+                        workbook = my_workbook, sheet = "Dilution Summary")
 }
