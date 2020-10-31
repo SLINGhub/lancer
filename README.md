@@ -24,21 +24,43 @@ devtools::install_github("JauntyJJS/DCVtestkit")
 We try to categorise dilution curves based on the results of three
 parameters
 
-  - Correlation Coefficient  
+  - Correlation Coefficient (R)  
   - Mandel’s Fitting Test  
-  - Percent Residual Accuracy
+  - Percent Residual Accuracy (PRA)
 
-Correlation Coefficient can be found in this
-[paper](https://link.springer.com/article/10.1007/s00769-002-0487-6)  
+Correlation Coefficient (R) can be found in this
+[paper](https://link.springer.com/article/10.1007/s00769-002-0487-6).
 Equation (1) is used.
 
 Mandel’s Fitting Test can be found in this
-[paper](https://pubs.rsc.org/en/content/articlelanding/2013/ay/c2ay26400e#!divAbstract)  
+[paper](https://pubs.rsc.org/en/content/articlelanding/2013/ay/c2ay26400e#!divAbstract).
 Equation (5) is used.
 
-Percent Residual Accuracy can be found in this
-[paper](https://www.sciencedirect.com/science/article/abs/pii/S0039914018307549)  
+Percent Residual Accuracy (PRA) can be found in this
+[paper](https://www.sciencedirect.com/science/article/abs/pii/S0039914018307549).
 Equation (6) is used.
+
+Two methods are proposed to categorise the dilution curves.
+
+### Workflow 1 (Using R and PRA)
+
+  - If correlation coefficient \(<{0.8}\), classify as poor linearity.  
+  - If correlation coefficient \(\ge{0.8}\), \(PRA < 80\), classify as
+    poor linearity.  
+  - If correlation coefficient \(\ge{0.8}\), \(PRA \ge 80\), classify as
+    good linearity.
+
+### Workflow 2 (Using R, PRA and Mandel)
+
+  - If correlation coefficient \< 0.8, classify as poor linearity.
+  - If correlation coefficient \>= 0.8, PRA \< 80 and fit quadratic
+    model and use Mandel test to see it is better
+      - If not better, classify as poor linearity
+      - If better, check concavity
+          - If concavity is negative, classify as Saturation
+          - If concavity is positive, classify as LOD
+  - If correlation coefficient \>= 0.8, PRA \>= 80, classify as good
+    linearity
 
 ## Usage
 
