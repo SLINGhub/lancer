@@ -22,19 +22,19 @@ devtools::install_github("JauntyJJS/DCVtestkit")
 ## How it works
 
 We try to categorise dilution curves based on the results of three
-parameters \* Correlation Coefficient \* Mandel’s Fitting Test \*
-Percent Residual Accuracy
+parameters + Correlation Coefficient + Mandel’s Fitting Test + Percent
+Residual Accuracy
 
 Correlation Coefficient can be found in this
-[paper](https://link.springer.com/article/10.1007/s00769-002-0487-6)
+[paper](https://link.springer.com/article/10.1007/s00769-002-0487-6)  
 Equation (1) is used.
 
 Mandel’s Fitting Test can be found in this
-[paper](https://pubs.rsc.org/en/content/articlelanding/2013/ay/c2ay26400e#!divAbstract)
+[paper](https://pubs.rsc.org/en/content/articlelanding/2013/ay/c2ay26400e#!divAbstract)  
 Equation (5) is used.
 
 Percent Residual Accuracy can be found in this
-[paper](https://www.sciencedirect.com/science/article/abs/pii/S0039914018307549)
+[paper](https://www.sciencedirect.com/science/article/abs/pii/S0039914018307549)  
 Equation (6) is used.
 
 ## Usage
