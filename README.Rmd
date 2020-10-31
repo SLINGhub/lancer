@@ -31,6 +31,7 @@ devtools::install_github("JauntyJJS/DCVtestkit")
 ## How it works
 
 We try to categorise dilution curves based on the results of three parameters  
+
 * Correlation Coefficient  
 * Mandel's Fitting Test  
 * Percent Residual Accuracy  
