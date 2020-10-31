@@ -7,7 +7,7 @@
 
 <!-- badges: end -->
 
-R package used to validate if a dilution curve is linear.
+R package used to validate if a dilution curve is linear or not.
 
 ## Installation
 
@@ -21,14 +21,29 @@ devtools::install_github("JauntyJJS/DCVtestkit")
 
 ## How it works
 
+We try to categorise dilution curves based on the results of three
+parameters \* Correlation Coefficient \* Mandel’s Fitting Test \*
+Percent Residual Accuracy
+
+Correlation Coefficient can be found in this
+[paper](https://link.springer.com/article/10.1007/s00769-002-0487-6)
+Equation (1) is used.
+
+Mandel’s Fitting Test can be found in this
+[paper](https://pubs.rsc.org/en/content/articlelanding/2013/ay/c2ay26400e#!divAbstract)
+Equation (5) is used.
+
+Percent Residual Accuracy can be found in this
+[paper](https://www.sciencedirect.com/science/article/abs/pii/S0039914018307549)
+Equation (6) is used.
+
 ## Usage
 
 We first create our data set.
 
 ``` r
 library(DCVtestkit)
-## basic example code
- # Data Creation
+# Data Creation
   dilution_percent <- c(10, 20, 25, 40, 50, 60,
                         75, 80, 100, 125, 150,
                         10, 25, 40, 50, 60,
@@ -74,7 +89,8 @@ library(DCVtestkit)
                                Lipid4 = lipid4_area_nonlinear)
 ```
 
-We merge the data together
+We merge the data together using `create_dilution_table` and summarise a
+dilution curve for each transition and batch.
 
 ``` r
 # Create dilution table and dilution statistical summary
@@ -112,6 +128,3 @@ example workflow can be found here:
 You can also embed plots, for example:
 
 <img src="man/figures/README-pressure-1.png" width="100%" />
-
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
