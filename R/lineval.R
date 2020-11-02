@@ -4,6 +4,9 @@
 #'
 #' @param dilution_summary A data frame or tibble output from
 #' the function `get_dilution_summary`
+#' @param grouping_variable A character vector of
+#' column names in `dilution_summary`to indicate which columns should be placed
+#' first before the evaluation results. Default: c()
 #' @param corrcoef_column A column in `dilution_summary` that holds the
 #' correlation coefficient, Default: 'r_corr'
 #' @param corrcoef_min_threshold The minimum threshold value of the curve's
@@ -24,8 +27,10 @@
 #' concavity of the quadratic model, Default: 'concavity'
 #' @return A data frame or tibble with evaluation results
 #' @details Two work flows are given to evaluate linearity of dilution
-#' curves. The results are highlighted as columns curve_group1 and
-#' curve_group2 for now.
+#' curves. The results are highlighted as columns `curve_group1` and
+#' `curve_group2` for now. Column names used to categorise the dilution
+#' curves will be moved to the front allow with `curve_group1` and
+#' `curve_group2`
 #' @examples
 #' r_corr <- c(0.951956, 0.948683, 0.978057, 0.976462, 0.970618, 0.969348)
 #' pra_linear <- c(65.78711, 64.58687, 90.21257, 89.95473, 72.91220, 72.36528)
@@ -40,6 +45,7 @@
 #' @rdname evaluate_linearity
 #' @export
 evaluate_linearity <- function(dilution_summary,
+                               grouping_variable = c(),
                                corrcoef_column = "r_corr",
                                corrcoef_min_threshold = 0.8,
                                pra_column = "pra_linear",
@@ -54,8 +60,8 @@ evaluate_linearity <- function(dilution_summary,
 
   if (length(non_df_cols) > 0) {
     #If no, return the summary data with a warning
-    warning(paste0("These columns exist in colnames
-                    but not in your dataframe: ",
+    warning(paste0("These column names need to be used
+                    but not in your input dataframe: ",
                 paste(non_df_cols, collapse = " ")))
     return(dilution_summary)
   } else {
@@ -81,13 +87,14 @@ evaluate_linearity <- function(dilution_summary,
 
   if (length(non_df_cols) > 0) {
     #If no, return the summary data with a warning
-    warning(paste0("These columns exist in colnames
-                    but not in your dataframe: ",
+    warning(paste0("These column names need to be used
+                    but not in your input dataframe: ",
                    paste(non_df_cols, collapse = " ")))
 
     #Rearrange the column based on the first evaluation
     dilution_summary <- dilution_summary %>%
-    dplyr::relocate(.data[["curve_group1"]], .data[[corrcoef_column]],
+    dplyr::relocate(dplyr::any_of(grouping_variable),
+                    .data[["curve_group1"]], .data[[corrcoef_column]],
                     .data[[pra_column]])
 
     return(dilution_summary)
@@ -98,11 +105,13 @@ evaluate_linearity <- function(dilution_summary,
                       dplyr::case_when(
                         .data[["curve_group1"]] == "Poor Linearity" &
                           .data[[corrcoef_column]] >= corrcoef_min_threshold &
-                          .data[[mandel_p_val_column]] < mandel_p_val_threshold &
+                          .data[[mandel_p_val_column]] <
+                          mandel_p_val_threshold &
                           .data[[concavity_column]] >= 0 ~ "LOD",
                         .data[["curve_group1"]] == "Poor Linearity" &
                           .data[[corrcoef_column]] >= corrcoef_min_threshold &
-                          .data[[mandel_p_val_column]] < mandel_p_val_threshold &
+                          .data[[mandel_p_val_column]] <
+                          mandel_p_val_threshold &
                           .data[[concavity_column]] < 0 ~ "Saturation",
                         TRUE ~ curve_group1
                       )
@@ -112,7 +121,8 @@ evaluate_linearity <- function(dilution_summary,
 
   #Rearrange the column based on the first evaluation
   dilution_summary <- dilution_summary %>%
-    dplyr::relocate(.data[["curve_group1"]], .data[["curve_group2"]],
+    dplyr::relocate(dplyr::any_of(grouping_variable),
+                    .data[["curve_group1"]], .data[["curve_group2"]],
                     .data[[corrcoef_column]], .data[[pra_column]],
                     .data[[mandel_p_val_column]], .data[[concavity_column]]
                     )

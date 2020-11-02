@@ -54,7 +54,9 @@ test_that("Able to print dilution summary data to excel", {
                                                    "Dilution_Batch"),
                              conc_var = "Dilution_Percent",
                              signal_var = "Area") %>%
-    dplyr::arrange(.data$Transition_Name)
+    dplyr::arrange(.data$Transition_Name) %>%
+    evaluate_linearity(grouping_variable = c("Transition_Name",
+                                             "Dilution_Batch"))
 
   # Testing if the change in class for near zero column works
   class_change_check <- dilution_summary %>%

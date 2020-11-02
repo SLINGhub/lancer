@@ -6,6 +6,7 @@
 \usage{
 evaluate_linearity(
   dilution_summary,
+  grouping_variable = c(),
   corrcoef_column = "r_corr",
   corrcoef_min_threshold = 0.8,
   pra_column = "pra_linear",
@@ -18,6 +19,10 @@ evaluate_linearity(
 \arguments{
 \item{dilution_summary}{A data frame or tibble output from
 the function \code{get_dilution_summary}}
+
+\item{grouping_variable}{A character vector of
+column names in \code{dilution_summary}to indicate which columns should be placed
+first. Default: c()}
 
 \item{corrcoef_column}{A column in \code{dilution_summary} that holds the
 correlation coefficient, Default: 'r_corr'}

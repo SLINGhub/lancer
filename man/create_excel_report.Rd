@@ -8,6 +8,12 @@ create_excel_report(
   dilution_summary,
   file_name,
   sheet_name = "Dilution Summary",
+  corrcoef_column = "r_corr",
+  corrcoef_min_threshold = 0.8,
+  pra_column = "pra_linear",
+  pra_min_threshold = 80,
+  mandel_p_val_column = "mandel_p_val",
+  mandel_p_val_threshold = 0.05,
   testing = FALSE
 )
 }
@@ -19,6 +25,33 @@ by function \code{summarise_dilution_table}}
 
 \item{sheet_name}{Sheet name to output the results
 in Excel, Default: 'Dilution Summary'}
+
+\item{corrcoef_column}{A column in \code{dilution_summary} that holds the
+correlation coefficient, Default: 'r_corr'}
+
+\item{corrcoef_min_threshold}{The minimum threshold value of the curve's
+correlation coefficient to pass being potentially linear.
+A pass will colour the excel cell green and red otherwise.
+Equality to the threshold is considered a pass, Default: 0.8}
+
+\item{pra_column}{A column in \code{dilution_summary} that holds the
+percent residual accuracy, Default: 'pra_linear'}
+
+\item{pra_min_threshold}{The minimum threshold value of the curve's
+percent residual accuracy to pass being potentially linear.
+A pass will colour the excel cell green and red otherwise.
+Equality to the threshold is considered a pass, Default: 80}
+
+\item{mandel_p_val_column}{A column in \code{dilution_summary} that holds the
+p value results for the Mandel's fitting test.
+Default: 'mandel_p_val'}
+
+\item{mandel_p_val_threshold}{The threshold value of the curve's
+p value for the Mandel's fitting test to reject the hypothesis that
+the quadratic model fits better than the linear model.
+If the value is less than this value, the cell colour will be red.
+Cell colour will be green if the p value is equal or over the threshold.
+Default: 0.05}
 
 \item{testing}{To indicate if we are running a test,
 if so, no excel file is given out}

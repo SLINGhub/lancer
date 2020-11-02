@@ -390,8 +390,7 @@ get_dilution_summary <- function(dilution_data, conc_var, signal_var) {
   dilution_summary <- dil_linear_gof %>%
     dplyr::bind_cols(mandel_result,
                      one_value_tibble
-    ) %>%
-    evaluate_linearity()
+    )
 
   return(dilution_summary)
 }
