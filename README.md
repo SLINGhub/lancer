@@ -144,7 +144,8 @@ lipid_data <- tibble::tibble(Sample_Name = sample_name,
 ```
 
 We merge the data together using `create_dilution_table` and summarise a
-dilution curve for each transition and batch.
+dilution curve for each transition and batch with
+`summarise_dilution_table`
 
 ``` r
 # Create dilution table and dilution statistical summary
@@ -158,7 +159,41 @@ dilution_summary <- create_dilution_table(dilution_annot, lipid_data,
                              conc_var = "Dilution_Percent",
                              signal_var = "Area")
 
-dilution_summary
+print(dilution_summary, width = 100)
+#> # A tibble: 8 x 11
+#>   Transition_Name Dilution_Batch r_corr r2_linear r2_adj_linear bic_linear
+#>   <chr>           <chr>           <dbl>     <dbl>         <dbl>      <dbl>
+#> 1 Lipid1          B1              0.952     0.906        0.901        738.
+#> 2 Lipid2          B1              0.978     0.957        0.954        492.
+#> 3 Lipid3          B1              0.971     0.942        0.939        348.
+#> 4 Lipid4          B1              0.344     0.118        0.0718       540.
+#> 5 Lipid1          B2              0.949     0.9          0.894        704.
+#> 6 Lipid2          B2              0.976     0.953        0.951        470.
+#> 7 Lipid3          B2              0.969     0.940        0.936        333.
+#> 8 Lipid4          B2              0.384     0.147        0.0997       515.
+#>   corr_p_val mandel_stats mandel_p_val pra_linear concavity
+#>        <dbl>        <dbl>        <dbl>      <dbl>     <dbl>
+#> 1   3.24e-11        62.5  0.000000290        65.8 -4134.   
+#> 2   2.10e-14         1.19 0.290              90.2    -3.35 
+#> 3   3.27e-13        84.6  0.0000000320       72.9     0.394
+#> 4   1.27e- 1         5.11 0.0363           -233.    -19.9  
+#> 5   1.94e-10        57.0  0.000000792        64.6 -4147.   
+#> 6   1.93e-13         1.10 0.308              90.0    -3.39 
+#> 7   2.03e-12        82.2  0.0000000637       72.4     0.401
+#> 8   9.50e- 2         6.77 0.0186           -172.    -22.6
+```
+
+We then classify each dilution curve according to Workflow 1 and
+Workflow 2.  
+`curve_group1` gives the results of Workflow 1  
+`curve_group2` gives the results of Workflow 2
+
+``` r
+dilution_classified <- dilution_summary %>%
+  evaluate_linearity(grouping_variable = c("Transition_Name",
+                                             "Dilution_Batch"))
+
+print(dilution_classified, width = 100)
 #> # A tibble: 8 x 13
 #>   Transition_Name Dilution_Batch curve_group1 curve_group2 r_corr pra_linear
 #>   <chr>           <chr>          <chr>        <chr>         <dbl>      <dbl>
@@ -170,31 +205,23 @@ dilution_summary
 #> 6 Lipid2          B2             Good Linear~ Good Linear~  0.976       90.0
 #> 7 Lipid3          B2             Poor Linear~ LOD           0.969       72.4
 #> 8 Lipid4          B2             Poor Linear~ Poor Linear~  0.384     -172. 
-#> # ... with 7 more variables: mandel_p_val <dbl>, concavity <dbl>,
-#> #   r2_linear <dbl>, r2_adj_linear <dbl>, bic_linear <dbl>, corr_p_val <dbl>,
-#> #   mandel_stats <dbl>
+#>   mandel_p_val concavity r2_linear r2_adj_linear bic_linear corr_p_val
+#>          <dbl>     <dbl>     <dbl>         <dbl>      <dbl>      <dbl>
+#> 1 0.000000290  -4134.        0.906        0.901        738.   3.24e-11
+#> 2 0.290           -3.35      0.957        0.954        492.   2.10e-14
+#> 3 0.0000000320     0.394     0.942        0.939        348.   3.27e-13
+#> 4 0.0363         -19.9       0.118        0.0718       540.   1.27e- 1
+#> 5 0.000000792  -4147.        0.9          0.894        704.   1.94e-10
+#> 6 0.308           -3.39      0.953        0.951        470.   1.93e-13
+#> 7 0.0000000637     0.401     0.940        0.936        333.   2.03e-12
+#> 8 0.0186         -22.6       0.147        0.0997       515.   9.50e- 2
+#> # ... with 1 more variable: mandel_stats <dbl>
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+Results can be exported to Excel via `create_excel_report`
 
 ``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
+create_excel_report(dilution_summary, file_name = "dilution_summary.xlsx")
 ```
 
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this. You could also
-use GitHub Actions to re-render `README.Rmd` every time you push. An
-example workflow can be found here:
-<https://github.com/r-lib/actions/tree/master/examples>.
-
-You can also embed plots, for example:
-
-<img src="man/figures/README-pressure-1.png" width="100%" />
+![Excel Report](man/figures/README-ExcelResults.png)
