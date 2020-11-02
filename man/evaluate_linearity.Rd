@@ -4,11 +4,45 @@
 \alias{evaluate_linearity}
 \title{Evaluate linearity}
 \usage{
-evaluate_linearity(dilution_summary)
+evaluate_linearity(
+  dilution_summary,
+  corrcoef_column = "r_corr",
+  corrcoef_min_threshold = 0.8,
+  pra_column = "pra_linear",
+  pra_min_threshold = 80,
+  mandel_p_val_column = "mandel_p_val",
+  mandel_p_val_threshold = 0.05,
+  concavity_column = "concavity"
+)
 }
 \arguments{
-\item{dilution_summary}{A data frame or tibble output
-from the function \code{get_dilution_summary}}
+\item{dilution_summary}{A data frame or tibble output from
+the function \code{get_dilution_summary}}
+
+\item{corrcoef_column}{A column in \code{dilution_summary} that holds the
+correlation coefficient, Default: 'r_corr'}
+
+\item{corrcoef_min_threshold}{The minimum threshold value of the curve's
+correlation coefficient to pass being potentially linear.
+Equality to the threshold is considered a pass, Default: 0.8}
+
+\item{pra_column}{A column in \code{dilution_summary} that holds the
+percent residual accuracy, Default: 'pra_linear'}
+
+\item{pra_min_threshold}{The minimum threshold value of the curve's
+percent residual accuracy to pass being potentially linear.
+Equality to the threshold is considered a pass, Default: 80}
+
+\item{mandel_p_val_column}{A column in \code{dilution_summary} that holds the
+p value results for the Mandel's fitting test, Default: 'mandel_p_val'}
+
+\item{mandel_p_val_threshold}{The threshold value of the curve's
+p value for the Mandel's fitting test to reject the hypothesis that
+the quadratic model fits better than the linear model.
+Default: 0.05}
+
+\item{concavity_column}{A column in \code{dilution_summary} that holds the
+concavity of the quadratic model, Default: 'concavity'}
 }
 \value{
 A data frame or tibble with evaluation results
