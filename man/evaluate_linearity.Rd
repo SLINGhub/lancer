@@ -22,7 +22,7 @@ the function \code{get_dilution_summary}}
 
 \item{grouping_variable}{A character vector of
 column names in \code{dilution_summary}to indicate which columns should be placed
-first. Default: c()}
+first before the evaluation results. Default: c()}
 
 \item{corrcoef_column}{A column in \code{dilution_summary} that holds the
 correlation coefficient, Default: 'r_corr'}
@@ -58,8 +58,10 @@ on dilution summary statistics
 }
 \details{
 Two work flows are given to evaluate linearity of dilution
-curves. The results are highlighted as columns curve_group1 and
-curve_group2 for now.
+curves. The results are highlighted as columns \code{curve_group1} and
+\code{curve_group2} for now. Column names used to categorise the dilution
+curves will be moved to the front allow with \code{curve_group1} and
+\code{curve_group2}
 }
 \examples{
 r_corr <- c(0.951956, 0.948683, 0.978057, 0.976462, 0.970618, 0.969348)

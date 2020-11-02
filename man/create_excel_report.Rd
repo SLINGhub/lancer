@@ -14,6 +14,8 @@ create_excel_report(
   pra_min_threshold = 80,
   mandel_p_val_column = "mandel_p_val",
   mandel_p_val_threshold = 0.05,
+  workflow1_column = "curve_group1",
+  workflow2_column = "curve_group2",
   testing = FALSE
 )
 }
@@ -52,6 +54,12 @@ the quadratic model fits better than the linear model.
 If the value is less than this value, the cell colour will be red.
 Cell colour will be green if the p value is equal or over the threshold.
 Default: 0.05}
+
+\item{workflow1_column}{A column in \code{dilution_summary} that holds the
+evaluation results of workflow 1, Default: 'curve_group1'}
+
+\item{workflow2_column}{A column in \code{dilution_summary} that holds the
+evaluation results of workflow 2, Default: 'curve_group1'}
 
 \item{testing}{To indicate if we are running a test,
 if so, no excel file is given out}

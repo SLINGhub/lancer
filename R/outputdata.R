@@ -302,6 +302,10 @@ two_col_num_cond_format <- function(workbook, sheet,
 #' If the value is less than this value, the cell colour will be red.
 #' Cell colour will be green if the p value is equal or over the threshold.
 #' Default: 0.05
+#' @param workflow1_column A column in `dilution_summary` that holds the
+#' evaluation results of workflow 1, Default: 'curve_group1'
+#' @param workflow2_column A column in `dilution_summary` that holds the
+#' evaluation results of workflow 2, Default: 'curve_group1'
 #' @param testing To indicate if we are running a test,
 #' if so, no excel file is given out
 #'
@@ -328,6 +332,8 @@ create_excel_report <- function(dilution_summary, file_name,
                                 pra_min_threshold = 80,
                                 mandel_p_val_column = "mandel_p_val",
                                 mandel_p_val_threshold = 0.05,
+                                workflow1_column = "curve_group1",
+                                workflow2_column = "curve_group2",
                                 testing = FALSE
                                 ) {
 
@@ -387,11 +393,11 @@ create_excel_report <- function(dilution_summary, file_name,
 
   two_col_word_cond_format(workbook = my_workbook, sheet = sheet_name,
                            dilution_summary = dilution_summary,
-                           conditional_column = "curve_group1",
+                           conditional_column = workflow1_column,
                            pass_criteria_words = c("Good Linearity"))
   two_col_word_cond_format(workbook = my_workbook, sheet = sheet_name,
                            dilution_summary = dilution_summary,
-                           conditional_column = "curve_group2",
+                           conditional_column = workflow2_column,
                            pass_criteria_words = c("Good Linearity"))
 
 
