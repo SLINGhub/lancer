@@ -306,6 +306,10 @@ two_col_num_cond_format <- function(workbook, sheet,
 #' evaluation results of workflow 1, Default: 'curve_group1'
 #' @param workflow2_column A column in `dilution_summary` that holds the
 #' evaluation results of workflow 2, Default: 'curve_group1'
+#' @param pass_criteria_words A character vector to indicate which words in
+#' `workflow1_column` or `workflow2_column` would have its excel cell coloured
+#' green and the rest to red.
+#' Default: c("Good Linearity")
 #' @param testing To indicate if we are running a test,
 #' if so, no excel file is given out
 #'
@@ -334,6 +338,7 @@ create_excel_report <- function(dilution_summary, file_name,
                                 mandel_p_val_threshold = 0.05,
                                 workflow1_column = "curve_group1",
                                 workflow2_column = "curve_group2",
+                                pass_criteria_words = c("Good Linearity"),
                                 testing = FALSE
                                 ) {
 
@@ -394,11 +399,11 @@ create_excel_report <- function(dilution_summary, file_name,
   two_col_word_cond_format(workbook = my_workbook, sheet = sheet_name,
                            dilution_summary = dilution_summary,
                            conditional_column = workflow1_column,
-                           pass_criteria_words = c("Good Linearity"))
+                           pass_criteria_words = pass_criteria_words)
   two_col_word_cond_format(workbook = my_workbook, sheet = sheet_name,
                            dilution_summary = dilution_summary,
                            conditional_column = workflow2_column,
-                           pass_criteria_words = c("Good Linearity"))
+                           pass_criteria_words = pass_criteria_words)
 
 
   # Export to file if we are not testing
