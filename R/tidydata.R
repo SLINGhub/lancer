@@ -250,7 +250,7 @@ summarise_dilution_table <- function(dilution_table,
                                      conc_var = "Dilution_Percent",
                                      signal_var = "Area") {
 
-  Check if dilution_table is valid with the relevant columns
+  #Check if dilution_table is valid with the relevant columns
   validate_dilution_table(dilution_table,
                           needed_column = c(grouping_variable,
                                             conc_var,
