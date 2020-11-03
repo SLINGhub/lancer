@@ -2,6 +2,7 @@ on:
   push:
     paths:
       - R/**
+      - .github/workflows/**
 
 name: Render README
 
