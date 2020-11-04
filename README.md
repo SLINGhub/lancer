@@ -4,6 +4,8 @@ DCVtestkit (Dilution Curve Validation Testkit)
 ==============================================
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/SLINGhub/DCVtestkit/workflows/R-CMD-check/badge.svg)](https://github.com/SLINGhub/DCVtestkit/actions)
 <!-- badges: end -->
 
 R package used to validate if a dilution curve is linear or not.
