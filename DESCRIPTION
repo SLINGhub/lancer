@@ -20,8 +20,8 @@ Suggests:
     roxygen2,
     covr
 Language: en-GB
-URL: https://github.com/JauntyJJS/DCVtestkit
-BugReports: https://github.com/JauntyJJS/DCVtestkit/issues
+URL: https://github.com/SLINGhub/DCVtestkit
+BugReports: https://github.com/SLINGhub/DCVtestkit/issues
 Imports: 
     magrittr,
     broom,
