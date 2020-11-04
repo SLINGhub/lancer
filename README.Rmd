@@ -35,18 +35,18 @@ devtools::install_github("SLINGhub/DCVtestkit")
 
 We try to categorise dilution curves based on the results of three parameters  
 
- * Correlation Coefficient $R$ 
+ * Correlation Coefficient ( $R$ ) 
  * Mandel's Fitting Test  
- * Percent Residual Accuracy $PRA$  
+ * Percent Residual Accuracy ( $PRA$ )  
 
-Correlation Coefficient $R$ can be found in this [paper](https://link.springer.com/article/10.1007/s00769-002-0487-6).
-Equation $1$ is used.
+Correlation Coefficient ( $R$ ) can be found in this [paper](https://link.springer.com/article/10.1007/s00769-002-0487-6).
+Equation ( $1$ ) is used.
 
 Mandel's Fitting Test can be found in this [paper](https://pubs.rsc.org/en/content/articlelanding/2013/ay/c2ay26400e#!divAbstract).
-Equation $5$ is used.
+Equation ( $5$ ) is used.
 
-Percent Residual Accuracy $PRA$ can be found in this [paper](https://www.sciencedirect.com/science/article/abs/pii/S0039914018307549).
-Equation $6$ is used.
+Percent Residual Accuracy ( $PRA$ ) can be found in this [paper](https://www.sciencedirect.com/science/article/abs/pii/S0039914018307549).
+Equation ( $6$ ) is used.
 
 Two methods are proposed to categorise the dilution curves.
 
