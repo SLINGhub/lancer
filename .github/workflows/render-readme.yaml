@@ -3,6 +3,7 @@ on:
     paths:
       - R/**
       - .github/workflows/**
+      - README.Rmd
 
 name: Render README
 
