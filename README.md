@@ -172,14 +172,14 @@ print(dilution_classified, width = 100)
 #> # A tibble: 8 x 13
 #>   Transition_Name Dilution_Batch curve_group1 curve_group2 r_corr pra_linear
 #>   <chr>           <chr>          <chr>        <chr>         <dbl>      <dbl>
-#> 1 Lipid1          B1             Poor Linear~ Saturation    0.952       65.8
-#> 2 Lipid2          B1             Good Linear~ Good Linear~  0.978       90.2
-#> 3 Lipid3          B1             Poor Linear~ LOD           0.971       72.9
-#> 4 Lipid4          B1             Poor Linear~ Poor Linear~  0.344     -233. 
-#> 5 Lipid1          B2             Poor Linear~ Saturation    0.949       64.6
-#> 6 Lipid2          B2             Good Linear~ Good Linear~  0.976       90.0
-#> 7 Lipid3          B2             Poor Linear~ LOD           0.969       72.4
-#> 8 Lipid4          B2             Poor Linear~ Poor Linear~  0.384     -172. 
+#> 1 Lipid1          B1             Poor Linear… Saturation    0.952       65.8
+#> 2 Lipid2          B1             Good Linear… Good Linear…  0.978       90.2
+#> 3 Lipid3          B1             Poor Linear… LOD           0.971       72.9
+#> 4 Lipid4          B1             Poor Linear… Poor Linear…  0.344     -233. 
+#> 5 Lipid1          B2             Poor Linear… Saturation    0.949       64.6
+#> 6 Lipid2          B2             Good Linear… Good Linear…  0.976       90.0
+#> 7 Lipid3          B2             Poor Linear… LOD           0.969       72.4
+#> 8 Lipid4          B2             Poor Linear… Poor Linear…  0.384     -172. 
 #>   mandel_p_val concavity r2_linear r2_adj_linear bic_linear corr_p_val
 #>          <dbl>     <dbl>     <dbl>         <dbl>      <dbl>      <dbl>
 #> 1 0.000000290  -4134.        0.906        0.901        738.   3.24e-11
@@ -190,7 +190,7 @@ print(dilution_classified, width = 100)
 #> 6 0.308           -3.39      0.953        0.951        470.   1.93e-13
 #> 7 0.0000000637     0.401     0.940        0.936        333.   2.03e-12
 #> 8 0.0186         -22.6       0.147        0.0997       515.   9.50e- 2
-#> # ... with 1 more variable: mandel_stats <dbl>
+#> # … with 1 more variable: mandel_stats <dbl>
 ```
 
 Results can be exported to Excel via `create_excel_report`
