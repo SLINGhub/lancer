@@ -24,47 +24,72 @@ devtools::install_github("JauntyJJS/DCVtestkit")
 We try to categorise dilution curves based on the results of three
 parameters
 
-  - Correlation Coefficient (\(R\))
+  - Correlation Coefficient (![R](https://latex.codecogs.com/png.latex?R
+    "R"))
   - Mandel’s Fitting Test  
-  - Percent Residual Accuracy (\(PRA\))
+  - Percent Residual Accuracy
+    (![PRA](https://latex.codecogs.com/png.latex?PRA "PRA"))
 
-Correlation Coefficient (\(R\)) can be found in this
+Correlation Coefficient (![R](https://latex.codecogs.com/png.latex?R
+"R")) can be found in this
 [paper](https://link.springer.com/article/10.1007/s00769-002-0487-6).
-Equation (\(1\)) is used.
+Equation (![1](https://latex.codecogs.com/png.latex?1 "1")) is used.
 
 Mandel’s Fitting Test can be found in this
 [paper](https://pubs.rsc.org/en/content/articlelanding/2013/ay/c2ay26400e#!divAbstract).
-Equation (\(5\)) is used.
+Equation (![5](https://latex.codecogs.com/png.latex?5 "5")) is used.
 
-Percent Residual Accuracy (\(PRA\)) can be found in this
+Percent Residual Accuracy
+(![PRA](https://latex.codecogs.com/png.latex?PRA "PRA")) can be found in
+this
 [paper](https://www.sciencedirect.com/science/article/abs/pii/S0039914018307549).
-Equation (\(6\)) is used.
+Equation (![6](https://latex.codecogs.com/png.latex?6 "6")) is used.
 
 Two methods are proposed to categorise the dilution curves.
 
 ### Workflow 1
 
-Workflow 1 involves using \(R\) and \(PRA\) to categorise the dilution
-curves.
+Workflow 1 involves using ![R](https://latex.codecogs.com/png.latex?R
+"R") and ![PRA](https://latex.codecogs.com/png.latex?PRA "PRA") to
+categorise the dilution curves.
 
-  - If \(R < 0.8\), classify as poor linearity.  
-  - If \(R \ge{0.8}\), \(PRA < 80\), classify as poor linearity.  
-  - If \(R \ge{0.8}\), \(PRA \ge 80\), classify as good linearity.
+  - If ![R \< 0.8](https://latex.codecogs.com/png.latex?R%20%3C%200.8
+    "R \< 0.8"), classify as poor linearity.  
+  - If ![R
+    \\ge{0.8}](https://latex.codecogs.com/png.latex?R%20%5Cge%7B0.8%7D
+    "R \\ge{0.8}"), ![PRA
+    \< 80](https://latex.codecogs.com/png.latex?PRA%20%3C%2080
+    "PRA \< 80"), classify as poor linearity.  
+  - If ![R
+    \\ge{0.8}](https://latex.codecogs.com/png.latex?R%20%5Cge%7B0.8%7D
+    "R \\ge{0.8}"), ![PRA
+    \\ge 80](https://latex.codecogs.com/png.latex?PRA%20%5Cge%2080
+    "PRA \\ge 80"), classify as good linearity.
 
 ### Workflow 2
 
-Workflow 1 involves using \(R\), \(PRA\) and Mandel’s Fitting Test to
-categorise the dilution curves.
+Workflow 1 involves using ![R](https://latex.codecogs.com/png.latex?R
+"R"), ![PRA](https://latex.codecogs.com/png.latex?PRA "PRA") and
+Mandel’s Fitting Test to categorise the dilution curves.
 
-  - If \(R < 0.8\), classify as poor linearity.
-  - If \(R \ge{0.8}\), \(PRA < 80\) and fit quadratic model and use
-    Mandel’s Fitting Test to see it is better
+  - If ![R \< 0.8](https://latex.codecogs.com/png.latex?R%20%3C%200.8
+    "R \< 0.8"), classify as poor linearity.
+  - If ![R
+    \\ge{0.8}](https://latex.codecogs.com/png.latex?R%20%5Cge%7B0.8%7D
+    "R \\ge{0.8}"), ![PRA
+    \< 80](https://latex.codecogs.com/png.latex?PRA%20%3C%2080
+    "PRA \< 80") and fit quadratic model and use Mandel’s Fitting Test
+    to see it is better
       - If not better, classify as poor linearity
       - If better, check concavity of the quadratic model
           - If concavity is negative, classify as saturation
           - If concavity is positive, classify as limit of detection
             (LOD)
-  - If \(R \ge{0.8}\), \(PRA \ge 80\), classify as good linearity
+  - If ![R
+    \\ge{0.8}](https://latex.codecogs.com/png.latex?R%20%5Cge%7B0.8%7D
+    "R \\ge{0.8}"), ![PRA
+    \\ge 80](https://latex.codecogs.com/png.latex?PRA%20%5Cge%2080
+    "PRA \\ge 80"), classify as good linearity
 
 ## Usage
 
@@ -172,14 +197,14 @@ print(dilution_classified, width = 100)
 #> # A tibble: 8 x 13
 #>   Transition_Name Dilution_Batch curve_group1 curve_group2 r_corr pra_linear
 #>   <chr>           <chr>          <chr>        <chr>         <dbl>      <dbl>
-#> 1 Lipid1          B1             Poor Linear… Saturation    0.952       65.8
-#> 2 Lipid2          B1             Good Linear… Good Linear…  0.978       90.2
-#> 3 Lipid3          B1             Poor Linear… LOD           0.971       72.9
-#> 4 Lipid4          B1             Poor Linear… Poor Linear…  0.344     -233. 
-#> 5 Lipid1          B2             Poor Linear… Saturation    0.949       64.6
-#> 6 Lipid2          B2             Good Linear… Good Linear…  0.976       90.0
-#> 7 Lipid3          B2             Poor Linear… LOD           0.969       72.4
-#> 8 Lipid4          B2             Poor Linear… Poor Linear…  0.384     -172. 
+#> 1 Lipid1          B1             Poor Linear~ Saturation    0.952       65.8
+#> 2 Lipid2          B1             Good Linear~ Good Linear~  0.978       90.2
+#> 3 Lipid3          B1             Poor Linear~ LOD           0.971       72.9
+#> 4 Lipid4          B1             Poor Linear~ Poor Linear~  0.344     -233. 
+#> 5 Lipid1          B2             Poor Linear~ Saturation    0.949       64.6
+#> 6 Lipid2          B2             Good Linear~ Good Linear~  0.976       90.0
+#> 7 Lipid3          B2             Poor Linear~ LOD           0.969       72.4
+#> 8 Lipid4          B2             Poor Linear~ Poor Linear~  0.384     -172. 
 #>   mandel_p_val concavity r2_linear r2_adj_linear bic_linear corr_p_val
 #>          <dbl>     <dbl>     <dbl>         <dbl>      <dbl>      <dbl>
 #> 1 0.000000290  -4134.        0.906        0.901        738.   3.24e-11
@@ -190,7 +215,7 @@ print(dilution_classified, width = 100)
 #> 6 0.308           -3.39      0.953        0.951        470.   1.93e-13
 #> 7 0.0000000637     0.401     0.940        0.936        333.   2.03e-12
 #> 8 0.0186         -22.6       0.147        0.0997       515.   9.50e- 2
-#> # … with 1 more variable: mandel_stats <dbl>
+#> # ... with 1 more variable: mandel_stats <dbl>
 ```
 
 Results can be exported to Excel via `create_excel_report`

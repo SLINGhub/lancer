@@ -1,0 +1,5 @@
+url: https://JauntyJJS.github.io/DCVtestkit
+
+template:
+  params:
+    bootswatch: cosmo
