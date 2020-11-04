@@ -6,6 +6,8 @@ DCVtestkit (Dilution Curve Validation Testkit)
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/SLINGhub/DCVtestkit/workflows/R-CMD-check/badge.svg)](https://github.com/SLINGhub/DCVtestkit/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/SLINGhub/DCVtestkit/branch/master/graph/badge.svg)](https://codecov.io/gh/SLINGhub/DCVtestkit?branch=master)
 <!-- badges: end -->
 
 R package used to validate if a dilution curve is linear or not.
@@ -17,7 +19,7 @@ You can install the development version from
 [GitHub](https://github.com/) with:
 
     # install.packages("devtools")
-    devtools::install_github("JauntyJJS/DCVtestkit")
+    devtools::install_github("SLINGhub/DCVtestkit")
 
 How it works
 ------------
