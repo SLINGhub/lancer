@@ -27,47 +27,72 @@ devtools::install_github("SLINGhub/DCVtestkit")
 We try to categorise dilution curves based on the results of three
 parameters
 
-  - Correlation Coefficient ( \(R\) )
+  - Correlation Coefficient (
+    ![R](https://latex.codecogs.com/png.latex?R "R") )
   - Mandel’s Fitting Test  
-  - Percent Residual Accuracy ( \(PRA\) )
+  - Percent Residual Accuracy (
+    ![PRA](https://latex.codecogs.com/png.latex?PRA "PRA") )
 
-Correlation Coefficient ( \(R\) ) can be found in this
+Correlation Coefficient ( ![R](https://latex.codecogs.com/png.latex?R
+"R") ) can be found in this
 [paper](https://link.springer.com/article/10.1007/s00769-002-0487-6).
-Equation ( \(1\) ) is used.
+Equation ( ![1](https://latex.codecogs.com/png.latex?1 "1") ) is used.
 
 Mandel’s Fitting Test can be found in this
 [paper](https://pubs.rsc.org/en/content/articlelanding/2013/ay/c2ay26400e#!divAbstract).
-Equation ( \(5\) ) is used.
+Equation ( ![5](https://latex.codecogs.com/png.latex?5 "5") ) is used.
 
-Percent Residual Accuracy ( \(PRA\) ) can be found in this
+Percent Residual Accuracy (
+![PRA](https://latex.codecogs.com/png.latex?PRA "PRA") ) can be found in
+this
 [paper](https://www.sciencedirect.com/science/article/abs/pii/S0039914018307549).
-Equation ( \(6\) ) is used.
+Equation ( ![6](https://latex.codecogs.com/png.latex?6 "6") ) is used.
 
 Two methods are proposed to categorise the dilution curves.
 
 ### Workflow 1
 
-Workflow 1 involves using \(R\) and \(PRA\) to categorise the dilution
-curves.
+Workflow 1 involves using ![R](https://latex.codecogs.com/png.latex?R
+"R") and ![PRA](https://latex.codecogs.com/png.latex?PRA "PRA") to
+categorise the dilution curves.
 
-  - If \(R < 0.8\), classify as poor linearity.  
-  - If \(R \ge{0.8}\), \(PRA < 80\), classify as poor linearity.  
-  - If \(R \ge{0.8}\), \(PRA \ge 80\), classify as good linearity.
+  - If ![R \< 0.8](https://latex.codecogs.com/png.latex?R%20%3C%200.8
+    "R \< 0.8"), classify as poor linearity.  
+  - If ![R
+    \\ge{0.8}](https://latex.codecogs.com/png.latex?R%20%5Cge%7B0.8%7D
+    "R \\ge{0.8}"), ![PRA
+    \< 80](https://latex.codecogs.com/png.latex?PRA%20%3C%2080
+    "PRA \< 80"), classify as poor linearity.  
+  - If ![R
+    \\ge{0.8}](https://latex.codecogs.com/png.latex?R%20%5Cge%7B0.8%7D
+    "R \\ge{0.8}"), ![PRA
+    \\ge 80](https://latex.codecogs.com/png.latex?PRA%20%5Cge%2080
+    "PRA \\ge 80"), classify as good linearity.
 
 ### Workflow 2
 
-Workflow 1 involves using \(R\), \(PRA\) and Mandel’s Fitting Test to
-categorise the dilution curves.
+Workflow 1 involves using ![R](https://latex.codecogs.com/png.latex?R
+"R"), ![PRA](https://latex.codecogs.com/png.latex?PRA "PRA") and
+Mandel’s Fitting Test to categorise the dilution curves.
 
-  - If \(R < 0.8\), classify as poor linearity.
-  - If \(R \ge{0.8}\), \(PRA < 80\) and fit quadratic model and use
-    Mandel’s Fitting Test to see it is better
+  - If ![R \< 0.8](https://latex.codecogs.com/png.latex?R%20%3C%200.8
+    "R \< 0.8"), classify as poor linearity.
+  - If ![R
+    \\ge{0.8}](https://latex.codecogs.com/png.latex?R%20%5Cge%7B0.8%7D
+    "R \\ge{0.8}"), ![PRA
+    \< 80](https://latex.codecogs.com/png.latex?PRA%20%3C%2080
+    "PRA \< 80") and fit quadratic model and use Mandel’s Fitting Test
+    to see it is better
       - If not better, classify as poor linearity
       - If better, check concavity of the quadratic model
           - If concavity is negative, classify as saturation
           - If concavity is positive, classify as limit of detection
             (LOD)
-  - If \(R \ge{0.8}\), \(PRA \ge 80\), classify as good linearity
+  - If ![R
+    \\ge{0.8}](https://latex.codecogs.com/png.latex?R%20%5Cge%7B0.8%7D
+    "R \\ge{0.8}"), ![PRA
+    \\ge 80](https://latex.codecogs.com/png.latex?PRA%20%5Cge%2080
+    "PRA \\ge 80"), classify as good linearity
 
 ## Usage
 
