@@ -18,7 +18,9 @@ Suggests:
     spelling,
     testthat,
     roxygen2,
-    covr
+    covr,
+    knitr,
+    rmarkdown
 Language: en-GB
 URL: https://github.com/SLINGhub/DCVtestkit
 BugReports: https://github.com/SLINGhub/DCVtestkit/issues
@@ -34,3 +36,4 @@ Imports:
     assertable,
     openxlsx,
     strex
+VignetteBuilder: knitr
