@@ -127,8 +127,8 @@
   pra_min_threshold <span class='op'>=</span> <span class='fl'>80</span>,
   mandel_p_val_column <span class='op'>=</span> <span class='st'>"mandel_p_val"</span>,
   mandel_p_val_threshold <span class='op'>=</span> <span class='fl'>0.05</span>,
-  workflow1_column <span class='op'>=</span> <span class='st'>"curve_group1"</span>,
-  workflow2_column <span class='op'>=</span> <span class='st'>"curve_group2"</span>,
+  workflow1_column <span class='op'>=</span> <span class='st'>"wf1_group"</span>,
+  workflow2_column <span class='op'>=</span> <span class='st'>"wf2_group"</span>,
   pass_criteria_words <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Good Linearity"</span><span class='op'>)</span>,
   testing <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span></pre>
@@ -192,12 +192,12 @@ Default: 0.05</p></td>
     <tr>
       <th>workflow1_column</th>
       <td><p>A column in <code>dilution_summary</code> that holds the
-evaluation results of workflow 1, Default: 'curve_group1'</p></td>
+evaluation results of workflow 1, Default: 'wf1_group'</p></td>
     </tr>
     <tr>
       <th>workflow2_column</th>
       <td><p>A column in <code>dilution_summary</code> that holds the
-evaluation results of workflow 2, Default: 'curve_group1'</p></td>
+evaluation results of workflow 2, Default: 'wf2_group'</p></td>
     </tr>
     <tr>
       <th>pass_criteria_words</th>
