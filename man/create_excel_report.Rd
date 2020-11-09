@@ -14,8 +14,8 @@ create_excel_report(
   pra_min_threshold = 80,
   mandel_p_val_column = "mandel_p_val",
   mandel_p_val_threshold = 0.05,
-  workflow1_column = "curve_group1",
-  workflow2_column = "curve_group2",
+  workflow1_column = "wf1_group",
+  workflow2_column = "wf2_group",
   pass_criteria_words = c("Good Linearity"),
   testing = FALSE
 )
@@ -57,10 +57,10 @@ Cell colour will be green if the p value is equal or over the threshold.
 Default: 0.05}
 
 \item{workflow1_column}{A column in \code{dilution_summary} that holds the
-evaluation results of workflow 1, Default: 'curve_group1'}
+evaluation results of workflow 1, Default: 'wf1_group'}
 
 \item{workflow2_column}{A column in \code{dilution_summary} that holds the
-evaluation results of workflow 2, Default: 'curve_group1'}
+evaluation results of workflow 2, Default: 'wf2_group'}
 
 \item{pass_criteria_words}{A character vector to indicate which words in
 \code{workflow1_column} or \code{workflow2_column} would have its excel cell coloured

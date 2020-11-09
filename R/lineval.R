@@ -27,10 +27,10 @@
 #' concavity of the quadratic model, Default: 'concavity'
 #' @return A data frame or tibble with evaluation results
 #' @details Two work flows are given to evaluate linearity of dilution
-#' curves. The results are highlighted as columns `curve_group1` and
-#' `curve_group2` for now. Column names used to categorise the dilution
-#' curves will be moved to the front allow with `curve_group1` and
-#' `curve_group2`
+#' curves. The results are highlighted as columns `wf1_group` and
+#' `wf2_group` for now. Column names used to categorise the dilution
+#' curves will be moved to the front allow with `wf1_group` and
+#' `wf2_group`
 #' @examples
 #' r_corr <- c(0.951956, 0.948683, 0.978057, 0.976462, 0.970618, 0.969348)
 #' pra_linear <- c(65.78711, 64.58687, 90.21257, 89.95473, 72.91220, 72.36528)
@@ -67,7 +67,7 @@ evaluate_linearity <- function(dilution_summary,
   } else {
     #Else perform the evaluation
     dilution_summary <- dilution_summary %>%
-      dplyr::mutate(curve_group1 =
+      dplyr::mutate(wf1_group =
                       dplyr::case_when(
                         .data[[corrcoef_column]] < corrcoef_min_threshold
                         ~ "Poor Linearity",
@@ -94,26 +94,26 @@ evaluate_linearity <- function(dilution_summary,
     #Rearrange the column based on the first evaluation
     dilution_summary <- dilution_summary %>%
     dplyr::relocate(dplyr::any_of(grouping_variable),
-                    .data[["curve_group1"]], .data[[corrcoef_column]],
+                    .data[["wf1_group"]], .data[[corrcoef_column]],
                     .data[[pra_column]])
 
     return(dilution_summary)
   } else {
     #Else perform the evaluation
     dilution_summary <- dilution_summary %>%
-      dplyr::mutate(curve_group2 =
+      dplyr::mutate(wf2_group =
                       dplyr::case_when(
-                        .data[["curve_group1"]] == "Poor Linearity" &
+                        .data[["wf1_group"]] == "Poor Linearity" &
                           .data[[corrcoef_column]] >= corrcoef_min_threshold &
                           .data[[mandel_p_val_column]] <
                           mandel_p_val_threshold &
                           .data[[concavity_column]] >= 0 ~ "LOD",
-                        .data[["curve_group1"]] == "Poor Linearity" &
+                        .data[["wf1_group"]] == "Poor Linearity" &
                           .data[[corrcoef_column]] >= corrcoef_min_threshold &
                           .data[[mandel_p_val_column]] <
                           mandel_p_val_threshold &
                           .data[[concavity_column]] < 0 ~ "Saturation",
-                        TRUE ~ curve_group1
+                        TRUE ~ wf1_group
                       )
                     )
 
@@ -122,7 +122,7 @@ evaluate_linearity <- function(dilution_summary,
   #Rearrange the column based on the first evaluation
   dilution_summary <- dilution_summary %>%
     dplyr::relocate(dplyr::any_of(grouping_variable),
-                    .data[["curve_group1"]], .data[["curve_group2"]],
+                    .data[["wf1_group"]], .data[["wf2_group"]],
                     .data[[corrcoef_column]], .data[[pra_column]],
                     .data[[mandel_p_val_column]], .data[[concavity_column]]
                     )

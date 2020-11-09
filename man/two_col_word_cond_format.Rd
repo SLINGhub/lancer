@@ -61,7 +61,7 @@ openxlsx::writeDataTable(wb = my_workbook, sheet = "Dilution Summary",
 # after data is written to excel sheet
 two_col_word_cond_format(workbook = my_workbook,sheet = "Dilution Summary",
                          dilution_summary = dilution_summary,
-                         conditional_column = "curve_group1",
+                         conditional_column = "wf1_group",
                          pass_criteria_words = c("Good Linearity")
                          )
 }

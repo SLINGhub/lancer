@@ -84,10 +84,6 @@ test_that("calculate dil linear GOF", {
                          tolerance  = 0.001)
   testthat::expect_equal(0.89182, unname(dil_linear_gof$r2_adj_linear),
                          tolerance  = 0.001)
-  testthat::expect_equal(119.743, unname(dil_linear_gof$bic_linear),
-                         tolerance  = 0.01)
-  testthat::expect_equal(0.00289, unname(dil_linear_gof$corr_p_val),
-                         tolerance  = 0.001)
 
 
   dilution_data <- data.frame(Dilution_Percent = c(NA, NA), Area =  c(NA, NA))
@@ -96,8 +92,6 @@ test_that("calculate dil linear GOF", {
   testthat::expect_equal(NA, unname(dil_linear_gof$r_corr))
   testthat::expect_equal(NA, unname(dil_linear_gof$r2_linear))
   testthat::expect_equal(NA, unname(dil_linear_gof$r2_adj_linear))
-  testthat::expect_equal(NA, unname(dil_linear_gof$bic_linear))
-  testthat::expect_equal(NA, unname(dil_linear_gof$corr_p_val))
 
   dilution_data <- data.frame(Dilution_Percent = NA, Area = NA)
   dil_linear_gof <- calculate_dil_linear_gof(dilution_data,
@@ -105,8 +99,6 @@ test_that("calculate dil linear GOF", {
   testthat::expect_equal(NA, unname(dil_linear_gof$r_corr))
   testthat::expect_equal(NA, unname(dil_linear_gof$r2_linear))
   testthat::expect_equal(NA, unname(dil_linear_gof$r2_adj_linear))
-  testthat::expect_equal(NA, unname(dil_linear_gof$bic_linear))
-  testthat::expect_equal(NA, unname(dil_linear_gof$corr_p_val))
 
   dilution_data <- NA
   dil_linear_gof <- calculate_dil_linear_gof(dilution_data,
@@ -114,8 +106,6 @@ test_that("calculate dil linear GOF", {
   testthat::expect_equal(NA, unname(dil_linear_gof$r_corr))
   testthat::expect_equal(NA, unname(dil_linear_gof$r2_linear))
   testthat::expect_equal(NA, unname(dil_linear_gof$r2_adj_linear))
-  testthat::expect_equal(NA, unname(dil_linear_gof$bic_linear))
-  testthat::expect_equal(NA, unname(dil_linear_gof$corr_p_val))
 
 })
 

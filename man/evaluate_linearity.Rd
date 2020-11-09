@@ -58,10 +58,10 @@ on dilution summary statistics
 }
 \details{
 Two work flows are given to evaluate linearity of dilution
-curves. The results are highlighted as columns \code{curve_group1} and
-\code{curve_group2} for now. Column names used to categorise the dilution
-curves will be moved to the front allow with \code{curve_group1} and
-\code{curve_group2}
+curves. The results are highlighted as columns \code{wf1_group} and
+\code{wf2_group} for now. Column names used to categorise the dilution
+curves will be moved to the front allow with \code{wf1_group} and
+\code{wf2_group}
 }
 \examples{
 r_corr <- c(0.951956, 0.948683, 0.978057, 0.976462, 0.970618, 0.969348)

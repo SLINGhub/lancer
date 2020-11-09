@@ -31,7 +31,7 @@ indicate which column in \code{dilution_summary} to use}
 is above or below threshold value,
 Default: c("above", "below")}
 
-\item{pass_equality}{TO indicate if equality to the
+\item{pass_equality}{To indicate if equality to the
 threshold value is considered a pass or fail,
 Default: TRUE}
 }

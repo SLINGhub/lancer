@@ -16,8 +16,7 @@ calculate_dil_linear_gof(dilution_data, conc_var, signal_var)
 \value{
 A tibble containing the Goodness of Fit measures of the linear model
 The Goodness of Fit measures are the Pearson correlation coefficient (R),
-the R^2, the adjusted R^2, the Bayesian Information Criterion (BIC) and the
-Pearson correlation p value
+the R^2 and the adjusted R^2
 }
 \description{
 Calculate the Goodness of Fit of the Dilution Linear Model

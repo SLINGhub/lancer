@@ -116,8 +116,7 @@ calculate_concavity <- function(dilution_data, conc_var, signal_var) {
 #' @param signal_var Column name in `diltuion_data` to indicate signal
 #' @return A tibble containing the Goodness of Fit measures of the linear model
 #' The Goodness of Fit measures are the Pearson correlation coefficient (R),
-#' the R^2, the adjusted R^2, the Bayesian Information Criterion (BIC) and the
-#' Pearson correlation p value
+#' the R^2 and the adjusted R^2
 #' @details The function will return a tibble with NA values
 #' if the number of dilution points is less than or equal to three
 #' @examples
@@ -132,9 +131,7 @@ calculate_dil_linear_gof <- function(dilution_data, conc_var, signal_var) {
 
   dil_linear_gof <- tibble::tibble(r_corr = NA,
                                    r2_linear = NA,
-                                   r2_adj_linear = NA,
-                                   bic_linear = NA,
-                                   corr_p_val = NA)
+                                   r2_adj_linear = NA)
 
   if (is.null(nrow(dilution_data))) {
     return(dil_linear_gof)
@@ -153,7 +150,6 @@ calculate_dil_linear_gof <- function(dilution_data, conc_var, signal_var) {
                                             dilution_data[[conc_var]],
                                             method = "pearson"))
   r_corr <- round(cor_result$estimate, digits = 6)
-  corr_p_val <- cor_result$p.value
 
   # Create the linear model on dilution data
   linear_model <- create_dil_linear_model(dilution_data, conc_var, signal_var)
@@ -167,14 +163,10 @@ calculate_dil_linear_gof <- function(dilution_data, conc_var, signal_var) {
   # Get Adjusted R2
   r2_adj_linear <- round(linear_gof$adj.r.squared, digits = 6)
 
-  # Get BIC
-  bic_linear <- round(linear_gof$BIC, digits = 6)
 
   dil_linear_gof <- tibble::tibble(r_corr = r_corr,
                                    r2_linear = r2_linear,
-                                   r2_adj_linear = r2_adj_linear,
-                                   bic_linear = bic_linear,
-                                   corr_p_val = corr_p_val)
+                                   r2_adj_linear = r2_adj_linear)
 
   return(dil_linear_gof)
 

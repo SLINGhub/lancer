@@ -143,7 +143,7 @@ get_column_number_style <- function(dilution_summary, workbook, sheet) {
 #' # after data is written to excel sheet
 #' two_col_word_cond_format(workbook = my_workbook,sheet = "Dilution Summary",
 #'                          dilution_summary = dilution_summary,
-#'                          conditional_column = "curve_group1",
+#'                          conditional_column = "wf1_group",
 #'                          pass_criteria_words = c("Good Linearity")
 #'                          )
 #' @rdname two_col_word_cond_format
@@ -191,7 +191,7 @@ two_col_word_cond_format <- function(workbook, sheet,
 #' @param pass_criteria To indicate pass if the value
 #' is above or below threshold value,
 #' Default: c("above", "below")
-#' @param pass_equality TO indicate if equality to the
+#' @param pass_equality To indicate if equality to the
 #' threshold value is considered a pass or fail,
 #' Default: TRUE
 #' @examples
@@ -303,9 +303,9 @@ two_col_num_cond_format <- function(workbook, sheet,
 #' Cell colour will be green if the p value is equal or over the threshold.
 #' Default: 0.05
 #' @param workflow1_column A column in `dilution_summary` that holds the
-#' evaluation results of workflow 1, Default: 'curve_group1'
+#' evaluation results of workflow 1, Default: 'wf1_group'
 #' @param workflow2_column A column in `dilution_summary` that holds the
-#' evaluation results of workflow 2, Default: 'curve_group1'
+#' evaluation results of workflow 2, Default: 'wf2_group'
 #' @param pass_criteria_words A character vector to indicate which words in
 #' `workflow1_column` or `workflow2_column` would have its excel cell coloured
 #' green and the rest to red.
@@ -336,8 +336,8 @@ create_excel_report <- function(dilution_summary, file_name,
                                 pra_min_threshold = 80,
                                 mandel_p_val_column = "mandel_p_val",
                                 mandel_p_val_threshold = 0.05,
-                                workflow1_column = "curve_group1",
-                                workflow2_column = "curve_group2",
+                                workflow1_column = "wf1_group",
+                                workflow2_column = "wf2_group",
                                 pass_criteria_words = c("Good Linearity"),
                                 testing = FALSE
                                 ) {
