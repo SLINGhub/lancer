@@ -27,23 +27,6 @@ How it works
 We try to categorise dilution curves based on the results of three
 parameters
 
-<<<<<<< HEAD
-  - Correlation Coefficient ( \(R\) )
-  - Mandel’s Fitting Test  
-  - Percent Residual Accuracy ( \(PRA\) )
-
-Correlation Coefficient ( \(R\) ) can be found in this
-[paper](https://link.springer.com/article/10.1007/s00769-002-0487-6).
-Equation ( \(1\) ) is used.
-
-Mandel’s Fitting Test can be found in this
-[paper](https://pubs.rsc.org/en/content/articlelanding/2013/ay/c2ay26400e#!divAbstract).
-Equation ( \(5\) ) is used.
-
-Percent Residual Accuracy ( \(PRA\) ) can be found in this
-[paper](https://www.sciencedirect.com/science/article/abs/pii/S0039914018307549).
-Equation ( \(6\) ) is used.
-=======
 -   Correlation Coefficient ( *R* )
 -   Mandel’s Fitting Test  
 -   Percent Residual Accuracy ( *P**R**A* )
@@ -59,35 +42,11 @@ Equation ( 5 ) is used.
 Percent Residual Accuracy ( *P**R**A* ) can be found in this
 [paper](https://www.sciencedirect.com/science/article/abs/pii/S0039914018307549).
 Equation ( 6 ) is used.
->>>>>>> 9f9f9dc37659c80a4b261bfcf12e1dfe128acded
 
 Two methods are proposed to categorise the dilution curves.
 
 ### Workflow 1
 
-<<<<<<< HEAD
-Workflow 1 involves using \(R\) and \(PRA\) to categorise the dilution
-curves.
-
-  - If \(R < 0.8\), classify as poor linearity.  
-  - If \(R \ge{0.8}\), \(PRA < 80\), classify as poor linearity.  
-  - If \(R \ge{0.8}\), \(PRA \ge 80\), classify as good linearity.
-
-### Workflow 2
-
-Workflow 1 involves using \(R\), \(PRA\) and Mandel’s Fitting Test to
-categorise the dilution curves.
-
-  - If \(R < 0.8\), classify as poor linearity.
-  - If \(R \ge{0.8}\), \(PRA < 80\) and fit quadratic model and use
-    Mandel’s Fitting Test to see it is better
-      - If not better, classify as poor linearity
-      - If better, check concavity of the quadratic model
-          - If concavity is negative, classify as saturation
-          - If concavity is positive, classify as limit of detection
-            (LOD)
-  - If \(R \ge{0.8}\), \(PRA \ge 80\), classify as good linearity
-=======
 Workflow 1 involves using *R* and *P**R**A* to categorise the dilution
 curves.
 
@@ -109,7 +68,6 @@ categorise the dilution curves.
         -   If concavity is positive, classify as limit of detection
             (LOD)
 -   If *R* ≥ 0.8, *P**R**A* ≥ 80, classify as good linearity
->>>>>>> 9f9f9dc37659c80a4b261bfcf12e1dfe128acded
 
 Usage
 -----
