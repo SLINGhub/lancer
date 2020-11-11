@@ -1,8 +1,8 @@
 ---
-title: "tidy-demo"
+title: "Tidy Workflow Example"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{tidy-demo}
+  %\VignetteIndexEntry{Tidy Workflow Example}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 The same workflow in README can be rewritten as a Tidyverse workflow
 
-```{r data set creation, echo = FALSE}
+```{r data set creation}
 library(DCVtestkit)
 # Data Creation
 dilution_percent <- c(10, 20, 25, 40, 50, 60,
