@@ -111,9 +111,9 @@
 <p>Mandel’s Fitting Test can be found in this <a href="https://pubs.rsc.org/en/content/articlelanding/2013/ay/c2ay26400e#!divAbstract">paper</a>. Equation ( 5 ) is used.</p>
 <p>Percent Residual Accuracy ( <em>P<strong>R</strong>A</em> ) can be found in this <a href="https://www.sciencedirect.com/science/article/abs/pii/S0039914018307549">paper</a>. Equation ( 6 ) is used.</p>
 <p>Two methods are proposed to categorise the dilution curves.</p>
-<div id="workflow-1" class="section level3">
+<div id="workflow-1-ffp" class="section level3">
 <h3 class="hasAnchor">
-<a href="#workflow-1" class="anchor"></a>Workflow 1</h3>
+<a href="#workflow-1-ffp" class="anchor"></a>Workflow 1 (FFP)</h3>
 <p>Workflow 1 involves using <em>R</em> and <em>P<strong>R</strong>A</em> to categorise the dilution curves.</p>
 <ul>
 <li>If <em>R</em> &lt; 0.8, classify as poor linearity.<br>
@@ -123,10 +123,10 @@
 <li>If <em>R</em> ≥ 0.8, <em>P<strong>R</strong>A</em> ≥ 80, classify as good linearity.</li>
 </ul>
 </div>
-<div id="workflow-2" class="section level3">
+<div id="workflow-2-complete" class="section level3">
 <h3 class="hasAnchor">
-<a href="#workflow-2" class="anchor"></a>Workflow 2</h3>
-<p>Workflow 1 involves using <em>R</em>, <em>P<strong>R</strong>A</em> and Mandel’s Fitting Test to categorise the dilution curves.</p>
+<a href="#workflow-2-complete" class="anchor"></a>Workflow 2 (Complete)</h3>
+<p>Workflow 2 involves using <em>R</em>, <em>P<strong>R</strong>A</em> and Mandel’s Fitting Test to categorise the dilution curves.</p>
 <ul>
 <li>If <em>R</em> &lt; 0.8, classify as poor linearity.</li>
 <li>If <em>R</em> ≥ 0.8, <em>P<strong>R</strong>A</em> &lt; 80 and fit quadratic model and use Mandel’s Fitting Test to see it is better
@@ -194,7 +194,7 @@
 <span id="cb2-44"><a href="#cb2-44"></a>                             <span class="dt">Lipid3 =</span> lipid3_area_lod,</span>
 <span id="cb2-45"><a href="#cb2-45"></a>                             <span class="dt">Lipid4 =</span> lipid4_area_nonlinear)</span></code></pre></div>
 <p>Merge the data together using <code>create_dilution_table</code></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Create dilution table and dilution statistical summary</span></span>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Create dilution table</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a>dilution_table &lt;-<span class="st"> </span><span class="kw">create_dilution_table</span>(dilution_annot, lipid_data,</span>
 <span id="cb3-3"><a href="#cb3-3"></a>                                        <span class="dt">common_column =</span> <span class="st">"Sample_Name"</span>,</span>
 <span id="cb3-4"><a href="#cb3-4"></a>                                        <span class="dt">signal_var =</span> <span class="st">"Area"</span>,</span>
@@ -217,7 +217,7 @@
 <span id="cb3-21"><a href="#cb3-21"></a><span class="co">#&gt; 10 Sample_020a B1                           20 Lipid2             53709</span></span>
 <span id="cb3-22"><a href="#cb3-22"></a><span class="co">#&gt; # … with 154 more rows</span></span></code></pre></div>
 <p>Summarise each dilution curve for each transition and batch with <code>summarise_dilution_table</code></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Create dilution table and dilution statistical summary</span></span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Create dilution statistical summary</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a>dilution_summary &lt;-<span class="st"> </span><span class="kw">summarise_dilution_table</span>(dilution_table,</span>
 <span id="cb4-3"><a href="#cb4-3"></a>                                             <span class="dt">grouping_variable =</span> <span class="kw">c</span>(<span class="st">"Transition_Name"</span>,</span>
 <span id="cb4-4"><a href="#cb4-4"></a>                                                                    <span class="st">"Dilution_Batch"</span>),</span>
