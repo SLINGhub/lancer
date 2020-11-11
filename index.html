@@ -56,7 +56,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/tidy-demo.html">tidy-demo</a>
+      <a href="articles/lineval-customization.html">Customise Linearity Evaluation Workflow</a>
+    </li>
+    <li>
+      <a href="articles/tidy-demo.html">Tidy Workflow Example</a>
     </li>
   </ul>
 </li>
@@ -90,43 +93,68 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install the development version from <a href="https://github.com/">GitHub</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"SLINGhub/DCVtestkit"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># install.packages("devtools")</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"SLINGhub/DCVtestkit"</span>)</span></code></pre></div>
 </div>
 <div id="how-it-works" class="section level2">
 <h2 class="hasAnchor">
 <a href="#how-it-works" class="anchor"></a>How it works</h2>
 <p>We try to categorise dilution curves based on the results of three parameters</p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</p>
 <ul>
-<li>Correlation Coefficient ( <embed src="https://latex.codecogs.com/png.latex?R" title="R"></embed> )</li>
+<li>Correlation Coefficient ( <span class="math inline"><em>R</em></span> )</li>
 <li>Mandel’s Fitting Test<br>
 </li>
-<li>Percent Residual Accuracy ( <embed src="https://latex.codecogs.com/png.latex?PRA" title="PRA"></embed> )</li>
+<li>Percent Residual Accuracy ( <span class="math inline"><em>P</em><em>R</em><em>A</em></span> )</li>
 </ul>
-<p>Correlation Coefficient ( <embed src="https://latex.codecogs.com/png.latex?R%20%22R%22"></embed> ) can be found in this <a href="https://link.springer.com/article/10.1007/s00769-002-0487-6">paper</a>. Equation ( <embed src="https://latex.codecogs.com/png.latex?1" title="1"></embed> ) is used.</p>
-<p>Mandel’s Fitting Test can be found in this <a href="https://pubs.rsc.org/en/content/articlelanding/2013/ay/c2ay26400e#!divAbstract">paper</a>. Equation ( <embed src="https://latex.codecogs.com/png.latex?5" title="5"></embed> ) is used.</p>
-<p>Percent Residual Accuracy ( <embed src="https://latex.codecogs.com/png.latex?PRA" title="PRA"></embed> ) can be found in this <a href="https://www.sciencedirect.com/science/article/abs/pii/S0039914018307549">paper</a>. Equation ( <embed src="https://latex.codecogs.com/png.latex?6" title="6"></embed> ) is used.</p>
+<p>Correlation Coefficient ( <span class="math inline"><em>R</em></span> ) can be found in this <a href="https://link.springer.com/article/10.1007/s00769-002-0487-6">paper</a>. Equation ( <span class="math inline">1</span> ) is used.</p>
+<p>Mandel’s Fitting Test can be found in this <a href="https://pubs.rsc.org/en/content/articlelanding/2013/ay/c2ay26400e#!divAbstract">paper</a>. Equation ( <span class="math inline">5</span> ) is used.</p>
+<p>Percent Residual Accuracy ( <span class="math inline"><em>P</em><em>R</em><em>A</em></span> ) can be found in this <a href="https://www.sciencedirect.com/science/article/abs/pii/S0039914018307549">paper</a>. Equation ( <span class="math inline">6</span> ) is used. =======</p>
+<ul>
+<li>Correlation Coefficient ( <em>R</em> )</li>
+<li>Mandel’s Fitting Test<br>
+</li>
+<li>Percent Residual Accuracy ( <em>P<strong>R</strong>A</em> )</li>
+</ul>
+<p>Correlation Coefficient ( <em>R</em> ) can be found in this <a href="https://link.springer.com/article/10.1007/s00769-002-0487-6">paper</a>. Equation ( 1 ) is used.</p>
+<p>Mandel’s Fitting Test can be found in this <a href="https://pubs.rsc.org/en/content/articlelanding/2013/ay/c2ay26400e#!divAbstract">paper</a>. Equation ( 5 ) is used.</p>
+<p>Percent Residual Accuracy ( <em>P<strong>R</strong>A</em> ) can be found in this <a href="https://www.sciencedirect.com/science/article/abs/pii/S0039914018307549">paper</a>. Equation ( 6 ) is used.</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>9f9f9dc37659c80a4b261bfcf12e1dfe128acded</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
 <p>Two methods are proposed to categorise the dilution curves.</p>
 <div id="workflow-1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#workflow-1" class="anchor"></a>Workflow 1</h3>
-<p>Workflow 1 involves using <embed src="https://latex.codecogs.com/png.latex?R%20%22R%22"></embed> and <embed src="https://latex.codecogs.com/png.latex?PRA" title="PRA"></embed> to categorise the dilution curves.</p>
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD Workflow 1 involves using <span class="math inline"><em>R</em></span> and <span class="math inline"><em>P</em><em>R</em><em>A</em></span> to categorise the dilution curves.</p>
 <ul>
-<li>If <embed src="https://latex.codecogs.com/png.latex?R%20%3C%200.8%20%22R%20%3C%200.8%22"></embed>, classify as poor linearity.<br>
+<li>If <span class="math inline"><em>R</em> &lt; 0.8</span>, classify as poor linearity.<br>
 </li>
-<li>If <img src="https://latex.codecogs.com/png.latex?R%20%5Cge%7B0.8%7D%20%22R%20%5Cge%7B0.8%7D%22" alt="R \ge{0.8}">, <embed src="https://latex.codecogs.com/png.latex?PRA%20%3C%2080%20%22PRA%20%3C%2080%22"></embed>, classify as poor linearity.<br>
+<li>If <span class="math inline"><em>R</em> ≥ 0.8</span>, <span class="math inline"><em>P</em><em>R</em><em>A</em> &lt; 80</span>, classify as poor linearity.<br>
 </li>
-<li>If <img src="https://latex.codecogs.com/png.latex?R%20%5Cge%7B0.8%7D%20%22R%20%5Cge%7B0.8%7D%22" alt="R \ge{0.8}">, <img src="https://latex.codecogs.com/png.latex?PRA%20%5Cge%2080%20%22PRA%20%5Cge%2080%22" alt="PRA \ge 80">, classify as good linearity.</li>
+<li>If <span class="math inline"><em>R</em> ≥ 0.8</span>, <span class="math inline"><em>P</em><em>R</em><em>A</em> ≥ 80</span>, classify as good linearity.</li>
 </ul>
 </div>
 <div id="workflow-2" class="section level3">
 <h3 class="hasAnchor">
 <a href="#workflow-2" class="anchor"></a>Workflow 2</h3>
-<p>Workflow 1 involves using <embed src="https://latex.codecogs.com/png.latex?R%20%22R%22"></embed>, <embed src="https://latex.codecogs.com/png.latex?PRA" title="PRA"></embed> and Mandel’s Fitting Test to categorise the dilution curves.</p>
+<p>Workflow 1 involves using <span class="math inline"><em>R</em></span>, <span class="math inline"><em>P</em><em>R</em><em>A</em></span> and Mandel’s Fitting Test to categorise the dilution curves.</p>
 <ul>
-<li>If <embed src="https://latex.codecogs.com/png.latex?R%20%3C%200.8%20%22R%20%3C%200.8%22"></embed>, classify as poor linearity.</li>
-<li>If <img src="https://latex.codecogs.com/png.latex?R%20%5Cge%7B0.8%7D%20%22R%20%5Cge%7B0.8%7D%22" alt="R \ge{0.8}">, <embed src="https://latex.codecogs.com/png.latex?PRA%20%3C%2080%20%22PRA%20%3C%2080%22"></embed> and fit quadratic model and use Mandel’s Fitting Test to see it is better
+<li><p>If <span class="math inline"><em>R</em> &lt; 0.8</span>, classify as poor linearity.</p></li>
+<li>
+<p>If <span class="math inline"><em>R</em> ≥ 0.8</span>, <span class="math inline"><em>P</em><em>R</em><em>A</em> &lt; 80</span> and fit quadratic model and use Mandel’s Fitting Test to see it is better</p>
 <ul>
 <li>If not better, classify as poor linearity</li>
 <li>If better, check concavity of the quadratic model
@@ -137,7 +165,51 @@
 </li>
 </ul>
 </li>
-<li>If <img src="https://latex.codecogs.com/png.latex?R%20%5Cge%7B0.8%7D%20%22R%20%5Cge%7B0.8%7D%22" alt="R \ge{0.8}">, <img src="https://latex.codecogs.com/png.latex?PRA%20%5Cge%2080%20%22PRA%20%5Cge%2080%22" alt="PRA \ge 80">, classify as good linearity</li>
+<li>
+<h1 id="if-r-ge08-pra-ge-80-classify-as-good-linearity">If <span class="math inline"><em>R</em> ≥ 0.8</span>, <span class="math inline"><em>P</em><em>R</em><em>A</em> ≥ 80</span>, classify as good linearity</h1>
+<p>Workflow 1 involves using <em>R</em> and <em>P<strong>R</strong>A</em> to categorise the dilution curves.</p>
+</li>
+<li><p>If <em>R</em> &lt; 0.8, classify as poor linearity.<br></p></li>
+<li><p>If <em>R</em> ≥ 0.8, <em>P<strong>R</strong>A</em> &lt; 80, classify as poor linearity.<br></p></li>
+<li><p>If <em>R</em> ≥ 0.8, <em>P<strong>R</strong>A</em> ≥ 80, classify as good linearity.</p></li>
+</ul>
+</div>
+<div id="workflow-2-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#workflow-2-1" class="anchor"></a>Workflow 2</h3>
+<p>Workflow 1 involves using <em>R</em>, <em>P<strong>R</strong>A</em> and Mandel’s Fitting Test to categorise the dilution curves.</p>
+<ul>
+<li><p>If <em>R</em> &lt; 0.8, classify as poor linearity.</p></li>
+<li>
+<p>If <em>R</em> ≥ 0.8, <em>P<strong>R</strong>A</em> &lt; 80 and fit quadratic model and use Mandel’s Fitting Test to see it is better</p>
+<ul>
+<li>If not better, classify as poor linearity</li>
+<li>If better, check concavity of the quadratic model
+<ul>
+<li>If concavity is negative, classify as saturation</li>
+<li>If concavity is positive, classify as limit of detection (LOD)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>If <em>R</em> ≥ 0.8, <em>P<strong>R</strong>A</em> ≥ 80, classify as good linearity</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>9f9f9dc37659c80a4b261bfcf12e1dfe128acded</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</li>
 </ul>
 </div>
 </div>
@@ -146,91 +218,87 @@
 <a href="#usage" class="anchor"></a>Usage</h2>
 <p>We first create our data set.</p>
 <p>Merge the data together using <code>create_dilution_table</code></p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Create dilution table and dilution statistical summary</span>
-<span class="va">dilution_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/create_dilution_table.html">create_dilution_table</a></span><span class="op">(</span><span class="va">dilution_annot</span>, <span class="va">lipid_data</span>,
-                                        common_column <span class="op">=</span> <span class="st">"Sample_Name"</span>,
-                                        signal_var <span class="op">=</span> <span class="st">"Area"</span>,
-                                        column_group <span class="op">=</span> <span class="st">"Transition_Name"</span>
-                                        <span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">dilution_table</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 164 x 5</span>
-<span class="co">#&gt;    Sample_Name Dilution_Batch Dilution_Percent Transition_Name     Area</span>
-<span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;                     &lt;dbl&gt; &lt;chr&gt;              &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 Sample_010a B1                           10 Lipid1           5748124</span>
-<span class="co">#&gt;  2 Sample_010a B1                           10 Lipid2             31538</span>
-<span class="co">#&gt;  3 Sample_010a B1                           10 Lipid3               544</span>
-<span class="co">#&gt;  4 Sample_010a B1                           10 Lipid4            380519</span>
-<span class="co">#&gt;  5 Sample_010a B1                           10 Lipid1           5192648</span>
-<span class="co">#&gt;  6 Sample_010a B1                           10 Lipid2             25463</span>
-<span class="co">#&gt;  7 Sample_010a B1                           10 Lipid3               500</span>
-<span class="co">#&gt;  8 Sample_010a B1                           10 Lipid4            197417</span>
-<span class="co">#&gt;  9 Sample_020a B1                           20 Lipid1          16616414</span>
-<span class="co">#&gt; 10 Sample_020a B1                           20 Lipid2             53709</span>
-<span class="co">#&gt; # ... with 154 more rows</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Create dilution table and dilution statistical summary</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>dilution_table &lt;-<span class="st"> </span><span class="kw">create_dilution_table</span>(dilution_annot, lipid_data,</span>
+<span id="cb2-3"><a href="#cb2-3"></a>                                        <span class="dt">common_column =</span> <span class="st">"Sample_Name"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4"></a>                                        <span class="dt">signal_var =</span> <span class="st">"Area"</span>,</span>
+<span id="cb2-5"><a href="#cb2-5"></a>                                        <span class="dt">column_group =</span> <span class="st">"Transition_Name"</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>                                        )</span>
+<span id="cb2-7"><a href="#cb2-7"></a></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="kw">print</span>(dilution_table, <span class="dt">width =</span> <span class="dv">100</span>)</span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="co">#&gt; # A tibble: 164 x 5</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="co">#&gt;    Sample_Name Dilution_Batch Dilution_Percent Transition_Name     Area</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;                     &lt;dbl&gt; &lt;chr&gt;              &lt;dbl&gt;</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="co">#&gt;  1 Sample_010a B1                           10 Lipid1           5748124</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="co">#&gt;  2 Sample_010a B1                           10 Lipid2             31538</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="co">#&gt;  3 Sample_010a B1                           10 Lipid3               544</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="co">#&gt;  4 Sample_010a B1                           10 Lipid4            380519</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a><span class="co">#&gt;  5 Sample_010a B1                           10 Lipid1           5192648</span></span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="co">#&gt;  6 Sample_010a B1                           10 Lipid2             25463</span></span>
+<span id="cb2-18"><a href="#cb2-18"></a><span class="co">#&gt;  7 Sample_010a B1                           10 Lipid3               500</span></span>
+<span id="cb2-19"><a href="#cb2-19"></a><span class="co">#&gt;  8 Sample_010a B1                           10 Lipid4            197417</span></span>
+<span id="cb2-20"><a href="#cb2-20"></a><span class="co">#&gt;  9 Sample_020a B1                           20 Lipid1          16616414</span></span>
+<span id="cb2-21"><a href="#cb2-21"></a><span class="co">#&gt; 10 Sample_020a B1                           20 Lipid2             53709</span></span>
+<span id="cb2-22"><a href="#cb2-22"></a><span class="co">#&gt; # … with 154 more rows</span></span></code></pre></div>
 <p>Summarise each dilution curve for each transition and batch with <code>summarise_dilution_table</code></p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Create dilution table and dilution statistical summary</span>
-<span class="va">dilution_summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/summarise_dilution_table.html">summarise_dilution_table</a></span><span class="op">(</span><span class="va">dilution_table</span>,
-                                             grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Transition_Name"</span>,
-                                                                    <span class="st">"Dilution_Batch"</span><span class="op">)</span>,
-                                             conc_var <span class="op">=</span> <span class="st">"Dilution_Percent"</span>,
-                                             signal_var <span class="op">=</span> <span class="st">"Area"</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">dilution_summary</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 8 x 9</span>
-<span class="co">#&gt;   Transition_Name Dilution_Batch r_corr r2_linear r2_adj_linear mandel_stats</span>
-<span class="co">#&gt;   &lt;chr&gt;           &lt;chr&gt;           &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;        &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 Lipid1          B1              0.952     0.906        0.901         62.5 </span>
-<span class="co">#&gt; 2 Lipid2          B1              0.978     0.957        0.954          1.19</span>
-<span class="co">#&gt; 3 Lipid3          B1              0.971     0.942        0.939         84.6 </span>
-<span class="co">#&gt; 4 Lipid4          B1              0.344     0.118        0.0718         5.11</span>
-<span class="co">#&gt; 5 Lipid1          B2              0.949     0.9          0.894         57.0 </span>
-<span class="co">#&gt; 6 Lipid2          B2              0.976     0.953        0.951          1.10</span>
-<span class="co">#&gt; 7 Lipid3          B2              0.969     0.940        0.936         82.2 </span>
-<span class="co">#&gt; 8 Lipid4          B2              0.384     0.147        0.0997         6.77</span>
-<span class="co">#&gt;   mandel_p_val pra_linear concavity</span>
-<span class="co">#&gt;          &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 0.000000290        65.8 -4134.   </span>
-<span class="co">#&gt; 2 0.290              90.2    -3.35 </span>
-<span class="co">#&gt; 3 0.0000000320       72.9     0.394</span>
-<span class="co">#&gt; 4 0.0363           -233.    -19.9  </span>
-<span class="co">#&gt; 5 0.000000792        64.6 -4147.   </span>
-<span class="co">#&gt; 6 0.308              90.0    -3.39 </span>
-<span class="co">#&gt; 7 0.0000000637       72.4     0.401</span>
-<span class="co">#&gt; 8 0.0186           -172.    -22.6</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Create dilution table and dilution statistical summary</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>dilution_summary &lt;-<span class="st"> </span><span class="kw">summarise_dilution_table</span>(dilution_table,</span>
+<span id="cb3-3"><a href="#cb3-3"></a>                                             <span class="dt">grouping_variable =</span> <span class="kw">c</span>(<span class="st">"Transition_Name"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4"></a>                                                                    <span class="st">"Dilution_Batch"</span>),</span>
+<span id="cb3-5"><a href="#cb3-5"></a>                                             <span class="dt">conc_var =</span> <span class="st">"Dilution_Percent"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6"></a>                                             <span class="dt">signal_var =</span> <span class="st">"Area"</span>)</span>
+<span id="cb3-7"><a href="#cb3-7"></a></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="kw">print</span>(dilution_summary, <span class="dt">width =</span> <span class="dv">100</span>)</span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="co">#&gt; # A tibble: 8 x 9</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt;   Transition_Name Dilution_Batch r_corr r2_linear r2_adj_linear mandel_stats</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt;   &lt;chr&gt;           &lt;chr&gt;           &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;        &lt;dbl&gt;</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="co">#&gt; 1 Lipid1          B1              0.952     0.906        0.901         62.5 </span></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="co">#&gt; 2 Lipid2          B1              0.978     0.957        0.954          1.19</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="co">#&gt; 3 Lipid3          B1              0.971     0.942        0.939         84.6 </span></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="co">#&gt; 4 Lipid4          B1              0.344     0.118        0.0718         5.11</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a><span class="co">#&gt; 5 Lipid1          B2              0.949     0.9          0.894         57.0 </span></span>
+<span id="cb3-17"><a href="#cb3-17"></a><span class="co">#&gt; 6 Lipid2          B2              0.976     0.953        0.951          1.10</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a><span class="co">#&gt; 7 Lipid3          B2              0.969     0.940        0.936         82.2 </span></span>
+<span id="cb3-19"><a href="#cb3-19"></a><span class="co">#&gt; 8 Lipid4          B2              0.384     0.147        0.0997         6.77</span></span>
+<span id="cb3-20"><a href="#cb3-20"></a><span class="co">#&gt;   mandel_p_val pra_linear concavity</span></span>
+<span id="cb3-21"><a href="#cb3-21"></a><span class="co">#&gt;          &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a><span class="co">#&gt; 1 0.000000290        65.8 -4134.   </span></span>
+<span id="cb3-23"><a href="#cb3-23"></a><span class="co">#&gt; 2 0.290              90.2    -3.35 </span></span>
+<span id="cb3-24"><a href="#cb3-24"></a><span class="co">#&gt; 3 0.0000000320       72.9     0.394</span></span>
+<span id="cb3-25"><a href="#cb3-25"></a><span class="co">#&gt; 4 0.0363           -233.    -19.9  </span></span>
+<span id="cb3-26"><a href="#cb3-26"></a><span class="co">#&gt; 5 0.000000792        64.6 -4147.   </span></span>
+<span id="cb3-27"><a href="#cb3-27"></a><span class="co">#&gt; 6 0.308              90.0    -3.39 </span></span>
+<span id="cb3-28"><a href="#cb3-28"></a><span class="co">#&gt; 7 0.0000000637       72.4     0.401</span></span>
+<span id="cb3-29"><a href="#cb3-29"></a><span class="co">#&gt; 8 0.0186           -172.    -22.6</span></span></code></pre></div>
 <p>Classify each dilution curve according to Workflow 1 and Workflow 2.<br><code>wf1_group1</code> gives the results of Workflow 1<br><code>wf2_group2</code> gives the results of Workflow 2</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dilution_classified</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/evaluate_linearity.html">evaluate_linearity</a></span><span class="op">(</span><span class="va">dilution_summary</span>,
-                                          grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Transition_Name"</span>,
-                                                                <span class="st">"Dilution_Batch"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">dilution_classified</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 8 x 11</span>
-<span class="co">#&gt;   Transition_Name Dilution_Batch wf1_group      wf2_group      r_corr pra_linear</span>
-<span class="co">#&gt;   &lt;chr&gt;           &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;           &lt;dbl&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 Lipid1          B1             Poor Linearity Saturation      0.952       65.8</span>
-<span class="co">#&gt; 2 Lipid2          B1             Good Linearity Good Linearity  0.978       90.2</span>
-<span class="co">#&gt; 3 Lipid3          B1             Poor Linearity LOD             0.971       72.9</span>
-<span class="co">#&gt; 4 Lipid4          B1             Poor Linearity Poor Linearity  0.344     -233. </span>
-<span class="co">#&gt; 5 Lipid1          B2             Poor Linearity Saturation      0.949       64.6</span>
-<span class="co">#&gt; 6 Lipid2          B2             Good Linearity Good Linearity  0.976       90.0</span>
-<span class="co">#&gt; 7 Lipid3          B2             Poor Linearity LOD             0.969       72.4</span>
-<span class="co">#&gt; 8 Lipid4          B2             Poor Linearity Poor Linearity  0.384     -172. </span>
-<span class="co">#&gt;   mandel_p_val concavity r2_linear r2_adj_linear mandel_stats</span>
-<span class="co">#&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;        &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 0.000000290  -4134.        0.906        0.901         62.5 </span>
-<span class="co">#&gt; 2 0.290           -3.35      0.957        0.954          1.19</span>
-<span class="co">#&gt; 3 0.0000000320     0.394     0.942        0.939         84.6 </span>
-<span class="co">#&gt; 4 0.0363         -19.9       0.118        0.0718         5.11</span>
-<span class="co">#&gt; 5 0.000000792  -4147.        0.9          0.894         57.0 </span>
-<span class="co">#&gt; 6 0.308           -3.39      0.953        0.951          1.10</span>
-<span class="co">#&gt; 7 0.0000000637     0.401     0.940        0.936         82.2 </span>
-<span class="co">#&gt; 8 0.0186         -22.6       0.147        0.0997         6.77</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>dilution_classified &lt;-<span class="st"> </span><span class="kw">evaluate_linearity</span>(dilution_summary,</span>
+<span id="cb4-2"><a href="#cb4-2"></a>                                          <span class="dt">grouping_variable =</span> <span class="kw">c</span>(<span class="st">"Transition_Name"</span>,</span>
+<span id="cb4-3"><a href="#cb4-3"></a>                                                                <span class="st">"Dilution_Batch"</span>))</span>
+<span id="cb4-4"><a href="#cb4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="kw">print</span>(dilution_classified, <span class="dt">width =</span> <span class="dv">100</span>)</span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt; # A tibble: 8 x 11</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt;   Transition_Name Dilution_Batch wf1_group      wf2_group      r_corr pra_linear</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt;   &lt;chr&gt;           &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;           &lt;dbl&gt;      &lt;dbl&gt;</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt; 1 Lipid1          B1             Poor Linearity Saturation      0.952       65.8</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt; 2 Lipid2          B1             Good Linearity Good Linearity  0.978       90.2</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt; 3 Lipid3          B1             Poor Linearity LOD             0.971       72.9</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="co">#&gt; 4 Lipid4          B1             Poor Linearity Poor Linearity  0.344     -233. </span></span>
+<span id="cb4-13"><a href="#cb4-13"></a><span class="co">#&gt; 5 Lipid1          B2             Poor Linearity Saturation      0.949       64.6</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="co">#&gt; 6 Lipid2          B2             Good Linearity Good Linearity  0.976       90.0</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="co">#&gt; 7 Lipid3          B2             Poor Linearity LOD             0.969       72.4</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="co">#&gt; 8 Lipid4          B2             Poor Linearity Poor Linearity  0.384     -172. </span></span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="co">#&gt;   mandel_p_val concavity r2_linear r2_adj_linear mandel_stats</span></span>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="co">#&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;        &lt;dbl&gt;</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a><span class="co">#&gt; 1 0.000000290  -4134.        0.906        0.901         62.5 </span></span>
+<span id="cb4-20"><a href="#cb4-20"></a><span class="co">#&gt; 2 0.290           -3.35      0.957        0.954          1.19</span></span>
+<span id="cb4-21"><a href="#cb4-21"></a><span class="co">#&gt; 3 0.0000000320     0.394     0.942        0.939         84.6 </span></span>
+<span id="cb4-22"><a href="#cb4-22"></a><span class="co">#&gt; 4 0.0363         -19.9       0.118        0.0718         5.11</span></span>
+<span id="cb4-23"><a href="#cb4-23"></a><span class="co">#&gt; 5 0.000000792  -4147.        0.9          0.894         57.0 </span></span>
+<span id="cb4-24"><a href="#cb4-24"></a><span class="co">#&gt; 6 0.308           -3.39      0.953        0.951          1.10</span></span>
+<span id="cb4-25"><a href="#cb4-25"></a><span class="co">#&gt; 7 0.0000000637     0.401     0.940        0.936         82.2 </span></span>
+<span id="cb4-26"><a href="#cb4-26"></a><span class="co">#&gt; 8 0.0186         -22.6       0.147        0.0997         6.77</span></span></code></pre></div>
 <p>Results can be exported to Excel via <code>create_excel_report</code></p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/create_excel_report.html">create_excel_report</a></span><span class="op">(</span><span class="va">dilution_classified</span>, file_name <span class="op">=</span> <span class="st">"dilution_summary.xlsx"</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">create_excel_report</span>(dilution_classified, <span class="dt">file_name =</span> <span class="st">"dilution_summary.xlsx"</span>)</span></code></pre></div>
 <p><img src="reference/figures/README-ExcelResults.png" alt="Excel Report"></p>
 </div>
 </div>
