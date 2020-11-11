@@ -32,8 +32,8 @@ We try to categorise dilution curves based on the results of three
 parameters
 
 -   Correlation Coefficient ( *R* )
--   Mandel’s Fitting Test  
 -   Percent Residual Accuracy ( *P**R**A* )
+-   Mandel’s Fitting Test
 
 Correlation Coefficient ( *R* ) can be found in this
 [paper](https://link.springer.com/article/10.1007/s00769-002-0487-6).
