@@ -58,14 +58,14 @@ curves.
 -   If *R* ≥ 0.8, *P**R**A* &lt; 80, classify as poor linearity.  
 -   If *R* ≥ 0.8, *P**R**A* ≥ 80, classify as good linearity.
 
-### Workflow 2 (Complete)
+### Workflow 2
 
 Workflow 2 involves using *R*, *P**R**A* and Mandel’s Fitting Test to
 categorise the dilution curves.
 
 -   If *R* &lt; 0.8, classify as poor linearity.
--   If *R* ≥ 0.8, *P**R**A* &lt; 80 and fit quadratic model and use
-    Mandel’s Fitting Test to see it is better
+-   If *R* ≥ 0.8, *P**R**A* &lt; 80, fit the quadratic model and use
+    Mandel’s Fitting Test to see if the quadratic model is a better fit
     -   If not better, classify as poor linearity
     -   If better, check concavity of the quadratic model
         -   If concavity is negative, classify as saturation
