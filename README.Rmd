@@ -39,8 +39,8 @@ If this repository is private, go to this [link](https://maurolepore.netlify.app
 We try to categorise dilution curves based on the results of three parameters  
 
  * Correlation Coefficient ( $R$ ) 
- * Mandel's Fitting Test  
- * Percent Residual Accuracy ( $PRA$ )  
+ * Percent Residual Accuracy ( $PRA$ )
+ * Mandel's Fitting Test
 
 Correlation Coefficient ( $R$ ) can be found in this [paper](https://link.springer.com/article/10.1007/s00769-002-0487-6).
 Equation ( $1$ ) is used.
