@@ -49,7 +49,7 @@ Equation ( 6 ) is used.
 
 Two methods are proposed to categorise the dilution curves.
 
-### Workflow 1
+### Workflow 1 (FFP)
 
 Workflow 1 involves using *R* and *P**R**A* to categorise the dilution
 curves.
@@ -58,9 +58,9 @@ curves.
 -   If *R* ≥ 0.8, *P**R**A* &lt; 80, classify as poor linearity.  
 -   If *R* ≥ 0.8, *P**R**A* ≥ 80, classify as good linearity.
 
-### Workflow 2
+### Workflow 2 (Complete)
 
-Workflow 1 involves using *R*, *P**R**A* and Mandel’s Fitting Test to
+Workflow 2 involves using *R*, *P**R**A* and Mandel’s Fitting Test to
 categorise the dilution curves.
 
 -   If *R* &lt; 0.8, classify as poor linearity.
@@ -126,7 +126,7 @@ We first create our data set.
 
 Merge the data together using `create_dilution_table`
 
-    # Create dilution table and dilution statistical summary
+    # Create dilution table
     dilution_table <- create_dilution_table(dilution_annot, lipid_data,
                                             common_column = "Sample_Name",
                                             signal_var = "Area",
@@ -152,7 +152,7 @@ Merge the data together using `create_dilution_table`
 Summarise each dilution curve for each transition and batch with
 `summarise_dilution_table`
 
-    # Create dilution table and dilution statistical summary
+    # Create dilution statistical summary
     dilution_summary <- summarise_dilution_table(dilution_table,
                                                  grouping_variable = c("Transition_Name",
                                                                         "Dilution_Batch"),
