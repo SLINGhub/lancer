@@ -12,10 +12,10 @@ test_that("Able to print dilution summary data to excel", {
                    "Sample_040a", "Sample_050a", "Sample_060a",
                    "Sample_075a", "Sample_080a", "Sample_100a",
                    "Sample_125a", "Sample_150a",
-                   "Sample_010a", "Sample_025a",
-                   "Sample_040a", "Sample_050a", "Sample_060a",
-                   "Sample_075a", "Sample_080a", "Sample_100a",
-                   "Sample_125a", "Sample_150a")
+                   "Sample_010b", "Sample_025b",
+                   "Sample_040b", "Sample_050b", "Sample_060b",
+                   "Sample_075b", "Sample_080b", "Sample_100b",
+                   "Sample_125b", "Sample_150b")
   lipid1_area_saturated <- c(5748124, 16616414, 21702718, 36191617,
                              49324541, 55618266, 66947588, 74964771,
                              75438063, 91770737, 94692060,

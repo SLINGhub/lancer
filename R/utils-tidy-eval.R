@@ -69,8 +69,8 @@ NULL
 #' syms_reduce(c("1()", "`a`e", "_foo"))
 #' syms_reduce(c("a", "b", "c"), op = "*")
 #' syms_reduce(c("a", "b", "c"), op = "plus")
-#' @rdname syms_reduce
 #' @export
+#' @rdname syms_reduce
 syms_reduce <- function(syms, op = "+") {
   exprs_reduce(rlang::syms(syms), op = op)
 }

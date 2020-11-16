@@ -32,7 +32,7 @@ You can install the development version from [GitHub](https://github.com/) with:
 devtools::install_github("SLINGhub/DCVtestkit")
 ```
 
-If this repository is private, go to this [link](https://maurolepore.netlify.app/2017/12/06/2017-12-06-best-prectice-for-installing-packages-from-private-repos/) to learn how to set up your autorization token.
+If this repository is private, go to this [link](https://maurolepore.netlify.app/2017/12/06/2017-12-06-best-prectice-for-installing-packages-from-private-repos/) to learn how to set up your authorization token.
 
 ## How it works
 
@@ -53,7 +53,7 @@ Equation ( $6$ ) is used.
 
 Two methods are proposed to categorise the dilution curves.
 
-### Workflow 1 (FFP)
+### Workflow 1 (Fit For Purpose)
 
 Workflow 1 involves using $R$ and $PRA$ to categorise the dilution curves.
 
@@ -92,10 +92,10 @@ sample_name <- c("Sample_010a", "Sample_020a", "Sample_025a",
                  "Sample_040a", "Sample_050a", "Sample_060a",
                  "Sample_075a", "Sample_080a", "Sample_100a",
                  "Sample_125a", "Sample_150a",
-                 "Sample_010a", "Sample_025a",
-                 "Sample_040a", "Sample_050a", "Sample_060a",
-                 "Sample_075a", "Sample_080a", "Sample_100a",
-                 "Sample_125a", "Sample_150a")
+                 "Sample_010b", "Sample_025b",
+                 "Sample_040b", "Sample_050b", "Sample_060b",
+                 "Sample_075b", "Sample_080b", "Sample_100b",
+                 "Sample_125b", "Sample_150b")
 lipid1_area_saturated <- c(5748124, 16616414, 21702718, 36191617,
                            49324541, 55618266, 66947588, 74964771,
                            75438063, 91770737, 94692060,
