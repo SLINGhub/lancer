@@ -31,22 +31,35 @@ to learn how to set up your authorization token.
 We try to categorise dilution curves based on the results of three
 parameters
 
+<<<<<<< HEAD
   - Correlation Coefficient ( \(R\) )
   - Percent Residual Accuracy ( \(PRA\) )
   - Mandel’s Fitting Test
 
 Correlation Coefficient ( \(R\) ) can be found in Van Loco, J., Elskens,
+=======
+-   Correlation Coefficient ( *R* )
+-   Percent Residual Accuracy ( *P**R**A* )
+-   Mandel’s Fitting Test
+
+Correlation Coefficient ( *R* ) can be found in Van Loco, J., Elskens,
+>>>>>>> f54a15cc19d28b49352091529f7a5130a0c7f9af
 M., Croux, C. *et al.*, Linearity of calibration curves: use and misuse
 of the correlation coefficient. *Accred Qual Assur* **7**, 281-285
 (2002).
 [10.1007/s00769-002-0487-6](https://doi.org/10.1007/s00769-002-0487-6).  
+<<<<<<< HEAD
 Equation ( \(1\) ) is used.
+=======
+Equation ( 1 ) is used.
+>>>>>>> f54a15cc19d28b49352091529f7a5130a0c7f9af
 
 Mandel’s Fitting Test can be found in Andrade, J. M. and
 Gómez-Carracedo, M. P., Notes on the use of Mandel’s test to check for
 nonlinearity in laboratory calibrations. *Anal. Methods* **5**,
 1145-1149 (2013).
 [10.1039/C2AY26400E](https://dx.doi.org/10.1039/C2AY26400E).  
+<<<<<<< HEAD
 Equation ( \(5\) ) is used.
 
 Percent Residual Accuracy ( \(PRA\) ) can be found in Logue, B. A. and
@@ -54,6 +67,15 @@ Manandhar, E., Percent residual accuracy for quantifying goodness-of-fit
 of linear calibration curves. *Talanta* **189**, 527-533 (2018).
 [10.1016/j.talanta.2018.07.046](https://doi.org/10.1016/j.talanta.2018.07.046).  
 Equation ( \(6\) ) is used.
+=======
+Equation ( 5 ) is used.
+
+Percent Residual Accuracy ( *P**R**A* ) can be found in Logue, B. A. and
+Manandhar, E., Percent residual accuracy for quantifying goodness-of-fit
+of linear calibration curves. *Talanta* **189**, 527-533 (2018).
+[10.1016/j.talanta.2018.07.046](https://doi.org/10.1016/j.talanta.2018.07.046).  
+Equation ( 6 ) is used.
+>>>>>>> f54a15cc19d28b49352091529f7a5130a0c7f9af
 
 Two methods are proposed to categorise the dilution curves.
 
