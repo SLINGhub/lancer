@@ -35,16 +35,24 @@ parameters
 -   Percent Residual Accuracy ( *P**R**A* )
 -   Mandel’s Fitting Test
 
-Correlation Coefficient ( *R* ) can be found in this
-[paper](https://link.springer.com/article/10.1007/s00769-002-0487-6).
+Correlation Coefficient ( *R* ) can be found in Van Loco, J., Elskens,
+M., Croux, C. *et al.*, Linearity of calibration curves: use and misuse
+of the correlation coefficient. *Accred Qual Assur* **7**, 281-285
+(2002).
+[10.1007/s00769-002-0487-6](https://doi.org/10.1007/s00769-002-0487-6).  
 Equation ( 1 ) is used.
 
-Mandel’s Fitting Test can be found in this
-[paper](https://pubs.rsc.org/en/content/articlelanding/2013/ay/c2ay26400e#!divAbstract).
+Mandel’s Fitting Test can be found in Andrade, J. M. and
+Gómez-Carracedo, M. P., Notes on the use of Mandel’s test to check for
+nonlinearity in laboratory calibrations. *Anal. Methods* **5**,
+1145-1149 (2013).
+[10.1039/C2AY26400E](https://dx.doi.org/10.1039/C2AY26400E).  
 Equation ( 5 ) is used.
 
-Percent Residual Accuracy ( *P**R**A* ) can be found in this
-[paper](https://www.sciencedirect.com/science/article/abs/pii/S0039914018307549).
+Percent Residual Accuracy ( *P**R**A* ) can be found in Logue, B. A. and
+Manandhar, E., Percent residual accuracy for quantifying goodness-of-fit
+of linear calibration curves. *Talanta* **189**, 527-533 (2018).
+[10.1016/j.talanta.2018.07.046](https://doi.org/10.1016/j.talanta.2018.07.046).  
 Equation ( 6 ) is used.
 
 Two methods are proposed to categorise the dilution curves.
