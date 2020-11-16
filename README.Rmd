@@ -52,6 +52,8 @@ Equation ( $5$ ) is used.
 Percent Residual Accuracy ( $PRA$ ) can be found in Logue, B. A. and Manandhar, E., Percent residual accuracy for quantifying goodness-of-fit of linear calibration curves. *Talanta* **189**, 527-533 (2018). [10.1016/j.talanta.2018.07.046](https://doi.org/10.1016/j.talanta.2018.07.046).  
 Equation ( $6$ ) is used.
 
+## Workflow Proposed
+
 Two methods are proposed to categorise the dilution curves.
 
 ### Workflow 1 (Fit For Purpose)
