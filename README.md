@@ -66,6 +66,7 @@ categorise the dilution curves.
 -   If *R* &lt; 0.8, classify as poor linearity.
 -   If *R* ≥ 0.8, *P**R**A* &lt; 80, fit the quadratic model and use
     Mandel’s Fitting Test to see if the quadratic model is a better fit
+    ( p value  &lt; 0.05 ).
     -   If not better, classify as poor linearity
     -   If better, check concavity of the quadratic model
         -   If concavity is negative, classify as saturation
