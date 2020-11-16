@@ -2,7 +2,8 @@ pandoc: 2.7.3
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
+  grouping: grouping.html
   lineval-customization: lineval-customization.html
   tidy-demo: tidy-demo.html
-last_built: 2020-11-16T06:52Z
+last_built: 2020-11-16T08:08Z
 
