@@ -23,7 +23,7 @@ You can install the development version from
 
 If this repository is private, go to this
 [link](https://maurolepore.netlify.app/2017/12/06/2017-12-06-best-prectice-for-installing-packages-from-private-repos/)
-to learn how to set up your autorization token.
+to learn how to set up your authorization token.
 
 How it works
 ------------
@@ -49,7 +49,7 @@ Equation ( 6 ) is used.
 
 Two methods are proposed to categorise the dilution curves.
 
-### Workflow 1 (FFP)
+### Workflow 1 (Fit For Purpose)
 
 Workflow 1 involves using *R* and *P**R**A* to categorise the dilution
 curves.
@@ -93,10 +93,10 @@ We first create our data set.
                      "Sample_040a", "Sample_050a", "Sample_060a",
                      "Sample_075a", "Sample_080a", "Sample_100a",
                      "Sample_125a", "Sample_150a",
-                     "Sample_010a", "Sample_025a",
-                     "Sample_040a", "Sample_050a", "Sample_060a",
-                     "Sample_075a", "Sample_080a", "Sample_100a",
-                     "Sample_125a", "Sample_150a")
+                     "Sample_010b", "Sample_025b",
+                     "Sample_040b", "Sample_050b", "Sample_060b",
+                     "Sample_075b", "Sample_080b", "Sample_100b",
+                     "Sample_125b", "Sample_150b")
     lipid1_area_saturated <- c(5748124, 16616414, 21702718, 36191617,
                                49324541, 55618266, 66947588, 74964771,
                                75438063, 91770737, 94692060,
@@ -135,20 +135,20 @@ Merge the data together using `create_dilution_table`
                                             )
 
     print(dilution_table, width = 100)
-    #> # A tibble: 164 x 5
+    #> # A tibble: 84 x 5
     #>    Sample_Name Dilution_Batch Dilution_Percent Transition_Name     Area
     #>    <chr>       <chr>                     <dbl> <chr>              <dbl>
     #>  1 Sample_010a B1                           10 Lipid1           5748124
     #>  2 Sample_010a B1                           10 Lipid2             31538
     #>  3 Sample_010a B1                           10 Lipid3               544
     #>  4 Sample_010a B1                           10 Lipid4            380519
-    #>  5 Sample_010a B1                           10 Lipid1           5192648
-    #>  6 Sample_010a B1                           10 Lipid2             25463
-    #>  7 Sample_010a B1                           10 Lipid3               500
-    #>  8 Sample_010a B1                           10 Lipid4            197417
-    #>  9 Sample_020a B1                           20 Lipid1          16616414
-    #> 10 Sample_020a B1                           20 Lipid2             53709
-    #> # … with 154 more rows
+    #>  5 Sample_020a B1                           20 Lipid1          16616414
+    #>  6 Sample_020a B1                           20 Lipid2             53709
+    #>  7 Sample_020a B1                           20 Lipid3               397
+    #>  8 Sample_020a B1                           20 Lipid4            485372
+    #>  9 Sample_025a B1                           25 Lipid1          21702718
+    #> 10 Sample_025a B1                           25 Lipid2             69990
+    #> # … with 74 more rows
 
 Summarise each dilution curve for each transition and batch with
 `summarise_dilution_table`
@@ -164,24 +164,24 @@ Summarise each dilution curve for each transition and batch with
     #> # A tibble: 8 x 9
     #>   Transition_Name Dilution_Batch r_corr r2_linear r2_adj_linear mandel_stats
     #>   <chr>           <chr>           <dbl>     <dbl>         <dbl>        <dbl>
-    #> 1 Lipid1          B1              0.952     0.906        0.901         62.5 
-    #> 2 Lipid2          B1              0.978     0.957        0.954          1.19
-    #> 3 Lipid3          B1              0.971     0.942        0.939         84.6 
-    #> 4 Lipid4          B1              0.344     0.118        0.0718         5.11
-    #> 5 Lipid1          B2              0.949     0.9          0.894         57.0 
-    #> 6 Lipid2          B2              0.976     0.953        0.951          1.10
-    #> 7 Lipid3          B2              0.969     0.940        0.936         82.2 
-    #> 8 Lipid4          B2              0.384     0.147        0.0997         6.77
+    #> 1 Lipid1          B1              0.963    0.928        0.920         71.2  
+    #> 2 Lipid2          B1              0.990    0.980        0.978          2.53 
+    #> 3 Lipid3          B1              0.964    0.930        0.922        106.   
+    #> 4 Lipid4          B1              0.311    0.0970      -0.00333       13.2  
+    #> 5 Lipid1          B2              0.950    0.903        0.890         52.9  
+    #> 6 Lipid2          B2              0.995    0.990        0.988          0.868
+    #> 7 Lipid3          B2              0.978    0.956        0.951         20.9  
+    #> 8 Lipid4          B2              0.608    0.370        0.291          5.39 
     #>   mandel_p_val pra_linear concavity
     #>          <dbl>      <dbl>     <dbl>
-    #> 1 0.000000290        65.8 -4134.   
-    #> 2 0.290              90.2    -3.35 
-    #> 3 0.0000000320       72.9     0.394
-    #> 4 0.0363           -233.    -19.9  
-    #> 5 0.000000792        64.6 -4147.   
-    #> 6 0.308              90.0    -3.39 
-    #> 7 0.0000000637       72.4     0.401
-    #> 8 0.0186           -172.    -22.6
+    #> 1   0.0000297        70.5 -4174.   
+    #> 2   0.150            92.8    -4.91 
+    #> 3   0.00000678       71.2     0.468
+    #> 4   0.00660        -251.    -20.5  
+    #> 5   0.000166         62.3 -4137.   
+    #> 6   0.382            94.3    -1.94 
+    #> 7   0.00256          74.7     0.321
+    #> 8   0.0533          -73.1   -22.9
 
 Classify each dilution curve according to Workflow 1 and Workflow 2.  
 `wf1_group1` gives the results of Workflow 1  
@@ -195,24 +195,24 @@ Classify each dilution curve according to Workflow 1 and Workflow 2.
     #> # A tibble: 8 x 11
     #>   Transition_Name Dilution_Batch wf1_group      wf2_group      r_corr pra_linear
     #>   <chr>           <chr>          <chr>          <chr>           <dbl>      <dbl>
-    #> 1 Lipid1          B1             Poor Linearity Saturation      0.952       65.8
-    #> 2 Lipid2          B1             Good Linearity Good Linearity  0.978       90.2
-    #> 3 Lipid3          B1             Poor Linearity LOD             0.971       72.9
-    #> 4 Lipid4          B1             Poor Linearity Poor Linearity  0.344     -233. 
-    #> 5 Lipid1          B2             Poor Linearity Saturation      0.949       64.6
-    #> 6 Lipid2          B2             Good Linearity Good Linearity  0.976       90.0
-    #> 7 Lipid3          B2             Poor Linearity LOD             0.969       72.4
-    #> 8 Lipid4          B2             Poor Linearity Poor Linearity  0.384     -172. 
+    #> 1 Lipid1          B1             Poor Linearity Saturation      0.963       70.5
+    #> 2 Lipid2          B1             Good Linearity Good Linearity  0.990       92.8
+    #> 3 Lipid3          B1             Poor Linearity LOD             0.964       71.2
+    #> 4 Lipid4          B1             Poor Linearity Poor Linearity  0.311     -251. 
+    #> 5 Lipid1          B2             Poor Linearity Saturation      0.950       62.3
+    #> 6 Lipid2          B2             Good Linearity Good Linearity  0.995       94.3
+    #> 7 Lipid3          B2             Poor Linearity LOD             0.978       74.7
+    #> 8 Lipid4          B2             Poor Linearity Poor Linearity  0.608      -73.1
     #>   mandel_p_val concavity r2_linear r2_adj_linear mandel_stats
     #>          <dbl>     <dbl>     <dbl>         <dbl>        <dbl>
-    #> 1 0.000000290  -4134.        0.906        0.901         62.5 
-    #> 2 0.290           -3.35      0.957        0.954          1.19
-    #> 3 0.0000000320     0.394     0.942        0.939         84.6 
-    #> 4 0.0363         -19.9       0.118        0.0718         5.11
-    #> 5 0.000000792  -4147.        0.9          0.894         57.0 
-    #> 6 0.308           -3.39      0.953        0.951          1.10
-    #> 7 0.0000000637     0.401     0.940        0.936         82.2 
-    #> 8 0.0186         -22.6       0.147        0.0997         6.77
+    #> 1   0.0000297  -4174.       0.928        0.920         71.2  
+    #> 2   0.150         -4.91     0.980        0.978          2.53 
+    #> 3   0.00000678     0.468    0.930        0.922        106.   
+    #> 4   0.00660      -20.5      0.0970      -0.00333       13.2  
+    #> 5   0.000166   -4137.       0.903        0.890         52.9  
+    #> 6   0.382         -1.94     0.990        0.988          0.868
+    #> 7   0.00256        0.321    0.956        0.951         20.9  
+    #> 8   0.0533       -22.9      0.370        0.291          5.39
 
 Results can be exported to Excel via `create_excel_report`
 
