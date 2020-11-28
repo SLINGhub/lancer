@@ -13,7 +13,7 @@
 #' @param pal Input palette for each dilution batch group in `dil_batch_var`.
 #' It is a named char vector where each value is a colour and
 #' name is a dilution batch group given in `dil_batch_var`
-#' @return Output Dilution Plot data of one dilution batch per transition
+#' @return Output ggplot dilution plot data of one dilution batch per transition
 #' @rdname dilution_plot_ggplot
 #' @export
 dilution_plot_ggplot = function(dilution_data,
@@ -60,11 +60,46 @@ dilution_plot_ggplot = function(dilution_data,
 }
 
 
+#' @title Create a ggplot table
+#' @description Create a ggplot table suited for a pdf report
+#' @param dilution_table Output given from the function `create_dilution_table`
+#' It is in long table format with columns indicating at least the
+#' lipid/transition name, the concentration and signal. Other columns may be
+#' present if it is used to group the dilution curve together
+#' @param dilution_summary The summary table generated
+#' by function `summarise_dilution_table` and/or `evaluate_linearity`
+#' but it can also be any generic data frame or tibble.
+#' If there is no input given in this, the program will create one using
+#' the function `summarise_dilution_table` and `evaluate_linearity` with
+#' `grouping_variable`, `conc_var` and `signal_var` as inputs
+#' Default: NULL
+#' @param grouping_variable A character vector of
+#' column names in `dilution_table`to indicate how each dilution curve
+#' should be grouped by,
+#' Default: c("Transition_Name", "Dilution_Batch")
+#' @param dil_batch_var Column name in `dilution_table`
+#' to indicate the group name of each dilution batch,
+#' used to colour the points in the dilution plot
+#' Default: 'Dilution_Batch'
+#' @param dil_batch_col A vector of colurs to be used for the dilution
+#' batch group named given in `dil_batch_var`,
+#' Default: c("#377eb8", "#4daf4a", "#9C27B0", "#BCAAA4", "#FF8A65", "#EFBBCF")
+#' @param conc_var Column name in `dilution_table` to indicate concentration
+#' Default: 'Dilution_Percent'
+#' @param conc_var_units Unit of measure for `conc_var`, Default: '%'
+#' @param conc_var_interval Distance between two tick labels in the dilution plot,
+#' Default: 50
+#' @param signal_var Column name in `dilution_table` to indicate signal
+#' Default: 'Area'
+#' @return A table with columns from `groupung variable`
+#' and a new column `panel` created containing a ggplot dilution plot
+#' in each row. This column is used to create the plot figure in the
+#' pdf report.
+#' @rdname create_ggplot_table
 #' @export
 create_ggplot_table <- function(dilution_table, dilution_summary = NULL,
                                 grouping_variable = c("Transition_Name",
                                                       "Dilution_Batch"),
-                                sample_name_var = "Sample_Name",
                                 dil_batch_var = "Dilution_Batch",
                                 dil_batch_col = c("#377eb8",
                                                   "#4daf4a",
@@ -80,7 +115,6 @@ create_ggplot_table <- function(dilution_table, dilution_summary = NULL,
   # Check if dilution_table is valid with the relevant columns
   validate_dilution_table(dilution_table,
                           needed_column = c(grouping_variable,
-                                            sample_name_var,
                                             dil_batch_var,
                                             conc_var,
                                             signal_var)

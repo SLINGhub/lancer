@@ -2,13 +2,13 @@
 % Please edit documentation in R/cognostics.R
 \name{get_dil_default_cognostics}
 \alias{get_dil_default_cognostics}
-\title{Get Dilution Default Cognostics}
+\title{Get dilution plots default cognostics}
 \usage{
 get_dil_default_cognostics(dilution_summary)
 }
 \arguments{
-\item{dilution_summary}{A data frame or tibble output
-from the function \code{get_dilution_summary}}
+\item{dilution_summary}{The summary table generated
+by function \code{summarise_dilution_table} and/or \code{evaluate_linearity}}
 }
 \value{
 Output a data frame with added cognostics

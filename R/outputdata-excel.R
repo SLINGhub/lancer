@@ -1,7 +1,7 @@
 #' @title Mark near zero columns
 #' @description Mark numeric columns with near zero values from a dataset
-#' @param dilution_summary A data frame or tibble output
-#' from the function `get_dilution_summary`
+#' @param dilution_summary The summary table generated
+#' by function `summarise_dilution_table` and/or `evaluate_linearity`
 #' but it can also be any generic data frame or tibble
 #' @return A data frame or tibble with the class with numeric columns
 #' with near zero values changed from numeric to scientific
@@ -47,8 +47,8 @@ mark_near_zero_columns <- function(dilution_summary) {
 
 #' @title Get column number style
 #' @description Get column number style for excel
-#' @param dilution_summary A data frame or tibble output
-#' from the function `get_dilution_summary`
+#' @param dilution_summary The summary table generated
+#' by function `summarise_dilution_table` and/or `evaluate_linearity`
 #' but it can also be any generic data frame or tibble
 #' @param workbook A workbook object from `openxlsx`
 #' @param sheet The name of the sheet to apply the numeric style on `workbook`
@@ -106,8 +106,8 @@ get_column_number_style <- function(dilution_summary, workbook, sheet) {
 #' based on if a given word on a given character column from `dilution summary`
 #' @param workbook A workbook object from `openxlsx`
 #' @param sheet The name of the sheet to apply the numeric style on `workbook`
-#' @param dilution_summary A data frame or tibble output
-#' from the function `get_dilution_summary`
+#' @param dilution_summary The summary table generated
+#' by function `summarise_dilution_table` and/or `evaluate_linearity`
 #' @param conditional_column A string to indicate which column
 #' in `dilution_summary` to use
 #' @param pass_criteria_words A character vector to highlight
@@ -183,8 +183,8 @@ two_col_word_cond_format <- function(workbook, sheet,
 #' on a given numeric column from `dilution summary`
 #' @param workbook A workbook object from `openxlsx`
 #' @param sheet The name of the sheet to apply the numeric style on `workbook`
-#' @param dilution_summary A data frame or tibble
-#' output from the function `get_dilution_summary`
+#' @param dilution_summary The summary table generated
+#' by function `summarise_dilution_table` and/or `evaluate_linearity`
 #' @param conditional_column A character vector to
 #' indicate which column in `dilution_summary` to use
 #' @param threshold_value The threshold value to indicate a pass or fail
@@ -277,7 +277,7 @@ two_col_num_cond_format <- function(workbook, sheet,
 #' @title Create Excel Report
 #'
 #' @param dilution_summary The summary table generated
-#' by function `summarise_dilution_table`
+#' by function `summarise_dilution_table` and/or `evaluate_linearity`
 #' @param file_name Name of the excel file
 #' @param sheet_name Sheet name to output the results
 #' in Excel, Default: 'Dilution Summary'

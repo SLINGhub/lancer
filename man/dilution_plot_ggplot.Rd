@@ -9,6 +9,8 @@ dilution_plot_ggplot(
   title,
   dil_batch_var,
   conc_var,
+  conc_var_units,
+  conc_var_interval,
   signal_var,
   pal
 )
@@ -24,6 +26,11 @@ used to colour the points in the dilution plot}
 
 \item{conc_var}{Column name in \code{dilution_data} to indicate concentration}
 
+\item{conc_var_units}{Unit of measure for \code{conc_var}}
+
+\item{conc_var_interval}{Distance between two tick labels
+during \code{conc_var} plotting. Tick label will alway start from 0}
+
 \item{signal_var}{Column name in \code{dilution_data} to indicate signal}
 
 \item{pal}{Input palette for each dilution batch group in \code{dil_batch_var}.
@@ -31,7 +38,7 @@ It is a named char vector where each value is a colour and
 name is a dilution batch group given in \code{dil_batch_var}}
 }
 \value{
-Output Dilution Plot data of one dilution batch per transition
+Output ggplot dilution plot data of one dilution batch per transition
 }
 \description{
 Plot Dilution Data using ggplot2
