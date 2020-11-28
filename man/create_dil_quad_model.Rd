@@ -9,9 +9,9 @@ create_dil_quad_model(dilution_data, conc_var, signal_var)
 \arguments{
 \item{dilution_data}{A data frame or tibble containing dilution data}
 
-\item{conc_var}{Column name in \code{diltuion_data} to indicate concentration}
+\item{conc_var}{Column name in \code{dilution_data} to indicate concentration}
 
-\item{signal_var}{Column name in \code{diltuion_data} to indicate signal}
+\item{signal_var}{Column name in \code{dilution_data} to indicate signal}
 }
 \value{
 A linear model object from \code{stats:lm()} with formula

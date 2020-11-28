@@ -183,7 +183,7 @@ create_dilution_table <- function(dilution_annot, lipid_data_wide,
   # Merge the two data together and make it long
   dilution_table <- dplyr::inner_join(dilution_annot, lipid_data_wide,
                                       by = common_column) %>%
-    tidyr::pivot_longer(-tidyselect::any_of(colnames(dilution_annot)),
+    tidyr::pivot_longer(-dplyr::any_of(colnames(dilution_annot)),
                         names_to = column_group, values_to = signal_var)
 
   return(dilution_table)
@@ -260,8 +260,8 @@ summarise_dilution_table <- function(dilution_table,
   # Group/Nest the dilution data for each group
   # and do a dilution summary for each of them
   dilution_summary <- dilution_table %>%
-    dplyr::group_by_at(grouping_variable) %>%
-    dplyr::relocate(grouping_variable) %>%
+    dplyr::group_by_at(dplyr::all_of(grouping_variable)) %>%
+    dplyr::relocate(dplyr::all_of(grouping_variable)) %>%
     tidyr::nest() %>%
     dplyr::ungroup() %>%
     dplyr::mutate(dil_summary = purrr::map(.data$data, get_dilution_summary,

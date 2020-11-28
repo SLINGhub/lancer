@@ -9,9 +9,9 @@ validate_dilution_data(dilution_data, conc_var, signal_var)
 \arguments{
 \item{dilution_data}{A data frame or tibble containing dilution data}
 
-\item{conc_var}{Column name in \code{diltuion_data} to indicate concentration}
+\item{conc_var}{Column name in \code{dilution_data} to indicate concentration}
 
-\item{signal_var}{Column name in \code{diltuion_data} to indicate signal}
+\item{signal_var}{Column name in \code{dilution_data} to indicate signal}
 }
 \value{
 An error if the column name is not found in the Dilution Data

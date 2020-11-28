@@ -1,8 +1,8 @@
 #' @title Create Dilution Linear Model
 #' @description A wrapper to create a linear model for dilution data
 #' @param dilution_data A data frame or tibble containing dilution data
-#' @param conc_var Column name in `diltuion_data` to indicate concentration
-#' @param signal_var Column name in `diltuion_data` to indicate signal
+#' @param conc_var Column name in `dilution_data` to indicate concentration
+#' @param signal_var Column name in `dilution_data` to indicate signal
 #' @return A linear model object from `stats:lm()` with formula
 #' `signal_var ~ conc_var` from data `diltuion_data`
 #' @examples
@@ -32,8 +32,8 @@ create_dil_linear_model <- function(dilution_data, conc_var, signal_var) {
 #' @title Create Dilution Quadratic Model
 #' @description A wrapper to create a quadratic model for dilution data
 #' @param dilution_data A data frame or tibble containing dilution data
-#' @param conc_var Column name in `diltuion_data` to indicate concentration
-#' @param signal_var Column name in `diltuion_data` to indicate signal
+#' @param conc_var Column name in `dilution_data` to indicate concentration
+#' @param signal_var Column name in `dilution_data` to indicate signal
 #' @return A linear model object from `stats:lm()` with formula
 #' `signal_var ~ conc_var + I(conc_var * conc_var)`
 #' from data `diltuion_data`
@@ -67,8 +67,8 @@ create_dil_quad_model <- function(dilution_data, conc_var, signal_var) {
 #' @title Calculate concavity
 #' @description Calculate the concavity of the Dilution Quadratic Model
 #' @param dilution_data A data frame or tibble containing dilution data
-#' @param conc_var Column name in `diltuion_data` to indicate concentration
-#' @param signal_var Column name in `diltuion_data` to indicate signal
+#' @param conc_var Column name in `dilution_data` to indicate concentration
+#' @param signal_var Column name in `dilution_data` to indicate signal
 #' @return The concavity of the Dilution Quadratic Model
 #' @details The function will return NA if the number of dilution points
 #' is less than or equal to three
@@ -112,8 +112,8 @@ calculate_concavity <- function(dilution_data, conc_var, signal_var) {
 #' @title Calculate Goodness of Linear Fit
 #' @description Calculate the Goodness of Fit of the Dilution Linear Model
 #' @param dilution_data A data frame or tibble containing dilution data
-#' @param conc_var Column name in `diltuion_data` to indicate concentration
-#' @param signal_var Column name in `diltuion_data` to indicate signal
+#' @param conc_var Column name in `dilution_data` to indicate concentration
+#' @param signal_var Column name in `dilution_data` to indicate signal
 #' @return A tibble containing the Goodness of Fit measures of the linear model
 #' The Goodness of Fit measures are the Pearson correlation coefficient (R),
 #' the R^2 and the adjusted R^2
@@ -176,8 +176,8 @@ calculate_dil_linear_gof <- function(dilution_data, conc_var, signal_var) {
 #' @title Calculate the Mandel fitting test
 #' @description Calculate the Mandel fitting test for dilution data
 #' @param dilution_data A data frame or tibble containing dilution data
-#' @param conc_var Column name in `diltuion_data` to indicate concentration
-#' @param signal_var Column name in `diltuion_data` to indicate signal
+#' @param conc_var Column name in `dilution_data` to indicate concentration
+#' @param signal_var Column name in `dilution_data` to indicate signal
 #' @return A tibble containing Mandel test statistics. The values are
 #' the Mandel test value and its corresponding p value. More information
 #' of the test can be found in
@@ -240,8 +240,8 @@ calculate_mandel <- function(dilution_data, conc_var, signal_var) {
 #' @description Calculate the Percent Residual Accuracy (PRA) of the
 #' Dilution Linear Model
 #' @param dilution_data A data frame or tibble containing dilution data
-#' @param conc_var Column name in `diltuion_data` to indicate concentration
-#' @param signal_var Column name in `diltuion_data` to indicate signal
+#' @param conc_var Column name in `dilution_data` to indicate concentration
+#' @param signal_var Column name in `dilution_data` to indicate signal
 #' @return The Percent Residual Accuracy (PRA) of the
 #' Dilution Linear Model. More information of this value can be found in
 #' \url{https://www.sciencedirect.com/science/article/abs/pii/S0039914018307549}
@@ -328,8 +328,8 @@ calculate_pra_linear <- function(dilution_data, conc_var, signal_var) {
 #' @title Validate Dilution Data
 #' @description Validate Dilution Data
 #' @param dilution_data A data frame or tibble containing dilution data
-#' @param conc_var Column name in `diltuion_data` to indicate concentration
-#' @param signal_var Column name in `diltuion_data` to indicate signal
+#' @param conc_var Column name in `dilution_data` to indicate concentration
+#' @param signal_var Column name in `dilution_data` to indicate signal
 #' @return An error if the column name is not found in the Dilution Data
 #' @examples
 #' dilution_percent <- c(10, 20, 40, 60, 80, 100)
@@ -353,8 +353,8 @@ validate_dilution_data <- function(dilution_data, conc_var, signal_var) {
 #' @title Get dilution data summary statistic
 #' @description Get the summary statistics of the dilution data
 #' @param dilution_data A data frame or tibble containing dilution data
-#' @param conc_var Column name in `diltuion_data` to indicate concentration
-#' @param signal_var Column name in `diltuion_data` to indicate signal
+#' @param conc_var Column name in `dilution_data` to indicate concentration
+#' @param signal_var Column name in `dilution_data` to indicate signal
 #' @return A tibble containing the Goodness of Fit measures of the linear model
 #' The Goodness of Fit measures are the Pearson correlation coefficient (R),
 #' R^2, adjusted R^2, Bayesian Information Criterion (BIC), Pearson correlation
