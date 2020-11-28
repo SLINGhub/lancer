@@ -32,8 +32,11 @@ Imports:
     rlang (>= 0.1.2),
     tibble,
     tidyr,
-    tidyselect,
     assertable,
     openxlsx,
-    strex
+    strex,
+    plotly,
+    ggplot2,
+    trelliscopejs,
+    scales
 VignetteBuilder: knitr
