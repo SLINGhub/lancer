@@ -85,6 +85,7 @@ concavity <- c(-4133.501328, -4146.745747, -3.350942, -3.393617,
 dilution_summary <- data.frame(r_corr = r_corr, pra_linear = pra_linear,
                                mandel_p_val = mandel_p_val,
                                concavity = concavity)
+# Create an excel report, set testing = FALSE to output results
 create_excel_report(dilution_summary, file_name = "dilution_summary.xlsx",
                     testing = TRUE)
 }
