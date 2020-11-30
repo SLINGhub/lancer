@@ -312,7 +312,6 @@ two_col_num_cond_format <- function(workbook, sheet,
 #' Default: c("Good Linearity")
 #' @param testing To indicate if we are running a test,
 #' if so, no excel file is given out
-#'
 #' @examples
 #' r_corr <- c(0.951956, 0.948683, 0.978057, 0.976462,
 #'             0.970618, 0.969348, 0.343838, 0.383552)
@@ -325,6 +324,7 @@ two_col_num_cond_format <- function(workbook, sheet,
 #' dilution_summary <- data.frame(r_corr = r_corr, pra_linear = pra_linear,
 #'                                mandel_p_val = mandel_p_val,
 #'                                concavity = concavity)
+#'# Create an excel report, set testing = FALSE to output results
 #' create_excel_report(dilution_summary, file_name = "dilution_summary.xlsx",
 #'                     testing = TRUE)
 #' @export

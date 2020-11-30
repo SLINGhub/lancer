@@ -263,8 +263,10 @@ calculate_pra_linear <- function(dilution_data, conc_var, signal_var) {
   }
 
   # Drop rows whose value of signal_var is NA
+  # Drop rows whose value of conc_var is 0 or less
   dilution_data <- dilution_data %>%
-    tidyr::drop_na(.data[[signal_var]])
+    tidyr::drop_na(.data[[signal_var]]) %>%
+    dplyr::filter(.data[[conc_var]] > 0)
 
   if (nrow(dilution_data) <= 3) {
     return(pra_linear)

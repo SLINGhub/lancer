@@ -1,9 +1,23 @@
 test_that("calculate pra of linear model", {
+  # Zero point will not be used to calculate the pra_value
+  dilution_percent <- c(0, 10, 8, 13, 9, 11, 14, 6, 4, 12, 7, 5)
+  area <- c(0, 5.23, 4.23, 6.35, 4.75, 5.65, 6.62, 3.03, 1.62, 6.03, 3.65, 2.35)
+  dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+  pra_value <- calculate_pra_linear(dilution_data, "Dilution_Percent", "Area")
+  testthat::expect_equal(94.80, unname(pra_value), tolerance  = 0.01)
+
   dilution_percent <- c(10, 8, 13, 9, 11, 14, 6, 4, 12, 7, 5)
   area <- c(5.23, 4.23, 6.35, 4.75, 5.65, 6.62, 3.03, 1.62, 6.03, 3.65, 2.35)
   dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
   pra_value <- calculate_pra_linear(dilution_data, "Dilution_Percent", "Area")
   testthat::expect_equal(94.80, unname(pra_value), tolerance  = 0.01)
+
+  # Too little valid point (<= 3) will give an NA
+  dilution_percent <- c(0, 10, 8, 13)
+  area <- c(0, 5.23, 4.23, 6.35)
+  dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+  pra_value <- calculate_pra_linear(dilution_data, "Dilution_Percent", "Area")
+  testthat::expect_equal(NA, unname(pra_value))
 
   dilution_data <- data.frame(Dilution_Percent = c(NA, NA), Area =  c(NA, NA))
   pra_value <- calculate_pra_linear(dilution_data, "Dilution_Percent", "Area")
@@ -26,6 +40,15 @@ test_that("calculate concavity", {
   concavity_value <- calculate_concavity(dilution_data,
                                          "Dilution_Percent", "Area")
   testthat::expect_equal(-4.089, unname(concavity_value), tolerance  = 0.01)
+
+  # Too little valid point (<= 3) will give an NA
+  dilution_percent <- c(0, 10, 8)
+  area <- c(0, 5.23, 4.23)
+  dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+  concavity_value <- calculate_concavity(dilution_data,
+                                         "Dilution_Percent", "Area")
+  testthat::expect_equal(NA, unname(concavity_value))
+
 
   dilution_data <- data.frame(Dilution_Percent = c(NA, NA), Area =  c(NA, NA))
   concavity_value <- calculate_concavity(dilution_data,
@@ -54,6 +77,14 @@ test_that("calculate Mandel", {
                          tolerance  = 0.01)
   testthat::expect_equal(0.00357, unname(mandel_result$mandel_p_val),
                          tolerance  = 0.001)
+
+  # Too little valid point (<= 3) will give an NA
+  dilution_percent <- c(0, 10, 8)
+  area <- c(0, 5.23, 4.23)
+  dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+  mandel_result <- calculate_mandel(dilution_data, "Dilution_Percent", "Area")
+  testthat::expect_equal(NA, unname(mandel_result$mandel_stats))
+  testthat::expect_equal(NA, unname(mandel_result$mandel_p_val))
 
   dilution_data <- data.frame(Dilution_Percent = c(NA, NA), Area =  c(NA, NA))
   mandel_result <- calculate_mandel(dilution_data, "Dilution_Percent", "Area")
@@ -84,6 +115,16 @@ test_that("calculate dil linear GOF", {
                          tolerance  = 0.001)
   testthat::expect_equal(0.89182, unname(dil_linear_gof$r2_adj_linear),
                          tolerance  = 0.001)
+
+  # Too little valid point (<= 3) will give an NA
+  dilution_percent <- c(0, 10, 8)
+  area <- c(0, 5.23, 4.23)
+  dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+  dil_linear_gof <- calculate_dil_linear_gof(dilution_data,
+                                             "Dilution_Percent", "Area")
+  testthat::expect_equal(NA, unname(dil_linear_gof$r_corr))
+  testthat::expect_equal(NA, unname(dil_linear_gof$r2_linear))
+  testthat::expect_equal(NA, unname(dil_linear_gof$r2_adj_linear))
 
 
   dilution_data <- data.frame(Dilution_Percent = c(NA, NA), Area =  c(NA, NA))
