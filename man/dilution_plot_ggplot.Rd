@@ -6,6 +6,7 @@
 \usage{
 dilution_plot_ggplot(
   dilution_data,
+  dilution_summary_grp,
   title,
   dil_batch_var,
   conc_var,
@@ -17,6 +18,9 @@ dilution_plot_ggplot(
 }
 \arguments{
 \item{dilution_data}{A data frame or tibble containing dilution data}
+
+\item{dilution_summary_grp}{A data frame or tibble containing
+dilution summary data for one group}
 
 \item{title}{Title to use for each dilution plot}
 

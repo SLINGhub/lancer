@@ -67,8 +67,10 @@ test_that("Able to print dilution summary data to excel", {
                          unname(class_change_check["mandel_p_val"]))
 
   # Output to excel
+  testthat::expect_silent(
   create_excel_report(dilution_summary, file_name = "dilution_summary.xlsx",
                       testing = TRUE)
+  )
 
 
 })

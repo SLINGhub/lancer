@@ -1,4 +1,4 @@
-test_that("Able to plot dilution data with its statistical summary in a trellis table", {
+test_that("Able to plot dilution data with its statistical summary in a pdf report", {
 
   # Data Creation
   dilution_percent <- c(10, 20, 25, 40, 50, 60,
@@ -64,111 +64,84 @@ test_that("Able to plot dilution data with its statistical summary in a trellis 
                                              "Dilution_Batch"))
 
 
-  # Create a trellis table
-  trellis_table <- create_trellis_table(dilution_table,
-                                        dilution_summary = dilution_summary)
-
-  # Create the trellis report
+  # Create a ggplot table
   testthat::expect_silent(
-    create_trellis_report(trellis_table, testing = TRUE)
+    ggplot_table <- create_ggplot_table(dilution_table,
+                                        dilution_summary = dilution_summary)
   )
 
-  # Check if trellis_table is valid
-  validate_trellis_table(trellis_table)
+  # Create a ggplot table without dilution summary
+  testthat::expect_silent(
+    ggplot_table_auto <- create_ggplot_table(dilution_table,
+                                             grouping_variable = c("Transition_Name",
+                                                                   "Dilution_Batch"),
+                                             conc_var = "Dilution_Percent",
+                                             signal_var = "Area")
+  )
 
-  # Create a trellis table without dilution summary
-  trellis_table_auto <- create_trellis_table(dilution_table)
+  # Get the list of ggplot list for each group
+  ggplot_list <- ggplot_table$panel
 
-  # Check if trellis_table_auto is valid
-  validate_trellis_table(trellis_table_auto)
 
-  # Validating bad inputs
-  # One column which is not a cognostic class, other than panel
-  invalid_trellis_table <- trellis_table %>%
-    dplyr::mutate(pra_linear = as.numeric(.data$pra_linear))
-  testthat::expect_error(validate_trellis_table(invalid_trellis_table))
+  # Create a pdf report, set testing = FALSE to output results
+  testthat::expect_silent(
+    create_ggplot_pdf_report(ggplot_list, testing = TRUE)
+  )
 
-  # Grouping variable in the wrong cognostics group
-  invalid_trellis_table <- trellis_table
 
-  attributes(invalid_trellis_table[["Transition_Name"]])$cog_attrs$group <- "common"
-  testthat::expect_error(validate_trellis_table(invalid_trellis_table))
 
-  # Panel column is invalid
-  invalid_trellis_table <- trellis_table
-  class(invalid_trellis_table$panel) = "list"
-  testthat::expect_error(validate_trellis_table(invalid_trellis_table))
 
 })
 
 
 
+test_that("Able to plot statistical summary grid table for one dilution group", {
 
-# expect_correct_cog_group <- function(object, group = "condVar",
-#                                      label = "trellis_cognostic_group") {
-#
-#   # 1. Capture object and label
-#   act <- testthat::quasi_label(rlang::enquo(object),
-#                                label = label ,
-#                                arg = "object")
-#
-#   act$object_name <- deparse(substitute(object))
-#
-#   # 2. Call expect()
-#   act$group <- act$val
-#   testthat::expect(
-#     act$group == group,
-#     sprintf(
-#       "%s object %s has group %s, not group %s.",
-#       act$lab,
-#       act$object_name,
-#       act$group,
-#       group
-#     )
-#   )
-#
-#   invisible(act$group)
-# }
-#
-# expect_correct_cog_class <- function(object, class = "cog",
-#                                      label = "trellis_column_class") {
-#
-#   # 1. Capture object and label
-#   act <- testthat::quasi_label(rlang::enquo(object),
-#                                label = label ,
-#                                arg = "object")
-#
-#   act$object_name <- deparse(substitute(object))
-#
-#   # 2. Call expect()
-#   act$class <- act$val
-#   testthat::expect(
-#     class %in% act$class,
-#     sprintf(
-#       "%s object %s has class %s, not class %s.",
-#       act$lab,
-#       act$object_name,
-#       act$class,
-#       class
-#     )
-#   )
-#
-#   invisible(act$class)
-# }
+  wf1_group <- c("Poor Linearity")
+  wf2_group <- c("Saturation")
+  r_corr <- c(0.951956)
+  pra_linear <- c(65.78711)
+  mandel_p_val <- c(2.899006e-07)
+  concavity <- c(-4133.501328)
+  logical <- TRUE
 
-# Check if trellis table is valid
-# grouping_variable = c("Transition_Name", "Dilution_Batch")
-# for(variable in grouping_variable) {
-#   expect_correct_cog_class(attributes(trellis_table[[variable]])$class, class = "cog")
-#   expect_correct_cog_group(attributes(trellis_table[[variable]])$cog_attrs$group, group = "condVar")
-#
-# }
-# non_grouping_variable <- trellis_table %>%
-#   dplyr::select(-dplyr::one_of(c(grouping_variable,"panel"))) %>%
-#   colnames()
-# for(variable in non_grouping_variable) {
-#   expect_correct_cog_class(attributes(trellis_table[[variable]])$class, class = "cog")
-#   expect_correct_cog_group(attributes(trellis_table[[variable]])$cog_attrs$group, group = "common")
-#
-# }
-# expect_correct_cog_class(attributes(trellis_table$panel)$class, class = "trelliscope_panels")
+  dilution_summary_grp  <- data.frame(wf1_group = wf1_group,
+                                      wf2_group = wf2_group,
+                                      logical = logical,
+                                      r_corr = r_corr,
+                                      pra_linear = pra_linear,
+                                      mandel_p_val = mandel_p_val,
+                                      concavity = concavity)
+
+  # Test that it works in the usual case
+  table <- dilution_summary_group_table(dilution_summary_grp)
+  testthat::expect_equal(7,nrow(table))
+
+  dilution_summary_grp  <- data.frame(r_corr = r_corr,
+                                      pra_linear = pra_linear,
+                                      mandel_p_val = mandel_p_val,
+                                      concavity = concavity)
+  testthat::expect_null(dilution_summary_char_table(dilution_summary_grp))
+
+  # Test that it works even if there is no character or factor
+  # or logical columns
+  table <- dilution_summary_group_table(dilution_summary_grp)
+  testthat::expect_equal(4,nrow(table))
+
+
+  dilution_summary_grp  <- data.frame(wf1_group = wf1_group,
+                                      wf2_group = wf2_group)
+
+  testthat::expect_null(dilution_summary_num_table(dilution_summary_grp))
+
+  # Test that it works even if there is no numeric columns
+  table <- dilution_summary_group_table(dilution_summary_grp)
+  testthat::expect_equal(2,nrow(table))
+
+
+  dilution_summary_grp <- data.frame()
+  # Test that it gives NULL when both columns types are missing
+  testthat::expect_null(dilution_summary_group_table(dilution_summary_grp))
+
+
+})

@@ -47,6 +47,16 @@
 #' @export expr enquo enquos sym syms .data := as_name as_label
 NULL
 
+
+required_package <- function(pkg){
+  if (!requireNamespace(pkg, quietly = TRUE)) {
+    stop(
+      pkg, " package needed to be installed before using this function. ",
+      "Type this in R: install.packages('", pkg, "')"
+    )
+  }
+}
+
 #' @title Symbol reduction
 #' @description
 #' An approach to reducing a vector of characters to

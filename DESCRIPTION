@@ -38,5 +38,9 @@ Imports:
     plotly,
     ggplot2,
     trelliscopejs,
-    scales
+    scales,
+    cowplot,
+    grid,
+    gridExtra,
+    patchwork
 VignetteBuilder: knitr
