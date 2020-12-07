@@ -87,7 +87,6 @@ get_page_layout <- function(number_of_plots,
 #' if so, no pdf report is given out
 #' Default: FALSE
 #' @examples
-#' \dontrun{
 #' sample_name <- c("Sample_010a", "Sample_020a", "Sample_040a",
 #'                  "Sample_060a", "Sample_080a", "Sample_100a",
 #'                  "Sample_010b", "Sample_020b", "Sample_040b",

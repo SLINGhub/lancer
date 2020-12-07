@@ -166,42 +166,110 @@ dilution_plot_ggplot <- function(dilution_data,
                                  signal_var,
                                  pal) {
 
-  tables <- dilution_summary_group_table(dilution_summary_grp)
+
+  # Number of dilution batches
+  no_of_dil_batch <- dilution_data %>%
+    dplyr::pull(.data[[dil_batch_var]]) %>%
+    unique() %>%
+    length()
+
+  # Name of dilution batch
+  names_of_dil_batch <- dilution_data %>%
+    dplyr::pull(.data[[dil_batch_var]]) %>%
+    unique()
+
+  # Filter the dilution palatte based on what batches are
+  # in the dilution_data
+  filtered_pal <- pal[which(names(pal) %in% names_of_dil_batch)]
+
+  # Give an error if the palatte colour is not listed in
+  # dilution_batch
+  stopifnot(length(filtered_pal) > 0)
+
+  reg_col_vec <- c("Lin" = "black", "Quad" = "red")
 
   # Drop values that are NA in signal_var
   dilution_data <- tidyr::drop_na(dilution_data, .data[[signal_var]])
 
-  # Get maximum concentration value for scaling
-  max_conc <- max(dilution_data[[conc_var]], na.rm = TRUE)
+  # Create the table
+  tables <- dilution_summary_group_table(dilution_summary_grp)
+
+  # Create an empty dilution plot first
 
   p <- ggplot2::ggplot(dilution_data) +
     ggplot2::aes(x = .data[[conc_var]],
                  y = .data[[signal_var]]
-                ) +
-    ggplot2::geom_point(
-      ggplot2::aes(colour = factor(.data[[dil_batch_var]])),
-      fill = "black",
-      size = 2) +
-    ggplot2::scale_colour_manual(values = pal) +
-    ggplot2::geom_smooth(method = "lm", formula = y ~ x,
-                         colour = "black",
-                         size = 0.5, se = FALSE) +
-    ggplot2::stat_smooth(method = "lm", formula = y ~ x + I(x^2),
-                         colour = "red",
-                         size = 0.5, se = FALSE) +
-    ggplot2::scale_x_continuous(breaks = seq(0, max_conc,
-                                             by = conc_var_interval),
-                                labels = scales::number) +
-    ggplot2::scale_y_continuous(labels = scales::scientific) +
-    ggplot2::theme(
-      legend.title = ggplot2::element_blank(),
-      legend.position = "none",
-      axis.title.y = ggplot2::element_text(angle = 0,
-                                           vjust = 1)
+    )
+
+  if (nrow(dilution_data) > 3) {
+
+    linear_model <- create_dil_linear_model(dilution_data, conc_var, signal_var)
+    quad_model <- create_dil_quad_model(dilution_data, conc_var, signal_var)
+    dilution <- seq(min(dilution_data[[conc_var]]),
+                    max(dilution_data[[conc_var]]),
+                    length.out = 15)
+
+    y_lin_predict <- stats::predict(linear_model,
+                                data.frame(Dilution_Percent = dilution))
+    y_quad_predict <- stats::predict(quad_model,
+                                     data.frame(Dilution_Percent = dilution))
+    reg_data = data.frame(dilution = dilution,
+                          y_lin_predict = y_lin_predict,
+                          y_quad_predict = y_quad_predict)
+
+    # Get maximum concentration value for scaling
+    max_conc <- max(dilution_data[[conc_var]], na.rm = TRUE)
+
+    p <- p +
+      ggplot2::geom_point(
+        mapping = ggplot2::aes(colour = factor(.data[[dil_batch_var]])
+        ),
+        size = 2,
       ) +
-    ggplot2::labs(title = title,
-                  x = paste0(conc_var, " (",  conc_var_units, ")"),
-                  y = signal_var)
+      ggplot2::geom_line(data = reg_data,
+                         mapping = ggplot2::aes(x = dilution, y=y_lin_predict,
+                                                colour = "Lin")
+      ) +
+      ggplot2::geom_line(data = reg_data,
+                         mapping = ggplot2::aes(x = dilution, y=y_quad_predict,
+                                                colour = "Quad")
+      ) +
+      # ggplot2::geom_smooth(method = "lm", formula = y ~ x,
+      #                      size = 0.5, se = FALSE,
+      #                      ggplot2::aes(colour = "Linear")) +
+      # ggplot2::geom_smooth(method = "lm", formula = y ~ x + I(x^2),
+      #                      size = 0.5, se = FALSE,
+      #                      ggplot2::aes(colour = "Quadratic")) +
+      ggplot2::scale_colour_manual(values = c(filtered_pal,reg_col_vec),
+                                   labels = names(c(reg_col_vec,filtered_pal)),
+                                   guide = ggplot2::guide_legend(
+                                     override.aes = list(
+                                       linetype = c(rep("solid", length(reg_col_vec)),
+                                                    rep("blank", no_of_dil_batch)
+                                       ),
+                                       shape = c(rep(NA, length(reg_col_vec)),
+                                                 rep(16,no_of_dil_batch)
+                                       ),
+                                       colour = c(reg_col_vec,filtered_pal)
+                                       )
+                                     )
+                                   ) +
+      ggplot2::scale_x_continuous(breaks = seq(0, max_conc,
+                                               by = conc_var_interval),
+                                  labels = scales::number) +
+      ggplot2::scale_y_continuous(labels = scales::scientific) +
+      ggplot2::theme(
+        legend.title = ggplot2::element_blank(),
+        legend.position = "top",
+        axis.title.y = ggplot2::element_text(angle = 0,
+                                             vjust = 1)
+      ) +
+      ggplot2::labs(title = title,
+                    x = paste0(conc_var, " (",  conc_var_units, ")"),
+                    y = signal_var)
+
+
+  }
 
   if (!is.null(tables)) {
     #p <- ggarrange(p, tables, ncol = 2, nrow = 1, widths = (c(2, 1)))
