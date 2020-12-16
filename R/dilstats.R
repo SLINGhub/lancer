@@ -92,7 +92,15 @@ calculate_concavity <- function(dilution_data, conc_var, signal_var) {
   dilution_data <- dilution_data %>%
     tidyr::drop_na(.data[[signal_var]])
 
+  # Return NA for too little points
+  # Horizontal, Vertical line or single point
   if (nrow(dilution_data) <= 3) {
+    return(concavity)
+  }
+  if (stats::sd(dilution_data[[conc_var]] == 0)) {
+    return(concavity)
+  }
+  if (stats::sd(dilution_data[[signal_var]] == 0)) {
     return(concavity)
   }
 
@@ -141,7 +149,15 @@ calculate_dil_linear_gof <- function(dilution_data, conc_var, signal_var) {
   dilution_data <- dilution_data %>%
     tidyr::drop_na(.data[[signal_var]])
 
+  # Return NA for too little points
+  # Horizontal, Vertical line or single point
   if (nrow(dilution_data) <= 3) {
+    return(dil_linear_gof)
+  }
+  if (stats::sd(dilution_data[[conc_var]] == 0)) {
+    return(dil_linear_gof)
+  }
+  if (stats::sd(dilution_data[[signal_var]] == 0)) {
     return(dil_linear_gof)
   }
 
@@ -204,7 +220,15 @@ calculate_mandel <- function(dilution_data, conc_var, signal_var) {
   dilution_data <- dilution_data %>%
     tidyr::drop_na(.data[[signal_var]])
 
+  # Return NA for too little points
+  # Horizontal, Vertical line or single point
   if (nrow(dilution_data) <= 3) {
+    return(mandel_result)
+  }
+  if (stats::sd(dilution_data[[conc_var]] == 0)) {
+    return(mandel_result)
+  }
+  if (stats::sd(dilution_data[[signal_var]] == 0)) {
     return(mandel_result)
   }
 
@@ -268,9 +292,17 @@ calculate_pra_linear <- function(dilution_data, conc_var, signal_var) {
     tidyr::drop_na(.data[[signal_var]]) %>%
     dplyr::filter(.data[[conc_var]] > 0)
 
+  # Return NA for too little points
+  # Horizontal, Vertical line or single point
   if (nrow(dilution_data) <= 3) {
     return(pra_linear)
-    }
+  }
+  if (stats::sd(dilution_data[[conc_var]] == 0)) {
+    return(pra_linear)
+  }
+  if (stats::sd(dilution_data[[signal_var]] == 0)) {
+    return(pra_linear)
+  }
 
   # Create the linear model on dilution data
   linear_model <- create_dil_linear_model(dilution_data, conc_var, signal_var)
