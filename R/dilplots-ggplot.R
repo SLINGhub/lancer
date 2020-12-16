@@ -186,7 +186,7 @@ dilution_plot_ggplot <- function(dilution_data,
   # dilution_batch
   stopifnot(length(filtered_pal) > 0)
 
-  reg_col_vec <- c("Lin" = "black", "Quad" = "red")
+  reg_col_vec <- c("Lin" = "black", "Quad" = "red", "Lin Par" = "blue")
 
   # Drop values that are NA in signal_var
   dilution_data <- tidyr::drop_na(dilution_data, .data[[signal_var]])
@@ -203,19 +203,52 @@ dilution_plot_ggplot <- function(dilution_data,
 
   if (nrow(dilution_data) > 3) {
 
+    # Get the points for the partial linear curve
+    partial_conc_points <- dilution_data %>%
+      dplyr::pull(.data$Dilution_Percent) %>%
+      as.numeric() %>%
+      sort() %>%
+      unique()
+
+    partial_conc_points <- partial_conc_points[1:ceiling(length(partial_conc_points)/2)]
+
+    partial_dilution_Data <- dilution_data %>%
+      dplyr::filter(.data[[conc_var]] %in% partial_conc_points)
+
+
+    # Model the data
     linear_model <- create_dil_linear_model(dilution_data, conc_var, signal_var)
     quad_model <- create_dil_quad_model(dilution_data, conc_var, signal_var)
+    partial_linear_model <- create_dil_linear_model(partial_dilution_Data,
+                                                    conc_var, signal_var)
+
     dilution <- seq(min(dilution_data[[conc_var]]),
                     max(dilution_data[[conc_var]]),
                     length.out = 15)
 
+    # Create the y values for the line
     y_lin_predict <- stats::predict(linear_model,
                                 data.frame(Dilution_Percent = dilution))
     y_quad_predict <- stats::predict(quad_model,
                                      data.frame(Dilution_Percent = dilution))
-    reg_data = data.frame(dilution = dilution,
-                          y_lin_predict = y_lin_predict,
-                          y_quad_predict = y_quad_predict)
+    y_partial_lin_predict <- stats::predict(partial_linear_model,
+                                     data.frame(Dilution_Percent = dilution))
+    reg_data <- data.frame(dilution = dilution,
+                           y_lin_predict = y_lin_predict,
+                           y_quad_predict = y_quad_predict)
+
+    # Clean the y value so that it is not too large or too small
+    partial_reg_data <- data.frame(dilution = dilution,
+                                   y_partial_lin_predict = y_partial_lin_predict)
+    # partial_reg_data <- partial_reg_data %>%
+    #   dplyr::mutate(y_partial_lin_predict =
+    #                   dplyr::case_when(
+    #                     .data$y_partial_lin_predict > max(dilution_data[[signal_var]]) ~ NA_real_,
+    #                     .data$y_partial_lin_predict < min(dilution_data[[signal_var]]) ~ NA_real_,
+    #                     TRUE ~ .data$y_partial_lin_predict
+    #                   )
+    #                 ) %>%
+    #   dplyr::filter(!is.na(.data$y_partial_lin_predict))
 
     # Get maximum concentration value for scaling
     max_conc <- max(dilution_data[[conc_var]], na.rm = TRUE)
@@ -233,6 +266,10 @@ dilution_plot_ggplot <- function(dilution_data,
       ggplot2::geom_line(data = reg_data,
                          mapping = ggplot2::aes(x = dilution, y=y_quad_predict,
                                                 colour = "Quad")
+      ) +
+      ggplot2::geom_line(data = partial_reg_data,
+                         mapping = ggplot2::aes(x = dilution, y=y_partial_lin_predict,
+                                                colour = "Lin Par")
       ) +
       # ggplot2::geom_smooth(method = "lm", formula = y ~ x,
       #                      size = 0.5, se = FALSE,
