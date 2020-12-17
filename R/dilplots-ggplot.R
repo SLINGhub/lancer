@@ -186,127 +186,186 @@ dilution_plot_ggplot <- function(dilution_data,
   # dilution_batch
   stopifnot(length(filtered_pal) > 0)
 
-  reg_col_vec <- c("Lin" = "black", "Quad" = "red", "Lin Par" = "blue")
+  # Get conc_vector before we drop the rows
+  conc_vector <- dilution_data[[conc_var]]
 
   # Drop values that are NA in signal_var
   dilution_data <- tidyr::drop_na(dilution_data, .data[[signal_var]])
+
+  # Named vector to represent the colours of the regression lines
+  reg_col_vec <- NA
 
   # Create the table
   tables <- dilution_summary_group_table(dilution_summary_grp)
 
   # Create an empty dilution plot first
-
   p <- ggplot2::ggplot(dilution_data) +
     ggplot2::aes(x = .data[[conc_var]],
                  y = .data[[signal_var]]
+    ) +
+    ggplot2::geom_point(
+      mapping = ggplot2::aes(colour = factor(.data[[dil_batch_var]])
+      ),
+      size = 2,
     )
 
-  if (nrow(dilution_data) > 3) {
+  if(nrow(dilution_data) > 3) {
 
-    # Get the points for the partial linear curve
-    partial_conc_points <- dilution_data %>%
-      dplyr::pull(.data$Dilution_Percent) %>%
-      as.numeric() %>%
-      sort() %>%
-      unique()
+    # When we need to plot a horizontal line
+    if(stats::sd(dilution_data[[signal_var]]) == 0) {
 
-    partial_conc_points <- partial_conc_points[1:ceiling(length(partial_conc_points)/2)]
+      reg_col_vec <- c("Lin" = "black")
 
-    partial_dilution_Data <- dilution_data %>%
-      dplyr::filter(.data[[conc_var]] %in% partial_conc_points)
+      min_x <- min(dilution_data[[conc_var]], na.rm = TRUE)
+      max_x <- max(dilution_data[[conc_var]], na.rm = TRUE)
+      cont_y <- unique(dilution_data[[signal_var]])
+
+      p <- p +
+        # ggplot2::geom_point(
+        #   mapping = ggplot2::aes(colour = factor(.data[[dil_batch_var]])
+        #   ),
+        #   size = 2,
+        # ) +
+        ggplot2::geom_segment(
+          ggplot2::aes(x = min_x, xend = max_x,
+                       y = cont_y, yend = cont_y,
+                       colour = "Lin")
+        )
+    } else if(stats::sd(dilution_data[[conc_var]]) == 0) {
+      # When we need to plot a vertical line
+
+      reg_col_vec <- c("Lin" = "black")
+
+      min_y <- min(dilution_data[[signal_var]], na.rm = TRUE)
+      max_y <- max(dilution_data[[signal_var]], na.rm = TRUE)
+      cont_x <- unique(dilution_data[[conc_var]])
+
+      p <- p +
+        # ggplot2::geom_point(
+        #   mapping = ggplot2::aes(colour = factor(.data[[dil_batch_var]])
+        #   ),
+        #   size = 2,
+        # ) +
+        ggplot2::geom_segment(
+          ggplot2::aes(x = cont_x, xend = cont_x,
+                       y = min_y, yend = max_y,
+                       colour = "Lin")
+        )
+
+    } else {
+
+      reg_col_vec <- c("Lin" = "black", "Quad" = "red", "Lin Par" = "blue")
+
+      # Get the points for the partial linear curve
+      partial_conc_points <- dilution_data %>%
+        dplyr::pull(.data$Dilution_Percent) %>%
+        as.numeric() %>%
+        sort() %>%
+        unique()
+
+      partial_conc_points <- partial_conc_points[1:ceiling(length(partial_conc_points)/2)]
+
+      partial_dilution_Data <- dilution_data %>%
+        dplyr::filter(.data[[conc_var]] %in% partial_conc_points)
 
 
-    # Model the data
-    linear_model <- create_dil_linear_model(dilution_data, conc_var, signal_var)
-    quad_model <- create_dil_quad_model(dilution_data, conc_var, signal_var)
-    partial_linear_model <- create_dil_linear_model(partial_dilution_Data,
-                                                    conc_var, signal_var)
+      # Model the data
+      linear_model <- create_dil_linear_model(dilution_data, conc_var, signal_var)
+      quad_model <- create_dil_quad_model(dilution_data, conc_var, signal_var)
+      partial_linear_model <- create_dil_linear_model(partial_dilution_Data,
+                                                      conc_var, signal_var)
 
-    dilution <- seq(min(dilution_data[[conc_var]]),
-                    max(dilution_data[[conc_var]]),
-                    length.out = 15)
+      dilution <- seq(min(dilution_data[[conc_var]]),
+                      max(dilution_data[[conc_var]]),
+                      length.out = 15)
 
-    # Create the y values for the line
-    y_lin_predict <- stats::predict(linear_model,
-                                data.frame(Dilution_Percent = dilution))
-    y_quad_predict <- stats::predict(quad_model,
-                                     data.frame(Dilution_Percent = dilution))
-    y_partial_lin_predict <- stats::predict(partial_linear_model,
-                                     data.frame(Dilution_Percent = dilution))
-    reg_data <- data.frame(dilution = dilution,
-                           y_lin_predict = y_lin_predict,
-                           y_quad_predict = y_quad_predict)
+      # Create the y values for the line
+      y_lin_predict <- stats::predict(linear_model,
+                                      data.frame(Dilution_Percent = dilution))
+      y_quad_predict <- stats::predict(quad_model,
+                                       data.frame(Dilution_Percent = dilution))
+      y_partial_lin_predict <- stats::predict(partial_linear_model,
+                                              data.frame(Dilution_Percent = dilution))
+      reg_data <- data.frame(dilution = dilution,
+                             y_lin_predict = y_lin_predict,
+                             y_quad_predict = y_quad_predict)
 
-    # Clean the y value so that it is not too large or too small
-    partial_reg_data <- data.frame(dilution = dilution,
-                                   y_partial_lin_predict = y_partial_lin_predict)
-    # partial_reg_data <- partial_reg_data %>%
-    #   dplyr::mutate(y_partial_lin_predict =
-    #                   dplyr::case_when(
-    #                     .data$y_partial_lin_predict > max(dilution_data[[signal_var]]) ~ NA_real_,
-    #                     .data$y_partial_lin_predict < min(dilution_data[[signal_var]]) ~ NA_real_,
-    #                     TRUE ~ .data$y_partial_lin_predict
-    #                   )
-    #                 ) %>%
-    #   dplyr::filter(!is.na(.data$y_partial_lin_predict))
+      # Clean the y value so that it is not too large or too small
+      partial_reg_data <- data.frame(dilution = dilution,
+                                     y_partial_lin_predict = y_partial_lin_predict)
+      # partial_reg_data <- partial_reg_data %>%
+      #   dplyr::mutate(y_partial_lin_predict =
+      #                   dplyr::case_when(
+      #                     .data$y_partial_lin_predict > max(dilution_data[[signal_var]]) ~ NA_real_,
+      #                     .data$y_partial_lin_predict < min(dilution_data[[signal_var]]) ~ NA_real_,
+      #                     TRUE ~ .data$y_partial_lin_predict
+      #                   )
+      #                 ) %>%
+      #   dplyr::filter(!is.na(.data$y_partial_lin_predict))
 
-    # Get maximum concentration value for scaling
-    max_conc <- max(dilution_data[[conc_var]], na.rm = TRUE)
+      p <- p +
+        # ggplot2::geom_point(
+        #   mapping = ggplot2::aes(colour = factor(.data[[dil_batch_var]])
+        #   ),
+        #   size = 2,
+        # ) +
+        ggplot2::geom_line(data = reg_data,
+                           mapping = ggplot2::aes(x = dilution, y=y_lin_predict,
+                                                  colour = "Lin")
+        ) +
+        ggplot2::geom_line(data = reg_data,
+                           mapping = ggplot2::aes(x = dilution, y=y_quad_predict,
+                                                  colour = "Quad")
+        ) +
+        ggplot2::geom_line(data = partial_reg_data,
+                           mapping = ggplot2::aes(x = dilution, y=y_partial_lin_predict,
+                                                  colour = "Lin Par")
+        )
 
-    p <- p +
-      ggplot2::geom_point(
-        mapping = ggplot2::aes(colour = factor(.data[[dil_batch_var]])
-        ),
-        size = 2,
-      ) +
-      ggplot2::geom_line(data = reg_data,
-                         mapping = ggplot2::aes(x = dilution, y=y_lin_predict,
-                                                colour = "Lin")
-      ) +
-      ggplot2::geom_line(data = reg_data,
-                         mapping = ggplot2::aes(x = dilution, y=y_quad_predict,
-                                                colour = "Quad")
-      ) +
-      ggplot2::geom_line(data = partial_reg_data,
-                         mapping = ggplot2::aes(x = dilution, y=y_partial_lin_predict,
-                                                colour = "Lin Par")
-      ) +
-      # ggplot2::geom_smooth(method = "lm", formula = y ~ x,
-      #                      size = 0.5, se = FALSE,
-      #                      ggplot2::aes(colour = "Linear")) +
-      # ggplot2::geom_smooth(method = "lm", formula = y ~ x + I(x^2),
-      #                      size = 0.5, se = FALSE,
-      #                      ggplot2::aes(colour = "Quadratic")) +
-      ggplot2::scale_colour_manual(values = c(filtered_pal,reg_col_vec),
-                                   labels = names(c(reg_col_vec,filtered_pal)),
-                                   guide = ggplot2::guide_legend(
-                                     override.aes = list(
-                                       linetype = c(rep("solid", length(reg_col_vec)),
-                                                    rep("blank", no_of_dil_batch)
-                                       ),
-                                       shape = c(rep(NA, length(reg_col_vec)),
-                                                 rep(16,no_of_dil_batch)
-                                       ),
-                                       colour = c(reg_col_vec,filtered_pal)
-                                       )
-                                     )
-                                   ) +
-      ggplot2::scale_x_continuous(breaks = seq(0, max_conc,
-                                               by = conc_var_interval),
-                                  labels = scales::number) +
-      ggplot2::scale_y_continuous(labels = scales::scientific) +
-      ggplot2::theme(
-        legend.title = ggplot2::element_blank(),
-        legend.position = "top",
-        axis.title.y = ggplot2::element_text(angle = 0,
-                                             vjust = 1)
-      ) +
-      ggplot2::labs(title = title,
-                    x = paste0(conc_var, " (",  conc_var_units, ")"),
-                    y = signal_var)
-
+    }
 
   }
+
+  # Get maximum concentration value for scaling
+  if(nrow(dilution_data) == 0) {
+    conc_vector <- conc_vector[!is.na(conc_vector)]
+    max_conc <- ifelse(length(conc_vector) == 0,
+                       0,max(conc_vector, na.rm = TRUE))
+  } else {
+    max_conc <- max(dilution_data[[conc_var]], na.rm = TRUE)
+  }
+
+  conc_tick_points <- seq(0, max_conc, by = conc_var_interval)
+
+  # Create the layout for legend, colours, axis
+  p <- p +
+    ggplot2::scale_colour_manual(values = c(filtered_pal,reg_col_vec),
+                                 labels = names(c(reg_col_vec,filtered_pal)),
+                                 guide = ggplot2::guide_legend(
+                                   override.aes = list(
+                                     linetype = c(rep("solid", length(reg_col_vec)),
+                                                  rep("blank", no_of_dil_batch)
+                                     ),
+                                     shape = c(rep(NA, length(reg_col_vec)),
+                                               rep(16,no_of_dil_batch)
+                                     ),
+                                     colour = c(reg_col_vec,filtered_pal)
+                                   )
+                                 )
+    ) +
+    ggplot2::scale_x_continuous(breaks = conc_tick_points,
+                                labels = scales::number) +
+    ggplot2::scale_y_continuous(labels = scales::scientific) +
+    ggplot2::theme(
+      legend.title = ggplot2::element_blank(),
+      legend.position = "top",
+      axis.title.y = ggplot2::element_text(angle = 0,
+                                           vjust = 1)
+    ) +
+    ggplot2::labs(title = title,
+                  x = paste0(conc_var, " (",  conc_var_units, ")"),
+                  y = signal_var)
+
 
   if (!is.null(tables)) {
     #p <- ggarrange(p, tables, ncol = 2, nrow = 1, widths = (c(2, 1)))

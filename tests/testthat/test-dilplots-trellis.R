@@ -20,8 +20,10 @@ test_that("Able to plot dilution data with plotly correctly", {
                              501068, 550201, 515110, 499543, 474745)
   bad_area <- c(2,2,2,2,2,2,
                 2,2,2,2,2)
-  bad_conc <- c(2,2,2,2,2,2,
-                2,2,2,2,2)
+  bad_conc <- c(50,50,50,50,50,50,
+                50,50,50,50,50)
+  na_area <- c(NA, NA, NA, NA, NA, NA,
+               NA, NA, NA, NA, NA)
 
   dilution_data <- tibble::tibble(Sample_Name = sample_name,
                                   Dilution_Percent = dilution_percent,
@@ -105,6 +107,23 @@ test_that("Able to plot dilution data with plotly correctly", {
                             signal_var = "Area",
                             pal = pal)
   #htmlwidgets::saveWidget(p, "index.html")
+
+  # Handle the case of a plot that gives no points
+  dilution_data <- tibble::tibble(Sample_Name = sample_name,
+                                  Dilution_Percent = dilution_percent,
+                                  Area = na_area,
+                                  Dilution_Batch_Name = dilution_batch
+  )
+
+  # Plot the html
+  p <- dilution_plot_plotly(dilution_data,
+                            sample_name_var = "Sample_Name",
+                            dil_batch_var = "Dilution_Batch_Name",
+                            conc_var = "Dilution_Percent",
+                            conc_var_units = "%",
+                            conc_var_interval = 50,
+                            signal_var = "Area",
+                            pal = pal)
 
 
 

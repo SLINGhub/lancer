@@ -87,73 +87,77 @@ dilution_plot_plotly <- function(dilution_data,
                         "<extra></extra>"),
                       inherit = FALSE)
 
-  # When we need to plot a horizontal line
-  if(stats::sd(dilution_data[[signal_var]]) == 0) {
+  if(nrow(dilution_data) > 3) {
 
-    min_x <- min(dilution_data[[conc_var]], na.rm = TRUE)
-    max_x <- max(dilution_data[[conc_var]], na.rm = TRUE)
-    cont_y <- unique(dilution_data[[signal_var]])
+    # When we need to plot a horizontal line
+    if(stats::sd(dilution_data[[signal_var]]) == 0) {
 
-    p <- p %>%
-      plotly::add_segments(x = min_x, xend = max_x,
-                           y = cont_y, yend = cont_y,
-                           name = "lin reg",
-                           line = list(color = "black", width = 1),
-                           inherit = FALSE)
+      min_x <- min(dilution_data[[conc_var]], na.rm = TRUE)
+      max_x <- max(dilution_data[[conc_var]], na.rm = TRUE)
+      cont_y <- unique(dilution_data[[signal_var]])
 
-  } else if (stats::sd(dilution_data[[conc_var]]) == 0) {
-    # When we need to plot a vertical line
-    min_y <- min(dilution_data[[signal_var]], na.rm = TRUE)
-    max_y <- max(dilution_data[[signal_var]], na.rm = TRUE)
-    cont_x <- unique(dilution_data[[conc_var]])
+      p <- p %>%
+        plotly::add_segments(x = min_x, xend = max_x,
+                             y = cont_y, yend = cont_y,
+                             name = "lin reg",
+                             line = list(color = "black", width = 1),
+                             inherit = FALSE)
 
-    p <- p %>%
-      plotly::add_segments(x = cont_x, xend = cont_x,
-                           y = min_y, yend = max_y,
-                           name = "lin reg",
-                           line = list(color = "black", width = 1),
-                           inherit = FALSE)
+    } else if (stats::sd(dilution_data[[conc_var]]) == 0) {
+      # When we need to plot a vertical line
+      min_y <- min(dilution_data[[signal_var]], na.rm = TRUE)
+      max_y <- max(dilution_data[[signal_var]], na.rm = TRUE)
+      cont_x <- unique(dilution_data[[conc_var]])
 
-  } else if (nrow(dilution_data) > 3) {
+      p <- p %>%
+        plotly::add_segments(x = cont_x, xend = cont_x,
+                             y = min_y, yend = max_y,
+                             name = "lin reg",
+                             line = list(color = "black", width = 1),
+                             inherit = FALSE)
 
-    # Create the formula
-    linear_formula <- stats::as.formula(paste(signal_var, "~",
-                                              paste(conc_var, collapse = " + ")
+    } else {
+
+      # Create the formula
+      linear_formula <- stats::as.formula(paste(signal_var, "~",
+                                                paste(conc_var, collapse = " + ")
+      )
+      )
+      # Create the linear model on dilution data
+      linear_model <- stats::lm(linear_formula, data = dilution_data)
+
+      # Create the formula
+      quad_formula <- stats::as.formula(paste(signal_var, "~",
+                                              paste(conc_var, "+",
+                                                    paste0("I(", conc_var, " * ",
+                                                           conc_var, ")")
                                               )
-                                        )
-    # Create the linear model on dilution data
-    linear_model <- stats::lm(linear_formula, data = dilution_data)
+      )
+      )
 
-    # Create the formula
-    quad_formula <- stats::as.formula(paste(signal_var, "~",
-                                            paste(conc_var, "+",
-                                                  paste0("I(", conc_var, " * ",
-                                                         conc_var, ")")
-                                            )
-    )
-    )
+      # Create the quadratic model on dilution data
+      quad_model <- stats::lm(quad_formula, data = dilution_data)
 
-    # Create the quadratic model on dilution data
-    quad_model <- stats::lm(quad_formula, data = dilution_data)
+      dilution <- seq(min(dilution_data[[conc_var]]),
+                      max(dilution_data[[conc_var]]),
+                      length.out = 15)
 
-    dilution <- seq(min(dilution_data[[conc_var]]),
-                    max(dilution_data[[conc_var]]),
-                    length.out = 15)
+      # Create the lines in the dilution plot
+      p <- p %>%
+        plotly::add_trace(data = dilution_data, x = dilution,
+                          y = stats::predict(linear_model,
+                                             data.frame(Dilution_Percent = dilution)),
+                          type = "scattergl", mode = "lines", name = "lin reg",
+                          line = list(color = "black", width = 1),
+                          inherit = FALSE) %>%
+        plotly::add_trace(data = dilution_data, x = dilution,
+                          y = stats::predict(quad_model,
+                                             data.frame(Dilution_Percent = dilution)),
+                          type = "scattergl", mode = "lines", name = "quad reg",
+                          line = list(color = "red", width = 1, opacity = 0.25),
+                          inherit = FALSE)
+    }
 
-    # Create the lines in the dilution plot
-    p <- p %>%
-      plotly::add_trace(data = dilution_data, x = dilution,
-                        y = stats::predict(linear_model,
-                                           data.frame(Dilution_Percent = dilution)),
-                        type = "scattergl", mode = "lines", name = "lin reg",
-                        line = list(color = "black", width = 1),
-                        inherit = FALSE) %>%
-      plotly::add_trace(data = dilution_data, x = dilution,
-                        y = stats::predict(quad_model,
-                                           data.frame(Dilution_Percent = dilution)),
-                        type = "scattergl", mode = "lines", name = "quad reg",
-                        line = list(color = "red", width = 1, opacity = 0.25),
-                        inherit = FALSE)
   }
 
   # Create the layout to be the same as ggplot2

@@ -1,4 +1,4 @@
-test_that("Able to plot dilution data with plotly correctly", {
+test_that("Able to plot dilution data with ggplot correctly", {
 
   # Data Creation
   dilution_percent <- c(10, 20, 25, 40, 50, 60,
@@ -23,8 +23,10 @@ test_that("Able to plot dilution data with plotly correctly", {
                              501068, 550201, 515110, 499543, 474745)
   bad_area <- c(2,2,2,2,2,2,
                 2,2,2,2,2)
-  bad_conc <- c(2,2,2,2,2,2,
-                2,2,2,2,2)
+  bad_conc <- c(50,50,50,50,50,50,
+                50,50,50,50,50)
+  na_area <- c(NA, NA, NA, NA, NA, NA,
+               NA, NA, NA, NA, NA)
 
   dilution_data <- tibble::tibble(Sample_Name = sample_name,
                                    Dilution_Batch_Name = dilution_batch,
@@ -131,7 +133,6 @@ test_that("Able to plot dilution data with plotly correctly", {
                                   Area = bad_area,
   )
 
-
   # Create dilution statistical summary
   dilution_summary_grp <- dilution_data %>%
     summarise_dilution_table(grouping_variable = grouping_variable,
@@ -152,6 +153,34 @@ test_that("Able to plot dilution data with plotly correctly", {
                             signal_var = "Area",
                             pal = pal)
 
+
+  # Handle the case of a plot that gives no points
+  dilution_data <- tibble::tibble(Sample_Name = sample_name,
+                                  Dilution_Batch_Name = dilution_batch,
+                                  Dilution_Percent = dilution_percent,
+                                  Transition_Name = transition_name,
+                                  Area = na_area,
+  )
+
+  # Create dilution statistical summary
+  dilution_summary_grp <- dilution_data %>%
+    summarise_dilution_table(grouping_variable = grouping_variable,
+                             conc_var = "Dilution_Percent",
+                             signal_var = "Area") %>%
+    evaluate_linearity(grouping_variable = grouping_variable) %>%
+    dplyr::select(-c(dplyr::all_of(grouping_variable)))
+
+
+  # Create the ggplot
+  p <- dilution_plot_ggplot(dilution_data,
+                            dilution_summary_grp = dilution_summary_grp,
+                            title = "Lipid_Point",
+                            dil_batch_var = "Dilution_Batch_Name",
+                            conc_var = "Dilution_Percent",
+                            conc_var_units = "%",
+                            conc_var_interval = 50,
+                            signal_var = "Area",
+                            pal = pal)
 
 
 })
