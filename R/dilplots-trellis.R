@@ -260,7 +260,6 @@ dilution_plot_plotly <- function(dilution_data,
 #' This column is used to create the plot figure in the
 #' `trelliscopejs` report.
 #' @examples
-#' @examples
 #' # Data Creation
 #' dilution_percent <- c(10, 20, 25, 40, 50, 60,
 #'                       75, 80, 100, 125, 150,
