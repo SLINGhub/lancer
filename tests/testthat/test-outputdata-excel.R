@@ -68,9 +68,13 @@ test_that("Able to print dilution summary data to excel", {
 
   # Output to excel
   testthat::expect_silent(
-  create_excel_report(dilution_summary, file_name = "dilution_summary.xlsx",
-                      testing = TRUE)
+  create_excel_report(dilution_summary, file_name = "dilution_summary.xlsx")
   )
+
+  if (file.exists("dilution_summary.xlsx")) {
+    #Delete file if it exists
+    file.remove("dilution_summary.xlsx")
+  }
 
 
 })

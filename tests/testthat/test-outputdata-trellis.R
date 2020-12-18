@@ -68,19 +68,15 @@ test_that("Able to plot dilution data with its statistical summary in a trellis 
   trellis_table <- create_trellis_table(dilution_table,
                                         dilution_summary = dilution_summary)
 
-  # Create the trellis report
-  testthat::expect_silent(
-    create_trellis_report(trellis_table, testing = TRUE)
-  )
 
   # Check if trellis_table is valid
-  validate_trellis_table(trellis_table)
+  testthat::expect_silent(validate_trellis_table(trellis_table))
 
   # Create a trellis table without dilution summary
   trellis_table_auto <- create_trellis_table(dilution_table)
 
   # Check if trellis_table_auto is valid
-  validate_trellis_table(trellis_table_auto)
+  testthat::expect_silent(validate_trellis_table(trellis_table_auto))
 
   # Validating bad inputs
   # One column which is not a cognostic class, other than panel
@@ -98,5 +94,14 @@ test_that("Able to plot dilution data with its statistical summary in a trellis 
   invalid_trellis_table <- trellis_table
   class(invalid_trellis_table$panel) = "list"
   testthat::expect_error(validate_trellis_table(invalid_trellis_table))
+
+
+  # Create the trellis report
+  create_trellis_report(trellis_table,
+                        trellis_report_name = "Dilution_Plot")
+
+  unlink("Dilution_Plot", recursive = TRUE)
+
+
 
 })

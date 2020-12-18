@@ -1,3 +1,4 @@
+Config/testthat/edition: 3
 Package: DCVtestkit
 Title: Dilution Curve Validation Test Kit
 Version: 0.0.0.9000
@@ -20,7 +21,8 @@ Suggests:
     roxygen2,
     covr,
     knitr,
-    rmarkdown
+    rmarkdown,
+    vdiffr
 Language: en-GB
 URL: https://github.com/SLINGhub/DCVtestkit
 BugReports: https://github.com/SLINGhub/DCVtestkit/issues

@@ -1,4 +1,4 @@
-test_that("Able to plot dilution data with ggplot correctly", {
+test_that("Able to plot good dilution data with ggplot correctly", {
 
   # Data Creation
   dilution_percent <- c(10, 20, 25, 40, 50, 60,
@@ -15,18 +15,6 @@ test_that("Able to plot dilution data with ggplot correctly", {
   lipid1_area_saturated <- c(5748124, 16616414, 21702718, 36191617,
                              49324541, 55618266, 66947588, 74964771,
                              75438063, 91770737, 94692060)
-  lipid2_area_linear <- c(31538, 53709, 69990, 101977, 146436, 180960,
-                          232881, 283780, 298289, 344519, 4304324)
-  lipid3_area_lod <- c(544, 397, 829, 1437, 1808, 2231,
-                       3343, 2915, 5268, 8031, 11045)
-  lipid4_area_nonlinear <- c(380519, 485372, 478770, 474467, 531640, 576301,
-                             501068, 550201, 515110, 499543, 474745)
-  bad_area <- c(2,2,2,2,2,2,
-                2,2,2,2,2)
-  bad_conc <- c(50,50,50,50,50,50,
-                50,50,50,50,50)
-  na_area <- c(NA, NA, NA, NA, NA, NA,
-               NA, NA, NA, NA, NA)
 
   dilution_data <- tibble::tibble(Sample_Name = sample_name,
                                    Dilution_Batch_Name = dilution_batch,
@@ -69,6 +57,27 @@ test_that("Able to plot dilution data with ggplot correctly", {
                             signal_var = "Area",
                             pal = pal)
 
+  vdiffr::expect_doppelganger("A usual dilution plot", p)
+
+})
+
+
+test_that("Able to plot horizontal dilution data with ggplot correctly", {
+
+  # Data Creation
+  dilution_percent <- c(10, 20, 25, 40, 50, 60,
+                        75, 80, 100, 125, 150)
+  sample_name <- c("Sample_010a", "Sample_020a",
+                   "Sample_025a", "Sample_040a", "Sample_050a",
+                   "Sample_060a", "Sample_075a", "Sample_080a",
+                   "Sample_100a", "Sample_125a", "Sample_150a")
+  dilution_batch <- c("B1", "B1", "B1", "B1", "B1",
+                      "B1", "B1", "B1", "B1", "B1", "B1")
+  transition_name <- c("Lipid1", "Lipid1", "Lipid1", "Lipid1",
+                       "Lipid1", "Lipid1", "Lipid1", "Lipid1",
+                       "Lipid1", "Lipid1", "Lipid1")
+  bad_area <- c(2,2,2,2,2,2,
+                2,2,2,2,2)
 
   # Handle the case of horizontal line
   dilution_data <- tibble::tibble(Sample_Name = sample_name,
@@ -77,6 +86,19 @@ test_that("Able to plot dilution data with ggplot correctly", {
                                   Transition_Name = transition_name,
                                   Area = bad_area,
   )
+
+  grouping_variable <- c("Transition_Name","Dilution_Batch_Name")
+
+  # Get the dilution batch name from dilution_table
+  dilution_batch_name <- dilution_batch %>%
+    unique() %>%
+    as.character()
+
+  dil_batch_col = c("#377eb8")
+
+  # Create palette for each dilution batch for plotting
+  pal <- dil_batch_col %>%
+    stats::setNames(dilution_batch_name)
 
   # Create dilution statistical summary
   dilution_summary_grp <- dilution_data %>%
@@ -98,6 +120,31 @@ test_that("Able to plot dilution data with ggplot correctly", {
                             signal_var = "Area",
                             pal = pal)
 
+  vdiffr::expect_doppelganger("A horizontal dilution plot", p)
+
+})
+
+
+test_that("Able to plot vertical dilution data with ggplot correctly", {
+
+  # Data Creation
+  dilution_percent <- c(10, 20, 25, 40, 50, 60,
+                        75, 80, 100, 125, 150)
+  sample_name <- c("Sample_010a", "Sample_020a",
+                   "Sample_025a", "Sample_040a", "Sample_050a",
+                   "Sample_060a", "Sample_075a", "Sample_080a",
+                   "Sample_100a", "Sample_125a", "Sample_150a")
+  dilution_batch <- c("B1", "B1", "B1", "B1", "B1",
+                      "B1", "B1", "B1", "B1", "B1", "B1")
+  transition_name <- c("Lipid1", "Lipid1", "Lipid1", "Lipid1",
+                       "Lipid1", "Lipid1", "Lipid1", "Lipid1",
+                       "Lipid1", "Lipid1", "Lipid1")
+  lipid1_area_saturated <- c(5748124, 16616414, 21702718, 36191617,
+                             49324541, 55618266, 66947588, 74964771,
+                             75438063, 91770737, 94692060)
+  bad_conc <- c(50,50,50,50,50,50,
+                50,50,50,50,50)
+
   # Handle the case of vertical line
   dilution_data <- tibble::tibble(Sample_Name = sample_name,
                                   Dilution_Batch_Name = dilution_batch,
@@ -105,6 +152,19 @@ test_that("Able to plot dilution data with ggplot correctly", {
                                   Transition_Name = transition_name,
                                   Area = lipid1_area_saturated,
   )
+
+  grouping_variable <- c("Transition_Name","Dilution_Batch_Name")
+
+  # Get the dilution batch name from dilution_table
+  dilution_batch_name <- dilution_batch %>%
+    unique() %>%
+    as.character()
+
+  dil_batch_col = c("#377eb8")
+
+  # Create palette for each dilution batch for plotting
+  pal <- dil_batch_col %>%
+    stats::setNames(dilution_batch_name)
 
   # Create dilution statistical summary
   dilution_summary_grp <- dilution_data %>%
@@ -125,6 +185,30 @@ test_that("Able to plot dilution data with ggplot correctly", {
                             signal_var = "Area",
                             pal = pal)
 
+  vdiffr::expect_doppelganger("A vertical dilution plot", p)
+
+})
+
+
+test_that("Able to plot single point dilution data with ggplot correctly", {
+
+  # Data Creation
+  dilution_percent <- c(10, 20, 25, 40, 50, 60,
+                        75, 80, 100, 125, 150)
+  sample_name <- c("Sample_010a", "Sample_020a",
+                   "Sample_025a", "Sample_040a", "Sample_050a",
+                   "Sample_060a", "Sample_075a", "Sample_080a",
+                   "Sample_100a", "Sample_125a", "Sample_150a")
+  dilution_batch <- c("B1", "B1", "B1", "B1", "B1",
+                      "B1", "B1", "B1", "B1", "B1", "B1")
+  transition_name <- c("Lipid1", "Lipid1", "Lipid1", "Lipid1",
+                       "Lipid1", "Lipid1", "Lipid1", "Lipid1",
+                       "Lipid1", "Lipid1", "Lipid1")
+  bad_area <- c(2,2,2,2,2,2,
+                2,2,2,2,2)
+  bad_conc <- c(50,50,50,50,50,50,
+                50,50,50,50,50)
+
   # Handle the case of a point
   dilution_data <- tibble::tibble(Sample_Name = sample_name,
                                   Dilution_Batch_Name = dilution_batch,
@@ -132,6 +216,19 @@ test_that("Able to plot dilution data with ggplot correctly", {
                                   Transition_Name = transition_name,
                                   Area = bad_area,
   )
+
+  grouping_variable <- c("Transition_Name","Dilution_Batch_Name")
+
+  # Get the dilution batch name from dilution_table
+  dilution_batch_name <- dilution_batch %>%
+    unique() %>%
+    as.character()
+
+  dil_batch_col = c("#377eb8")
+
+  # Create palette for each dilution batch for plotting
+  pal <- dil_batch_col %>%
+    stats::setNames(dilution_batch_name)
 
   # Create dilution statistical summary
   dilution_summary_grp <- dilution_data %>%
@@ -152,6 +249,27 @@ test_that("Able to plot dilution data with ggplot correctly", {
                             conc_var_interval = 50,
                             signal_var = "Area",
                             pal = pal)
+
+  vdiffr::expect_doppelganger("A single point dilution plot", p)
+
+})
+
+test_that("Able to plot NA dilution data with ggplot correctly", {
+
+  # Data Creation
+  dilution_percent <- c(10, 20, 25, 40, 50, 60,
+                        75, 80, 100, 125, 150)
+  sample_name <- c("Sample_010a", "Sample_020a",
+                   "Sample_025a", "Sample_040a", "Sample_050a",
+                   "Sample_060a", "Sample_075a", "Sample_080a",
+                   "Sample_100a", "Sample_125a", "Sample_150a")
+  dilution_batch <- c("B1", "B1", "B1", "B1", "B1",
+                      "B1", "B1", "B1", "B1", "B1", "B1")
+  transition_name <- c("Lipid1", "Lipid1", "Lipid1", "Lipid1",
+                       "Lipid1", "Lipid1", "Lipid1", "Lipid1",
+                       "Lipid1", "Lipid1", "Lipid1")
+  na_area <- c(NA, NA, NA, NA, NA, NA,
+               NA, NA, NA, NA, NA)
 
 
   # Handle the case of a plot that gives no points
@@ -162,6 +280,19 @@ test_that("Able to plot dilution data with ggplot correctly", {
                                   Area = na_area,
   )
 
+  grouping_variable <- c("Transition_Name","Dilution_Batch_Name")
+
+  # Get the dilution batch name from dilution_table
+  dilution_batch_name <- dilution_batch %>%
+    unique() %>%
+    as.character()
+
+  dil_batch_col = c("#377eb8")
+
+  # Create palette for each dilution batch for plotting
+  pal <- dil_batch_col %>%
+    stats::setNames(dilution_batch_name)
+
   # Create dilution statistical summary
   dilution_summary_grp <- dilution_data %>%
     summarise_dilution_table(grouping_variable = grouping_variable,
@@ -182,5 +313,95 @@ test_that("Able to plot dilution data with ggplot correctly", {
                             signal_var = "Area",
                             pal = pal)
 
+  vdiffr::expect_doppelganger("A NA dilution plot", p)
+
 
 })
+
+
+test_that("Able to plot summary (numeric and characters) grid table for one dilution group", {
+
+  wf1_group <- c("Poor Linearity")
+  wf2_group <- c("Saturation")
+  r_corr <- c(0.951956)
+  pra_linear <- c(65.78711)
+  mandel_p_val <- c(2.899006e-07)
+  concavity <- c(-4133.501328)
+  logical <- TRUE
+
+  dilution_summary_grp  <- data.frame(wf1_group = wf1_group,
+                                      wf2_group = wf2_group,
+                                      logical = logical,
+                                      r_corr = r_corr,
+                                      pra_linear = pra_linear,
+                                      mandel_p_val = mandel_p_val,
+                                      concavity = concavity)
+
+  # Test that it works in the usual case
+  table <- dilution_summary_group_table(dilution_summary_grp)
+
+  vdiffr::expect_doppelganger("complete summary table", grid::grid.draw(table))
+
+
+})
+
+test_that("Able to plot summary (only numeric) grid table for one dilution group", {
+
+  r_corr <- c(0.951956)
+  pra_linear <- c(65.78711)
+  mandel_p_val <- c(2.899006e-07)
+  concavity <- c(-4133.501328)
+
+
+
+  dilution_summary_grp  <- data.frame(r_corr = r_corr,
+                                      pra_linear = pra_linear,
+                                      mandel_p_val = mandel_p_val,
+                                      concavity = concavity)
+  testthat::expect_null(dilution_summary_char_table(dilution_summary_grp))
+
+  # Test that it works even if there is no character or factor
+  # or logical columns
+  table <- dilution_summary_group_table(dilution_summary_grp)
+
+  vdiffr::expect_doppelganger("numeric summary table", grid::grid.draw(table))
+
+
+})
+
+
+test_that("Able to plot summary (only character) grid table for one dilution group", {
+
+  wf1_group <- c("Poor Linearity")
+  wf2_group <- c("Saturation")
+  r_corr <- c(0.951956)
+  pra_linear <- c(65.78711)
+  mandel_p_val <- c(2.899006e-07)
+  concavity <- c(-4133.501328)
+  logical <- TRUE
+
+
+  dilution_summary_grp  <- data.frame(wf1_group = wf1_group,
+                                      wf2_group = wf2_group,
+                                      logical = logical)
+
+  testthat::expect_null(dilution_summary_num_table(dilution_summary_grp))
+
+  # Test that it works even if there is no numeric columns
+  table <- dilution_summary_group_table(dilution_summary_grp)
+
+  vdiffr::expect_doppelganger("character summary table", grid::grid.draw(table))
+
+
+})
+
+test_that("Able to return NULL when there is no summary for one dilution group", {
+
+  dilution_summary_grp <- data.frame()
+  # Test that it gives NULL when both columns types are missing
+  testthat::expect_null(dilution_summary_group_table(dilution_summary_grp))
+
+})
+
+
+

@@ -85,61 +85,80 @@ test_that("Able to plot dilution data with its statistical summary in a pdf repo
 
   # Create a pdf report, set testing = FALSE to output results
   testthat::expect_silent(
-    create_ggplot_pdf_report(ggplot_list, testing = TRUE)
+    create_ggplot_pdf_report(ggplot_list,
+                             filename = "dilution_plot.pdf",
+                             ncol_per_page = 2,
+                             nrow_per_page = 2)
   )
+
+  # Create a pdf report, when
+  # ncol_per_page * nrow_per_page exceeds the number of plots
+  # in the list.
+  # Program should output all in one pdf page.
+  # set testing = FALSE to output results
+  testthat::expect_silent(
+    create_ggplot_pdf_report(ggplot_list,
+                             filename = "dilution_plot.pdf",
+                             ncol_per_page = 3,
+                             nrow_per_page = 3,
+                             width = 20,
+                             height = 12)
+  )
+
+  if (file.exists("dilution_plot.pdf")) {
+    #Delete file if it exists
+    file.remove("dilution_plot.pdf")
+  }
 
 
 })
 
 
+test_that("Get number of plots per page correctly with various inputs", {
 
-test_that("Able to plot statistical summary grid table for one dilution group", {
+  testthat::expect_equal(get_number_of_plots_per_page(), Inf)
+  testthat::expect_equal(get_number_of_plots_per_page(ncol = 3), 3)
+  testthat::expect_equal(get_number_of_plots_per_page(nrow = 1), 1)
+  testthat::expect_equal(get_number_of_plots_per_page(ncol = 3,
+                                                      nrow = 3), 9)
 
-  wf1_group <- c("Poor Linearity")
-  wf2_group <- c("Saturation")
-  r_corr <- c(0.951956)
-  pra_linear <- c(65.78711)
-  mandel_p_val <- c(2.899006e-07)
-  concavity <- c(-4133.501328)
-  logical <- TRUE
-
-  dilution_summary_grp  <- data.frame(wf1_group = wf1_group,
-                                      wf2_group = wf2_group,
-                                      logical = logical,
-                                      r_corr = r_corr,
-                                      pra_linear = pra_linear,
-                                      mandel_p_val = mandel_p_val,
-                                      concavity = concavity)
-
-  # Test that it works in the usual case
-  table <- dilution_summary_group_table(dilution_summary_grp)
-  testthat::expect_equal(7,nrow(table))
-
-  dilution_summary_grp  <- data.frame(r_corr = r_corr,
-                                      pra_linear = pra_linear,
-                                      mandel_p_val = mandel_p_val,
-                                      concavity = concavity)
-  testthat::expect_null(dilution_summary_char_table(dilution_summary_grp))
-
-  # Test that it works even if there is no character or factor
-  # or logical columns
-  table <- dilution_summary_group_table(dilution_summary_grp)
-  testthat::expect_equal(4,nrow(table))
+})
 
 
-  dilution_summary_grp  <- data.frame(wf1_group = wf1_group,
-                                      wf2_group = wf2_group)
+test_that("Get the page layout correctly with various inputs", {
 
-  testthat::expect_null(dilution_summary_num_table(dilution_summary_grp))
+  # Give error if number of plots is less than 1
+  testthat::expect_error(get_page_layout(number_of_plots = 0))
 
-  # Test that it works even if there is no numeric columns
-  table <- dilution_summary_group_table(dilution_summary_grp)
-  testthat::expect_equal(2,nrow(table))
+  # Set nrow to be number_of_plots if ncol is 1
+  page_layout <- get_page_layout(number_of_plots = 5,
+                                 ncol = 1, nrow = NULL)
+  correct_page_layout <- list(ncol = 1, nrow = 5)
 
+  for (key in names(page_layout)) {
+      testthat::expect_equal(page_layout[[key]],
+                             correct_page_layout[[key]])
+  }
 
-  dilution_summary_grp <- data.frame()
-  # Test that it gives NULL when both columns types are missing
-  testthat::expect_null(dilution_summary_group_table(dilution_summary_grp))
+  # Set ncol to be number_of_plots if nrow is 1
+  page_layout <- get_page_layout(number_of_plots = 5,
+                                 ncol = NULL, nrow = 1)
+  correct_page_layout <- list(ncol = 5, nrow = 1)
+
+  for (key in names(page_layout)) {
+    testthat::expect_equal(page_layout[[key]],
+                           correct_page_layout[[key]])
+  }
+
+  # Set ncol, nrow to be user input
+  page_layout <- get_page_layout(number_of_plots = 5,
+                                 ncol = 2, nrow = 2)
+  correct_page_layout <- list(ncol = 2, nrow = 2)
+
+  for (key in names(page_layout)) {
+    testthat::expect_equal(page_layout[[key]],
+                           correct_page_layout[[key]])
+  }
 
 
 })
