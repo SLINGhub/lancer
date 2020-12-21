@@ -119,7 +119,7 @@ get_page_layout <- function(number_of_plots,
 #' ggplot_list <- ggplot_table_auto$panel
 #'
 #' # Create a pdf report, set testing = FALSE to output results
-#' create_ggplot_pdf_report(ggplot_list, testing = TRUE)
+#' pdf_page_list <- create_ggplot_pdf_report(ggplot_list, testing = TRUE)
 #' @rdname create_ggplot_pdf_report
 #' @export
 create_ggplot_pdf_report <- function(ggplot_list,
@@ -168,6 +168,8 @@ create_ggplot_pdf_report <- function(ggplot_list,
 
     # Close the pdf file
     invisible(utils::capture.output(grDevices::dev.off()))
+  } else {
+    return(pdf_page_list)
   }
 
 }

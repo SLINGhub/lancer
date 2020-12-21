@@ -1,6 +1,10 @@
 #' @title Plot Dilution Data using plotly
 #' @description Plot Dilution Data using plotly
 #' @param dilution_data A data frame or tibble containing dilution data
+#' @param title Title to use for each dilution plot
+#' @param pal Input palette for each dilution batch group in `dil_batch_var`.
+#' It is a named char vector where each value is a colour and
+#' name is a dilution batch group given in `dil_batch_var`
 #' @param sample_name_var Column name in `dilution_data`
 #' to indicate the sample name
 #' @param dil_batch_var Column name in `dilution_data`
@@ -10,9 +14,9 @@
 #' @param conc_var_units Unit of measure for `conc_var` in the dilution plot
 #' @param conc_var_interval Distance between two tick labels
 #' @param signal_var Column name in `dilution_data` to indicate signal
-#' @param pal Input palette for each dilution batch group in `dil_batch_var`.
-#' It is a named char vector where each value is a colour and
-#' name is a dilution batch group given in `dil_batch_var`
+#' @param plot_half_lin_reg Decide if we plot an extra regression line that
+#' best fits the first half of `conc_var` dilution points.
+#' Default: FALSE
 #' @return Output plotly dilution plot data of one dilution batch per transition
 #' @examples
 #' # Data Creation
@@ -46,22 +50,27 @@
 #'
 #' # Plot the html
 #' p <- dilution_plot_plotly(dilution_data,
+#'                           title = "Lipid_Saturated",
 #'                           sample_name_var = "Sample_Name",
+#'                           pal = pal,
 #'                           dil_batch_var = "Dilution_Batch_Name",
 #'                           conc_var = "Dilution_Percent",
 #'                           conc_var_units = "%",
 #'                           conc_var_interval = 50,
-#'                           signal_var = "Area",
-#'                           pal = pal)
+#'                           signal_var = "Area")
 #' @rdname dilution_plot_plotly
 #' @export
 dilution_plot_plotly <- function(dilution_data,
-                                 sample_name_var,
-                                 dil_batch_var,
-                                 conc_var, conc_var_units,
-                                 conc_var_interval,
-                                 signal_var,
-                                 pal) {
+                                 title,
+                                 pal,
+                                 sample_name_var = "Sample_Name",
+                                 dil_batch_var = "Dilution_Batch",
+                                 conc_var= "Dilution_Percent",
+                                 conc_var_units = "%",
+                                 conc_var_interval = 50,
+                                 signal_var = "Area",
+                                 plot_half_lin_reg = FALSE) {
+
 
   # Drop rows whose value of signal_var is NA
   dilution_data <- dilution_data %>%
@@ -118,6 +127,8 @@ dilution_plot_plotly <- function(dilution_data,
 
     } else {
 
+      # Plot the curves
+
       # Create the formula
       linear_formula <- stats::as.formula(paste(signal_var, "~",
                                                 paste(conc_var, collapse = " + ")
@@ -142,7 +153,7 @@ dilution_plot_plotly <- function(dilution_data,
                       max(dilution_data[[conc_var]]),
                       length.out = 15)
 
-      # Create the lines in the dilution plot
+      # Create the linear and quadratic curve in the dilution plot
       p <- p %>%
         plotly::add_trace(data = dilution_data, x = dilution,
                           y = stats::predict(linear_model,
@@ -156,13 +167,47 @@ dilution_plot_plotly <- function(dilution_data,
                           type = "scattergl", mode = "lines", name = "quad reg",
                           line = list(color = "red", width = 1, opacity = 0.25),
                           inherit = FALSE)
+
+
+      if(isTRUE(plot_half_lin_reg)){
+
+        # Get the points for the partial linear curve
+        partial_conc_points <- dilution_data %>%
+          dplyr::pull(.data$Dilution_Percent) %>%
+          as.numeric() %>%
+          sort() %>%
+          unique()
+
+        partial_conc_points <- partial_conc_points[1:ceiling(length(partial_conc_points)/2)]
+
+        partial_dilution_data <- dilution_data %>%
+          dplyr::filter(.data[[conc_var]] %in% partial_conc_points)
+
+        # Create the partial model
+        partial_linear_model <- create_dil_linear_model(partial_dilution_data,
+                                                        conc_var, signal_var)
+
+        # Create the lines in the dilution plot
+        p <- p %>%
+          plotly::add_trace(data = partial_dilution_data, x = dilution,
+                            y = stats::predict(partial_linear_model,
+                                               data.frame(Dilution_Percent = dilution)),
+                            type = "scattergl", mode = "lines", name = "lin half reg",
+                            line = list(color = "blue", width = 1),
+                            inherit = FALSE)
+
+
+      }
+
     }
 
   }
 
   # Create the layout to be the same as ggplot2
   p <- p %>%
-    plotly::layout(xaxis = list(title = paste0(conc_var, " (",  conc_var_units, ")"),
+    plotly::layout(title = list(text = title,
+                                x = 0.1) ,
+                   xaxis = list(title = paste0(conc_var, " (",  conc_var_units, ")"),
                                 titlefont = list(size = 10),
                                 gridcolor = "rgb(255,255,255)",
                                 showgrid = TRUE,
@@ -253,6 +298,12 @@ dilution_plot_plotly <- function(dilution_data,
 #' Default: 50
 #' @param signal_var Column name in `dilution_table` to indicate signal
 #' Default: 'Area'
+#' @param have_plot_title Indicate if you want to have a plot title in
+#' the plotly plot.
+#' Default: FALSE
+#' @param plot_half_lin_reg Decide if we plot an extra regression line that
+#' best fits the first half of `conc_var` dilution points.
+#' Default: FALSE
 #' @return A table that is suited for a `trelliscopejs` report with
 #' `groupung variable` columns converted to conditional cognostics,
 #' other columns in `dilution_summary` converted to cognostics and
@@ -348,7 +399,9 @@ create_trellis_table <- function(dilution_table, dilution_summary = NULL,
                                  conc_var = "Dilution_Percent",
                                  conc_var_units = "%",
                                  conc_var_interval = 50,
-                                 signal_var = "Area") {
+                                 signal_var = "Area",
+                                 have_plot_title = FALSE,
+                                 plot_half_lin_reg = FALSE) {
 
 
   # Check if dilution_table is valid with the relevant columns
@@ -396,29 +449,49 @@ create_trellis_table <- function(dilution_table, dilution_summary = NULL,
     create_char_seq(output_length = length(dilution_batch_name)) %>%
     stats::setNames(dilution_batch_name)
 
+
+  # Create a title name for each group
+  #https://stackoverflow.com/questions/44613279/dplyr-concat-columns-stored-in-variable-mutate-and-non-standard-evaluation?rq=1
+  if(isTRUE(have_plot_title)) {
+    dilution_table <- dilution_table %>%
+      dplyr::rowwise() %>%
+      dplyr::mutate(title = paste0(
+        dplyr::across(dplyr::all_of(grouping_variable)),
+        collapse = "_")) %>%
+      dplyr::ungroup()
+
+  } else {
+    dilution_table <- dilution_table %>%
+      dplyr::mutate(title = "")
+  }
+
   # Group/Nest the dilution data for each group
   # and do a dilution plot for each of them
   dilution_plots <- dilution_table %>%
     dplyr::mutate(Dilution_Batch_Name = .data[[dil_batch_var]]) %>%
-    dplyr::group_by_at(dplyr::all_of(grouping_variable)) %>%
-    dplyr::relocate(dplyr::all_of(grouping_variable)) %>%
+    dplyr::group_by_at(dplyr::all_of(c(grouping_variable,"title"))) %>%
+    dplyr::relocate(dplyr::all_of(c(grouping_variable,"title"))) %>%
     tidyr::nest() %>%
-    dplyr::ungroup() %>%
-    dplyr::mutate(panel = trelliscopejs::map_plot(.data$data,
-                                                  dilution_plot_plotly,
-                                                  sample_name_var = sample_name_var,
-                                                  dil_batch_var = "Dilution_Batch_Name",
-                                                  conc_var = conc_var,
-                                                  conc_var_units = conc_var_units,
-                                                  conc_var_interval = conc_var_interval,
-                                                  signal_var = signal_var,
-                                                  pal = pal)
+    dplyr::ungroup()
+
+  dilution_plots <- dilution_plots %>%
+    dplyr::mutate(panel = trelliscopejs::map2_plot(.data$data,
+                                                   .data$title,
+                                                   dilution_plot_plotly,
+                                                   pal = pal,
+                                                   sample_name_var = sample_name_var,
+                                                   dil_batch_var = "Dilution_Batch_Name",
+                                                   conc_var = conc_var,
+                                                   conc_var_units = conc_var_units,
+                                                   conc_var_interval = conc_var_interval,
+                                                   signal_var = signal_var,
+                                                   plot_half_lin_reg = plot_half_lin_reg)
                   )
 
   # Convert the grouping variables to conditioning cognostics
   # Left Join with the dilution_summary
   trellis_table <- dilution_plots %>%
-    dplyr::select(dplyr::all_of(grouping_variable)) %>%
+    dplyr::select(dplyr::all_of(c(grouping_variable,"title"))) %>%
     trelliscopejs::as_cognostics(cond_cols = grouping_variable,
                                  needs_cond = TRUE,
                                  needs_key = FALSE) %>%

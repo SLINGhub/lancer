@@ -658,10 +658,10 @@
     },
     "plotly": {
       "Package": "plotly",
-      "Version": "4.9.2.1",
+      "Version": "4.9.2.2",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "b08edf378e0e38959a6983e3d5902795"
+      "Hash": "d15a1ef71d99e20bf8e90cf5854bc3e7"
     },
     "praise": {
       "Package": "praise",

@@ -6,17 +6,25 @@
 \usage{
 dilution_plot_plotly(
   dilution_data,
-  sample_name_var,
-  dil_batch_var,
-  conc_var,
-  conc_var_units,
-  conc_var_interval,
-  signal_var,
-  pal
+  title,
+  pal,
+  sample_name_var = "Sample_Name",
+  dil_batch_var = "Dilution_Batch",
+  conc_var = "Dilution_Percent",
+  conc_var_units = "\%",
+  conc_var_interval = 50,
+  signal_var = "Area",
+  plot_half_lin_reg = FALSE
 )
 }
 \arguments{
 \item{dilution_data}{A data frame or tibble containing dilution data}
+
+\item{title}{Title to use for each dilution plot}
+
+\item{pal}{Input palette for each dilution batch group in \code{dil_batch_var}.
+It is a named char vector where each value is a colour and
+name is a dilution batch group given in \code{dil_batch_var}}
 
 \item{sample_name_var}{Column name in \code{dilution_data}
 to indicate the sample name}
@@ -33,9 +41,9 @@ used to colour the points in the dilution plot}
 
 \item{signal_var}{Column name in \code{dilution_data} to indicate signal}
 
-\item{pal}{Input palette for each dilution batch group in \code{dil_batch_var}.
-It is a named char vector where each value is a colour and
-name is a dilution batch group given in \code{dil_batch_var}}
+\item{plot_half_lin_reg}{Decide if we plot an extra regression line that
+best fits the first half of \code{conc_var} dilution points.
+Default: FALSE}
 }
 \value{
 Output plotly dilution plot data of one dilution batch per transition
@@ -75,11 +83,12 @@ pal <- dil_batch_col \%>\%
 
 # Plot the html
 p <- dilution_plot_plotly(dilution_data,
+                          title = "Lipid_Saturated",
                           sample_name_var = "Sample_Name",
+                          pal = pal,
                           dil_batch_var = "Dilution_Batch_Name",
                           conc_var = "Dilution_Percent",
                           conc_var_units = "\%",
                           conc_var_interval = 50,
-                          signal_var = "Area",
-                          pal = pal)
+                          signal_var = "Area")
 }

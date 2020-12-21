@@ -67,7 +67,12 @@ test_that("Able to plot dilution data with its statistical summary in a pdf repo
   # Create a ggplot table
   testthat::expect_silent(
     ggplot_table <- create_ggplot_table(dilution_table,
-                                        dilution_summary = dilution_summary)
+                                        dilution_summary = dilution_summary,
+                                        grouping_variable = c("Transition_Name",
+                                                              "Dilution_Batch"),
+                                        conc_var = "Dilution_Percent",
+                                        signal_var = "Area",
+                                        plot_half_lin_reg = FALSE)
   )
 
   # Create a ggplot table without dilution summary
@@ -76,7 +81,8 @@ test_that("Able to plot dilution data with its statistical summary in a pdf repo
                                              grouping_variable = c("Transition_Name",
                                                                    "Dilution_Batch"),
                                              conc_var = "Dilution_Percent",
-                                             signal_var = "Area")
+                                             signal_var = "Area",
+                                             plot_half_lin_reg = FALSE)
   )
 
   # Get the list of ggplot list for each group

@@ -19,7 +19,9 @@ create_trellis_table(
   conc_var = "Dilution_Percent",
   conc_var_units = "\%",
   conc_var_interval = 50,
-  signal_var = "Area"
+  signal_var = "Area",
+  have_plot_title = FALSE,
+  plot_half_lin_reg = FALSE
 )
 }
 \arguments{
@@ -83,6 +85,14 @@ Default: 50}
 
 \item{signal_var}{Column name in \code{dilution_table} to indicate signal
 Default: 'Area'}
+
+\item{have_plot_title}{Indicate if you want to have a plot title in
+the plotly plot.
+Default: FALSE}
+
+\item{plot_half_lin_reg}{Decide if we plot an extra regression line that
+best fits the first half of \code{conc_var} dilution points.
+Default: FALSE}
 }
 \value{
 A table that is suited for a \code{trelliscopejs} report with

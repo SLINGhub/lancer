@@ -8,12 +8,13 @@ dilution_plot_ggplot(
   dilution_data,
   dilution_summary_grp,
   title,
-  dil_batch_var,
-  conc_var,
-  conc_var_units,
-  conc_var_interval,
-  signal_var,
-  pal
+  pal,
+  dil_batch_var = "Dilution_Batch",
+  conc_var = "Dilution_Percent",
+  conc_var_units = "\%",
+  conc_var_interval = 50,
+  signal_var = "Area",
+  plot_half_lin_reg = FALSE
 )
 }
 \arguments{
@@ -24,22 +25,30 @@ dilution summary data for one group}
 
 \item{title}{Title to use for each dilution plot}
 
-\item{dil_batch_var}{Column name in \code{dilution_data}
-to indicate the group name of each dilution batch,
-used to colour the points in the dilution plot}
-
-\item{conc_var}{Column name in \code{dilution_data} to indicate concentration}
-
-\item{conc_var_units}{Unit of measure for \code{conc_var}}
-
-\item{conc_var_interval}{Distance between two tick labels
-during \code{conc_var} plotting. Tick label will alway start from 0}
-
-\item{signal_var}{Column name in \code{dilution_data} to indicate signal}
-
 \item{pal}{Input palette for each dilution batch group in \code{dil_batch_var}.
 It is a named char vector where each value is a colour and
 name is a dilution batch group given in \code{dil_batch_var}}
+
+\item{dil_batch_var}{Column name in \code{dilution_table}
+to indicate the group name of each dilution batch,
+used to colour the points in the dilution plot
+Default: 'Dilution_Batch'}
+
+\item{conc_var}{Column name in \code{dilution_table} to indicate concentration
+Default: 'Dilution_Percent'}
+
+\item{conc_var_units}{Unit of measure for \code{conc_var}, Default: '\%'}
+
+\item{conc_var_interval}{Distance between two tick labels
+in the dilution plot,
+Default: 50}
+
+\item{signal_var}{Column name in \code{dilution_table} to indicate signal
+Default: 'Area'}
+
+\item{plot_half_lin_reg}{Decide if we plot an extra regression line that
+best fits the first half of \code{conc_var} dilution points.
+Default: FALSE}
 }
 \value{
 Output ggplot dilution plot data of one dilution batch per transition
@@ -98,10 +107,10 @@ dilution_summary_grp <- dilution_data \%>\%
 p <- dilution_plot_ggplot(dilution_data,
                           dilution_summary_grp = dilution_summary_grp,
                           title = "Lipid_Saturated",
+                          pal = pal,
                           dil_batch_var = "Dilution_Batch_Name",
                           conc_var = "Dilution_Percent",
                           conc_var_units = "\%",
                           conc_var_interval = 50,
-                          signal_var = "Area",
-                          pal = pal)
+                          signal_var = "Area")
 }

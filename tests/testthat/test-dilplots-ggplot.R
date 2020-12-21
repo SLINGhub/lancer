@@ -50,14 +50,29 @@ test_that("Able to plot good dilution data with ggplot correctly", {
   p <- dilution_plot_ggplot(dilution_data,
                             dilution_summary_grp = dilution_summary_grp,
                             title = "Lipid_Saturated",
+                            pal = pal,
                             dil_batch_var = "Dilution_Batch_Name",
                             conc_var = "Dilution_Percent",
                             conc_var_units = "%",
                             conc_var_interval = 50,
                             signal_var = "Area",
-                            pal = pal)
+                            plot_half_lin_reg = FALSE)
 
   vdiffr::expect_doppelganger("A usual dilution plot", p)
+
+
+  p <- dilution_plot_ggplot(dilution_data,
+                            dilution_summary_grp = dilution_summary_grp,
+                            title = "Lipid_Saturated",
+                            pal = pal,
+                            dil_batch_var = "Dilution_Batch_Name",
+                            conc_var = "Dilution_Percent",
+                            conc_var_units = "%",
+                            conc_var_interval = 50,
+                            signal_var = "Area",
+                            plot_half_lin_reg = TRUE)
+
+  vdiffr::expect_doppelganger("A LinHalf dilution plot", p)
 
 })
 
@@ -113,12 +128,13 @@ test_that("Able to plot horizontal dilution data with ggplot correctly", {
   p <- dilution_plot_ggplot(dilution_data,
                             dilution_summary_grp = dilution_summary_grp,
                             title = "Lipid_Horizontal",
+                            pal = pal,
                             dil_batch_var = "Dilution_Batch_Name",
                             conc_var = "Dilution_Percent",
                             conc_var_units = "%",
                             conc_var_interval = 50,
                             signal_var = "Area",
-                            pal = pal)
+                            plot_half_lin_reg = FALSE)
 
   vdiffr::expect_doppelganger("A horizontal dilution plot", p)
 
@@ -178,12 +194,13 @@ test_that("Able to plot vertical dilution data with ggplot correctly", {
   p <- dilution_plot_ggplot(dilution_data,
                             dilution_summary_grp = dilution_summary_grp,
                             title = "Lipid_Vertical",
+                            pal = pal,
                             dil_batch_var = "Dilution_Batch_Name",
                             conc_var = "Dilution_Percent",
                             conc_var_units = "%",
                             conc_var_interval = 50,
                             signal_var = "Area",
-                            pal = pal)
+                            plot_half_lin_reg = FALSE)
 
   vdiffr::expect_doppelganger("A vertical dilution plot", p)
 
@@ -243,12 +260,13 @@ test_that("Able to plot single point dilution data with ggplot correctly", {
   p <- dilution_plot_ggplot(dilution_data,
                             dilution_summary_grp = dilution_summary_grp,
                             title = "Lipid_Point",
+                            pal = pal,
                             dil_batch_var = "Dilution_Batch_Name",
                             conc_var = "Dilution_Percent",
                             conc_var_units = "%",
                             conc_var_interval = 50,
                             signal_var = "Area",
-                            pal = pal)
+                            plot_half_lin_reg = FALSE)
 
   vdiffr::expect_doppelganger("A single point dilution plot", p)
 
@@ -305,13 +323,14 @@ test_that("Able to plot NA dilution data with ggplot correctly", {
   # Create the ggplot
   p <- dilution_plot_ggplot(dilution_data,
                             dilution_summary_grp = dilution_summary_grp,
-                            title = "Lipid_Point",
+                            title = "Lipid_No_Point",
+                            pal = pal,
                             dil_batch_var = "Dilution_Batch_Name",
                             conc_var = "Dilution_Percent",
                             conc_var_units = "%",
                             conc_var_interval = 50,
                             signal_var = "Area",
-                            pal = pal)
+                            plot_half_lin_reg = FALSE)
 
   vdiffr::expect_doppelganger("A NA dilution plot", p)
 

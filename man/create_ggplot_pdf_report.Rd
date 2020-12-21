@@ -76,5 +76,5 @@ ggplot_table_auto <- create_ggplot_table(dilution_table)
 ggplot_list <- ggplot_table_auto$panel
 
 # Create a pdf report, set testing = FALSE to output results
-create_ggplot_pdf_report(ggplot_list, testing = TRUE)
+pdf_page_list <- create_ggplot_pdf_report(ggplot_list, testing = TRUE)
 }

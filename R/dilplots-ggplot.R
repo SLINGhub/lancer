@@ -143,17 +143,24 @@ dilution_summary_num_table <- function(dilution_summary_grp) {
 #' @param dilution_summary_grp A data frame or tibble containing
 #' dilution summary data for one group
 #' @param title Title to use for each dilution plot
-#' @param dil_batch_var Column name in `dilution_data`
-#' to indicate the group name of each dilution batch,
-#' used to colour the points in the dilution plot
-#' @param conc_var Column name in `dilution_data` to indicate concentration
-#' @param conc_var_units Unit of measure for `conc_var`
-#' @param conc_var_interval Distance between two tick labels
-#' during `conc_var` plotting. Tick label will alway start from 0
-#' @param signal_var Column name in `dilution_data` to indicate signal
 #' @param pal Input palette for each dilution batch group in `dil_batch_var`.
 #' It is a named char vector where each value is a colour and
 #' name is a dilution batch group given in `dil_batch_var`
+#' @param dil_batch_var Column name in `dilution_table`
+#' to indicate the group name of each dilution batch,
+#' used to colour the points in the dilution plot
+#' Default: 'Dilution_Batch'
+#' @param conc_var Column name in `dilution_table` to indicate concentration
+#' Default: 'Dilution_Percent'
+#' @param conc_var_units Unit of measure for `conc_var`, Default: '%'
+#' @param conc_var_interval Distance between two tick labels
+#' in the dilution plot,
+#' Default: 50
+#' @param signal_var Column name in `dilution_table` to indicate signal
+#' Default: 'Area'
+#' @param plot_half_lin_reg Decide if we plot an extra regression line that
+#' best fits the first half of `conc_var` dilution points.
+#' Default: FALSE
 #' @return Output ggplot dilution plot data of one dilution batch per transition
 #' @rdname dilution_plot_ggplot
 #' @examples
@@ -207,22 +214,23 @@ dilution_summary_num_table <- function(dilution_summary_grp) {
 #' p <- dilution_plot_ggplot(dilution_data,
 #'                           dilution_summary_grp = dilution_summary_grp,
 #'                           title = "Lipid_Saturated",
+#'                           pal = pal,
 #'                           dil_batch_var = "Dilution_Batch_Name",
 #'                           conc_var = "Dilution_Percent",
 #'                           conc_var_units = "%",
 #'                           conc_var_interval = 50,
-#'                           signal_var = "Area",
-#'                           pal = pal)
+#'                           signal_var = "Area")
 #' @export
 dilution_plot_ggplot <- function(dilution_data,
                                  dilution_summary_grp,
                                  title,
-                                 dil_batch_var,
-                                 conc_var, conc_var_units,
-                                 conc_var_interval,
-                                 signal_var,
-                                 pal) {
-
+                                 pal,
+                                 dil_batch_var = "Dilution_Batch",
+                                 conc_var= "Dilution_Percent",
+                                 conc_var_units = "%",
+                                 conc_var_interval = 50,
+                                 signal_var = "Area",
+                                 plot_half_lin_reg = FALSE) {
 
   # Number of dilution batches
   no_of_dil_batch <- dilution_data %>%
@@ -278,11 +286,6 @@ dilution_plot_ggplot <- function(dilution_data,
       cont_y <- unique(dilution_data[[signal_var]])
 
       p <- p +
-        # ggplot2::geom_point(
-        #   mapping = ggplot2::aes(colour = factor(.data[[dil_batch_var]])
-        #   ),
-        #   size = 2,
-        # ) +
         ggplot2::geom_segment(
           ggplot2::aes(x = min_x, xend = max_x,
                        y = cont_y, yend = cont_y,
@@ -298,11 +301,6 @@ dilution_plot_ggplot <- function(dilution_data,
       cont_x <- unique(dilution_data[[conc_var]])
 
       p <- p +
-        # ggplot2::geom_point(
-        #   mapping = ggplot2::aes(colour = factor(.data[[dil_batch_var]])
-        #   ),
-        #   size = 2,
-        # ) +
         ggplot2::geom_segment(
           ggplot2::aes(x = cont_x, xend = cont_x,
                        y = min_y, yend = max_y,
@@ -311,26 +309,16 @@ dilution_plot_ggplot <- function(dilution_data,
 
     } else {
 
-      reg_col_vec <- c("Lin" = "black", "Quad" = "red", "Lin Par" = "blue")
-
-      # Get the points for the partial linear curve
-      partial_conc_points <- dilution_data %>%
-        dplyr::pull(.data$Dilution_Percent) %>%
-        as.numeric() %>%
-        sort() %>%
-        unique()
-
-      partial_conc_points <- partial_conc_points[1:ceiling(length(partial_conc_points)/2)]
-
-      partial_dilution_Data <- dilution_data %>%
-        dplyr::filter(.data[[conc_var]] %in% partial_conc_points)
+      if(plot_half_lin_reg) {
+        reg_col_vec <- c("Lin" = "black", "Quad" = "red", "Lin Half" = "blue")
+      } else {
+        reg_col_vec <- c("Lin" = "black", "Quad" = "red")
+      }
 
 
       # Model the data
       linear_model <- create_dil_linear_model(dilution_data, conc_var, signal_var)
       quad_model <- create_dil_quad_model(dilution_data, conc_var, signal_var)
-      partial_linear_model <- create_dil_linear_model(partial_dilution_Data,
-                                                      conc_var, signal_var)
 
       dilution <- seq(min(dilution_data[[conc_var]]),
                       max(dilution_data[[conc_var]]),
@@ -341,31 +329,12 @@ dilution_plot_ggplot <- function(dilution_data,
                                       data.frame(Dilution_Percent = dilution))
       y_quad_predict <- stats::predict(quad_model,
                                        data.frame(Dilution_Percent = dilution))
-      y_partial_lin_predict <- stats::predict(partial_linear_model,
-                                              data.frame(Dilution_Percent = dilution))
       reg_data <- data.frame(dilution = dilution,
                              y_lin_predict = y_lin_predict,
                              y_quad_predict = y_quad_predict)
 
-      # Clean the y value so that it is not too large or too small
-      partial_reg_data <- data.frame(dilution = dilution,
-                                     y_partial_lin_predict = y_partial_lin_predict)
-      # partial_reg_data <- partial_reg_data %>%
-      #   dplyr::mutate(y_partial_lin_predict =
-      #                   dplyr::case_when(
-      #                     .data$y_partial_lin_predict > max(dilution_data[[signal_var]]) ~ NA_real_,
-      #                     .data$y_partial_lin_predict < min(dilution_data[[signal_var]]) ~ NA_real_,
-      #                     TRUE ~ .data$y_partial_lin_predict
-      #                   )
-      #                 ) %>%
-      #   dplyr::filter(!is.na(.data$y_partial_lin_predict))
-
+      #Add the regression lines
       p <- p +
-        # ggplot2::geom_point(
-        #   mapping = ggplot2::aes(colour = factor(.data[[dil_batch_var]])
-        #   ),
-        #   size = 2,
-        # ) +
         ggplot2::geom_line(data = reg_data,
                            mapping = ggplot2::aes(x = dilution, y=y_lin_predict,
                                                   colour = "Lin")
@@ -373,11 +342,42 @@ dilution_plot_ggplot <- function(dilution_data,
         ggplot2::geom_line(data = reg_data,
                            mapping = ggplot2::aes(x = dilution, y=y_quad_predict,
                                                   colour = "Quad")
-        ) +
-        ggplot2::geom_line(data = partial_reg_data,
-                           mapping = ggplot2::aes(x = dilution, y=y_partial_lin_predict,
-                                                  colour = "Lin Par")
         )
+
+
+      if(plot_half_lin_reg) {
+
+        # Get the points for the partial linear curve
+        partial_conc_points <- dilution_data %>%
+          dplyr::pull(.data$Dilution_Percent) %>%
+          as.numeric() %>%
+          sort() %>%
+          unique()
+
+        partial_conc_points <- partial_conc_points[1:ceiling(length(partial_conc_points)/2)]
+
+        partial_dilution_Data <- dilution_data %>%
+          dplyr::filter(.data[[conc_var]] %in% partial_conc_points)
+
+
+        # Create the partial model
+        partial_linear_model <- create_dil_linear_model(partial_dilution_Data,
+                                                        conc_var, signal_var)
+
+        y_partial_lin_predict <- stats::predict(partial_linear_model,
+                                                data.frame(Dilution_Percent = dilution))
+
+        partial_reg_data <- data.frame(dilution = dilution,
+                                       y_partial_lin_predict = y_partial_lin_predict)
+
+        # Plot the half regression line
+        p <- p +
+          ggplot2::geom_line(data = partial_reg_data,
+                             mapping = ggplot2::aes(x = dilution, y=y_partial_lin_predict,
+                                                    colour = "Lin Half")
+          )
+
+      }
 
     }
 
@@ -466,6 +466,9 @@ dilution_plot_ggplot <- function(dilution_data,
 #' Default: 50
 #' @param signal_var Column name in `dilution_table` to indicate signal
 #' Default: 'Area'
+#' @param plot_half_lin_reg Decide if we plot an extra regression line that
+#' best fits the first half of `conc_var` dilution points.
+#' Default: FALSE
 #' @return A table with columns from `groupung variable`
 #' and a new column `panel` created containing a ggplot dilution plot
 #' in each row. This column is used to create the plot figure in the
@@ -554,7 +557,8 @@ create_ggplot_table <- function(dilution_table, dilution_summary = NULL,
                                 conc_var = "Dilution_Percent",
                                 conc_var_units = "%",
                                 conc_var_interval = 50,
-                                signal_var = "Area") {
+                                signal_var = "Area",
+                                plot_half_lin_reg = FALSE) {
 
   # Check if dilution_table is valid with the relevant columns
   validate_dilution_table(dilution_table,
@@ -621,12 +625,13 @@ create_ggplot_table <- function(dilution_table, dilution_summary = NULL,
                                            .data$summary,
                                            .data$title),
                                       dilution_plot_ggplot,
+                                      pal = pal,
                                       dil_batch_var = "Dilution_Batch_Name",
                                       conc_var = conc_var,
                                       conc_var_units = conc_var_units,
                                       conc_var_interval = conc_var_interval,
                                       signal_var = signal_var,
-                                      pal = pal)
+                                      plot_half_lin_reg = plot_half_lin_reg)
                   )
 
   return(ggplot_table)
