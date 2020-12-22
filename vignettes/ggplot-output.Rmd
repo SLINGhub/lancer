@@ -112,8 +112,8 @@ ggplot_list_orig <- ggplot_table_orig$panel
 Each ggplot plot for each group can be found in the column `panel`
 
 ```{r print ggplot plot}
-print(ggplot_list_orig[[1]])
-print(ggplot_list_orig[[7]])
+ggplot_list_orig[[1]]
+ggplot_list_orig[[7]]
 ```
 
 To see the regression line on half the dilution points, set `plot_half_lin_reg = TRUE`
@@ -137,8 +137,8 @@ ggplot_list <- ggplot_table$panel
 ```
 
 ```{r print ggplot plot with half linear regression}
-print(ggplot_list[[1]])
-print(ggplot_list[[7]])
+ggplot_list[[1]]
+ggplot_list[[7]]
 ```
 
 Units of `conc_var` and `conc_var_interval` can be customised to suit the range of `conc_var`
@@ -163,8 +163,8 @@ ggplot_list <- ggplot_table$panel
 ```
 
 ```{r print ggplot plot with conc customisation}
-print(ggplot_list[[2]])
-print(ggplot_list[[8]])
+ggplot_list[[2]]
+ggplot_list[[8]]
 ```
 
 The list of ggplots can be output in pdf. You may have to adjust the width and height accordingly.

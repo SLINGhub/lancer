@@ -150,7 +150,7 @@ test_that("calculate dil linear GOF", {
   dilution_percent <- c(10, 20, 40, 60, 80, 100)
   area <- c(22561, 31178, 39981, 48390, 52171, 53410)
   dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-  dil_linear_gof <- calculate_dil_linear_gof(dilution_data,
+  dil_linear_gof <- calculate_gof_linear(dilution_data,
                                              "Dilution_Percent", "Area")
   testthat::expect_equal(0.95575, unname(dil_linear_gof$r_corr),
                          tolerance  = 0.001)
@@ -163,7 +163,7 @@ test_that("calculate dil linear GOF", {
   dilution_percent <- c(0, 10, 8, 13)
   area <- c(2, 2, 2, 2)
   dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-  dil_linear_gof <- calculate_dil_linear_gof(dilution_data,
+  dil_linear_gof <- calculate_gof_linear(dilution_data,
                                              "Dilution_Percent", "Area")
   testthat::expect_equal(NA, unname(dil_linear_gof$r_corr))
   testthat::expect_equal(NA, unname(dil_linear_gof$r2_linear))
@@ -172,7 +172,7 @@ test_that("calculate dil linear GOF", {
   # Handle the case of a straight vertical line input. Give NA
   dilution_percent <- c(10, 10, 10, 10)
   area <- c(0, 5.23, 4.23, 6.35)
-  dil_linear_gof <- calculate_dil_linear_gof(dilution_data,
+  dil_linear_gof <- calculate_gof_linear(dilution_data,
                                              "Dilution_Percent", "Area")
   testthat::expect_equal(NA, unname(dil_linear_gof$r_corr))
   testthat::expect_equal(NA, unname(dil_linear_gof$r2_linear))
@@ -182,28 +182,28 @@ test_that("calculate dil linear GOF", {
   dilution_percent <- c(0, 10, 8)
   area <- c(0, 5.23, 4.23)
   dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-  dil_linear_gof <- calculate_dil_linear_gof(dilution_data,
+  dil_linear_gof <- calculate_gof_linear(dilution_data,
                                              "Dilution_Percent", "Area")
   testthat::expect_equal(NA, unname(dil_linear_gof$r_corr))
   testthat::expect_equal(NA, unname(dil_linear_gof$r2_linear))
   testthat::expect_equal(NA, unname(dil_linear_gof$r2_adj_linear))
 
   dilution_data <- data.frame(Dilution_Percent = c(NA, NA), Area =  c(NA, NA))
-  dil_linear_gof <- calculate_dil_linear_gof(dilution_data,
+  dil_linear_gof <- calculate_gof_linear(dilution_data,
                                              "Dilution_Percent", "Area")
   testthat::expect_equal(NA, unname(dil_linear_gof$r_corr))
   testthat::expect_equal(NA, unname(dil_linear_gof$r2_linear))
   testthat::expect_equal(NA, unname(dil_linear_gof$r2_adj_linear))
 
   dilution_data <- data.frame(Dilution_Percent = NA, Area = NA)
-  dil_linear_gof <- calculate_dil_linear_gof(dilution_data,
+  dil_linear_gof <- calculate_gof_linear(dilution_data,
                                              "Dilution_Percent", "Area")
   testthat::expect_equal(NA, unname(dil_linear_gof$r_corr))
   testthat::expect_equal(NA, unname(dil_linear_gof$r2_linear))
   testthat::expect_equal(NA, unname(dil_linear_gof$r2_adj_linear))
 
   dilution_data <- NA
-  dil_linear_gof <- calculate_dil_linear_gof(dilution_data,
+  dil_linear_gof <- calculate_gof_linear(dilution_data,
                                              "Dilution_Percent", "Area")
   testthat::expect_equal(NA, unname(dil_linear_gof$r_corr))
   testthat::expect_equal(NA, unname(dil_linear_gof$r2_linear))

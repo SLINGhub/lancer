@@ -14,8 +14,8 @@ validate_cog_df(
 
 \item{needed_column}{A vector consisting of needed column names that
 must be found in \code{cog_df},
-Default: c("col_name_vec", "desc_vec",
-"type_vec", "default_label_vec")}
+Default:
+\code{c("col_name_vec", "desc_vec", "type_vec", "default_label_vec")}}
 }
 \value{
 An error if the things in \code{needed_column}
@@ -23,4 +23,21 @@ is not found in the Cognostics Data
 }
 \description{
 Validate Cognostics Data
+}
+\examples{
+# Create Cognostics Dataframe
+col_name_vec <- c("Transition_Name", "Dilution_Batch")
+
+desc_vec <- c("Transition_Name", "Dilution_Batch")
+
+type_vec <- c("factor","factor")
+
+default_label_vec <- c(TRUE, TRUE)
+
+cog_df <- data.frame(col_name_vec = col_name_vec,
+                     desc_vec = desc_vec,
+                     type_vec = type_vec,
+                     default_label_vec = default_label_vec)
+
+validate_cog_df(cog_df)
 }

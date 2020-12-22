@@ -2,7 +2,7 @@
 % Please edit documentation in R/dilstats.R
 \name{calculate_concavity}
 \alias{calculate_concavity}
-\title{Calculate concavity}
+\title{Calculate Concavity}
 \usage{
 calculate_concavity(dilution_data, conc_var, signal_var)
 }

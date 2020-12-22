@@ -2,7 +2,7 @@
 % Please edit documentation in R/dilstats.R
 \name{calculate_mandel}
 \alias{calculate_mandel}
-\title{Calculate the Mandel fitting test}
+\title{Calculate Mandel Fitting Test}
 \usage{
 calculate_mandel(dilution_data, conc_var, signal_var)
 }

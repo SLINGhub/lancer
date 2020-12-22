@@ -1,8 +1,8 @@
-#' @title Plot Dilution Summary tables for one group
-#' @description Plot Dilution Summary tables for one group
+#' @title Plot Dilution Summary Table For One Group
+#' @description Plot dilution summary table for one group
 #' @param dilution_summary_grp
 #' A one row data frame or tibble containing dilution summary
-#' @return A gridtable object consisting of two tables. One from
+#' @return A `gridtable` object consisting of two tables. One from
 #' `dilution_summary_char_table` and `dilution_summary_num_table`
 #' @examples
 #' wf1_group <- c("Poor Linearity")
@@ -18,13 +18,22 @@
 #'                                     mandel_p_val = mandel_p_val,
 #'                                     concavity = concavity)
 #' table <- dilution_summary_group_table(dilution_summary_grp)
+#' grid::grid.draw(table)
+#'
+#' # No column case
+#' dilution_summary_grp  <- data.frame()
+#' table <- dilution_summary_group_table(dilution_summary_grp)
+#' table
 #' @rdname dilution_summary_group_table
 #' @export
 dilution_summary_group_table <- function(dilution_summary_grp) {
+  if(is.null(dilution_summary_grp) || isTRUE(is.na(dilution_summary_grp))) {
+    return(NULL)
+  }
   dilution_char_data <- dilution_summary_char_table(dilution_summary_grp)
   dilution_num_data <- dilution_summary_num_table(dilution_summary_grp)
 
-  if (is.null(dilution_char_data) && is.null(dilution_num_data)) {
+  if(is.null(dilution_char_data) && is.null(dilution_num_data)) {
     return(NULL)
   } else if (is.null(dilution_char_data)) {
     return(dilution_num_data)
@@ -37,11 +46,12 @@ dilution_summary_group_table <- function(dilution_summary_grp) {
   }
 }
 
-#' @title Plot Dilution Summary character table for one group
-#' @description Plot Dilution Summary character table for one group
+#' @title Plot Dilution Summary Character Table For One Group
+#' @description
+#' Plot dilution summary character table for one group
 #' @param dilution_summary_grp
 #' A one row data frame or tibble containing dilution summary
-#' @return A gridtable object consisting of one table. The first
+#' @return A `gridtable` object consisting of one table. The first
 #' column is the column names of `dilution_summary_grp` which
 #' are characters or factors or logical. The second column is their
 #' corresponding values. If there are no character/factor/logical
@@ -60,6 +70,12 @@ dilution_summary_group_table <- function(dilution_summary_grp) {
 #'                                     mandel_p_val = mandel_p_val,
 #'                                     concavity = concavity)
 #' table <- dilution_summary_char_table(dilution_summary_grp)
+#' grid::grid.draw(table)
+#'
+#' # No character/factor/logical column case
+#' dilution_summary_grp  <- data.frame(r_corr = r_corr)
+#' table <- dilution_summary_char_table(dilution_summary_grp)
+#' table
 #' @rdname dilution_summary_char_table
 #' @export
 dilution_summary_char_table <- function(dilution_summary_grp) {
@@ -85,11 +101,11 @@ dilution_summary_char_table <- function(dilution_summary_grp) {
 
 }
 
-#' @title Plot Dilution Summary numeric table for one group
-#' @description Plot Dilution Summary numeric table for one group
+#' @title Plot Dilution Summary Numeric Table For One Group
+#' @description Plot dilution Summary numeric table for one group
 #' @param dilution_summary_grp
 #' A one row data frame or tibble containing dilution summary
-#' @return A gridtable object consisting of one table. The first
+#' @return A `gridtable` object consisting of one table. The first
 #' column is the column names of `dilution_summary_grp` which
 #' are numeric. The second column is their
 #' corresponding values. If there are numeric columns
@@ -108,6 +124,12 @@ dilution_summary_char_table <- function(dilution_summary_grp) {
 #'                                     mandel_p_val = mandel_p_val,
 #'                                     concavity = concavity)
 #' table <- dilution_summary_num_table(dilution_summary_grp)
+#' grid::grid.draw(table)
+#'
+#' # No numeric column case
+#' dilution_summary_grp  <- data.frame(wf2_group = wf2_group)
+#' table <- dilution_summary_num_table(dilution_summary_grp)
+#' table
 #' @rdname dilution_summary_num_table
 #' @export
 dilution_summary_num_table <- function(dilution_summary_grp) {
@@ -137,8 +159,8 @@ dilution_summary_num_table <- function(dilution_summary_grp) {
 }
 
 
-#' @title Plot Dilution Data using ggplot2
-#' @description Plot Dilution Data using ggplot2
+#' @title Plot Dilution Data Using `ggplot2`
+#' @description Plot Dilution Data Using `ggplot2`
 #' @param dilution_data A data frame or tibble containing dilution data
 #' @param dilution_summary_grp A data frame or tibble containing
 #' dilution summary data for one group
@@ -220,6 +242,7 @@ dilution_summary_num_table <- function(dilution_summary_grp) {
 #'                           conc_var_units = "%",
 #'                           conc_var_interval = 50,
 #'                           signal_var = "Area")
+#' p
 #' @export
 dilution_plot_ggplot <- function(dilution_data,
                                  dilution_summary_grp,
@@ -317,8 +340,8 @@ dilution_plot_ggplot <- function(dilution_data,
 
 
       # Model the data
-      linear_model <- create_dil_linear_model(dilution_data, conc_var, signal_var)
-      quad_model <- create_dil_quad_model(dilution_data, conc_var, signal_var)
+      linear_model <- create_linear_model(dilution_data, conc_var, signal_var)
+      quad_model <- create_quad_model(dilution_data, conc_var, signal_var)
 
       dilution <- seq(min(dilution_data[[conc_var]]),
                       max(dilution_data[[conc_var]]),
@@ -361,8 +384,8 @@ dilution_plot_ggplot <- function(dilution_data,
 
 
         # Create the partial model
-        partial_linear_model <- create_dil_linear_model(partial_dilution_Data,
-                                                        conc_var, signal_var)
+        partial_linear_model <- create_linear_model(partial_dilution_Data,
+                                                    conc_var, signal_var)
 
         y_partial_lin_predict <- stats::predict(partial_linear_model,
                                                 data.frame(Dilution_Percent = dilution))
@@ -434,8 +457,8 @@ dilution_plot_ggplot <- function(dilution_data,
 }
 
 
-#' @title Create a ggplot table
-#' @description Create a ggplot table suited for a pdf report
+#' @title Create A `ggplot` Table
+#' @description Create a `ggplot` table suited for a pdf report
 #' @param dilution_table Output given from the function `create_dilution_table`
 #' It is in long table format with columns indicating at least the
 #' lipid/transition name, the concentration and signal. Other columns may be
@@ -542,7 +565,11 @@ dilution_plot_ggplot <- function(dilution_data,
 #' # Create a ggplot table
 #' ggplot_table <- create_ggplot_table(dilution_table,
 #'                                     dilution_summary = dilution_summary)
+#' ggplot_list <- ggplot_table$panel
 #'
+#' ggplot_list[[1]]
+#' ggplot_list[[2]]
+#' ggplot_list[[3]]
 #' @export
 create_ggplot_table <- function(dilution_table, dilution_summary = NULL,
                                 grouping_variable = c("Transition_Name",

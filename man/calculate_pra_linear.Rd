@@ -2,7 +2,7 @@
 % Please edit documentation in R/dilstats.R
 \name{calculate_pra_linear}
 \alias{calculate_pra_linear}
-\title{Linear Model's Percent Residual Accuracy (PRA)}
+\title{Calculate Linear Model's Percent Residual Accuracy (PRA)}
 \usage{
 calculate_pra_linear(dilution_data, conc_var, signal_var)
 }

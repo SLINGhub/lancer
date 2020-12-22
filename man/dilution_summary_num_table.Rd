@@ -2,7 +2,7 @@
 % Please edit documentation in R/dilplots-ggplot.R
 \name{dilution_summary_num_table}
 \alias{dilution_summary_num_table}
-\title{Plot Dilution Summary numeric table for one group}
+\title{Plot Dilution Summary Numeric Table For One Group}
 \usage{
 dilution_summary_num_table(dilution_summary_grp)
 }
@@ -10,14 +10,14 @@ dilution_summary_num_table(dilution_summary_grp)
 \item{dilution_summary_grp}{A one row data frame or tibble containing dilution summary}
 }
 \value{
-A gridtable object consisting of one table. The first
+A \code{gridtable} object consisting of one table. The first
 column is the column names of \code{dilution_summary_grp} which
 are numeric. The second column is their
 corresponding values. If there are numeric columns
 in \code{dilution_summary_grp}, NULL will be returned
 }
 \description{
-Plot Dilution Summary numeric table for one group
+Plot dilution Summary numeric table for one group
 }
 \examples{
 wf1_group <- c("Poor Linearity")
@@ -33,4 +33,10 @@ dilution_summary_grp  <- data.frame(wf1_group = wf1_group,
                                     mandel_p_val = mandel_p_val,
                                     concavity = concavity)
 table <- dilution_summary_num_table(dilution_summary_grp)
+grid::grid.draw(table)
+
+# No numeric column case
+dilution_summary_grp  <- data.frame(wf2_group = wf2_group)
+table <- dilution_summary_num_table(dilution_summary_grp)
+table
 }

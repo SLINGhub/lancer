@@ -1,5 +1,5 @@
-#' @title Create Dilution Linear Model
-#' @description A wrapper to create a linear model for dilution data
+#' @title Create Linear Model
+#' @description A wrapper to create a linear model from dilution data
 #' @param dilution_data A data frame or tibble containing dilution data
 #' @param conc_var Column name in `dilution_data` to indicate concentration
 #' @param signal_var Column name in `dilution_data` to indicate signal
@@ -9,12 +9,12 @@
 #' dilution_percent <- c(10, 20, 40, 60, 80, 100)
 #' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
 #' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-#' linear_model <- create_dil_linear_model(dilution_data,
-#'                                         "Dilution_Percent",
-#'                                         "Area")
-#' @rdname create_dil_linear_model
+#' linear_model <- create_linear_model(dilution_data,
+#'                                     "Dilution_Percent",
+#'                                     "Area")
+#' @rdname create_linear_model
 #' @export
-create_dil_linear_model <- function(dilution_data, conc_var, signal_var) {
+create_linear_model <- function(dilution_data, conc_var, signal_var) {
 
   # Create the formula
   linear_formula <- stats::as.formula(paste(signal_var, "~",
@@ -41,12 +41,12 @@ create_dil_linear_model <- function(dilution_data, conc_var, signal_var) {
 #' dilution_percent <- c(10, 20, 40, 60, 80, 100)
 #' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
 #' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-#' linear_model <- create_dil_quad_model(dilution_data,
+#' linear_model <- create_quad_model(dilution_data,
 #'                                         "Dilution_Percent",
 #'                                         "Area")
-#' @rdname create_dil_quad_model
+#' @rdname create_quad_model
 #' @export
-create_dil_quad_model <- function(dilution_data, conc_var, signal_var) {
+create_quad_model <- function(dilution_data, conc_var, signal_var) {
 
   # Create the formula
   quad_formula <- stats::as.formula(paste(signal_var, "~",
@@ -64,7 +64,7 @@ create_dil_quad_model <- function(dilution_data, conc_var, signal_var) {
 
 }
 
-#' @title Calculate concavity
+#' @title Calculate Concavity
 #' @description Calculate the concavity of the Dilution Quadratic Model
 #' @param dilution_data A data frame or tibble containing dilution data
 #' @param conc_var Column name in `dilution_data` to indicate concentration
@@ -105,7 +105,7 @@ calculate_concavity <- function(dilution_data, conc_var, signal_var) {
   }
 
   # Create the quadratic model on dilution data
-  quad_model <- create_dil_quad_model(dilution_data, conc_var, signal_var)
+  quad_model <- create_quad_model(dilution_data, conc_var, signal_var)
 
   # Get concanvity Value for (x^2) of Quadratic model
   quad_tidy <- broom::tidy(quad_model)
@@ -117,7 +117,7 @@ calculate_concavity <- function(dilution_data, conc_var, signal_var) {
 
 }
 
-#' @title Calculate Goodness of Linear Fit
+#' @title Calculate Linear Model's Goodness Of Fit
 #' @description Calculate the Goodness of Fit of the Dilution Linear Model
 #' @param dilution_data A data frame or tibble containing dilution data
 #' @param conc_var Column name in `dilution_data` to indicate concentration
@@ -131,11 +131,11 @@ calculate_concavity <- function(dilution_data, conc_var, signal_var) {
 #' dilution_percent <- c(10, 20, 40, 60, 80, 100)
 #' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
 #' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-#' dil_linear_gof <- calculate_dil_linear_gof(dilution_data,
-#'                                            "Dilution_Percent", "Area")
-#' @rdname calculate_dil_linear_gof
+#' dil_linear_gof <- calculate_gof_linear(dilution_data,
+#'                                        "Dilution_Percent", "Area")
+#' @rdname calculate_gof_linear
 #' @export
-calculate_dil_linear_gof <- function(dilution_data, conc_var, signal_var) {
+calculate_gof_linear <- function(dilution_data, conc_var, signal_var) {
 
   dil_linear_gof <- tibble::tibble(r_corr = NA,
                                    r2_linear = NA,
@@ -168,7 +168,7 @@ calculate_dil_linear_gof <- function(dilution_data, conc_var, signal_var) {
   r_corr <- round(cor_result$estimate, digits = 6)
 
   # Create the linear model on dilution data
-  linear_model <- create_dil_linear_model(dilution_data, conc_var, signal_var)
+  linear_model <- create_linear_model(dilution_data, conc_var, signal_var)
 
   # Get GOF for each model
   linear_gof <- broom::glance(linear_model)
@@ -189,7 +189,7 @@ calculate_dil_linear_gof <- function(dilution_data, conc_var, signal_var) {
 }
 
 
-#' @title Calculate the Mandel fitting test
+#' @title Calculate Mandel Fitting Test
 #' @description Calculate the Mandel fitting test for dilution data
 #' @param dilution_data A data frame or tibble containing dilution data
 #' @param conc_var Column name in `dilution_data` to indicate concentration
@@ -233,10 +233,10 @@ calculate_mandel <- function(dilution_data, conc_var, signal_var) {
   }
 
   # Create the linear model on dilution data
-  linear_model <- create_dil_linear_model(dilution_data, conc_var, signal_var)
+  linear_model <- create_linear_model(dilution_data, conc_var, signal_var)
 
   # Create the quadratic model on dilution data
-  quad_model <- create_dil_quad_model(dilution_data, conc_var, signal_var)
+  quad_model <- create_quad_model(dilution_data, conc_var, signal_var)
 
   # Get some statistics for each point in the linear model
   linear_stat <- broom::augment(linear_model)
@@ -260,7 +260,7 @@ calculate_mandel <- function(dilution_data, conc_var, signal_var) {
 
 }
 
-#' @title Linear Model's Percent Residual Accuracy (PRA)
+#' @title Calculate Linear Model's Percent Residual Accuracy (PRA)
 #' @description Calculate the Percent Residual Accuracy (PRA) of the
 #' Dilution Linear Model
 #' @param dilution_data A data frame or tibble containing dilution data
@@ -305,7 +305,7 @@ calculate_pra_linear <- function(dilution_data, conc_var, signal_var) {
   }
 
   # Create the linear model on dilution data
-  linear_model <- create_dil_linear_model(dilution_data, conc_var, signal_var)
+  linear_model <- create_linear_model(dilution_data, conc_var, signal_var)
 
   # Get Intercept Value and Slope of Linear model
   linear_tidy <- broom::tidy(linear_model)
@@ -406,8 +406,8 @@ validate_dilution_data <- function(dilution_data, conc_var, signal_var) {
 get_dilution_summary <- function(dilution_data, conc_var, signal_var) {
 
   mandel_result <- calculate_mandel(dilution_data, conc_var, signal_var)
-  dil_linear_gof <- calculate_dil_linear_gof(dilution_data,
-                                             conc_var, signal_var)
+  dil_linear_gof <- calculate_gof_linear(dilution_data,
+                                         conc_var, signal_var)
   one_value_tibble <- tibble::tibble(
     pra_linear = calculate_pra_linear(dilution_data, conc_var, signal_var),
     concavity = calculate_concavity(dilution_data, conc_var, signal_var)

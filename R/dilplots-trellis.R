@@ -129,25 +129,9 @@ dilution_plot_plotly <- function(dilution_data,
 
       # Plot the curves
 
-      # Create the formula
-      linear_formula <- stats::as.formula(paste(signal_var, "~",
-                                                paste(conc_var, collapse = " + ")
-      )
-      )
-      # Create the linear model on dilution data
-      linear_model <- stats::lm(linear_formula, data = dilution_data)
-
-      # Create the formula
-      quad_formula <- stats::as.formula(paste(signal_var, "~",
-                                              paste(conc_var, "+",
-                                                    paste0("I(", conc_var, " * ",
-                                                           conc_var, ")")
-                                              )
-      )
-      )
-
-      # Create the quadratic model on dilution data
-      quad_model <- stats::lm(quad_formula, data = dilution_data)
+      # Model the data
+      linear_model <- create_linear_model(dilution_data, conc_var, signal_var)
+      quad_model <- create_quad_model(dilution_data, conc_var, signal_var)
 
       dilution <- seq(min(dilution_data[[conc_var]]),
                       max(dilution_data[[conc_var]]),
@@ -184,7 +168,7 @@ dilution_plot_plotly <- function(dilution_data,
           dplyr::filter(.data[[conc_var]] %in% partial_conc_points)
 
         # Create the partial model
-        partial_linear_model <- create_dil_linear_model(partial_dilution_data,
+        partial_linear_model <- create_linear_model(partial_dilution_data,
                                                         conc_var, signal_var)
 
         # Create the lines in the dilution plot
@@ -430,12 +414,12 @@ create_trellis_table <- function(dilution_table, dilution_summary = NULL,
   # Get cognostics for dilution_summary
   # Grouping variables must be the conditional columns
   dilution_summary <- dilution_summary %>%
-    convert_to_cognostics(cog_df = cog_df,
-                          grouping_variable = grouping_variable,
-                          col_name_vec = col_name_vec,
-                          desc_vec = desc_vec,
-                          type_vec = type_vec,
-                          default_label_vec = default_label_vec)
+    convert_to_cog(cog_df = cog_df,
+                   grouping_variable = grouping_variable,
+                   col_name_vec = col_name_vec,
+                   desc_vec = desc_vec,
+                   type_vec = type_vec,
+                   default_label_vec = default_label_vec)
 
 
   # Get the dilution batch name from dilution_table

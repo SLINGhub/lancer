@@ -419,6 +419,8 @@ test_that("Able to return NULL when there is no summary for one dilution group",
   dilution_summary_grp <- data.frame()
   # Test that it gives NULL when both columns types are missing
   testthat::expect_null(dilution_summary_group_table(dilution_summary_grp))
+  testthat::expect_null(dilution_summary_group_table(NA))
+  testthat::expect_null(dilution_summary_group_table(NULL))
 
 })
 

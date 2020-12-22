@@ -3,10 +3,26 @@
 #' @param cog_df A data frame or tibble that contains cognostics information
 #' @param needed_column A vector consisting of needed column names that
 #' must be found in `cog_df`,
-#' Default: c("col_name_vec", "desc_vec",
-#'            "type_vec", "default_label_vec")
+#' Default:
+#' `c("col_name_vec", "desc_vec", "type_vec", "default_label_vec")`
 #' @return An error if the things in `needed_column`
 #' is not found in the Cognostics Data
+#' @examples
+#' # Create Cognostics Dataframe
+#' col_name_vec <- c("Transition_Name", "Dilution_Batch")
+#'
+#' desc_vec <- c("Transition_Name", "Dilution_Batch")
+#'
+#' type_vec <- c("factor","factor")
+#'
+#' default_label_vec <- c(TRUE, TRUE)
+#'
+#' cog_df <- data.frame(col_name_vec = col_name_vec,
+#'                      desc_vec = desc_vec,
+#'                      type_vec = type_vec,
+#'                      default_label_vec = default_label_vec)
+#'
+#' validate_cog_df(cog_df)
 #' @rdname validate_cog_df
 #' @export
 validate_cog_df <- function(cog_df,
@@ -24,14 +40,18 @@ validate_cog_df <- function(cog_df,
 }
 
 
-#' @title Create default cognostics for dilution plot
-#' @description Create default cognostics for dilution plot
+#' @title Create Default Cognostics Data Frame
+#' @description Create default cognostics data frame to be used to
+#' convert columns in `dilution_summary` to class cognostics
 #' @return A dataframe of default cognostics information
 #' @details Internal function to create a dataframe of default cognostics
 #' information to be used by the `trelliscopejs::cog`.
-#' @rdname create_dil_default_cog_df
+#' @examples
+#' cog_df <- create_default_cog_df()
+#' cog_df
+#' @rdname create_default_cog_df
 #' @export
-create_dil_default_cog_df <- function() {
+create_default_cog_df <- function() {
 
   # More details in `trelliscopejs::cog` can be found in
   # <https://rdrr.io/cran/trelliscopejs/man/cog.html>
@@ -64,12 +84,14 @@ create_dil_default_cog_df <- function() {
   return(cog_df)
 }
 
-#' @title Update cognostics
-#' @description Update cognostics
-#' @param dilution_summary The summary table generated
-#' by function `summarise_dilution_table` and/or `evaluate_linearity`
+#' @title Update Cognostics Manually
+#' @description Update cognostics on `dilution_summary` based on
+#' the cognostics parameters given by `cog_df`. We assume
+#' `cog_df` is created manually
+#' @param dilution_summary The summary data frame or tibble generated
+#' by function `summarise_dilution_table` and/or `evaluate_linearity`.
 #' @param cog_df  A data frame or tibble output
-#' from the function `create_dil_default_cog_df`
+#' from the function `create_default_cog_df` or created manually
 #' @param col_name_vec Column name in `cog_df` to indicate the columns
 #' in `dilution_summary` that needs to be converted to a cognostics,
 #' Default: 'col_name_vec'
@@ -82,18 +104,109 @@ create_dil_default_cog_df <- function() {
 #' @param default_label_vec Column name in `cog_df` to indicate the if
 #' the given cognostics is a panel label as define in `trelliscopejs::cog`,
 #' Default: 'default_label_vec'
-#' @return A data frame or tibble output with some columns converted
+#' @return `dilution_summary` with some columns converted
 #' to type cog as defined in `trelliscopejs::cog`
 #' @details
 #' More details in `trelliscopejs::cog` can be found in
 #' <https://rdrr.io/cran/trelliscopejs/man/cog.html>
-#' @rdname update_cogs
+#' @examples
+#` # Data Creation
+#' dilution_percent <- c(10, 20, 25, 40, 50, 60,
+#'                       75, 80, 100, 125, 150,
+#'                       10, 25, 40, 50, 60,
+#'                       75, 80, 100, 125, 150)
+#' dilution_batch <- c("B1", "B1", "B1", "B1", "B1",
+#'                     "B1", "B1", "B1", "B1", "B1", "B1",
+#'                     "B2", "B2", "B2", "B2", "B2",
+#'                     "B2", "B2", "B2", "B2", "B2")
+#' sample_name <- c("Sample_010a", "Sample_020a",
+#'                  "Sample_025a", "Sample_040a", "Sample_050a",
+#'                  "Sample_060a", "Sample_075a", "Sample_080a",
+#'                  "Sample_100a", "Sample_125a", "Sample_150a",
+#'                  "Sample_010b", "Sample_025b",
+#'                  "Sample_040b", "Sample_050b", "Sample_060b",
+#'                  "Sample_075b", "Sample_080b", "Sample_100b",
+#'                  "Sample_125b", "Sample_150b")
+#' lipid1_area_saturated <- c(5748124, 16616414, 21702718, 36191617,
+#'                            49324541, 55618266, 66947588, 74964771,
+#'                            75438063, 91770737, 94692060,
+#'                            5192648, 16594991, 32507833, 46499896,
+#'                            55388856, 62505210, 62778078, 72158161,
+#'                            78044338, 86158414)
+#' lipid2_area_linear <- c(31538, 53709, 69990, 101977, 146436, 180960,
+#'                         232881, 283780, 298289, 344519, 430432,
+#'                         25463, 63387, 90624, 131274, 138069,
+#'                         205353, 202407, 260205, 292257, 367924)
+#' lipid3_area_lod <- c(544, 397, 829, 1437, 1808, 2231,
+#'                      3343, 2915, 5268, 8031, 11045,
+#'                      500, 903, 1267, 2031, 2100,
+#'                      3563, 4500, 5300, 8500, 10430)
+#' lipid4_area_nonlinear <- c(380519, 485372, 478770, 474467, 531640, 576301,
+#'                            501068, 550201, 515110, 499543, 474745,
+#'                            197417, 322846, 478398, 423174, 418577,
+#'                            426089, 413292, 450190, 415309, 457618)
+#'
+#' dilution_annot <- tibble::tibble(Sample_Name = sample_name,
+#'                                  Dilution_Batch = dilution_batch,
+#'                                  Dilution_Percent = dilution_percent)
+#' lipid_data <- tibble::tibble(Sample_Name = sample_name,
+#'                              Lipid1 = lipid1_area_saturated,
+#'                              Lipid2 = lipid2_area_linear,
+#'                              Lipid3 = lipid3_area_lod,
+#'                              Lipid4 = lipid4_area_nonlinear)
+#'
+#'
+#' # Create dilution table
+#' dilution_table <- create_dilution_table(dilution_annot, lipid_data,
+#'                                         common_column = "Sample_Name",
+#'                                         signal_var = "Area",
+#'                                         column_group = "Transition_Name"
+#' )
+#'
+#' # Create dilution table and dilution statistical summary
+#' dilution_summary <- dilution_table %>%
+#'   summarise_dilution_table(grouping_variable = c("Transition_Name",
+#'                                                  "Dilution_Batch"),
+#'                            conc_var = "Dilution_Percent",
+#'                            signal_var = "Area") %>%
+#'   dplyr::arrange(.data$Transition_Name) %>%
+#'   evaluate_linearity(grouping_variable = c("Transition_Name",
+#'                                            "Dilution_Batch"))
+#'
+#' # Create our own cog_df
+#' col_name_vec <- c("Transition_Name", "Dilution_Batch",
+#'                   "Transition_Name_Class")
+#'
+#' desc_vec <- c("Transition_Name", "Dilution_Batch",
+#'               "Transition_Name_Class")
+#'
+#' type_vec <- c("factor", "factor", "factor")
+#'
+#' default_label_vec <- c(TRUE, TRUE, TRUE)
+#'
+#' cog_df <- data.frame(col_name_vec = col_name_vec,
+#'                      desc_vec = desc_vec,
+#'                      type_vec = type_vec,
+#'                      default_label_vec = default_label_vec)
+#'
+#' updated_summary <- update_cog_manual(dilution_summary, cog_df,
+#'                                      col_name_vec = "col_name_vec",
+#'                                      desc_vec = "desc_vec",
+#'                                      type_vec = "type_vec",
+#'                                      default_label_vec = "default_label_vec")
+#'
+#' # Observe that the first two columns has been converted
+#' # to class cognostics
+#' dilution_summary
+#' updated_summary
+#' @rdname update_cog_manual
 #' @export
-update_cogs <- function(dilution_summary, cog_df,
-                        col_name_vec = "col_name_vec",
-                        desc_vec = "desc_vec",
-                        type_vec = "type_vec",
-                        default_label_vec = "default_label_vec") {
+update_cog_manual <- function(dilution_summary, cog_df,
+                              col_name_vec = "col_name_vec",
+                              desc_vec = "desc_vec",
+                              type_vec = "type_vec",
+                              default_label_vec = "default_label_vec") {
+
 
   if (is.null(cog_df)) {
     return(dilution_summary)
@@ -129,25 +242,97 @@ update_cogs <- function(dilution_summary, cog_df,
   return(dilution_summary)
 }
 
-
-#' Get dilution plots default cognostics
-#' @description Function used to add the default cognostics defined in
-#' `create_dil_default_cog_df` relevant to the dilution plot
+#' Update Cognostics Automatically
+#' @description Update cognostics on the dilution summary based on
+#' the cognostics data frame given by the function `create_default_cog_df`.
 #' @param dilution_summary The summary table generated
 #' by function `summarise_dilution_table` and/or `evaluate_linearity`
-#' @return Output a data frame with added cognostics
-#' relevant to the dilution plot
-#' @rdname get_dil_default_cognostics
+#' @return `dilution_summary` with some columns converted
+#' to type cog as defined in `trelliscopejs::cog`
+#' @details
+#' More details in `trelliscopejs::cog` can be found in
+#' <https://rdrr.io/cran/trelliscopejs/man/cog.html>
+#' @examples
+#` # Data Creation
+#' dilution_percent <- c(10, 20, 25, 40, 50, 60,
+#'                       75, 80, 100, 125, 150,
+#'                       10, 25, 40, 50, 60,
+#'                       75, 80, 100, 125, 150)
+#' dilution_batch <- c("B1", "B1", "B1", "B1", "B1",
+#'                     "B1", "B1", "B1", "B1", "B1", "B1",
+#'                     "B2", "B2", "B2", "B2", "B2",
+#'                     "B2", "B2", "B2", "B2", "B2")
+#' sample_name <- c("Sample_010a", "Sample_020a",
+#'                  "Sample_025a", "Sample_040a", "Sample_050a",
+#'                  "Sample_060a", "Sample_075a", "Sample_080a",
+#'                  "Sample_100a", "Sample_125a", "Sample_150a",
+#'                  "Sample_010b", "Sample_025b",
+#'                  "Sample_040b", "Sample_050b", "Sample_060b",
+#'                  "Sample_075b", "Sample_080b", "Sample_100b",
+#'                  "Sample_125b", "Sample_150b")
+#' lipid1_area_saturated <- c(5748124, 16616414, 21702718, 36191617,
+#'                            49324541, 55618266, 66947588, 74964771,
+#'                            75438063, 91770737, 94692060,
+#'                            5192648, 16594991, 32507833, 46499896,
+#'                            55388856, 62505210, 62778078, 72158161,
+#'                            78044338, 86158414)
+#' lipid2_area_linear <- c(31538, 53709, 69990, 101977, 146436, 180960,
+#'                         232881, 283780, 298289, 344519, 430432,
+#'                         25463, 63387, 90624, 131274, 138069,
+#'                         205353, 202407, 260205, 292257, 367924)
+#' lipid3_area_lod <- c(544, 397, 829, 1437, 1808, 2231,
+#'                      3343, 2915, 5268, 8031, 11045,
+#'                      500, 903, 1267, 2031, 2100,
+#'                      3563, 4500, 5300, 8500, 10430)
+#' lipid4_area_nonlinear <- c(380519, 485372, 478770, 474467, 531640, 576301,
+#'                            501068, 550201, 515110, 499543, 474745,
+#'                            197417, 322846, 478398, 423174, 418577,
+#'                            426089, 413292, 450190, 415309, 457618)
+#'
+#' dilution_annot <- tibble::tibble(Sample_Name = sample_name,
+#'                                  Dilution_Batch = dilution_batch,
+#'                                  Dilution_Percent = dilution_percent)
+#' lipid_data <- tibble::tibble(Sample_Name = sample_name,
+#'                              Lipid1 = lipid1_area_saturated,
+#'                              Lipid2 = lipid2_area_linear,
+#'                              Lipid3 = lipid3_area_lod,
+#'                              Lipid4 = lipid4_area_nonlinear)
+#'
+#'
+#' # Create dilution table
+#' dilution_table <- create_dilution_table(dilution_annot, lipid_data,
+#'                                         common_column = "Sample_Name",
+#'                                         signal_var = "Area",
+#'                                         column_group = "Transition_Name"
+#' )
+#'
+#' # Create dilution table and dilution statistical summary
+#' dilution_summary <- dilution_table %>%
+#'   summarise_dilution_table(grouping_variable = c("Transition_Name",
+#'                                                  "Dilution_Batch"),
+#'                            conc_var = "Dilution_Percent",
+#'                            signal_var = "Area") %>%
+#'   dplyr::arrange(.data$Transition_Name) %>%
+#'   evaluate_linearity(grouping_variable = c("Transition_Name",
+#'                                            "Dilution_Batch"))
+#'
+#' updated_summary <- update_cog_auto(dilution_summary)
+#'
+#' # Observe that the columns has been converted
+#' # to class cognostics
+#' dilution_summary
+#' updated_summary
+#' @rdname update_cog_auto
 #' @export
-get_dil_default_cognostics <- function(dilution_summary) {
+update_cog_auto <- function(dilution_summary) {
 
   # Create the default cognostics table
-  cog_df <- create_dil_default_cog_df()
+  cog_df <- create_default_cog_df()
 
   # Update the dilution summary columns and
   # convert the relevant to cognostics
   dilution_summary <- dilution_summary %>%
-    update_cogs(cog_df = cog_df)
+    update_cog_manual(cog_df = cog_df)
 
   return(dilution_summary)
 
@@ -155,14 +340,14 @@ get_dil_default_cognostics <- function(dilution_summary) {
 
 
 
-#' @title Convert to cognostics
+#' @title Convert To Cognostics
 #' @description Convert columns in `dilution_summary` to `trelliscopejs` cognostics
 #' @param dilution_summary The summary table generated
 #' by function `summarise_dilution_table` and/or `evaluate_linearity`
 #' but it can also be any generic data frame or tibble
 #' @param cog_df A data frame or tibble that contains cognostics information
 #' If no input is given the cognostics information generated by function
-#' `get_dil_default_cognostics` will be used.
+#' `create_default_cog_df` will be used.
 #' Default: NULL
 #' @param grouping_variable A character vector of
 #' column names in `dilution_summary`to indicate how each dilution curve
@@ -185,29 +370,104 @@ get_dil_default_cognostics <- function(dilution_summary) {
 #' converted to conditional cognostics,
 #' other columns in `dilution_summary` converted to cognostics
 #' to be used in the in the `trelliscopejs` report.
-#' @rdname convert_to_cognostics
+#' @examples
+#` # Data Creation
+#' dilution_percent <- c(10, 20, 25, 40, 50, 60,
+#'                       75, 80, 100, 125, 150,
+#'                       10, 25, 40, 50, 60,
+#'                       75, 80, 100, 125, 150)
+#' dilution_batch <- c("B1", "B1", "B1", "B1", "B1",
+#'                     "B1", "B1", "B1", "B1", "B1", "B1",
+#'                     "B2", "B2", "B2", "B2", "B2",
+#'                     "B2", "B2", "B2", "B2", "B2")
+#' sample_name <- c("Sample_010a", "Sample_020a",
+#'                  "Sample_025a", "Sample_040a", "Sample_050a",
+#'                  "Sample_060a", "Sample_075a", "Sample_080a",
+#'                  "Sample_100a", "Sample_125a", "Sample_150a",
+#'                  "Sample_010b", "Sample_025b",
+#'                  "Sample_040b", "Sample_050b", "Sample_060b",
+#'                  "Sample_075b", "Sample_080b", "Sample_100b",
+#'                  "Sample_125b", "Sample_150b")
+#' lipid1_area_saturated <- c(5748124, 16616414, 21702718, 36191617,
+#'                            49324541, 55618266, 66947588, 74964771,
+#'                            75438063, 91770737, 94692060,
+#'                            5192648, 16594991, 32507833, 46499896,
+#'                            55388856, 62505210, 62778078, 72158161,
+#'                            78044338, 86158414)
+#' lipid2_area_linear <- c(31538, 53709, 69990, 101977, 146436, 180960,
+#'                         232881, 283780, 298289, 344519, 430432,
+#'                         25463, 63387, 90624, 131274, 138069,
+#'                         205353, 202407, 260205, 292257, 367924)
+#' lipid3_area_lod <- c(544, 397, 829, 1437, 1808, 2231,
+#'                      3343, 2915, 5268, 8031, 11045,
+#'                      500, 903, 1267, 2031, 2100,
+#'                      3563, 4500, 5300, 8500, 10430)
+#' lipid4_area_nonlinear <- c(380519, 485372, 478770, 474467, 531640, 576301,
+#'                            501068, 550201, 515110, 499543, 474745,
+#'                            197417, 322846, 478398, 423174, 418577,
+#'                            426089, 413292, 450190, 415309, 457618)
+#'
+#' dilution_annot <- tibble::tibble(Sample_Name = sample_name,
+#'                                  Dilution_Batch = dilution_batch,
+#'                                  Dilution_Percent = dilution_percent)
+#' lipid_data <- tibble::tibble(Sample_Name = sample_name,
+#'                              Lipid1 = lipid1_area_saturated,
+#'                              Lipid2 = lipid2_area_linear,
+#'                              Lipid3 = lipid3_area_lod,
+#'                              Lipid4 = lipid4_area_nonlinear)
+#'
+#'
+#' # Create dilution table
+#' dilution_table <- create_dilution_table(dilution_annot, lipid_data,
+#'                                         common_column = "Sample_Name",
+#'                                         signal_var = "Area",
+#'                                         column_group = "Transition_Name"
+#' )
+#'
+#' # Create dilution table and dilution statistical summary
+#' dilution_summary <- dilution_table %>%
+#'   summarise_dilution_table(grouping_variable = c("Transition_Name",
+#'                                                  "Dilution_Batch"),
+#'                            conc_var = "Dilution_Percent",
+#'                            signal_var = "Area") %>%
+#'   dplyr::arrange(.data$Transition_Name) %>%
+#'   evaluate_linearity(grouping_variable = c("Transition_Name",
+#'                                            "Dilution_Batch"))
+#'
+#' updated_summary <- convert_to_cog(dilution_summary)
+#'
+#' # Observe that the columns has been converted
+#' # to class cognostics
+#' dilution_summary
+#' updated_summary
+#' @rdname convert_to_cog
 #' @export
-convert_to_cognostics <- function(dilution_summary, cog_df = NULL,
-                                  grouping_variable = c("Transition_Name",
-                                                        "Dilution_Batch"),
-                                  col_name_vec = "col_name_vec",
-                                  desc_vec = "desc_vec",
-                                  type_vec = "type_vec",
-                                  default_label_vec = "default_label_vec") {
+convert_to_cog <- function(dilution_summary, cog_df = NULL,
+                           grouping_variable = c("Transition_Name",
+                                                 "Dilution_Batch"),
+                           col_name_vec = "col_name_vec",
+                           desc_vec = "desc_vec",
+                           type_vec = "type_vec",
+                           default_label_vec = "default_label_vec") {
+
 
   # Check if things in needed_column are in dilution_summary
   assertable::assert_colnames(dilution_summary, grouping_variable,
                               only_colnames = FALSE, quiet = TRUE)
 
   # Get cognostics for trellis report
+  # First convert the columns based on default cognostics
+  # from create_default_cog_df()
+  # Next convert the columns based on user's input cognostics
+  # Lastly, convert the rest of the columns based on class
   # Grouping variables must be the conditional columns
   dilution_summary <- dilution_summary %>%
-    get_dil_default_cognostics() %>%
-    update_cogs(cog_df = cog_df,
-                col_name_vec = col_name_vec,
-                desc_vec = desc_vec,
-                type_vec = type_vec,
-                default_label_vec = default_label_vec) %>%
+    update_cog_auto() %>%
+    update_cog_manual(cog_df = cog_df,
+                      col_name_vec = col_name_vec,
+                      desc_vec = desc_vec,
+                      type_vec = type_vec,
+                      default_label_vec = default_label_vec) %>%
     trelliscopejs::as_cognostics(cond_cols = grouping_variable,
                                  needs_cond = TRUE, needs_key = FALSE)
 

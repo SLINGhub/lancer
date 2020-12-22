@@ -2,7 +2,7 @@
 % Please edit documentation in R/dilplots-ggplot.R
 \name{dilution_summary_group_table}
 \alias{dilution_summary_group_table}
-\title{Plot Dilution Summary tables for one group}
+\title{Plot Dilution Summary Table For One Group}
 \usage{
 dilution_summary_group_table(dilution_summary_grp)
 }
@@ -10,11 +10,11 @@ dilution_summary_group_table(dilution_summary_grp)
 \item{dilution_summary_grp}{A one row data frame or tibble containing dilution summary}
 }
 \value{
-A gridtable object consisting of two tables. One from
+A \code{gridtable} object consisting of two tables. One from
 \code{dilution_summary_char_table} and \code{dilution_summary_num_table}
 }
 \description{
-Plot Dilution Summary tables for one group
+Plot dilution summary table for one group
 }
 \examples{
 wf1_group <- c("Poor Linearity")
@@ -30,4 +30,10 @@ dilution_summary_grp  <- data.frame(wf1_group = wf1_group,
                                     mandel_p_val = mandel_p_val,
                                     concavity = concavity)
 table <- dilution_summary_group_table(dilution_summary_grp)
+grid::grid.draw(table)
+
+# No column case
+dilution_summary_grp  <- data.frame()
+table <- dilution_summary_group_table(dilution_summary_grp)
+table
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/dilplots-ggplot.R
 \name{dilution_plot_ggplot}
 \alias{dilution_plot_ggplot}
-\title{Plot Dilution Data using ggplot2}
+\title{Plot Dilution Data Using \code{ggplot2}}
 \usage{
 dilution_plot_ggplot(
   dilution_data,
@@ -54,7 +54,7 @@ Default: FALSE}
 Output ggplot dilution plot data of one dilution batch per transition
 }
 \description{
-Plot Dilution Data using ggplot2
+Plot Dilution Data Using \code{ggplot2}
 }
 \examples{
 # Data Creation
@@ -113,4 +113,5 @@ p <- dilution_plot_ggplot(dilution_data,
                           conc_var_units = "\%",
                           conc_var_interval = 50,
                           signal_var = "Area")
+p
 }
