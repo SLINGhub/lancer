@@ -1,4 +1,4 @@
-#' @title Create cyclic character sequence
+#' @title Create Cyclic Character Sequence
 #' @description Create cyclic character sequence
 #' @param group_name A character vector as input
 #' @param output_length The length of the output sequence

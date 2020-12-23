@@ -2,7 +2,7 @@
 % Please edit documentation in R/dilplots-utils.R
 \name{create_char_seq}
 \alias{create_char_seq}
-\title{Create cyclic character sequence}
+\title{Create Cyclic Character Sequence}
 \usage{
 create_char_seq(group_name, output_length)
 }

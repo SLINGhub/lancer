@@ -165,10 +165,11 @@ validate_dilution_table <- function(dilution_table,
 #'                              Lipid1 = lipid1_area,
 #'                              Lipid2 = lipid2_area)
 #' # Create dilution table
-#' dil_data <- create_dilution_table(dilution_annot,lipid_data,
-#'                                   common_column = "Sample_Name",
-#'                                   signal_var = "Area",
-#'                                   column_group = "Transition_Name")
+#' dilution_table <- create_dilution_table(dilution_annot,lipid_data,
+#'                                         common_column = "Sample_Name",
+#'                                         signal_var = "Area",
+#'                                         column_group = "Transition_Name")
+#' print(dilution_table, width = 100)
 #' @rdname create_dilution_table
 #' @export
 create_dilution_table <- function(dilution_annot, lipid_data_wide,
@@ -192,8 +193,8 @@ create_dilution_table <- function(dilution_annot, lipid_data_wide,
 
 
 #' @title Summarize Dilution Table
-#' @description Create Dilution Summary Statistic Table from
-#' Dilution Table
+#' @description Get the summary statistics of each group from
+#' the dilution table
 #' @param dilution_table Output given from the function `create_dilution_table`
 #' It is in long table format with columns indicating at least the
 #' lipid/transition name, the concentration and signal. Other columns may be
@@ -205,9 +206,12 @@ create_dilution_table <- function(dilution_annot, lipid_data_wide,
 #' @param grouping_variable A character vector of
 #' column names in `dilution_table`to indicate how each dilution curve
 #' should be grouped by.
-#' @return A summary table output from the function `get_dilution_summary`
-#' @details Look at the function `get_dilution_summary` for more details on
-#' what summary data is given
+#' @return A dilution summary table output from the function
+#' [summarise_dilution_data()] for each group
+#' @details The function first perform `tidyr::nest` on `dilution_table`
+#' based on the `grouping_variable` to organise the dilution curve data
+#' for each group. Next for each group, the function
+#' [summarise_dilution_data()] is used to get the summary statistics.
 #' @examples
 #' #Data Creation
 #' dilution_percent <- c(10, 20, 40, 60, 80, 100,
@@ -239,9 +243,8 @@ create_dilution_table <- function(dilution_annot, lipid_data_wide,
 #' summarise_dilution_table(grouping_variable = c("Transition_Name",
 #'                                                "Dilution_Batch"),
 #'                          conc_var = "Dilution_Percent",
-#'                          signal_var = "Area") %>%
-#' dplyr::arrange(.data$Transition_Name)
-#'
+#'                          signal_var = "Area")
+#' print(dilution_summary, width = 100)
 #' @rdname summarise_dilution_table
 #' @export
 summarise_dilution_table <- function(dilution_table,
@@ -264,7 +267,8 @@ summarise_dilution_table <- function(dilution_table,
     dplyr::relocate(dplyr::all_of(grouping_variable)) %>%
     tidyr::nest() %>%
     dplyr::ungroup() %>%
-    dplyr::mutate(dil_summary = purrr::map(.data$data, get_dilution_summary,
+    dplyr::mutate(dil_summary = purrr::map(.data$data,
+                                           summarise_dilution_data,
                                            conc_var = conc_var,
                                            signal_var = signal_var)) %>%
     tidyr::unnest(.data$dil_summary) %>%

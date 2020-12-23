@@ -1,32 +1,7 @@
-#' @title Get the number of plots per pdf page
-#' @description Get the number of plots per pdf page
-#' @param ncol Number of columns of plots allowed in one
-#' page of the pdf document, Default: NULL
-#' @param nrow Number of rows of plots allowed in one
-#' page of the pdf document, Default: NULL
-#' @return The number of plots per pdf page as `ncol * nrow`
-#' @details If both `ncol` and `nrow` are NULL, return `Inf`.
-#' If only `nrow` is NULL, return `ncol`.
-#' If only `ncol` is NULL, return `nrow`.
-#' @examples
-#' get_number_of_plots_per_page(ncol = 2,
-#'                              nrow = 2)
-#' @rdname get_number_of_plots_per_page
-#' @export
-get_number_of_plots_per_page <- function(ncol = NULL, nrow = NULL) {
-
-  if(!is.null(ncol) & !is.null(nrow))
-    ncol * nrow
-  else if(!is.null(ncol))
-    ncol
-  else if(!is.null(nrow))
-    nrow
-  else Inf
-
-}
-
-#' @title Get the page layout for the pdf document
-#' @description Get the page layout for the pdf document
+#' @title Create the page layout for the pdf document
+#' @description Get the page layout for the pdf document based
+#' on the number of plots to display and the number of
+#' columns and rows
 #' @param number_of_plots Number of plots to be output into the
 #' pdf document
 #' @param ncol Number of columns of plots allowed in one
@@ -35,22 +10,23 @@ get_number_of_plots_per_page <- function(ncol = NULL, nrow = NULL) {
 #' page of the pdf document, Default: NULL
 #' @return A list containing the number of rows and cols required
 #' for one pdf page
-#' @details If both `ncol` and `nrow` are NULL or only `ncol` is NULL,
+#' @details
+#'  * If both `ncol` and `nrow` are NULL or only `ncol` is NULL,
 #' the layout will have one column and the total number of rows
-#' will be the number of plots it needs to produce .
-#' If only `nrow` is NULL, the layout will have one row and
-#' the total number of columns will bethe number of plots
+#' will be the number of plots it needs to produce
+#'  * If only `nrow` is NULL, the layout will have one row and
+#' the total number of columns will be the number of plots
 #' it needs to produce
 #' @examples
 #'
-#' get_page_layout(number_of_plots = 4,
-#'                 ncol = 2,
-#'                 nrow = 2)
+#' create_page_layout(number_of_plots = 4,
+#'                    ncol = 2,
+#'                    nrow = 2)
 #'
-#' @rdname get_page_layout
+#' @rdname create_page_layout
 #' @export
-get_page_layout <- function(number_of_plots,
-                            ncol = NULL, nrow = NULL){
+create_page_layout <- function(number_of_plots,
+                               ncol = NULL, nrow = NULL){
 
   if(number_of_plots < 1) {
     stop("Number of plots in the input list must be greater than 1")
@@ -70,7 +46,7 @@ get_page_layout <- function(number_of_plots,
 #' @description Create a pdf file containing dilution plots in ggplot
 #' @param ggplot_list list of plots to be arranged into a grid
 #' for each pdf page. The list of plot should can be created
-#' via the function `create_ggplot_table`. The function will create
+#' via the function [create_ggplot_table()]. The function will create
 #' a data frame or tibble and the column name "panel" should contain
 #' the list of plots.
 #' @param filename File name of the pdf document,
@@ -132,11 +108,21 @@ create_ggplot_pdf_report <- function(ggplot_list,
   number_of_plots <- length(ggplot_list)
 
   # Get the layout for one page
-  page_layout <- get_page_layout(number_of_plots = number_of_plots,
-                                 ncol = ncol_per_page, nrow = nrow_per_page)
+  page_layout <- create_page_layout(number_of_plots = number_of_plots,
+                                    ncol = ncol_per_page, nrow = nrow_per_page)
   # Get the number of plots per page
-  number_of_plots_per_page <- get_number_of_plots_per_page(page_layout$ncol,
-                                                           page_layout$nrow)
+  #number_of_plots_per_page <- get_number_of_plots_per_page(page_layout$ncol,
+  #                                                         page_layout$nrow)
+
+  number_of_plots_per_page <- Inf
+
+  if(!is.null(page_layout$ncol) & !is.null(page_layout$nrow))
+    number_of_plots_per_page <- page_layout$ncol * page_layout$nrow
+  else if(!is.null(page_layout$ncol))
+    number_of_plots_per_page <- page_layout$ncol
+  else if(!is.null(page_layout$nrow))
+    number_of_plots_per_page <- page_layout$nrow
+
 
   # Split plots over multiple pages
   if (number_of_plots > number_of_plots_per_page) {

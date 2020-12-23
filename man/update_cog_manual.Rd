@@ -15,10 +15,11 @@ update_cog_manual(
 }
 \arguments{
 \item{dilution_summary}{The summary data frame or tibble generated
-by function \code{summarise_dilution_table} and/or \code{evaluate_linearity}.}
+by function \code{\link[=summarise_dilution_table]{summarise_dilution_table()}} and/or
+\code{\link[=evaluate_linearity]{evaluate_linearity()}}.}
 
 \item{cog_df}{A data frame or tibble output
-from the function \code{create_default_cog_df} or created manually}
+from the function \code{\link[=create_default_cog_df]{create_default_cog_df()}} or created manually}
 
 \item{col_name_vec}{Column name in \code{cog_df} to indicate the columns
 in \code{dilution_summary} that needs to be converted to a cognostics,

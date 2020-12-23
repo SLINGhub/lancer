@@ -31,4 +31,5 @@ area <- c(22561, 31178, 39981, 48390, 52171, 53410)
 dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
 dil_linear_gof <- calculate_gof_linear(dilution_data,
                                        "Dilution_Percent", "Area")
+dil_linear_gof
 }

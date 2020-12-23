@@ -81,12 +81,12 @@ dilution_classified <- evaluate_linearity(dilution_summary,
 print(dilution_classified, width = 100)
 ```
 
-Likewise for the excel output using the function `create_excel_report`, we can choose which
+Likewise for the excel output using the function `write_summary_excel`, we can choose which
 column to be Correlation Coefficient, Percent Residual Accuracy and Mandel's Fitting Test p value, 
 as well as its threshold value. The sheet name can also be changed.
 
 ```{r customise print to excel, eval = FALSE}
-create_excel_report(dilution_classified,
+write_summary_excel(dilution_classified,
                     file_name = "dilution_summary.xlsx",
                     sheet_name = "Dilution Summary",
                     corrcoef_column = "Corrcoef",

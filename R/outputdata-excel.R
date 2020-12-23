@@ -1,7 +1,9 @@
-#' @title Mark near zero columns
+#' @title Mark Near Zero Columns
 #' @description Mark numeric columns with near zero values from a dataset
+#' by changing the class from `numeric` to `scientific`
 #' @param dilution_summary The summary table generated
-#' by function `summarise_dilution_table` and/or `evaluate_linearity`
+#' by function [summarise_dilution_table()] and/or
+#' [evaluate_linearity()]
 #' but it can also be any generic data frame or tibble
 #' @return A data frame or tibble with the class with numeric columns
 #' with near zero values changed from numeric to scientific
@@ -56,10 +58,14 @@ mark_near_zero_columns <- function(dilution_summary) {
 }
 
 
-#' @title Get column number style
-#' @description Get column number style for excel
+#' @title Format Numeric Column Cell Style
+#' @description Format numeric cell style based on the class
+#' of the columns. If it is `numeric`, numeric format is two decimal
+#' places. If it is `scientific`, numeric format is scientific of the
+#' form 0.00E+00.
 #' @param dilution_summary The summary table generated
-#' by function `summarise_dilution_table` and/or `evaluate_linearity`
+#' by function [summarise_dilution_table()] and/or
+#' [evaluate_linearity()]
 #' but it can also be any generic data frame or tibble
 #' @param workbook A workbook object from `openxlsx`
 #' @param sheet The name of the sheet to apply the numeric style on `workbook`
@@ -80,11 +86,11 @@ mark_near_zero_columns <- function(dilution_summary) {
 #' my_workbook <- openxlsx::createWorkbook()
 #' # Create a new worksheet
 #' openxlsx::addWorksheet(wb = my_workbook, sheetName = "Dilution Summary")
-#' get_column_number_style(dilution_summary,
-#'                         workbook = my_workbook, sheet = "Dilution Summary")
-#' @rdname get_column_number_style
+#' format_num_cell_style(dilution_summary,
+#'                       workbook = my_workbook, sheet = "Dilution Summary")
+#' @rdname format_num_cell_style
 #' @export
-get_column_number_style <- function(dilution_summary, workbook, sheet) {
+format_num_cell_style <- function(dilution_summary, workbook, sheet) {
 
   # Get the class for each column
   classes <- dilution_summary %>%
@@ -112,13 +118,14 @@ get_column_number_style <- function(dilution_summary, workbook, sheet) {
 
 
 
-#' @title Two colour word conditional formatting
-#' @description Perform conditional formatting of two colours
+#' @title Format Character Cell Colour
+#' @description Perform cell conditional formatting of two colours
 #' based on if a given word on a given character column from `dilution summary`
 #' @param workbook A workbook object from `openxlsx`
-#' @param sheet The name of the sheet to apply the numeric style on `workbook`
+#' @param sheet The name of the sheet to apply the conditional
+#' formatting on `workbook`
 #' @param dilution_summary The summary table generated
-#' by function `summarise_dilution_table` and/or `evaluate_linearity`
+#' by function [summarise_dilution_table()] and/or [evaluate_linearity()]
 #' @param conditional_column A string to indicate which column
 #' in `dilution_summary` to use
 #' @param pass_criteria_words A character vector to highlight
@@ -152,16 +159,16 @@ get_column_number_style <- function(dilution_summary, workbook, sheet) {
 #'
 #' # Conditional formatting can only be done
 #' # after data is written to excel sheet
-#' two_col_word_cond_format(workbook = my_workbook,sheet = "Dilution Summary",
-#'                          dilution_summary = dilution_summary,
-#'                          conditional_column = "wf1_group",
-#'                          pass_criteria_words = c("Good Linearity")
-#'                          )
-#' @rdname two_col_word_cond_format
+#' format_char_cell_colour(workbook = my_workbook,sheet = "Dilution Summary",
+#'                         dilution_summary = dilution_summary,
+#'                         conditional_column = "wf1_group",
+#'                         pass_criteria_words = c("Good Linearity")
+#'                        )
+#' @rdname format_char_cell_colour
 #' @export
-two_col_word_cond_format <- function(workbook, sheet,
-                                     dilution_summary, conditional_column,
-                                     pass_criteria_words) {
+format_char_cell_colour <- function(workbook, sheet,
+                                       dilution_summary, conditional_column,
+                                       pass_criteria_words) {
 
   col_index <- which(colnames(dilution_summary) %in% conditional_column)
 
@@ -188,14 +195,13 @@ two_col_word_cond_format <- function(workbook, sheet,
 
 }
 
-#' @title Two colour number conditional formatting
-#' @description Perform conditional formatting of
-#' two colours based on a given threshold value
-#' on a given numeric column from `dilution summary`
+#' @title Format Numeric Cell Colour
+#' @description Perform cell conditional formatting of two colours
+#' based on if a given word on a given numeric column from `dilution summary`
 #' @param workbook A workbook object from `openxlsx`
 #' @param sheet The name of the sheet to apply the numeric style on `workbook`
 #' @param dilution_summary The summary table generated
-#' by function `summarise_dilution_table` and/or `evaluate_linearity`
+#' by function [summarise_dilution_table()] and/or [evaluate_linearity()]
 #' @param conditional_column A character vector to
 #' indicate which column in `dilution_summary` to use
 #' @param threshold_value The threshold value to indicate a pass or fail
@@ -233,19 +239,20 @@ two_col_word_cond_format <- function(workbook, sheet,
 #'
 #' # Conditional formatting can only be done
 #' # after data is written to excel sheet
-#' two_col_num_cond_format(workbook = my_workbook,sheet = "Dilution Summary",
-#'                         dilution_summary = dilution_summary,
-#'                         conditional_column = "r_corr",
-#'                         threshold_value = "0.8",
-#'                         pass_criteria = "above"
+#' format_num_cell_colour(workbook = my_workbook,sheet = "Dilution Summary",
+#'                        dilution_summary = dilution_summary,
+#'                        conditional_column = "r_corr",
+#'                        threshold_value = "0.8",
+#'                        pass_criteria = "above"
 #'                        )
-#' @rdname two_col_num_cond_format
+#' @rdname format_num_cell_colour
 #' @export
-two_col_num_cond_format <- function(workbook, sheet,
-                                    dilution_summary, conditional_column,
-                                    threshold_value,
-                                    pass_criteria = c("above", "below"),
-                                    pass_equality = TRUE) {
+format_num_cell_colour <- function(workbook, sheet,
+                                   dilution_summary, conditional_column,
+                                   threshold_value,
+                                   pass_criteria = c("above", "below"),
+                                   pass_equality = TRUE) {
+
 
 
   col_index <- which(colnames(dilution_summary) %in% conditional_column)
@@ -284,10 +291,10 @@ two_col_num_cond_format <- function(workbook, sheet,
 
 }
 
-#' @title Create Excel Report
-#'
+#' @title Write Dilution Summary To Excel
+#' @description Write dilution summary table to an excel sheet
 #' @param dilution_summary The summary table generated
-#' by function `summarise_dilution_table` and/or `evaluate_linearity`
+#' by function [summarise_dilution_table()] and/or [evaluate_linearity()]
 #' @param file_name Name of the excel file
 #' @param sheet_name Sheet name to output the results
 #' in Excel, Default: 'Dilution Summary'
@@ -350,10 +357,11 @@ two_col_num_cond_format <- function(workbook, sheet,
 #'                                mandel_p_val = mandel_p_val,
 #'                                concavity = concavity)
 #' # Create an excel report, set testing = FALSE to output results
-#' create_excel_report(dilution_summary, file_name = "dilution_summary.xlsx",
+#' write_summary_excel(dilution_summary, file_name = "dilution_summary.xlsx",
 #'                     testing = TRUE)
+#' @rdname write_summary_excel
 #' @export
-create_excel_report <- function(dilution_summary, file_name,
+write_summary_excel <- function(dilution_summary, file_name,
                                 sheet_name = "Dilution Summary",
                                 corrcoef_column = "r_corr",
                                 corrcoef_min_threshold = 0.8,
@@ -378,8 +386,8 @@ create_excel_report <- function(dilution_summary, file_name,
   # Create numeric style based on column name
   dilution_summary %>%
     mark_near_zero_columns() %>%
-    get_column_number_style(workbook = my_workbook,
-                            sheet = sheet_name)
+    format_num_cell_style(workbook = my_workbook,
+                          sheet = sheet_name)
 
   # Set the width of the columns to fit the column names
   # of the data. Taken from
@@ -400,35 +408,35 @@ create_excel_report <- function(dilution_summary, file_name,
                            )
 
   # Conditional formatting can only be done after data is written to excel sheet
-  two_col_num_cond_format(workbook = my_workbook, sheet = sheet_name,
-                          dilution_summary = dilution_summary,
-                          conditional_column = corrcoef_column,
-                          threshold_value =
-                            as.character(corrcoef_min_threshold),
-                          pass_criteria = "above"
+  format_num_cell_colour(workbook = my_workbook, sheet = sheet_name,
+                         dilution_summary = dilution_summary,
+                         conditional_column = corrcoef_column,
+                         threshold_value =
+                           as.character(corrcoef_min_threshold),
+                         pass_criteria = "above"
   )
-  two_col_num_cond_format(workbook = my_workbook, sheet = sheet_name,
-                          dilution_summary = dilution_summary,
-                          conditional_column = pra_column,
-                          threshold_value = as.character(pra_min_threshold),
-                          pass_criteria = "above"
+  format_num_cell_colour(workbook = my_workbook, sheet = sheet_name,
+                         dilution_summary = dilution_summary,
+                         conditional_column = pra_column,
+                         threshold_value = as.character(pra_min_threshold),
+                         pass_criteria = "above"
   )
-  two_col_num_cond_format(workbook = my_workbook, sheet = sheet_name,
-                          dilution_summary = dilution_summary,
-                          conditional_column = mandel_p_val_column,
-                          threshold_value =
-                            as.character(mandel_p_val_threshold),
-                          pass_criteria = "above"
+  format_num_cell_colour(workbook = my_workbook, sheet = sheet_name,
+                         dilution_summary = dilution_summary,
+                         conditional_column = mandel_p_val_column,
+                         threshold_value =
+                           as.character(mandel_p_val_threshold),
+                         pass_criteria = "above"
   )
 
-  two_col_word_cond_format(workbook = my_workbook, sheet = sheet_name,
-                           dilution_summary = dilution_summary,
-                           conditional_column = workflow1_column,
-                           pass_criteria_words = pass_criteria_words)
-  two_col_word_cond_format(workbook = my_workbook, sheet = sheet_name,
-                           dilution_summary = dilution_summary,
-                           conditional_column = workflow2_column,
-                           pass_criteria_words = pass_criteria_words)
+  format_char_cell_colour(workbook = my_workbook, sheet = sheet_name,
+                          dilution_summary = dilution_summary,
+                          conditional_column = workflow1_column,
+                          pass_criteria_words = pass_criteria_words)
+  format_char_cell_colour(workbook = my_workbook, sheet = sheet_name,
+                          dilution_summary = dilution_summary,
+                          conditional_column = workflow2_column,
+                          pass_criteria_words = pass_criteria_words)
 
 
   # Export to file if we are not testing

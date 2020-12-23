@@ -43,7 +43,7 @@ test_that("Able to plot dilution data with plotly correctly", {
     stats::setNames(dilution_batch_name)
 
   # Plot the html
-  p <- dilution_plot_plotly(dilution_data,
+  p <- plot_curve_plotly(dilution_data,
                             title = "Lipid_Saturated",
                             sample_name_var = "Sample_Name",
                             dil_batch_var = "Dilution_Batch_Name",
@@ -62,7 +62,7 @@ test_that("Able to plot dilution data with plotly correctly", {
   )
 
   # Plot the html
-  p <- dilution_plot_plotly(dilution_data,
+  p <- plot_curve_plotly(dilution_data,
                             title = "Lipid_Horizontal",
                             sample_name_var = "Sample_Name",
                             dil_batch_var = "Dilution_Batch_Name",
@@ -81,7 +81,7 @@ test_that("Able to plot dilution data with plotly correctly", {
   )
 
   # Plot the html
-  p <- dilution_plot_plotly(dilution_data,
+  p <- plot_curve_plotly(dilution_data,
                             title = "Lipid_Vertical",
                             sample_name_var = "Sample_Name",
                             dil_batch_var = "Dilution_Batch_Name",
@@ -101,7 +101,7 @@ test_that("Able to plot dilution data with plotly correctly", {
   )
 
   # Plot the html
-  p <- dilution_plot_plotly(dilution_data,
+  p <- plot_curve_plotly(dilution_data,
                             title = "Lipid_Point",
                             sample_name_var = "Sample_Name",
                             dil_batch_var = "Dilution_Batch_Name",
@@ -120,7 +120,7 @@ test_that("Able to plot dilution data with plotly correctly", {
   )
 
   # Plot the html
-  p <- dilution_plot_plotly(dilution_data,
+  p <- plot_curve_plotly(dilution_data,
                             title = "Lipid_No_Point",
                             sample_name_var = "Sample_Name",
                             dil_batch_var = "Dilution_Batch_Name",

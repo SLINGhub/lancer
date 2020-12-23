@@ -2,7 +2,7 @@
 % Please edit documentation in R/dilstats.R
 \name{create_quad_model}
 \alias{create_quad_model}
-\title{Create Dilution Quadratic Model}
+\title{Create Quadratic Model}
 \usage{
 create_quad_model(dilution_data, conc_var, signal_var)
 }
@@ -25,7 +25,8 @@ A wrapper to create a quadratic model for dilution data
 dilution_percent <- c(10, 20, 40, 60, 80, 100)
 area <- c(22561, 31178, 39981, 48390, 52171, 53410)
 dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-linear_model <- create_quad_model(dilution_data,
-                                        "Dilution_Percent",
-                                        "Area")
+quad_model <- create_quad_model(dilution_data,
+                                "Dilution_Percent",
+                                "Area")
+quad_model
 }

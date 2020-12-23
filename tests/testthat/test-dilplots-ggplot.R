@@ -47,7 +47,7 @@ test_that("Able to plot good dilution data with ggplot correctly", {
 
 
   # Create the ggplot
-  p <- dilution_plot_ggplot(dilution_data,
+  p <- plot_curve_ggplot(dilution_data,
                             dilution_summary_grp = dilution_summary_grp,
                             title = "Lipid_Saturated",
                             pal = pal,
@@ -61,7 +61,7 @@ test_that("Able to plot good dilution data with ggplot correctly", {
   vdiffr::expect_doppelganger("A usual dilution plot", p)
 
 
-  p <- dilution_plot_ggplot(dilution_data,
+  p <- plot_curve_ggplot(dilution_data,
                             dilution_summary_grp = dilution_summary_grp,
                             title = "Lipid_Saturated",
                             pal = pal,
@@ -125,7 +125,7 @@ test_that("Able to plot horizontal dilution data with ggplot correctly", {
 
 
   # Create the ggplot
-  p <- dilution_plot_ggplot(dilution_data,
+  p <- plot_curve_ggplot(dilution_data,
                             dilution_summary_grp = dilution_summary_grp,
                             title = "Lipid_Horizontal",
                             pal = pal,
@@ -191,7 +191,7 @@ test_that("Able to plot vertical dilution data with ggplot correctly", {
     dplyr::select(-c(dplyr::all_of(grouping_variable)))
 
   # Create the ggplot
-  p <- dilution_plot_ggplot(dilution_data,
+  p <- plot_curve_ggplot(dilution_data,
                             dilution_summary_grp = dilution_summary_grp,
                             title = "Lipid_Vertical",
                             pal = pal,
@@ -257,7 +257,7 @@ test_that("Able to plot single point dilution data with ggplot correctly", {
 
 
   # Create the ggplot
-  p <- dilution_plot_ggplot(dilution_data,
+  p <- plot_curve_ggplot(dilution_data,
                             dilution_summary_grp = dilution_summary_grp,
                             title = "Lipid_Point",
                             pal = pal,
@@ -321,7 +321,7 @@ test_that("Able to plot NA dilution data with ggplot correctly", {
 
 
   # Create the ggplot
-  p <- dilution_plot_ggplot(dilution_data,
+  p <- plot_curve_ggplot(dilution_data,
                             dilution_summary_grp = dilution_summary_grp,
                             title = "Lipid_No_Point",
                             pal = pal,
@@ -357,7 +357,7 @@ test_that("Able to plot summary (numeric and characters) grid table for one dilu
                                       concavity = concavity)
 
   # Test that it works in the usual case
-  table <- dilution_summary_group_table(dilution_summary_grp)
+  table <- plot_summary_table(dilution_summary_grp)
 
   vdiffr::expect_doppelganger("complete summary table", grid::grid.draw(table))
 
@@ -377,11 +377,11 @@ test_that("Able to plot summary (only numeric) grid table for one dilution group
                                       pra_linear = pra_linear,
                                       mandel_p_val = mandel_p_val,
                                       concavity = concavity)
-  testthat::expect_null(dilution_summary_char_table(dilution_summary_grp))
+  testthat::expect_null(plot_summary_table_char(dilution_summary_grp))
 
   # Test that it works even if there is no character or factor
   # or logical columns
-  table <- dilution_summary_group_table(dilution_summary_grp)
+  table <- plot_summary_table(dilution_summary_grp)
 
   vdiffr::expect_doppelganger("numeric summary table", grid::grid.draw(table))
 
@@ -404,10 +404,10 @@ test_that("Able to plot summary (only character) grid table for one dilution gro
                                       wf2_group = wf2_group,
                                       logical = logical)
 
-  testthat::expect_null(dilution_summary_num_table(dilution_summary_grp))
+  testthat::expect_null(plot_summary_table_num(dilution_summary_grp))
 
   # Test that it works even if there is no numeric columns
-  table <- dilution_summary_group_table(dilution_summary_grp)
+  table <- plot_summary_table(dilution_summary_grp)
 
   vdiffr::expect_doppelganger("character summary table", grid::grid.draw(table))
 
@@ -418,9 +418,9 @@ test_that("Able to return NULL when there is no summary for one dilution group",
 
   dilution_summary_grp <- data.frame()
   # Test that it gives NULL when both columns types are missing
-  testthat::expect_null(dilution_summary_group_table(dilution_summary_grp))
-  testthat::expect_null(dilution_summary_group_table(NA))
-  testthat::expect_null(dilution_summary_group_table(NULL))
+  testthat::expect_null(plot_summary_table(dilution_summary_grp))
+  testthat::expect_null(plot_summary_table(NA))
+  testthat::expect_null(plot_summary_table(NULL))
 
 })
 

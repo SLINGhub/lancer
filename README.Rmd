@@ -43,13 +43,19 @@ We try to categorise dilution curves based on the results of three parameters
  * Mandel's Fitting Test
  
 
-Correlation Coefficient ( $R$ ) can be found in Van Loco, J., Elskens, M., Croux, C. *et al.*, Linearity of calibration curves: use and misuse of the correlation coefficient. *Accred Qual Assur* **7**, 281-285 (2002). [10.1007/s00769-002-0487-6](https://doi.org/10.1007/s00769-002-0487-6).  
+Correlation Coefficient ( $R$ ) can be found in Van Loco, J., Elskens, M., Croux, C. *et al.*, 
+Linearity of calibration curves: use and misuse of the correlation coefficient. 
+*Accred Qual Assur* **7**, 281-285 (2002). [10.1007/s00769-002-0487-6](https://doi.org/10.1007/s00769-002-0487-6).  
 Equation ( $1$ ) is used.
 
-Mandel's Fitting Test can be found in Andrade, J. M. and Gómez-Carracedo, M. P., Notes on the use of Mandel's test to check for nonlinearity in laboratory calibrations. *Anal. Methods* **5**, 1145-1149 (2013). [10.1039/C2AY26400E](https://dx.doi.org/10.1039/C2AY26400E).  
+Mandel's Fitting Test can be found in Andrade, J. M. and Gómez-Carracedo, M. P., 
+Notes on the use of Mandel's test to check for nonlinearity in laboratory calibrations. 
+*Anal. Methods* **5**, 1145-1149 (2013). [10.1039/C2AY26400E](https://dx.doi.org/10.1039/C2AY26400E).  
 Equation ( $5$ ) is used.
 
-Percent Residual Accuracy ( $PRA$ ) can be found in Logue, B. A. and Manandhar, E., Percent residual accuracy for quantifying goodness-of-fit of linear calibration curves. *Talanta* **189**, 527-533 (2018). [10.1016/j.talanta.2018.07.046](https://doi.org/10.1016/j.talanta.2018.07.046).  
+Percent Residual Accuracy ( $PRA$ ) can be found in Logue, B. A. and Manandhar, E., 
+Percent residual accuracy for quantifying goodness-of-fit of linear calibration curves. 
+*Talanta* **189**, 527-533 (2018). [10.1016/j.talanta.2018.07.046](https://doi.org/10.1016/j.talanta.2018.07.046).  
 Equation ( $6$ ) is used.
 
 ## Workflow Proposed
@@ -174,10 +180,10 @@ dilution_classified <- evaluate_linearity(dilution_summary,
 print(dilution_classified, width = 100)
 ```
 
-Results can be exported to Excel via `create_excel_report`
+Results can be exported to Excel via `write_summary_excel`
 
 ```{r print to excel, eval = FALSE}
-create_excel_report(dilution_classified, file_name = "dilution_summary.xlsx")
+write_summary_excel(dilution_classified, file_name = "dilution_summary.xlsx")
 ```
 
 ![Excel Report](man/figures/README-ExcelResults.png)

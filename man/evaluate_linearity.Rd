@@ -2,7 +2,7 @@
 % Please edit documentation in R/lineval.R
 \name{evaluate_linearity}
 \alias{evaluate_linearity}
-\title{Evaluate linearity}
+\title{Evaluate Linearity Based On Dilution Summary Data}
 \usage{
 evaluate_linearity(
   dilution_summary,
@@ -18,7 +18,7 @@ evaluate_linearity(
 }
 \arguments{
 \item{dilution_summary}{A data frame or tibble output from
-the function \code{get_dilution_summary}}
+the function \code{\link[=summarise_dilution_data]{summarise_dilution_data()}}}
 
 \item{grouping_variable}{A character vector of
 column names in \code{dilution_summary}to indicate which columns should be placed

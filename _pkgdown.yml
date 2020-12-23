@@ -1,3 +1,75 @@
 template:
   params:
     bootswatch: cosmo
+
+
+reference:
+  - title: Dilution Curve Validation Workflow
+    desc: >
+      Functions used for tidy workflow
+    contents:
+    - create_dilution_table
+    - summarise_dilution_table
+    - evaluate_linearity
+    - write_summary_excel
+    - create_ggplot_table
+    - create_trellis_table
+    - create_ggplot_pdf_report
+    - create_trellis_report
+  - title: Summarise Dilution Data
+    desc: >
+      Functions used to summarise dilution curve data
+    contents:
+    - summarise_dilution_table
+    - summarise_dilution_data
+    - ends_with("_model")
+    - starts_with("calculate_")
+    - evaluate_linearity
+  - title: Plotting
+    desc: >
+      Functions used to plot dilution curves and summary tables
+    contents:
+    - starts_with("plot_")
+  - title: Output in Excel
+    desc: >
+      Functions used to write dilution summary table to Excel
+    contents:
+    - write_summary_excel
+    - format_char_cell_colour
+    - format_num_cell_colour
+    - format_num_cell_style
+    - mark_near_zero_columns
+  - title: Output in pdf
+    desc: >
+      Functions used to help output `ggplots` plots to pdf
+    contents:
+    - create_page_layout
+  - title: Cognostics Creation
+    desc: >
+      Functions used to convert columns to class cognostics
+    contents:
+    - convert_to_cog
+    - create_default_cog_df
+    - starts_with("update_cog")
+  - title: Validation
+    desc: >
+      Functions used to validate datasets
+    contents:
+    - starts_with("validate")
+  - title: Utilities
+    desc: >
+      Utilities functions
+    contents:
+    - create_char_seq
+  - title: Defunct and deprecated functions
+    desc: >
+      Functions that are not in used (defunct) or deprecated
+      <a href="https://lifecycle.r-lib.org/articles/lifecycle.html">
+      <img src='figures/lifecycle-defunct.svg' alt='Defunct lifecycle'/>
+      </a>
+      <a href="https://lifecycle.r-lib.org/articles/lifecycle.html">
+      <img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle'/>
+      </a>
+    contents:
+    - exprs_reduce
+    - syms_reduce

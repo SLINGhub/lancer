@@ -1,8 +1,8 @@
-#' @title Validate trellis table
+#' @title Validate Trellis Table
 #' @description Validate trellis table to see if it can be used to create
 #' `trelliscopejs` report
 #' @param trellis_table The trellis table generated
-#' by function `create_trellis_table`
+#' by function [create_trellis_table()]
 #' @param grouping_variable A character vector of
 #' column names in `trellis_table` to indicate how each dilution curve
 #' should be grouped by. It is also going to be used as a conditional
@@ -114,7 +114,7 @@ validate_trellis_table <- function(trellis_table,
 #' @title Create trellis report
 #'
 #' @param trellis_table The trellis table generated
-#' by function `create_trellis_table`
+#' by function [create_trellis_table()]
 #' @param trellis_report_name A string to indicate the title
 #' of the trellis report
 #' Default: 'Dilution_Plot'

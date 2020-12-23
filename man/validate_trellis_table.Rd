@@ -2,7 +2,7 @@
 % Please edit documentation in R/outputdata-trellis.R
 \name{validate_trellis_table}
 \alias{validate_trellis_table}
-\title{Validate trellis table}
+\title{Validate Trellis Table}
 \usage{
 validate_trellis_table(
   trellis_table,
@@ -12,7 +12,7 @@ validate_trellis_table(
 }
 \arguments{
 \item{trellis_table}{The trellis table generated
-by function \code{create_trellis_table}}
+by function \code{\link[=create_trellis_table]{create_trellis_table()}}}
 
 \item{grouping_variable}{A character vector of
 column names in \code{trellis_table} to indicate how each dilution curve

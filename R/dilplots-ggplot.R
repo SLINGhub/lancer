@@ -1,54 +1,6 @@
-#' @title Plot Dilution Summary Table For One Group
-#' @description Plot dilution summary table for one group
-#' @param dilution_summary_grp
-#' A one row data frame or tibble containing dilution summary
-#' @return A `gridtable` object consisting of two tables. One from
-#' `dilution_summary_char_table` and `dilution_summary_num_table`
-#' @examples
-#' wf1_group <- c("Poor Linearity")
-#' wf2_group <- c("Saturation")
-#' r_corr <- c(0.951956)
-#' pra_linear <- c(65.78711)
-#' mandel_p_val <- c(2.899006e-07)
-#' concavity <- c(-4133.501328)
-#' dilution_summary_grp  <- data.frame(wf1_group = wf1_group,
-#'                                     wf2_group = wf2_group,
-#'                                     r_corr = r_corr,
-#'                                     pra_linear = pra_linear,
-#'                                     mandel_p_val = mandel_p_val,
-#'                                     concavity = concavity)
-#' table <- dilution_summary_group_table(dilution_summary_grp)
-#' grid::grid.draw(table)
-#'
-#' # No column case
-#' dilution_summary_grp  <- data.frame()
-#' table <- dilution_summary_group_table(dilution_summary_grp)
-#' table
-#' @rdname dilution_summary_group_table
-#' @export
-dilution_summary_group_table <- function(dilution_summary_grp) {
-  if(is.null(dilution_summary_grp) || isTRUE(is.na(dilution_summary_grp))) {
-    return(NULL)
-  }
-  dilution_char_data <- dilution_summary_char_table(dilution_summary_grp)
-  dilution_num_data <- dilution_summary_num_table(dilution_summary_grp)
-
-  if(is.null(dilution_char_data) && is.null(dilution_num_data)) {
-    return(NULL)
-  } else if (is.null(dilution_char_data)) {
-    return(dilution_num_data)
-  } else if (is.null(dilution_num_data)) {
-    return(dilution_char_data)
-  } else {
-    p <- gridExtra::gtable_combine(dilution_char_data, dilution_num_data,
-                                   along = 2)
-    return(p)
-  }
-}
-
 #' @title Plot Dilution Summary Character Table For One Group
 #' @description
-#' Plot dilution summary character table for one group
+#' Plot dilution summary character table for one group or batch
 #' @param dilution_summary_grp
 #' A one row data frame or tibble containing dilution summary
 #' @return A `gridtable` object consisting of one table. The first
@@ -69,16 +21,16 @@ dilution_summary_group_table <- function(dilution_summary_grp) {
 #'                                     pra_linear = pra_linear,
 #'                                     mandel_p_val = mandel_p_val,
 #'                                     concavity = concavity)
-#' table <- dilution_summary_char_table(dilution_summary_grp)
+#' table <- plot_summary_table_char(dilution_summary_grp)
 #' grid::grid.draw(table)
 #'
 #' # No character/factor/logical column case
 #' dilution_summary_grp  <- data.frame(r_corr = r_corr)
-#' table <- dilution_summary_char_table(dilution_summary_grp)
+#' table <- plot_summary_table_char(dilution_summary_grp)
 #' table
-#' @rdname dilution_summary_char_table
+#' @rdname plot_summary_table_char
 #' @export
-dilution_summary_char_table <- function(dilution_summary_grp) {
+plot_summary_table_char <- function(dilution_summary_grp) {
 
   dilution_char_data <- dilution_summary_grp %>%
     dplyr::select_if(function(col) is.character(col) |
@@ -103,6 +55,7 @@ dilution_summary_char_table <- function(dilution_summary_grp) {
 
 #' @title Plot Dilution Summary Numeric Table For One Group
 #' @description Plot dilution Summary numeric table for one group
+#' or batch
 #' @param dilution_summary_grp
 #' A one row data frame or tibble containing dilution summary
 #' @return A `gridtable` object consisting of one table. The first
@@ -123,16 +76,16 @@ dilution_summary_char_table <- function(dilution_summary_grp) {
 #'                                     pra_linear = pra_linear,
 #'                                     mandel_p_val = mandel_p_val,
 #'                                     concavity = concavity)
-#' table <- dilution_summary_num_table(dilution_summary_grp)
+#' table <- plot_summary_table_num(dilution_summary_grp)
 #' grid::grid.draw(table)
 #'
 #' # No numeric column case
 #' dilution_summary_grp  <- data.frame(wf2_group = wf2_group)
-#' table <- dilution_summary_num_table(dilution_summary_grp)
+#' table <- plot_summary_table_num(dilution_summary_grp)
 #' table
-#' @rdname dilution_summary_num_table
+#' @rdname plot_summary_table_num
 #' @export
-dilution_summary_num_table <- function(dilution_summary_grp) {
+plot_summary_table_num <- function(dilution_summary_grp) {
 
   dilution_num_data <- dilution_summary_grp %>%
     mark_near_zero_columns() %>%
@@ -158,9 +111,57 @@ dilution_summary_num_table <- function(dilution_summary_grp) {
 
 }
 
+#' @title Plot Dilution Summary Table For One Group
+#' @description Plot dilution summary table for one group
+#' @param dilution_summary_grp
+#' A one row data frame or tibble containing dilution summary
+#' @return A `gridtable` object consisting of two tables. One from
+#' [plot_summary_table_char()] and [plot_summary_table_num()]
+#' @examples
+#' wf1_group <- c("Poor Linearity")
+#' wf2_group <- c("Saturation")
+#' r_corr <- c(0.951956)
+#' pra_linear <- c(65.78711)
+#' mandel_p_val <- c(2.899006e-07)
+#' concavity <- c(-4133.501328)
+#' dilution_summary_grp  <- data.frame(wf1_group = wf1_group,
+#'                                     wf2_group = wf2_group,
+#'                                     r_corr = r_corr,
+#'                                     pra_linear = pra_linear,
+#'                                     mandel_p_val = mandel_p_val,
+#'                                     concavity = concavity)
+#' table <- plot_summary_table(dilution_summary_grp)
+#' grid::grid.draw(table)
+#'
+#' # No column case
+#' dilution_summary_grp  <- data.frame()
+#' table <- plot_summary_table(dilution_summary_grp)
+#' table
+#' @rdname plot_summary_table
+#' @export
+plot_summary_table <- function(dilution_summary_grp) {
+  if(is.null(dilution_summary_grp) || isTRUE(is.na(dilution_summary_grp))) {
+    return(NULL)
+  }
+  dilution_char_data <- plot_summary_table_char(dilution_summary_grp)
+  dilution_num_data <- plot_summary_table_num(dilution_summary_grp)
 
-#' @title Plot Dilution Data Using `ggplot2`
-#' @description Plot Dilution Data Using `ggplot2`
+  if(is.null(dilution_char_data) && is.null(dilution_num_data)) {
+    return(NULL)
+  } else if (is.null(dilution_char_data)) {
+    return(dilution_num_data)
+  } else if (is.null(dilution_num_data)) {
+    return(dilution_char_data)
+  } else {
+    p <- gridExtra::gtable_combine(dilution_char_data, dilution_num_data,
+                                   along = 2)
+    return(p)
+  }
+}
+
+
+#' @title Plot Dilution Curve Using `ggplot2`
+#' @description Plot dilution curve using `ggplot2`
 #' @param dilution_data A data frame or tibble containing dilution data
 #' @param dilution_summary_grp A data frame or tibble containing
 #' dilution summary data for one group
@@ -183,8 +184,8 @@ dilution_summary_num_table <- function(dilution_summary_grp) {
 #' @param plot_half_lin_reg Decide if we plot an extra regression line that
 #' best fits the first half of `conc_var` dilution points.
 #' Default: FALSE
-#' @return Output ggplot dilution plot data of one dilution batch per transition
-#' @rdname dilution_plot_ggplot
+#' @return Output `ggplot` dilution plot data of one dilution batch per transition
+#' @rdname plot_curve_ggplot
 #' @examples
 #' # Data Creation
 #' dilution_percent <- c(10, 20, 25, 40, 50, 60,
@@ -233,27 +234,28 @@ dilution_summary_num_table <- function(dilution_summary_grp) {
 #'
 #'
 #' # Create the ggplot
-#' p <- dilution_plot_ggplot(dilution_data,
-#'                           dilution_summary_grp = dilution_summary_grp,
-#'                           title = "Lipid_Saturated",
-#'                           pal = pal,
-#'                           dil_batch_var = "Dilution_Batch_Name",
-#'                           conc_var = "Dilution_Percent",
-#'                           conc_var_units = "%",
-#'                           conc_var_interval = 50,
-#'                           signal_var = "Area")
+#' p <- plot_curve_ggplot(dilution_data,
+#'                        dilution_summary_grp = dilution_summary_grp,
+#'                        title = "Lipid_Saturated",
+#'                        pal = pal,
+#'                        dil_batch_var = "Dilution_Batch_Name",
+#'                        conc_var = "Dilution_Percent",
+#'                        conc_var_units = "%",
+#'                        conc_var_interval = 50,
+#'                        signal_var = "Area")
 #' p
 #' @export
-dilution_plot_ggplot <- function(dilution_data,
-                                 dilution_summary_grp,
-                                 title,
-                                 pal,
-                                 dil_batch_var = "Dilution_Batch",
-                                 conc_var= "Dilution_Percent",
-                                 conc_var_units = "%",
-                                 conc_var_interval = 50,
-                                 signal_var = "Area",
-                                 plot_half_lin_reg = FALSE) {
+plot_curve_ggplot <- function(dilution_data,
+                              dilution_summary_grp,
+                              title,
+                              pal,
+                              dil_batch_var = "Dilution_Batch",
+                              conc_var = "Dilution_Percent",
+                              conc_var_units = "%",
+                              conc_var_interval = 50,
+                              signal_var = "Area",
+                              plot_half_lin_reg = FALSE) {
+
 
   # Number of dilution batches
   no_of_dil_batch <- dilution_data %>%
@@ -284,7 +286,7 @@ dilution_plot_ggplot <- function(dilution_data,
   reg_col_vec <- NA
 
   # Create the table
-  tables <- dilution_summary_group_table(dilution_summary_grp)
+  tables <- plot_summary_table(dilution_summary_grp)
 
   # Create an empty dilution plot first
   p <- ggplot2::ggplot(dilution_data) +
@@ -459,16 +461,18 @@ dilution_plot_ggplot <- function(dilution_data,
 
 #' @title Create A `ggplot` Table
 #' @description Create a `ggplot` table suited for a pdf report
-#' @param dilution_table Output given from the function `create_dilution_table`
+#' @param dilution_table Output given from
+#' the function [create_dilution_table()]
 #' It is in long table format with columns indicating at least the
 #' lipid/transition name, the concentration and signal. Other columns may be
 #' present if it is used to group the dilution curve together
 #' @param dilution_summary The summary table generated
-#' by function `summarise_dilution_table` and/or `evaluate_linearity`
-#' but it can also be any generic data frame or tibble.
+#' by function [summarise_dilution_table()] and/or
+#' [evaluate_linearity()] but it can also be any generic
+#' data frame or tibble.
 #' If there is no input given in this, the program will create one using
-#' the function `summarise_dilution_table` and `evaluate_linearity` with
-#' `grouping_variable`, `conc_var` and `signal_var` as inputs
+#' the function [summarise_dilution_table()] and [evaluate_linearity()]
+#' with `grouping_variable`, `conc_var` and `signal_var` as inputs
 #' Default: NULL
 #' @param grouping_variable A character vector of
 #' column names in `dilution_table`to indicate how each dilution curve
@@ -478,7 +482,7 @@ dilution_plot_ggplot <- function(dilution_data,
 #' to indicate the group name of each dilution batch,
 #' used to colour the points in the dilution plot
 #' Default: 'Dilution_Batch'
-#' @param dil_batch_col A vector of colurs to be used for the dilution
+#' @param dil_batch_col A vector of colours to be used for the dilution
 #' batch group named given in `dil_batch_var`,
 #' Default: c("#377eb8", "#4daf4a", "#9C27B0", "#BCAAA4", "#FF8A65", "#EFBBCF")
 #' @param conc_var Column name in `dilution_table` to indicate concentration
@@ -489,11 +493,14 @@ dilution_plot_ggplot <- function(dilution_data,
 #' Default: 50
 #' @param signal_var Column name in `dilution_table` to indicate signal
 #' Default: 'Area'
+#' @param have_plot_title Indicate if you want to have a plot title in
+#' the `ggplot` plot.
+#' Default: TRUE
 #' @param plot_half_lin_reg Decide if we plot an extra regression line that
 #' best fits the first half of `conc_var` dilution points.
 #' Default: FALSE
 #' @return A table with columns from `groupung variable`
-#' and a new column `panel` created containing a ggplot dilution plot
+#' and a new column `panel` created containing a `ggplot` dilution plot
 #' in each row. This column is used to create the plot figure in the
 #' pdf report.
 #' @rdname create_ggplot_table
@@ -585,6 +592,7 @@ create_ggplot_table <- function(dilution_table, dilution_summary = NULL,
                                 conc_var_units = "%",
                                 conc_var_interval = 50,
                                 signal_var = "Area",
+                                have_plot_title = TRUE,
                                 plot_half_lin_reg = FALSE) {
 
   # Check if dilution_table is valid with the relevant columns
@@ -620,8 +628,9 @@ create_ggplot_table <- function(dilution_table, dilution_summary = NULL,
     create_char_seq(output_length = length(dilution_batch_name)) %>%
     stats::setNames(dilution_batch_name)
 
-  # Create a gg table for each group
-  dilution_summary <- dilution_summary %>%
+  # Create a summary table for each group for plotting the
+  # summary table using gridExtra::tableGrob
+  nested_dilution_summary <- dilution_summary %>%
     dplyr::group_by_at(dplyr::all_of(grouping_variable)) %>%
     tidyr::nest() %>%
     dplyr::ungroup() %>%
@@ -635,23 +644,29 @@ create_ggplot_table <- function(dilution_table, dilution_summary = NULL,
     dplyr::relocate(dplyr::all_of(grouping_variable)) %>%
     tidyr::nest() %>%
     dplyr::ungroup() %>%
-    dplyr::left_join(dilution_summary, by = grouping_variable)
+    dplyr::left_join(nested_dilution_summary, by = grouping_variable)
 
   # Create a title name for each group
   #https://stackoverflow.com/questions/44613279/dplyr-concat-columns-stored-in-variable-mutate-and-non-standard-evaluation?rq=1
-  dilution_table <- dilution_table %>%
-    dplyr::rowwise() %>%
-    dplyr::mutate(title = paste0(
-      dplyr::across(dplyr::all_of(grouping_variable)),
-      collapse = "_")) %>%
-    dplyr::ungroup()
+  if(isTRUE(have_plot_title)) {
+    dilution_table <- dilution_table %>%
+      dplyr::rowwise() %>%
+      dplyr::mutate(title = paste0(
+        dplyr::across(dplyr::all_of(grouping_variable)),
+        collapse = "_")) %>%
+      dplyr::ungroup()
+
+  } else {
+    dilution_table <- dilution_table %>%
+      dplyr::mutate(title = "")
+  }
 
   # Start the plotting
-  ggplot_table <- dilution_table %>%
+  dilution_plots <- dilution_table %>%
     dplyr::mutate(panel = purrr::pmap(list(.data$data,
                                            .data$summary,
                                            .data$title),
-                                      dilution_plot_ggplot,
+                                      plot_curve_ggplot,
                                       pal = pal,
                                       dil_batch_var = "Dilution_Batch_Name",
                                       conc_var = conc_var,
@@ -660,6 +675,15 @@ create_ggplot_table <- function(dilution_table, dilution_summary = NULL,
                                       signal_var = signal_var,
                                       plot_half_lin_reg = plot_half_lin_reg)
                   )
+
+
+  # Left Join with the dilution_summary
+  ggplot_table <- dilution_plots %>%
+    dplyr::select(dplyr::all_of(c(grouping_variable,"title"))) %>%
+    dplyr::bind_cols(dilution_plots %>%
+                       dplyr::select(.data[["panel"]])) %>%
+    dplyr::left_join(dilution_summary, by = grouping_variable)
+
 
   return(ggplot_table)
 }

@@ -28,15 +28,18 @@ Default: 'Dilution_Percent'}
 Default: 'Area'}
 }
 \value{
-A summary table output from the function \code{get_dilution_summary}
+A dilution summary table output from the function
+\code{\link[=summarise_dilution_data]{summarise_dilution_data()}} for each group
 }
 \description{
-Create Dilution Summary Statistic Table from
-Dilution Table
+Get the summary statistics of each group from
+the dilution table
 }
 \details{
-Look at the function \code{get_dilution_summary} for more details on
-what summary data is given
+The function first perform \code{tidyr::nest} on \code{dilution_table}
+based on the \code{grouping_variable} to organise the dilution curve data
+for each group. Next for each group, the function
+\code{\link[=summarise_dilution_data]{summarise_dilution_data()}} is used to get the summary statistics.
 }
 \examples{
 #Data Creation
@@ -69,7 +72,6 @@ dilution_summary <- dilution_table \%>\%
 summarise_dilution_table(grouping_variable = c("Transition_Name",
                                                "Dilution_Batch"),
                          conc_var = "Dilution_Percent",
-                         signal_var = "Area") \%>\%
-dplyr::arrange(.data$Transition_Name)
-
+                         signal_var = "Area")
+print(dilution_summary, width = 100)
 }

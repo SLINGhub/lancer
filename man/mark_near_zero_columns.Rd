@@ -2,13 +2,14 @@
 % Please edit documentation in R/outputdata-excel.R
 \name{mark_near_zero_columns}
 \alias{mark_near_zero_columns}
-\title{Mark near zero columns}
+\title{Mark Near Zero Columns}
 \usage{
 mark_near_zero_columns(dilution_summary)
 }
 \arguments{
 \item{dilution_summary}{The summary table generated
-by function \code{summarise_dilution_table} and/or \code{evaluate_linearity}
+by function \code{\link[=summarise_dilution_table]{summarise_dilution_table()}} and/or
+\code{\link[=evaluate_linearity]{evaluate_linearity()}}
 but it can also be any generic data frame or tibble}
 }
 \value{
@@ -17,6 +18,7 @@ with near zero values changed from numeric to scientific
 }
 \description{
 Mark numeric columns with near zero values from a dataset
+by changing the class from \code{numeric} to \code{scientific}
 }
 \details{
 We mark these columns as scientific so that \code{openxlsx} can

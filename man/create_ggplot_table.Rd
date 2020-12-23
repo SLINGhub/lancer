@@ -14,21 +14,24 @@ create_ggplot_table(
   conc_var_units = "\%",
   conc_var_interval = 50,
   signal_var = "Area",
+  have_plot_title = TRUE,
   plot_half_lin_reg = FALSE
 )
 }
 \arguments{
-\item{dilution_table}{Output given from the function \code{create_dilution_table}
+\item{dilution_table}{Output given from
+the function \code{\link[=create_dilution_table]{create_dilution_table()}}
 It is in long table format with columns indicating at least the
 lipid/transition name, the concentration and signal. Other columns may be
 present if it is used to group the dilution curve together}
 
 \item{dilution_summary}{The summary table generated
-by function \code{summarise_dilution_table} and/or \code{evaluate_linearity}
-but it can also be any generic data frame or tibble.
+by function \code{\link[=summarise_dilution_table]{summarise_dilution_table()}} and/or
+\code{\link[=evaluate_linearity]{evaluate_linearity()}} but it can also be any generic
+data frame or tibble.
 If there is no input given in this, the program will create one using
-the function \code{summarise_dilution_table} and \code{evaluate_linearity} with
-\code{grouping_variable}, \code{conc_var} and \code{signal_var} as inputs
+the function \code{\link[=summarise_dilution_table]{summarise_dilution_table()}} and \code{\link[=evaluate_linearity]{evaluate_linearity()}}
+with \code{grouping_variable}, \code{conc_var} and \code{signal_var} as inputs
 Default: NULL}
 
 \item{grouping_variable}{A character vector of
@@ -41,7 +44,7 @@ to indicate the group name of each dilution batch,
 used to colour the points in the dilution plot
 Default: 'Dilution_Batch'}
 
-\item{dil_batch_col}{A vector of colurs to be used for the dilution
+\item{dil_batch_col}{A vector of colours to be used for the dilution
 batch group named given in \code{dil_batch_var},
 Default: c("#377eb8", "#4daf4a", "#9C27B0", "#BCAAA4", "#FF8A65", "#EFBBCF")}
 
@@ -57,13 +60,17 @@ Default: 50}
 \item{signal_var}{Column name in \code{dilution_table} to indicate signal
 Default: 'Area'}
 
+\item{have_plot_title}{Indicate if you want to have a plot title in
+the \code{ggplot} plot.
+Default: TRUE}
+
 \item{plot_half_lin_reg}{Decide if we plot an extra regression line that
 best fits the first half of \code{conc_var} dilution points.
 Default: FALSE}
 }
 \value{
 A table with columns from \verb{groupung variable}
-and a new column \code{panel} created containing a ggplot dilution plot
+and a new column \code{panel} created containing a \code{ggplot} dilution plot
 in each row. This column is used to create the plot figure in the
 pdf report.
 }

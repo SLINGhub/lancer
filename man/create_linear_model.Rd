@@ -27,4 +27,5 @@ dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
 linear_model <- create_linear_model(dilution_data,
                                     "Dilution_Percent",
                                     "Area")
+linear_model
 }

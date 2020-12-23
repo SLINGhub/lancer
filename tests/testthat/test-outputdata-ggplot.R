@@ -119,26 +119,14 @@ test_that("Able to plot dilution data with its statistical summary in a pdf repo
 
 })
 
-
-test_that("Get number of plots per page correctly with various inputs", {
-
-  testthat::expect_equal(get_number_of_plots_per_page(), Inf)
-  testthat::expect_equal(get_number_of_plots_per_page(ncol = 3), 3)
-  testthat::expect_equal(get_number_of_plots_per_page(nrow = 1), 1)
-  testthat::expect_equal(get_number_of_plots_per_page(ncol = 3,
-                                                      nrow = 3), 9)
-
-})
-
-
 test_that("Get the page layout correctly with various inputs", {
 
   # Give error if number of plots is less than 1
   testthat::expect_error(get_page_layout(number_of_plots = 0))
 
   # Set nrow to be number_of_plots if ncol is 1
-  page_layout <- get_page_layout(number_of_plots = 5,
-                                 ncol = 1, nrow = NULL)
+  page_layout <- create_page_layout(number_of_plots = 5,
+                                    ncol = 1, nrow = NULL)
   correct_page_layout <- list(ncol = 1, nrow = 5)
 
   for (key in names(page_layout)) {
@@ -147,7 +135,7 @@ test_that("Get the page layout correctly with various inputs", {
   }
 
   # Set ncol to be number_of_plots if nrow is 1
-  page_layout <- get_page_layout(number_of_plots = 5,
+  page_layout <- create_page_layout(number_of_plots = 5,
                                  ncol = NULL, nrow = 1)
   correct_page_layout <- list(ncol = 5, nrow = 1)
 
@@ -157,7 +145,7 @@ test_that("Get the page layout correctly with various inputs", {
   }
 
   # Set ncol, nrow to be user input
-  page_layout <- get_page_layout(number_of_plots = 5,
+  page_layout <- create_page_layout(number_of_plots = 5,
                                  ncol = 2, nrow = 2)
   correct_page_layout <- list(ncol = 2, nrow = 2)
 

@@ -12,6 +12,7 @@
 #' linear_model <- create_linear_model(dilution_data,
 #'                                     "Dilution_Percent",
 #'                                     "Area")
+#' linear_model
 #' @rdname create_linear_model
 #' @export
 create_linear_model <- function(dilution_data, conc_var, signal_var) {
@@ -29,7 +30,7 @@ create_linear_model <- function(dilution_data, conc_var, signal_var) {
 
 }
 
-#' @title Create Dilution Quadratic Model
+#' @title Create Quadratic Model
 #' @description A wrapper to create a quadratic model for dilution data
 #' @param dilution_data A data frame or tibble containing dilution data
 #' @param conc_var Column name in `dilution_data` to indicate concentration
@@ -41,9 +42,10 @@ create_linear_model <- function(dilution_data, conc_var, signal_var) {
 #' dilution_percent <- c(10, 20, 40, 60, 80, 100)
 #' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
 #' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-#' linear_model <- create_quad_model(dilution_data,
-#'                                         "Dilution_Percent",
-#'                                         "Area")
+#' quad_model <- create_quad_model(dilution_data,
+#'                                 "Dilution_Percent",
+#'                                 "Area")
+#' quad_model
 #' @rdname create_quad_model
 #' @export
 create_quad_model <- function(dilution_data, conc_var, signal_var) {
@@ -78,6 +80,7 @@ create_quad_model <- function(dilution_data, conc_var, signal_var) {
 #' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
 #' concavity_value <- calculate_concavity(dilution_data,
 #'                                        "Dilution_Percent", "Area")
+#' concavity_value
 #' @rdname calculate_concavity
 #' @export
 calculate_concavity <- function(dilution_data, conc_var, signal_var) {
@@ -133,6 +136,7 @@ calculate_concavity <- function(dilution_data, conc_var, signal_var) {
 #' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
 #' dil_linear_gof <- calculate_gof_linear(dilution_data,
 #'                                        "Dilution_Percent", "Area")
+#' dil_linear_gof
 #' @rdname calculate_gof_linear
 #' @export
 calculate_gof_linear <- function(dilution_data, conc_var, signal_var) {
@@ -205,6 +209,7 @@ calculate_gof_linear <- function(dilution_data, conc_var, signal_var) {
 #' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
 #' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
 #' mandel_result <- calculate_mandel(dilution_data, "Dilution_Percent", "Area")
+#' mandel_result
 #' @rdname calculate_mandel
 #' @export
 calculate_mandel <- function(dilution_data, conc_var, signal_var) {
@@ -276,6 +281,7 @@ calculate_mandel <- function(dilution_data, conc_var, signal_var) {
 #' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
 #' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
 #' pra_value <- calculate_pra_linear(dilution_data, "Dilution_Percent", "Area")
+#' pra_value
 #' @rdname calculate_pra_linear
 #' @export
 calculate_pra_linear <- function(dilution_data, conc_var, signal_var) {
@@ -384,8 +390,9 @@ validate_dilution_data <- function(dilution_data, conc_var, signal_var) {
 
 }
 
-#' @title Get dilution data summary statistic
+#' @title Summarise Dilution Curve Data For One Group
 #' @description Get the summary statistics of the dilution data
+#' for one group or batch
 #' @param dilution_data A data frame or tibble containing dilution data
 #' @param conc_var Column name in `dilution_data` to indicate concentration
 #' @param signal_var Column name in `dilution_data` to indicate signal
@@ -399,11 +406,12 @@ validate_dilution_data <- function(dilution_data, conc_var, signal_var) {
 #' dilution_percent <- c(10, 20, 40, 60, 80, 100)
 #' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
 #' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-#' dilution_summary <- get_dilution_summary(dilution_data,
-#'                                          "Dilution_Percent", "Area")
-#' @rdname get_dilution_summary
+#' dilution_summary <- summarise_dilution_data(dilution_data,
+#'                                             "Dilution_Percent", "Area")
+#' print(dilution_summary, width = 100)
+#' @rdname summarise_dilution_data
 #' @export
-get_dilution_summary <- function(dilution_data, conc_var, signal_var) {
+summarise_dilution_data <- function(dilution_data, conc_var, signal_var) {
 
   mandel_result <- calculate_mandel(dilution_data, conc_var, signal_var)
   dil_linear_gof <- calculate_gof_linear(dilution_data,

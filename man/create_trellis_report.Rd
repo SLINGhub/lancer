@@ -16,7 +16,7 @@ create_trellis_report(
 }
 \arguments{
 \item{trellis_table}{The trellis table generated
-by function \code{create_trellis_table}}
+by function \code{\link[=create_trellis_table]{create_trellis_table()}}}
 
 \item{trellis_report_name}{A string to indicate the title
 of the trellis report

@@ -17,7 +17,7 @@ create_ggplot_pdf_report(
 \arguments{
 \item{ggplot_list}{list of plots to be arranged into a grid
 for each pdf page. The list of plot should can be created
-via the function \code{create_ggplot_table}. The function will create
+via the function \code{\link[=create_ggplot_table]{create_ggplot_table()}}. The function will create
 a data frame or tibble and the column name "panel" should contain
 the list of plots.}
 

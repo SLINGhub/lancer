@@ -8,7 +8,8 @@ update_cog_auto(dilution_summary)
 }
 \arguments{
 \item{dilution_summary}{The summary table generated
-by function \code{summarise_dilution_table} and/or \code{evaluate_linearity}}
+by function \code{\link[=summarise_dilution_table]{summarise_dilution_table()}} and/or
+\code{\link[=evaluate_linearity]{evaluate_linearity()}}}
 }
 \value{
 \code{dilution_summary} with some columns converted
