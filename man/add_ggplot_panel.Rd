@@ -15,6 +15,7 @@ add_ggplot_panel(
   conc_var_interval = 50,
   signal_var = "Area",
   have_plot_title = TRUE,
+  plot_summary_table = TRUE,
   plot_half_lin_reg = FALSE
 )
 }
@@ -62,6 +63,10 @@ Default: 'Area'}
 
 \item{have_plot_title}{Indicate if you want to have a plot title in
 the \code{ggplot} plot.
+Default: TRUE}
+
+\item{plot_summary_table}{Indicate if you want to plot the summary table
+in the \code{ggplot} plot.
 Default: TRUE}
 
 \item{plot_half_lin_reg}{Decide if we plot an extra regression line that

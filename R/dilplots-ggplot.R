@@ -296,7 +296,7 @@ plot_curve_ggplot <- function(dilution_data,
     ggplot2::geom_point(
       mapping = ggplot2::aes(colour = factor(.data[[dil_batch_var]])
       ),
-      size = 2,
+      size = 5
     )
 
   if(nrow(dilution_data) > 3) {
@@ -497,6 +497,9 @@ plot_curve_ggplot <- function(dilution_data,
 #' @param have_plot_title Indicate if you want to have a plot title in
 #' the `ggplot` plot.
 #' Default: TRUE
+#' @param plot_summary_table Indicate if you want to plot the summary table
+#' in the `ggplot` plot.
+#' Default: TRUE
 #' @param plot_half_lin_reg Decide if we plot an extra regression line that
 #' best fits the first half of `conc_var` dilution points.
 #' Default: FALSE
@@ -594,6 +597,7 @@ add_ggplot_panel <- function(dilution_table, dilution_summary = NULL,
                                 conc_var_interval = 50,
                                 signal_var = "Area",
                                 have_plot_title = TRUE,
+                                plot_summary_table = TRUE,
                                 plot_half_lin_reg = FALSE) {
 
   # Check if dilution_table is valid with the relevant columns
@@ -636,6 +640,18 @@ add_ggplot_panel <- function(dilution_table, dilution_summary = NULL,
     tidyr::nest() %>%
     dplyr::ungroup() %>%
     dplyr::rename(summary = .data$data)
+
+  if(isTRUE(plot_summary_table)) {
+    nested_dilution_summary <- dilution_summary %>%
+      dplyr::group_by_at(dplyr::all_of(grouping_variable)) %>%
+      tidyr::nest() %>%
+      dplyr::ungroup() %>%
+      dplyr::rename(summary = .data$data)
+  } else {
+    nested_dilution_summary <- dilution_summary %>%
+      dplyr::select(dplyr::all_of(grouping_variable)) %>%
+      dplyr::mutate(summary = NA)
+  }
 
   # Add a dummy Dilution Batch Name, to be used for plotting later
   # Nest the data to be used for plotting

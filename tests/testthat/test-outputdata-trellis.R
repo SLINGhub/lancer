@@ -121,7 +121,8 @@ test_that("Able to plot dilution data with its statistical summary in a trellis 
   # Create a ggplot trellis table
   ggplot_trellis_table <- add_ggplot_panel(dilution_table,
                                            dilution_summary = dilution_summary,
-                                           have_plot_title = FALSE) %>%
+                                           have_plot_title = FALSE,
+                                           plot_summary_table = FALSE) %>%
     convert_to_cog(cog_df = NULL,
                    grouping_variable = c("Transition_Name",
                                          "Dilution_Batch"),
