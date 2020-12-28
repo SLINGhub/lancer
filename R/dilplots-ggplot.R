@@ -459,8 +459,9 @@ plot_curve_ggplot <- function(dilution_data,
 }
 
 
-#' @title Create A `ggplot` Table
-#' @description Create a `ggplot` table suited for a pdf report
+#' @title Add A `ggplot` Panel Column
+#' @description Create a column which contains a list of `ggplot`
+#' suited for a pdf report
 #' @param dilution_table Output given from
 #' the function [create_dilution_table()]
 #' It is in long table format with columns indicating at least the
@@ -499,11 +500,11 @@ plot_curve_ggplot <- function(dilution_data,
 #' @param plot_half_lin_reg Decide if we plot an extra regression line that
 #' best fits the first half of `conc_var` dilution points.
 #' Default: FALSE
-#' @return A table with columns from `groupung variable`
+#' @return A table with columns from `grouping variable`
 #' and a new column `panel` created containing a `ggplot` dilution plot
 #' in each row. This column is used to create the plot figure in the
 #' pdf report.
-#' @rdname create_ggplot_table
+#' @rdname add_ggplot_panel
 #' @examples
 #' # Data Creation
 #' dilution_percent <- c(10, 20, 25, 40, 50, 60,
@@ -570,15 +571,15 @@ plot_curve_ggplot <- function(dilution_data,
 #'
 #'
 #' # Create a ggplot table
-#' ggplot_table <- create_ggplot_table(dilution_table,
-#'                                     dilution_summary = dilution_summary)
+#' ggplot_table <- add_ggplot_panel(dilution_table,
+#'                                  dilution_summary = dilution_summary)
 #' ggplot_list <- ggplot_table$panel
 #'
 #' ggplot_list[[1]]
 #' ggplot_list[[2]]
 #' ggplot_list[[3]]
 #' @export
-create_ggplot_table <- function(dilution_table, dilution_summary = NULL,
+add_ggplot_panel <- function(dilution_table, dilution_summary = NULL,
                                 grouping_variable = c("Transition_Name",
                                                       "Dilution_Batch"),
                                 dil_batch_var = "Dilution_Batch",
@@ -679,10 +680,12 @@ create_ggplot_table <- function(dilution_table, dilution_summary = NULL,
 
   # Left Join with the dilution_summary
   ggplot_table <- dilution_plots %>%
-    dplyr::select(dplyr::all_of(c(grouping_variable,"title"))) %>%
+    dplyr::select(dplyr::all_of(c(grouping_variable))) %>%
     dplyr::bind_cols(dilution_plots %>%
                        dplyr::select(.data[["panel"]])) %>%
-    dplyr::left_join(dilution_summary, by = grouping_variable)
+    dplyr::left_join(dilution_summary, by = grouping_variable) %>%
+    dplyr::relocate(.data[["panel"]],
+                    .after = dplyr::last_col())
 
 
   return(ggplot_table)

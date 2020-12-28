@@ -8,6 +8,7 @@ convert_to_cog(
   dilution_summary,
   cog_df = NULL,
   grouping_variable = c("Transition_Name", "Dilution_Batch"),
+  panel_variable = NULL,
   col_name_vec = "col_name_vec",
   desc_vec = "desc_vec",
   type_vec = "type_vec",
@@ -30,6 +31,10 @@ column names in \code{dilution_summary}to indicate how each dilution curve
 should be grouped by. It is also going to be used as a conditional
 cognostics in the \code{trelliscopejs} report,
 Default: c("Transition_Name", "Dilution_Batch")}
+
+\item{panel_variable}{A column name in \code{dilution_summary} to be converted
+into a panel for the \code{Trelliscope} display
+Default: NULL}
 
 \item{col_name_vec}{Column name in \code{cog_df} to indicate the columns
 in \code{dilution_summary} that needs to be converted to a cognostics,
@@ -55,6 +60,7 @@ to be used in the in the \code{trelliscopejs} report.
 }
 \description{
 Convert columns in \code{dilution_summary} to \code{trelliscopejs} cognostics
+for the \code{Trelliscope} display
 }
 \examples{
 dilution_percent <- c(10, 20, 25, 40, 50, 60,

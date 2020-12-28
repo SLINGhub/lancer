@@ -64,41 +64,78 @@ test_that("Able to plot dilution data with its statistical summary in a trellis 
                                              "Dilution_Batch"))
 
 
-  # Create a trellis table
-  trellis_table <- create_trellis_table(dilution_table,
-                                        dilution_summary = dilution_summary)
+  # Create a plotly trellis table
+  plotly_trellis_table <- add_plotly_panel(dilution_table,
+                                           dilution_summary = dilution_summary) %>%
+    convert_to_cog(cog_df = NULL,
+                   grouping_variable = c("Transition_Name",
+                                         "Dilution_Batch"),
+                   panel_variable = "panel",
+                   col_name_vec = "col_name_vec",
+                   desc_vec = "desc_vec",
+                   type_vec = "type_vec",
+                   default_label_vec = "default_label_vec")
 
 
   # Check if trellis_table is valid
-  testthat::expect_silent(validate_trellis_table(trellis_table))
+  testthat::expect_silent(validate_trellis_table(plotly_trellis_table))
 
   # Create a trellis table without dilution summary
-  trellis_table_auto <- create_trellis_table(dilution_table)
+  plotly_trellis_table_auto <- add_plotly_panel(dilution_table) %>%
+    convert_to_cog(cog_df = NULL,
+                   grouping_variable = c("Transition_Name",
+                                         "Dilution_Batch"),
+                   panel_variable = "panel",
+                   col_name_vec = "col_name_vec",
+                   desc_vec = "desc_vec",
+                   type_vec = "type_vec",
+                   default_label_vec = "default_label_vec")
 
   # Check if trellis_table_auto is valid
-  testthat::expect_silent(validate_trellis_table(trellis_table_auto))
+  testthat::expect_silent(validate_trellis_table(plotly_trellis_table_auto))
 
   # Validating bad inputs
   # One column which is not a cognostic class, other than panel
-  invalid_trellis_table <- trellis_table %>%
+  invalid_trellis_table <- plotly_trellis_table %>%
     dplyr::mutate(pra_linear = as.numeric(.data$pra_linear))
   testthat::expect_error(validate_trellis_table(invalid_trellis_table))
 
   # Grouping variable in the wrong cognostics group
-  invalid_trellis_table <- trellis_table
+  invalid_trellis_table <- plotly_trellis_table
 
   attributes(invalid_trellis_table[["Transition_Name"]])$cog_attrs$group <- "common"
   testthat::expect_error(validate_trellis_table(invalid_trellis_table))
 
   # Panel column is invalid
-  invalid_trellis_table <- trellis_table
+  invalid_trellis_table <- plotly_trellis_table
   class(invalid_trellis_table$panel) = "list"
   testthat::expect_error(validate_trellis_table(invalid_trellis_table))
 
 
-  # Create the trellis report
-  create_trellis_report(trellis_table,
-                        trellis_report_name = "Dilution_Plot")
+  # Create the trellis report in plotly
+  view_trellis_html(plotly_trellis_table,
+                    trellis_report_name = "Dilution_Plot_Plotly",
+                    trellis_report_folder = "Dilution_Plot")
+
+
+  # Create a ggplot trellis table
+  ggplot_trellis_table <- add_ggplot_panel(dilution_table,
+                                           dilution_summary = dilution_summary,
+                                           have_plot_title = FALSE) %>%
+    convert_to_cog(cog_df = NULL,
+                   grouping_variable = c("Transition_Name",
+                                         "Dilution_Batch"),
+                   panel_variable = "panel",
+                   col_name_vec = "col_name_vec",
+                   desc_vec = "desc_vec",
+                   type_vec = "type_vec",
+                   default_label_vec = "default_label_vec")
+
+  # Create the trellis report in ggplot
+  view_trellis_html(ggplot_trellis_table,
+                    trellis_report_name = "Dilution_Plot_Ggplot",
+                    trellis_report_folder = "Dilution_Plot")
+
 
   unlink("Dilution_Plot", recursive = TRUE)
 

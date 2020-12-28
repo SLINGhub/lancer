@@ -12,10 +12,10 @@ reference:
     - summarise_dilution_table
     - evaluate_linearity
     - write_summary_excel
-    - create_ggplot_table
-    - create_trellis_table
-    - create_ggplot_pdf_report
-    - create_trellis_report
+    - add_ggplot_panel
+    - add_plotly_panel
+    - view_ggplot_pdf
+    - view_trellis_html
   - title: Summarise Dilution Data
     desc: >
       Functions used to summarise dilution curve data

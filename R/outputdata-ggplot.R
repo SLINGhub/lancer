@@ -42,11 +42,11 @@ create_page_layout <- function(number_of_plots,
   list(ncol = ncol, nrow = nrow)
 }
 
-#' @title Create ggplot dilution plots in a pdf file
-#' @description Create a pdf file containing dilution plots in ggplot
+#' @title View `ggplot` Dilution Plots As Pdf
+#' @description View `ggplot` dilution plots in a pdf file
 #' @param ggplot_list list of plots to be arranged into a grid
 #' for each pdf page. The list of plot should can be created
-#' via the function [create_ggplot_table()]. The function will create
+#' via the function [add_ggplot_panel()]. The function will create
 #' a data frame or tibble and the column name "panel" should contain
 #' the list of plots.
 #' @param filename File name of the pdf document,
@@ -89,21 +89,22 @@ create_page_layout <- function(number_of_plots,
 #' )
 #'
 #' # Create a ggplot table without dilution summary
-#' ggplot_table_auto <- create_ggplot_table(dilution_table)
+#' ggplot_table_auto <- add_ggplot_panel(dilution_table)
 #'
 #' # Get the list of ggplot list for each group
 #' ggplot_list <- ggplot_table_auto$panel
 #'
 #' # Create a pdf report, set testing = FALSE to output results
-#' pdf_page_list <- create_ggplot_pdf_report(ggplot_list, testing = TRUE)
-#' @rdname create_ggplot_pdf_report
+#' pdf_page_list <- view_ggplot_pdf(ggplot_list, testing = TRUE)
+#' @rdname view_ggplot_pdf
 #' @export
-create_ggplot_pdf_report <- function(ggplot_list,
-                                     filename = "dilution_plot.pdf",
-                                     ncol_per_page = 2,
-                                     nrow_per_page = 2,
-                                     width = 15, height = 8,
-                                     testing = FALSE) {
+view_ggplot_pdf <- function(ggplot_list,
+                            filename = "dilution_plot.pdf",
+                            ncol_per_page = 2,
+                            nrow_per_page = 2,
+                            width = 15, height = 8,
+                            testing = FALSE) {
+
 
   number_of_plots <- length(ggplot_list)
 

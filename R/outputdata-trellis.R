@@ -2,7 +2,7 @@
 #' @description Validate trellis table to see if it can be used to create
 #' `trelliscopejs` report
 #' @param trellis_table The trellis table generated
-#' by function [create_trellis_table()]
+#' by function [add_plotly_panel()]
 #' @param grouping_variable A character vector of
 #' column names in `trellis_table` to indicate how each dilution curve
 #' should be grouped by. It is also going to be used as a conditional
@@ -44,7 +44,15 @@
 #'                                         column_group = "Transition_Name"
 #' )
 #' # Create a trellis table without dilution summary
-#' trellis_table_auto <- create_trellis_table(dilution_table)
+#' trellis_table_auto <- add_plotly_panel(dilution_table) %>%
+#'    convert_to_cog(cog_df = NULL,
+#'                   grouping_variable = c("Transition_Name",
+#'                                         "Dilution_Batch"),
+#'                   panel_variable = "panel",
+#'                   col_name_vec = "col_name_vec",
+#'                   desc_vec = "desc_vec",
+#'                   type_vec = "type_vec",
+#'                   default_label_vec = "default_label_vec")
 #'
 #' # Check if trellis_table_auto is valid
 #' validate_trellis_table(trellis_table_auto)
@@ -111,10 +119,12 @@ validate_trellis_table <- function(trellis_table,
 
 }
 
-#' @title Create trellis report
-#'
+#' @title View `ggplot` or `plotly` Dilution Plots As Trellis
+#' @description View `ggplot` or `plotly` dilution plots in a `trelliscope`
+#' html report
 #' @param trellis_table The trellis table generated
-#' by function [create_trellis_table()]
+#' by function [add_ggplot_panel()] and [convert_to_cog()] or
+#' [add_plotly_panel()] and [convert_to_cog()]
 #' @param trellis_report_name A string to indicate the title
 #' of the trellis report
 #' Default: 'Dilution_Plot'
@@ -164,21 +174,30 @@ validate_trellis_table <- function(trellis_table,
 #'                                         signal_var = "Area",
 #'                                         column_group = "Transition_Name"
 #' )
-#' # Create a trellis table without dilution summary
-#' trellis_table_auto <- create_trellis_table(dilution_table)
+#' # Add a plotly panel without dilution summary
+#' trellis_table_auto <- add_plotly_panel(dilution_table) %>%
+#'    convert_to_cog(cog_df = NULL,
+#'                  grouping_variable = c("Transition_Name",
+#'                                        "Dilution_Batch"),
+#'                  panel_variable = "panel",
+#'                  col_name_vec = "col_name_vec",
+#'                  desc_vec = "desc_vec",
+#'                  type_vec = "type_vec",
+#'                  default_label_vec = "default_label_vec")
 #'
 #' # Create a trellis report, set testing = FALSE to output results
-#' create_trellis_report(trellis_table_auto, testing = TRUE)
-#' @rdname create_trellis_report
+#' view_trellis_html(trellis_table_auto, testing = TRUE)
+#' @rdname view_trellis_html
 #' @export
-create_trellis_report <- function(trellis_table,
-                                  trellis_report_name = "Dilution_Plot",
-                                  trellis_report_folder = "Dilution_Plot",
-                                  grouping_variable = c("Transition_Name",
-                                                        "Dilution_Batch"),
-                                  panel_variable = "panel",
-                                  trellis_additional_labels = c(),
-                                  testing = FALSE) {
+view_trellis_html <- function(trellis_table,
+                              trellis_report_name = "Dilution_Plot",
+                              trellis_report_folder = "Dilution_Plot",
+                              grouping_variable = c("Transition_Name",
+                                                    "Dilution_Batch"),
+                              panel_variable = "panel",
+                              trellis_additional_labels = c(),
+                              testing = FALSE) {
+
 
   validate_trellis_table(trellis_table,
                          grouping_variable = grouping_variable,

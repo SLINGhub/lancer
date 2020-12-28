@@ -91,18 +91,26 @@ print(head(dilution_classified), width = 100)
 We then create the ggplot plots with `dilution_table` and `dilution_classified`
 
 ```{r create ggplot table}
-ggplot_table_orig <- create_ggplot_table(dilution_table,
-                                    dilution_summary = dilution_classified,
-                                    grouping_variable = c("Transition_Name",
-                                                          "Dilution_Batch"),
-                                    dil_batch_var = "Dilution_Batch",
-                                    dil_batch_col = c("#377eb8",
-                                                      "#4daf4a"),
-                                    conc_var = "Dilution_Percent",
-                                    conc_var_units = "%",
-                                    conc_var_interval = 50,
-                                    signal_var = "Area",
-                                    plot_half_lin_reg = FALSE)
+ggplot_table_orig <- add_ggplot_panel(dilution_table,
+                                      dilution_summary = dilution_classified,
+                                      grouping_variable = c("Transition_Name",
+                                                            "Dilution_Batch"),
+                                      dil_batch_var = "Dilution_Batch",
+                                      dil_batch_col = c("#377eb8",
+                                                        "#4daf4a"),
+                                      conc_var = "Dilution_Percent",
+                                      conc_var_units = "%",
+                                      conc_var_interval = 50,
+                                      signal_var = "Area",
+                                      plot_half_lin_reg = FALSE) %>% 
+  convert_to_cog(cog_df = NULL,
+                 grouping_variable = c("Transition_Name",
+                                       "Dilution_Batch"),
+                 panel_variable = "panel",
+                 col_name_vec = "col_name_vec",
+                 desc_vec = "desc_vec",
+                 type_vec = "type_vec",
+                 default_label_vec = "default_label_vec")
 
 # Get the list of ggplot list for each group
 ggplot_list_orig <- ggplot_table_orig$panel
@@ -119,18 +127,18 @@ ggplot_list_orig[[7]]
 To see the regression line on half the dilution points, set `plot_half_lin_reg = TRUE`
 
 ```{r create ggplot table with half linear regression}
-ggplot_table <- create_ggplot_table(dilution_table,
-                                    dilution_summary = dilution_classified,
-                                    grouping_variable = c("Transition_Name",
-                                                          "Dilution_Batch"),
-                                    dil_batch_var = "Dilution_Batch",
-                                    dil_batch_col = c("#377eb8",
-                                                      "#4daf4a"),
-                                    conc_var = "Dilution_Percent",
-                                    conc_var_units = "%",
-                                    conc_var_interval = 50,
-                                    signal_var = "Area",
-                                    plot_half_lin_reg = TRUE)
+ggplot_table <- add_ggplot_panel(dilution_table,
+                                 dilution_summary = dilution_classified,
+                                 grouping_variable = c("Transition_Name",
+                                                       "Dilution_Batch"),
+                                 dil_batch_var = "Dilution_Batch",
+                                 dil_batch_col = c("#377eb8",
+                                                   "#4daf4a"),
+                                 conc_var = "Dilution_Percent",
+                                 conc_var_units = "%",
+                                 conc_var_interval = 50,
+                                 signal_var = "Area",
+                                 plot_half_lin_reg = TRUE)
 
 ggplot_list <- ggplot_table$panel
 
@@ -145,18 +153,18 @@ Units of `conc_var` and `conc_var_interval` can be customised to suit the range 
 You can also change the colours for your dilution batch from `dil_batch_col` 
 
 ```{r create ggplot table with conc customisation}
-ggplot_table <- create_ggplot_table(dilution_table,
-                                    dilution_summary = dilution_classified,
-                                    grouping_variable = c("Transition_Name",
-                                                          "Dilution_Batch"),
-                                    dil_batch_var = "Dilution_Batch",
-                                    dil_batch_col = c("#9C27B0",
-                                                      "#377eb8"),
-                                    conc_var = "Dilution_Percent",
-                                    conc_var_units = "mol",
-                                    conc_var_interval = 20,
-                                    signal_var = "Area",
-                                    plot_half_lin_reg = TRUE)
+ggplot_table <- add_ggplot_panel(dilution_table,
+                                 dilution_summary = dilution_classified,
+                                 grouping_variable = c("Transition_Name",
+                                                       "Dilution_Batch"),
+                                 dil_batch_var = "Dilution_Batch",
+                                 dil_batch_col = c("#9C27B0",
+                                                   "#377eb8"),
+                                 conc_var = "Dilution_Percent",
+                                 conc_var_units = "mol",
+                                 conc_var_interval = 20,
+                                 signal_var = "Area",
+                                 plot_half_lin_reg = TRUE)
 
 ggplot_list <- ggplot_table$panel
 
@@ -170,11 +178,11 @@ ggplot_list[[8]]
 The list of ggplots can be output in pdf. You may have to adjust the width and height accordingly.
 
 ```{r create pdf page, eval = FALSE}
-create_ggplot_pdf_report(ggplot_list_orig, 
-                         filename = "dilution_plot.pdf",
-                         ncol_per_page = 2,
-                         nrow_per_page = 2,
-                         width = 15, height = 8)
+view_ggplot_pdf(ggplot_list_orig, 
+                filename = "dilution_plot.pdf",
+                ncol_per_page = 2,
+                nrow_per_page = 2,
+                width = 15, height = 8)
 
 ```
 

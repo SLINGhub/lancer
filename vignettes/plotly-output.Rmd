@@ -96,19 +96,27 @@ We then create the plotly plots with `dilution_table` and `dilution_classified`
 
 ```{r create plotly table}
 # Create a trellis table
-trellis_table_orig <- create_trellis_table(dilution_table,
-                                           dilution_summary = dilution_classified,
-                                           grouping_variable = c("Transition_Name",
-                                                                 "Dilution_Batch"),
-                                           sample_name_var = "Sample_Name",
-                                           dil_batch_var = "Dilution_Batch",
-                                           dil_batch_col = c("#377eb8",
-                                                             "#4daf4a"),
-                                           conc_var = "Dilution_Percent",
-                                           conc_var_units = "%",
-                                           conc_var_interval = 50,
-                                           signal_var = "Area",
-                                           have_plot_title = TRUE)
+trellis_table_orig <- add_plotly_panel(dilution_table,
+                                       dilution_summary = dilution_classified,
+                                       grouping_variable = c("Transition_Name",
+                                                             "Dilution_Batch"),
+                                       sample_name_var = "Sample_Name",
+                                       dil_batch_var = "Dilution_Batch",
+                                       dil_batch_col = c("#377eb8",
+                                                         "#4daf4a"),
+                                       conc_var = "Dilution_Percent",
+                                       conc_var_units = "%",
+                                       conc_var_interval = 50,
+                                       signal_var = "Area",
+                                       have_plot_title = TRUE) %>% 
+    convert_to_cog(cog_df = NULL,
+                 grouping_variable = c("Transition_Name",
+                                       "Dilution_Batch"),
+                 panel_variable = "panel",
+                 col_name_vec = "col_name_vec",
+                 desc_vec = "desc_vec",
+                 type_vec = "type_vec",
+                 default_label_vec = "default_label_vec")
 
 trellis_list_orig <- trellis_table_orig$panel
 
@@ -124,20 +132,20 @@ trellis_list_orig[[7]]
 To see the regression line on half the dilution points, set `plot_half_lin_reg = TRUE`
 
 ```{r create plotly table with half linear regression}
-trellis_table <- create_trellis_table(dilution_table,
-                                      dilution_summary = dilution_classified,
-                                      grouping_variable = c("Transition_Name",
-                                                            "Dilution_Batch"),
-                                      sample_name_var = "Sample_Name",
-                                      dil_batch_var = "Dilution_Batch",
-                                      dil_batch_col = c("#377eb8",
-                                                        "#4daf4a"),
-                                      conc_var = "Dilution_Percent",
-                                      conc_var_units = "%",
-                                      conc_var_interval = 50,
-                                      signal_var = "Area",
-                                      have_plot_title = TRUE,
-                                      plot_half_lin_reg = TRUE)
+trellis_table <- add_plotly_panel(dilution_table,
+                                  dilution_summary = dilution_classified,
+                                  grouping_variable = c("Transition_Name",
+                                                        "Dilution_Batch"),
+                                  sample_name_var = "Sample_Name",
+                                  dil_batch_var = "Dilution_Batch",
+                                  dil_batch_col = c("#377eb8",
+                                                    "#4daf4a"),
+                                  conc_var = "Dilution_Percent",
+                                  conc_var_units = "%",
+                                  conc_var_interval = 50,
+                                  signal_var = "Area",
+                                  have_plot_title = TRUE,
+                                  plot_half_lin_reg = TRUE)
 
 trellis_list <- trellis_table$panel
 
@@ -152,20 +160,20 @@ Units of `conc_var` and `conc_var_interval` can be customised to suit the range 
 You can also change the colours for your dilution batch from `dil_batch_col`
 
 ```{r create plotly table with conc customisation}
-trellis_table <- create_trellis_table(dilution_table,
-                                      dilution_summary = dilution_classified,
-                                      grouping_variable = c("Transition_Name",
-                                                            "Dilution_Batch"),
-                                      sample_name_var = "Sample_Name",
-                                      dil_batch_var = "Dilution_Batch",
-                                      dil_batch_col = c("#377eb8",
-                                                        "#4daf4a"),
-                                      conc_var = "Dilution_Percent",
-                                      conc_var_units = "mol",
-                                      conc_var_interval = 20,
-                                      signal_var = "Area",
-                                      have_plot_title = TRUE,
-                                      plot_half_lin_reg = TRUE)
+trellis_table <- add_plotly_panel(dilution_table,
+                                  dilution_summary = dilution_classified,
+                                  grouping_variable = c("Transition_Name",
+                                                        "Dilution_Batch"),
+                                  sample_name_var = "Sample_Name",
+                                  dil_batch_var = "Dilution_Batch",
+                                  dil_batch_col = c("#377eb8",
+                                                    "#4daf4a"),
+                                  conc_var = "Dilution_Percent",
+                                  conc_var_units = "mol",
+                                  conc_var_interval = 20,
+                                  signal_var = "Area",
+                                  have_plot_title = TRUE,
+                                  plot_half_lin_reg = TRUE)
 
 trellis_list <- trellis_table$panel
 
@@ -179,8 +187,8 @@ trellis_list[[8]]
 The list of plotly can be output as follows using an R script:
 
 ```{r create pdf page, eval = FALSE}
-create_trellis_report(trellis_table_orig,
-                      trellis_report_name = "Dilution_Plot",
-                      trellis_report_folder = "Dilution_Plot")
+view_trellis_html(trellis_table_orig,
+                  trellis_report_name = "Dilution_Plot",
+                  trellis_report_folder = "Dilution_Plot")
 
 ```

@@ -344,6 +344,7 @@ update_cog_auto <- function(dilution_summary) {
 
 #' @title Convert To Cognostics
 #' @description Convert columns in `dilution_summary` to `trelliscopejs` cognostics
+#' for the `Trelliscope` display
 #' @param dilution_summary The summary table generated
 #' by function [summarise_dilution_table()] and/or
 #' [evaluate_linearity()]
@@ -357,6 +358,9 @@ update_cog_auto <- function(dilution_summary) {
 #' should be grouped by. It is also going to be used as a conditional
 #' cognostics in the `trelliscopejs` report,
 #' Default: c("Transition_Name", "Dilution_Batch")
+#' @param panel_variable A column name in `dilution_summary` to be converted
+#' into a panel for the `Trelliscope` display
+#' Default: NULL
 #' @param col_name_vec Column name in `cog_df` to indicate the columns
 #' in `dilution_summary` that needs to be converted to a cognostics,
 #' Default: 'col_name_vec'
@@ -448,6 +452,7 @@ update_cog_auto <- function(dilution_summary) {
 convert_to_cog <- function(dilution_summary, cog_df = NULL,
                            grouping_variable = c("Transition_Name",
                                                  "Dilution_Batch"),
+                           panel_variable = NULL,
                            col_name_vec = "col_name_vec",
                            desc_vec = "desc_vec",
                            type_vec = "type_vec",
@@ -457,6 +462,24 @@ convert_to_cog <- function(dilution_summary, cog_df = NULL,
   # Check if things in needed_column are in dilution_summary
   assertable::assert_colnames(dilution_summary, grouping_variable,
                               only_colnames = FALSE, quiet = TRUE)
+
+  # Check if panel_variable is also a goruping variable
+  if(isTRUE(panel_variable %in% grouping_variable)){
+    stop(paste("panel_variable", panel_variable,
+               "cannot be a grouping_variable")
+         )
+  }
+
+  # Separate the panel variables if it is in dilution_summary
+  panel_df <- NULL
+  if(!is.null(panel_variable)) {
+    panel_df <- dilution_summary %>%
+      dplyr::select(dplyr::any_of(c(grouping_variable,
+                                    panel_variable)))
+
+    dilution_summary <- dilution_summary %>%
+      dplyr::select(-dplyr::any_of(c(panel_variable)))
+  }
 
   # Get cognostics for trellis report
   # First convert the columns based on default cognostics
@@ -473,6 +496,35 @@ convert_to_cog <- function(dilution_summary, cog_df = NULL,
                       default_label_vec = default_label_vec) %>%
     trelliscopejs::as_cognostics(cond_cols = grouping_variable,
                                  needs_cond = TRUE, needs_key = FALSE)
+
+
+  #Convert panel variables if any to trelliscope_panels
+  if(!is.null(panel_df) && ncol(panel_df) != length(grouping_variable)) {
+
+    # Ensure that the grouping variable is converted to
+    # conditional columns
+    # Ensure that the panel variable is converted to
+    # trelliscope_panel
+    panel_df <- panel_df %>%
+      dplyr::select(dplyr::all_of(c(grouping_variable))) %>%
+      trelliscopejs::as_cognostics(cond_cols = grouping_variable,
+                                   needs_cond = TRUE,
+                                   needs_key = FALSE) %>%
+      dplyr::bind_cols(panel_df %>%
+                         dplyr::select(dplyr::any_of(c(panel_variable)))
+      ) %>%
+      dplyr::mutate(dplyr::across(panel_variable,
+                    ~structure(.x,class = c("trelliscope_panels","list")))
+      )
+
+    # Panel_df to do a left join with dilution summary
+    # Move panel_variable to the end
+    dilution_summary <- panel_df %>%
+      dplyr::left_join(dilution_summary, by = grouping_variable) %>%
+      dplyr::relocate(dplyr::any_of(c(panel_variable)),
+                      .after = dplyr::last_col())
+
+  }
 
   return(dilution_summary)
 

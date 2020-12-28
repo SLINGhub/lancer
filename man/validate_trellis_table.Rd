@@ -12,7 +12,7 @@ validate_trellis_table(
 }
 \arguments{
 \item{trellis_table}{The trellis table generated
-by function \code{\link[=create_trellis_table]{create_trellis_table()}}}
+by function \code{\link[=add_plotly_panel]{add_plotly_panel()}}}
 
 \item{grouping_variable}{A character vector of
 column names in \code{trellis_table} to indicate how each dilution curve
@@ -63,7 +63,15 @@ dilution_table <- create_dilution_table(dilution_annot, lipid_data,
                                         column_group = "Transition_Name"
 )
 # Create a trellis table without dilution summary
-trellis_table_auto <- create_trellis_table(dilution_table)
+trellis_table_auto <- add_plotly_panel(dilution_table) \%>\%
+   convert_to_cog(cog_df = NULL,
+                  grouping_variable = c("Transition_Name",
+                                        "Dilution_Batch"),
+                  panel_variable = "panel",
+                  col_name_vec = "col_name_vec",
+                  desc_vec = "desc_vec",
+                  type_vec = "type_vec",
+                  default_label_vec = "default_label_vec")
 
 # Check if trellis_table_auto is valid
 validate_trellis_table(trellis_table_auto)
