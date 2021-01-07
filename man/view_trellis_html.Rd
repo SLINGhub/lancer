@@ -86,8 +86,7 @@ trellis_table_auto <- add_plotly_panel(dilution_table) \%>\%
                  panel_variable = "panel",
                  col_name_vec = "col_name_vec",
                  desc_vec = "desc_vec",
-                 type_vec = "type_vec",
-                 default_label_vec = "default_label_vec")
+                 type_vec = "type_vec")
 
 # Create a trellis report, set testing = FALSE to output results
 view_trellis_html(trellis_table_auto, testing = TRUE)

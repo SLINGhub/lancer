@@ -402,8 +402,7 @@ add_plotly_panel <- function(dilution_table, dilution_summary = NULL,
   #                  grouping_variable = grouping_variable,
   #                  col_name_vec = col_name_vec,
   #                  desc_vec = desc_vec,
-  #                  type_vec = type_vec,
-  #                  default_label_vec = default_label_vec)
+  #                  type_vec = type_vec)
 
 
   # Get the dilution batch name from dilution_table

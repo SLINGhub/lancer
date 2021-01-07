@@ -73,8 +73,7 @@ test_that("Able to plot dilution data with its statistical summary in a trellis 
                    panel_variable = "panel",
                    col_name_vec = "col_name_vec",
                    desc_vec = "desc_vec",
-                   type_vec = "type_vec",
-                   default_label_vec = "default_label_vec")
+                   type_vec = "type_vec")
 
 
   # Check if trellis_table is valid
@@ -88,8 +87,7 @@ test_that("Able to plot dilution data with its statistical summary in a trellis 
                    panel_variable = "panel",
                    col_name_vec = "col_name_vec",
                    desc_vec = "desc_vec",
-                   type_vec = "type_vec",
-                   default_label_vec = "default_label_vec")
+                   type_vec = "type_vec")
 
   # Check if trellis_table_auto is valid
   testthat::expect_silent(validate_trellis_table(plotly_trellis_table_auto))
@@ -129,8 +127,7 @@ test_that("Able to plot dilution data with its statistical summary in a trellis 
                    panel_variable = "panel",
                    col_name_vec = "col_name_vec",
                    desc_vec = "desc_vec",
-                   type_vec = "type_vec",
-                   default_label_vec = "default_label_vec")
+                   type_vec = "type_vec")
 
   # Create the trellis report in ggplot
   view_trellis_html(ggplot_trellis_table,

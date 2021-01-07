@@ -62,6 +62,17 @@ lipid_data <- tibble::tibble(Sample_Name = sample_name,
                              Lipid2 = lipid2_area_linear,
                              Lipid3 = lipid3_area_lod,
                              Lipid4 = lipid4_area_nonlinear)
+
+transition_name <- c("Lipid1", "Lipid2", "Lipid3", "Lipid4")
+transition_class <- c("Class1", "Class1", "Class2", "Class2")
+transition_species <- c("SpeciesA", "SpeciesA", "SpeciesB", "SpeciesB")
+
+
+transition_annot <- tibble::tibble(Transition_Name = transition_name,
+                                   Transition_Class = transition_class,
+                                   Transition_Species = transition_species
+                                   )
+
 ```
 
 ```{r dilution table}
@@ -76,7 +87,8 @@ dilution_summary <- create_dilution_table(dilution_annot, lipid_data,
                            conc_var = "Dilution_Percent",
                            signal_var = "Area") %>%
   evaluate_linearity(grouping_variable = c("Transition_Name",
-                                           "Dilution_Batch"))
+                                           "Dilution_Batch")) %>%
+  dplyr::left_join(transition_annot,by = "Transition_Name")
   
 ```
 

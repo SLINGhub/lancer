@@ -1,8 +1,8 @@
 ---
-title: "Output plots in ggplot2"
+title: "Plots in ggplot2"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Output plots in ggplot2}
+  %\VignetteIndexEntry{Plots in ggplot2}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-Here are some examples to output data via `ggplot2`
+Here are some examples to plot dilution data via `ggplot2`
 
 ```{r data set creation}
 library(DCVtestkit)
@@ -88,7 +88,7 @@ print(head(dilution_table), width = 100)
 print(head(dilution_classified), width = 100)
 ```
 
-We then create the ggplot plots with `dilution_table` and `dilution_classified`
+We then create the `ggplot` plots with `dilution_table` and `dilution_classified`
 
 ```{r create ggplot table}
 ggplot_table_orig <- add_ggplot_panel(dilution_table,
@@ -109,15 +109,14 @@ ggplot_table_orig <- add_ggplot_panel(dilution_table,
                  panel_variable = "panel",
                  col_name_vec = "col_name_vec",
                  desc_vec = "desc_vec",
-                 type_vec = "type_vec",
-                 default_label_vec = "default_label_vec")
+                 type_vec = "type_vec")
 
 # Get the list of ggplot list for each group
 ggplot_list_orig <- ggplot_table_orig$panel
 
 ```
 
-Each ggplot plot for each group can be found in the column `panel`
+Each `ggplot` plot for each group can be found in the column `panel`
 
 ```{r print ggplot plot}
 ggplot_list_orig[[1]]

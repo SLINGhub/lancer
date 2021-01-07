@@ -4,7 +4,7 @@
 #' @param needed_column A vector consisting of needed column names that
 #' must be found in `cog_df`,
 #' Default:
-#' `c("col_name_vec", "desc_vec", "type_vec", "default_label_vec")`
+#' `c("col_name_vec", "desc_vec", "type_vec")`
 #' @return An error if the things in `needed_column`
 #' is not found in the Cognostics Data
 #' @examples
@@ -15,12 +15,9 @@
 #'
 #' type_vec <- c("factor","factor")
 #'
-#' default_label_vec <- c(TRUE, TRUE)
-#'
 #' cog_df <- data.frame(col_name_vec = col_name_vec,
 #'                      desc_vec = desc_vec,
-#'                      type_vec = type_vec,
-#'                      default_label_vec = default_label_vec)
+#'                      type_vec = type_vec)
 #'
 #' validate_cog_df(cog_df)
 #' @rdname validate_cog_df
@@ -28,8 +25,7 @@
 validate_cog_df <- function(cog_df,
                             needed_column = c("col_name_vec",
                                               "desc_vec",
-                                              "type_vec",
-                                              "default_label_vec")) {
+                                              "type_vec")) {
 
 
   # Check if things in needed_column are in cog_df
@@ -72,14 +68,9 @@ create_default_cog_df <- function() {
                 "factor","factor","factor",
                 "numeric","numeric","numeric","numeric","numeric","numeric")
 
-  default_label_vec <- c(TRUE, TRUE,
-                         FALSE, FALSE, FALSE,
-                         FALSE, FALSE, FALSE, FALSE, FALSE, FALSE)
-
   cog_df <- data.frame(col_name_vec = col_name_vec,
                        desc_vec = desc_vec,
-                       type_vec = type_vec,
-                       default_label_vec = default_label_vec)
+                       type_vec = type_vec)
 
   return(cog_df)
 }
@@ -102,9 +93,6 @@ create_default_cog_df <- function() {
 #' @param type_vec Column name in `cog_df` to indicate the type
 #' of each cognostics as define in `trelliscopejs::cog`,
 #' Default: 'type_vec'
-#' @param default_label_vec Column name in `cog_df` to indicate the if
-#' the given cognostics is a panel label as define in `trelliscopejs::cog`,
-#' Default: 'default_label_vec'
 #' @return `dilution_summary` with some columns converted
 #' to type cog as defined in `trelliscopejs::cog`
 #' @details
@@ -183,18 +171,15 @@ create_default_cog_df <- function() {
 #'
 #' type_vec <- c("factor", "factor", "factor")
 #'
-#' default_label_vec <- c(TRUE, TRUE, TRUE)
 #'
 #' cog_df <- data.frame(col_name_vec = col_name_vec,
 #'                      desc_vec = desc_vec,
-#'                      type_vec = type_vec,
-#'                      default_label_vec = default_label_vec)
+#'                      type_vec = type_vec)
 #'
 #' updated_summary <- update_cog_manual(dilution_summary, cog_df,
 #'                                      col_name_vec = "col_name_vec",
 #'                                      desc_vec = "desc_vec",
-#'                                      type_vec = "type_vec",
-#'                                      default_label_vec = "default_label_vec")
+#'                                      type_vec = "type_vec")
 #'
 #' # Observe that the first two columns has been converted
 #' # to class cognostics
@@ -205,8 +190,7 @@ create_default_cog_df <- function() {
 update_cog_manual <- function(dilution_summary, cog_df,
                               col_name_vec = "col_name_vec",
                               desc_vec = "desc_vec",
-                              type_vec = "type_vec",
-                              default_label_vec = "default_label_vec") {
+                              type_vec = "type_vec") {
 
 
   if (is.null(cog_df)) {
@@ -217,8 +201,7 @@ update_cog_manual <- function(dilution_summary, cog_df,
   validate_cog_df(cog_df,
                   needed_column = c(col_name_vec,
                                     desc_vec,
-                                    type_vec,
-                                    default_label_vec)
+                                    type_vec)
   )
 
   # See this webpage to learn how to mutate specific columns.
@@ -234,8 +217,7 @@ update_cog_manual <- function(dilution_summary, cog_df,
             dplyr::one_of(cog_df[[col_name_vec]][row_index]),
             trelliscopejs::cog,
             desc = cog_df[[desc_vec]][row_index],
-            type = cog_df[[type_vec]][row_index],
-            default_label = cog_df[[default_label_vec]][row_index]
+            type = cog_df[[type_vec]][row_index]
           )
         )
     }
@@ -370,9 +352,6 @@ update_cog_auto <- function(dilution_summary) {
 #' @param type_vec Column name in `cog_df` to indicate the type
 #' of each cognostics as define in `trelliscopejs::cog`,
 #' Default: 'type_vec'
-#' @param default_label_vec Column name in `cog_df` to indicate the if
-#' the given cognostics is a panel label as define in `trelliscopejs::cog`,
-#' Default: 'default_label_vec'
 #' @return The dilution summary table with `groupung variable` columns
 #' converted to conditional cognostics,
 #' other columns in `dilution_summary` converted to cognostics
@@ -455,8 +434,7 @@ convert_to_cog <- function(dilution_summary, cog_df = NULL,
                            panel_variable = NULL,
                            col_name_vec = "col_name_vec",
                            desc_vec = "desc_vec",
-                           type_vec = "type_vec",
-                           default_label_vec = "default_label_vec") {
+                           type_vec = "type_vec") {
 
 
   # Check if things in needed_column are in dilution_summary
@@ -492,8 +470,7 @@ convert_to_cog <- function(dilution_summary, cog_df = NULL,
     update_cog_manual(cog_df = cog_df,
                       col_name_vec = col_name_vec,
                       desc_vec = desc_vec,
-                      type_vec = type_vec,
-                      default_label_vec = default_label_vec) %>%
+                      type_vec = type_vec) %>%
     trelliscopejs::as_cognostics(cond_cols = grouping_variable,
                                  needs_cond = TRUE, needs_key = FALSE)
 

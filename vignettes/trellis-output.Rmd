@@ -1,8 +1,8 @@
 ---
-title: "Plots in plotly"
+title: "Trellis Output"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Plots in plotly}
+  %\VignetteIndexEntry{Trellis Output}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-Here are some examples to plot dilution data via `plotly`
+Here are some examples to output plot in `ggplot2` or `plotly` into trellis
 
 ```{r data set creation}
 library(DCVtestkit)
@@ -119,68 +119,54 @@ trellis_list_orig[[1]]
 trellis_list_orig[[7]]
 ```
 
-To see the regression line on half the dilution points, set `plot_half_lin_reg = TRUE`
+To output these plots as a trellis in html, convert the `grouping_variable` as `conditional variable`, the column
+holding the plots as a `panel_variable` and the other columns as common cognostics.
 
-```{r create plotly table with half linear regression}
-trellis_table <- add_plotly_panel(dilution_table,
-                                  dilution_summary = dilution_classified,
-                                  grouping_variable = c("Transition_Name",
-                                                        "Dilution_Batch"),
-                                  sample_name_var = "Sample_Name",
-                                  dil_batch_var = "Dilution_Batch",
-                                  dil_batch_col = c("#377eb8",
-                                                    "#4daf4a"),
-                                  conc_var = "Dilution_Percent",
-                                  conc_var_units = "%",
-                                  conc_var_interval = 50,
-                                  signal_var = "Area",
-                                  have_plot_title = TRUE,
-                                  plot_half_lin_reg = TRUE)
+We use the function `convert_to_cog` which uses the default `cog_df` 
+created by `create_default_cog_df`.
 
-trellis_list <- trellis_table$panel
+```{r print default cog_df}
+create_default_cog_df()
+```
+
+Using the function `convert_to_cog`,
+
+```{r adding default cognostics}
+trellis_table_convert <- trellis_table_orig %>%
+  convert_to_cog(grouping_variable = c("Transition_Name",
+                                       "Dilution_Batch"),
+                 panel_variable = "panel")
 
 ```
 
-```{r print plotly plot with half linear regression}
-trellis_list[[1]]
-trellis_list[[7]]
+The output is as follows.
+
+```{r converted default cognostics}
+print(head(trellis_table_convert), width = 100)
 ```
 
-Units of `conc_var` and `conc_var_interval` can be customised to suit the range of `conc_var`
-You can also change the colours for your dilution batch from `dil_batch_col`
+Observe that the attributes of the columns are different.
+For the grouping variable column labelled we have
 
-```{r create plotly table with conc customisation}
-trellis_table <- add_plotly_panel(dilution_table,
-                                  dilution_summary = dilution_classified,
-                                  grouping_variable = c("Transition_Name",
-                                                        "Dilution_Batch"),
-                                  sample_name_var = "Sample_Name",
-                                  dil_batch_var = "Dilution_Batch",
-                                  dil_batch_col = c("#377eb8",
-                                                    "#4daf4a"),
-                                  conc_var = "Dilution_Percent",
-                                  conc_var_units = "mol",
-                                  conc_var_interval = 20,
-                                  signal_var = "Area",
-                                  have_plot_title = TRUE,
-                                  plot_half_lin_reg = TRUE)
-
-trellis_list <- trellis_table$panel
-
+```{r converted default cognostics conditional}
+print(attributes(trellis_table_convert$Transition_Name))
 ```
 
-```{r print plotly table with conc customisation}
-trellis_list[[2]]
-trellis_list[[8]]
+For the column labelled as a `panel_variable`, we have
+
+```{r converted default cognostics panel}
+print(attributes(trellis_table_convert$panel))
 ```
 
-To output these plots as a trellis in html, there is a need to convert the column
-holding the plots as a `panel variable`, the grouping variable as `conditional variable`
-and the other columns as a common cognostics.
+For the rest of the column converted to a common cognostics, we have
 
+```{r converted default cognostics common}
+print(attributes(trellis_table_convert$r_corr))
+```
 
+It is also possible for users to create their own cognostics as well.
 
-```{r adding annotations and cognostics}
+```{r adding custom annotations and cognostics}
 
 transition_name <- c("Lipid1", "Lipid2", "Lipid3", "Lipid4")
 transition_class <- c("Class1", "Class1", "Class2", "Class2")

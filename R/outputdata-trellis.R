@@ -51,8 +51,7 @@
 #'                   panel_variable = "panel",
 #'                   col_name_vec = "col_name_vec",
 #'                   desc_vec = "desc_vec",
-#'                   type_vec = "type_vec",
-#'                   default_label_vec = "default_label_vec")
+#'                   type_vec = "type_vec")
 #'
 #' # Check if trellis_table_auto is valid
 #' validate_trellis_table(trellis_table_auto)
@@ -182,8 +181,7 @@ validate_trellis_table <- function(trellis_table,
 #'                  panel_variable = "panel",
 #'                  col_name_vec = "col_name_vec",
 #'                  desc_vec = "desc_vec",
-#'                  type_vec = "type_vec",
-#'                  default_label_vec = "default_label_vec")
+#'                  type_vec = "type_vec")
 #'
 #' # Create a trellis report, set testing = FALSE to output results
 #' view_trellis_html(trellis_table_auto, testing = TRUE)

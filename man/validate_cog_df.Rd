@@ -6,7 +6,7 @@
 \usage{
 validate_cog_df(
   cog_df,
-  needed_column = c("col_name_vec", "desc_vec", "type_vec", "default_label_vec")
+  needed_column = c("col_name_vec", "desc_vec", "type_vec")
 )
 }
 \arguments{
@@ -15,7 +15,7 @@ validate_cog_df(
 \item{needed_column}{A vector consisting of needed column names that
 must be found in \code{cog_df},
 Default:
-\code{c("col_name_vec", "desc_vec", "type_vec", "default_label_vec")}}
+\code{c("col_name_vec", "desc_vec", "type_vec")}}
 }
 \value{
 An error if the things in \code{needed_column}
@@ -32,12 +32,9 @@ desc_vec <- c("Transition_Name", "Dilution_Batch")
 
 type_vec <- c("factor","factor")
 
-default_label_vec <- c(TRUE, TRUE)
-
 cog_df <- data.frame(col_name_vec = col_name_vec,
                      desc_vec = desc_vec,
-                     type_vec = type_vec,
-                     default_label_vec = default_label_vec)
+                     type_vec = type_vec)
 
 validate_cog_df(cog_df)
 }

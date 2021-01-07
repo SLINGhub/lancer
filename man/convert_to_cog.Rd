@@ -11,8 +11,7 @@ convert_to_cog(
   panel_variable = NULL,
   col_name_vec = "col_name_vec",
   desc_vec = "desc_vec",
-  type_vec = "type_vec",
-  default_label_vec = "default_label_vec"
+  type_vec = "type_vec"
 )
 }
 \arguments{
@@ -47,10 +46,6 @@ Default: 'desc_vec'}
 \item{type_vec}{Column name in \code{cog_df} to indicate the type
 of each cognostics as define in \code{trelliscopejs::cog},
 Default: 'type_vec'}
-
-\item{default_label_vec}{Column name in \code{cog_df} to indicate the if
-the given cognostics is a panel label as define in \code{trelliscopejs::cog},
-Default: 'default_label_vec'}
 }
 \value{
 The dilution summary table with \verb{groupung variable} columns

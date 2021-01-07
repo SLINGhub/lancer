@@ -9,8 +9,7 @@ update_cog_manual(
   cog_df,
   col_name_vec = "col_name_vec",
   desc_vec = "desc_vec",
-  type_vec = "type_vec",
-  default_label_vec = "default_label_vec"
+  type_vec = "type_vec"
 )
 }
 \arguments{
@@ -32,10 +31,6 @@ Default: 'desc_vec'}
 \item{type_vec}{Column name in \code{cog_df} to indicate the type
 of each cognostics as define in \code{trelliscopejs::cog},
 Default: 'type_vec'}
-
-\item{default_label_vec}{Column name in \code{cog_df} to indicate the if
-the given cognostics is a panel label as define in \code{trelliscopejs::cog},
-Default: 'default_label_vec'}
 }
 \value{
 \code{dilution_summary} with some columns converted
@@ -122,18 +117,15 @@ desc_vec <- c("Transition_Name", "Dilution_Batch",
 
 type_vec <- c("factor", "factor", "factor")
 
-default_label_vec <- c(TRUE, TRUE, TRUE)
 
 cog_df <- data.frame(col_name_vec = col_name_vec,
                      desc_vec = desc_vec,
-                     type_vec = type_vec,
-                     default_label_vec = default_label_vec)
+                     type_vec = type_vec)
 
 updated_summary <- update_cog_manual(dilution_summary, cog_df,
                                      col_name_vec = "col_name_vec",
                                      desc_vec = "desc_vec",
-                                     type_vec = "type_vec",
-                                     default_label_vec = "default_label_vec")
+                                     type_vec = "type_vec")
 
 # Observe that the first two columns has been converted
 # to class cognostics
