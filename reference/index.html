@@ -79,7 +79,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -94,13 +94,22 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/ggplot-output.html">Plots in ggplot2</a>
+    </li>
+    <li>
       <a href="../articles/grouping.html">Grouping Variables in Dilution Table</a>
     </li>
     <li>
       <a href="../articles/lineval-customization.html">Customise Linearity Evaluation Workflow</a>
     </li>
     <li>
+      <a href="../articles/plotly-output.html">Plots in plotly</a>
+    </li>
+    <li>
       <a href="../articles/tidy-demo.html">Tidy Workflow Example</a>
+    </li>
+    <li>
+      <a href="../articles/trellis-output.html">Trellis Output</a>
     </li>
   </ul>
 </li>
@@ -108,7 +117,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/SLINGhub/DCVtestkit/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -139,8 +148,8 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
+          <h2 id="section-dilution-curve-validation-workflow" class="hasAnchor"><a href="#section-dilution-curve-validation-workflow" class="anchor"></a>Dilution Curve Validation Workflow</h2>
+          <p class="section-desc"><p>Functions used for tidy workflow</p></p>
         </th>
       </tr>
       
@@ -151,81 +160,9 @@
       <tr>
         
         <td>
-          <p><code><a href="calculate_concavity.html">calculate_concavity()</a></code> </p>
-        </td>
-        <td><p>Calculate concavity</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="calculate_dil_linear_gof.html">calculate_dil_linear_gof()</a></code> </p>
-        </td>
-        <td><p>Calculate Goodness of Linear Fit</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="calculate_mandel.html">calculate_mandel()</a></code> </p>
-        </td>
-        <td><p>Calculate the Mandel fitting test</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="calculate_pra_linear.html">calculate_pra_linear()</a></code> </p>
-        </td>
-        <td><p>Linear Model's Percent Residual Accuracy (PRA)</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="create_dil_linear_model.html">create_dil_linear_model()</a></code> </p>
-        </td>
-        <td><p>Create Dilution Linear Model</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="create_dil_quad_model.html">create_dil_quad_model()</a></code> </p>
-        </td>
-        <td><p>Create Dilution Quadratic Model</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="create_dilution_table.html">create_dilution_table()</a></code> </p>
         </td>
         <td><p>Create Dilution Table</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="create_excel_report.html">create_excel_report()</a></code> </p>
-        </td>
-        <td><p>Create Excel Report</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="evaluate_linearity.html">evaluate_linearity()</a></code> </p>
-        </td>
-        <td><p>Evaluate linearity</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="exprs_reduce.html">exprs_reduce()</a></code> </p>
-        </td>
-        <td><p>Expression reduction</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_column_number_style.html">get_column_number_style()</a></code> </p>
-        </td>
-        <td><p>Get column number style</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_dilution_summary.html">get_dilution_summary()</a></code> </p>
-        </td>
-        <td><p>Get dilution data summary statistic</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="mark_near_zero_columns.html">mark_near_zero_columns()</a></code> </p>
-        </td>
-        <td><p>Mark near zero columns</p></td>
       </tr><tr>
         
         <td>
@@ -235,21 +172,292 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="syms_reduce.html">syms_reduce()</a></code> </p>
+          <p><code><a href="evaluate_linearity.html">evaluate_linearity()</a></code> </p>
         </td>
-        <td><p>Symbol reduction</p></td>
+        <td><p>Evaluate Linearity Based On Dilution Summary Data</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="two_col_num_cond_format.html">two_col_num_cond_format()</a></code> </p>
+          <p><code><a href="write_summary_excel.html">write_summary_excel()</a></code> </p>
         </td>
-        <td><p>Two colour number conditional formatting</p></td>
+        <td><p>Write Dilution Summary To Excel</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="two_col_word_cond_format.html">two_col_word_cond_format()</a></code> </p>
+          <p><code><a href="add_ggplot_panel.html">add_ggplot_panel()</a></code> </p>
         </td>
-        <td><p>Two colour word conditional formatting</p></td>
+        <td><p>Add A <code>ggplot</code> Panel Column</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="add_plotly_panel.html">add_plotly_panel()</a></code> </p>
+        </td>
+        <td><p>Add A <code>plotly</code> Panel Column</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="view_ggplot_pdf.html">view_ggplot_pdf()</a></code> </p>
+        </td>
+        <td><p>View <code>ggplot</code> Dilution Plots As Pdf</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="view_trellis_html.html">view_trellis_html()</a></code> </p>
+        </td>
+        <td><p>View <code>ggplot</code> or <code>plotly</code> Dilution Plots As Trellis</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-summarise-dilution-data" class="hasAnchor"><a href="#section-summarise-dilution-data" class="anchor"></a>Summarise Dilution Data</h2>
+          <p class="section-desc"><p>Functions used to summarise dilution curve data</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="summarise_dilution_table.html">summarise_dilution_table()</a></code> </p>
+        </td>
+        <td><p>Summarize Dilution Table</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="summarise_dilution_data.html">summarise_dilution_data()</a></code> </p>
+        </td>
+        <td><p>Summarise Dilution Curve Data For One Group</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="create_linear_model.html">create_linear_model()</a></code> </p>
+        </td>
+        <td><p>Create Linear Model</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="create_quad_model.html">create_quad_model()</a></code> </p>
+        </td>
+        <td><p>Create Quadratic Model</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="calculate_concavity.html">calculate_concavity()</a></code> </p>
+        </td>
+        <td><p>Calculate Concavity</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="calculate_gof_linear.html">calculate_gof_linear()</a></code> </p>
+        </td>
+        <td><p>Calculate Linear Model's Goodness Of Fit</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="calculate_mandel.html">calculate_mandel()</a></code> </p>
+        </td>
+        <td><p>Calculate Mandel Fitting Test</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="calculate_pra_linear.html">calculate_pra_linear()</a></code> </p>
+        </td>
+        <td><p>Calculate Linear Model's Percent Residual Accuracy (PRA)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="evaluate_linearity.html">evaluate_linearity()</a></code> </p>
+        </td>
+        <td><p>Evaluate Linearity Based On Dilution Summary Data</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-plotting" class="hasAnchor"><a href="#section-plotting" class="anchor"></a>Plotting</h2>
+          <p class="section-desc"><p>Functions used to plot dilution curves and summary tables</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="plot_curve_ggplot.html">plot_curve_ggplot()</a></code> </p>
+        </td>
+        <td><p>Plot Dilution Curve Using <code>ggplot2</code></p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_curve_plotly.html">plot_curve_plotly()</a></code> </p>
+        </td>
+        <td><p>Plot Dilution Curve Using <code>plotly</code></p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_summary_table.html">plot_summary_table()</a></code> </p>
+        </td>
+        <td><p>Plot Dilution Summary Table For One Group</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_summary_table_char.html">plot_summary_table_char()</a></code> </p>
+        </td>
+        <td><p>Plot Dilution Summary Character Table For One Group</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_summary_table_num.html">plot_summary_table_num()</a></code> </p>
+        </td>
+        <td><p>Plot Dilution Summary Numeric Table For One Group</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-cognostics-creation" class="hasAnchor"><a href="#section-cognostics-creation" class="anchor"></a>Cognostics Creation</h2>
+          <p class="section-desc"><p>Functions used to convert columns to class cognostics</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="convert_to_cog.html">convert_to_cog()</a></code> </p>
+        </td>
+        <td><p>Convert To Cognostics</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="create_default_cog_df.html">create_default_cog_df()</a></code> </p>
+        </td>
+        <td><p>Create Default Cognostics Data Frame</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="update_cog_auto.html">update_cog_auto()</a></code> </p>
+        </td>
+        <td><p>Update Cognostics Automatically</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="update_cog_manual.html">update_cog_manual()</a></code> </p>
+        </td>
+        <td><p>Update Cognostics Manually</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-output-in-excel" class="hasAnchor"><a href="#section-output-in-excel" class="anchor"></a>Output in Excel</h2>
+          <p class="section-desc"><p>Functions used to write dilution summary table to Excel</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="write_summary_excel.html">write_summary_excel()</a></code> </p>
+        </td>
+        <td><p>Write Dilution Summary To Excel</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="format_char_cell_colour.html">format_char_cell_colour()</a></code> </p>
+        </td>
+        <td><p>Format Character Cell Colour</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="format_num_cell_colour.html">format_num_cell_colour()</a></code> </p>
+        </td>
+        <td><p>Format Numeric Cell Colour</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="format_num_cell_style.html">format_num_cell_style()</a></code> </p>
+        </td>
+        <td><p>Format Numeric Column Cell Style</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="mark_near_zero_columns.html">mark_near_zero_columns()</a></code> </p>
+        </td>
+        <td><p>Mark Near Zero Columns</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-output-in-pdf" class="hasAnchor"><a href="#section-output-in-pdf" class="anchor"></a>Output in pdf</h2>
+          <p class="section-desc"><p>Functions used to help output <code>ggplots</code> plots to pdf</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="view_ggplot_pdf.html">view_ggplot_pdf()</a></code> </p>
+        </td>
+        <td><p>View <code>ggplot</code> Dilution Plots As Pdf</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="create_page_layout.html">create_page_layout()</a></code> </p>
+        </td>
+        <td><p>Create the page layout for the pdf document</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-output-in-trellis" class="hasAnchor"><a href="#section-output-in-trellis" class="anchor"></a>Output in trellis</h2>
+          <p class="section-desc"><p>Functions used to help output <code>ggplots</code> or <code>plotly</code> plots to trellis</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="view_trellis_html.html">view_trellis_html()</a></code> </p>
+        </td>
+        <td><p>View <code>ggplot</code> or <code>plotly</code> Dilution Plots As Trellis</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-validation" class="hasAnchor"><a href="#section-validation" class="anchor"></a>Validation</h2>
+          <p class="section-desc"><p>Functions used to validate datasets</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="validate_cog_df.html">validate_cog_df()</a></code> </p>
+        </td>
+        <td><p>Validate Cognostics Data</p></td>
       </tr><tr>
         
         <td>
@@ -274,6 +482,56 @@
           <p><code><a href="validate_lipid_data_wide.html">validate_lipid_data_wide()</a></code> </p>
         </td>
         <td><p>Validate Lipid Data Wide</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="validate_trellis_table.html">validate_trellis_table()</a></code> </p>
+        </td>
+        <td><p>Validate Trellis Table</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-utilities" class="hasAnchor"><a href="#section-utilities" class="anchor"></a>Utilities</h2>
+          <p class="section-desc"><p>Utilities functions</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="create_char_seq.html">create_char_seq()</a></code> </p>
+        </td>
+        <td><p>Create Cyclic Character Sequence</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-defunct-and-deprecated-functions" class="hasAnchor"><a href="#section-defunct-and-deprecated-functions" class="anchor"></a>Defunct and deprecated functions</h2>
+          <p class="section-desc"><p>Functions that are not in used (defunct) or deprecated\n <a href="https://lifecycle.r-lib.org/articles/lifecycle.html"> <img src="figures/lifecycle-defunct.svg" alt="Defunct lifecycle"></a>\n <a href="https://lifecycle.r-lib.org/articles/lifecycle.html"> <img src="figures/lifecycle-deprecated.svg" alt="Deprecated lifecycle"></a></p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="exprs_reduce.html">exprs_reduce()</a></code> </p>
+        </td>
+        <td><p>Expression reduction</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="syms_reduce.html">syms_reduce()</a></code> </p>
+        </td>
+        <td><p>Symbol reduction</p></td>
       </tr>
     </tbody>
     </table>

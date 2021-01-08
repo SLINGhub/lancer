@@ -82,7 +82,7 @@ common column. The default common column names is Sample_Name." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -97,13 +97,22 @@ common column. The default common column names is Sample_Name." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/ggplot-output.html">Plots in ggplot2</a>
+    </li>
+    <li>
       <a href="../articles/grouping.html">Grouping Variables in Dilution Table</a>
     </li>
     <li>
       <a href="../articles/lineval-customization.html">Customise Linearity Evaluation Workflow</a>
     </li>
     <li>
+      <a href="../articles/plotly-output.html">Plots in plotly</a>
+    </li>
+    <li>
       <a href="../articles/tidy-demo.html">Tidy Workflow Example</a>
+    </li>
+    <li>
+      <a href="../articles/trellis-output.html">Trellis Output</a>
     </li>
   </ul>
 </li>
@@ -111,7 +120,7 @@ common column. The default common column names is Sample_Name." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/SLINGhub/DCVtestkit/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -213,11 +222,25 @@ a long format. Merging with a Sample Annotation data can be done after this</p>
                              Lipid1 <span class='op'>=</span> <span class='va'>lipid1_area</span>,
                              Lipid2 <span class='op'>=</span> <span class='va'>lipid2_area</span><span class='op'>)</span>
 <span class='co'># Create dilution table</span>
-<span class='va'>dil_data</span> <span class='op'>&lt;-</span> <span class='fu'>create_dilution_table</span><span class='op'>(</span><span class='va'>dilution_annot</span>,<span class='va'>lipid_data</span>,
-                                  common_column <span class='op'>=</span> <span class='st'>"Sample_Name"</span>,
-                                  signal_var <span class='op'>=</span> <span class='st'>"Area"</span>,
-                                  column_group <span class='op'>=</span> <span class='st'>"Transition_Name"</span><span class='op'>)</span>
-</div></pre>
+<span class='va'>dilution_table</span> <span class='op'>&lt;-</span> <span class='fu'>create_dilution_table</span><span class='op'>(</span><span class='va'>dilution_annot</span>,<span class='va'>lipid_data</span>,
+                                        common_column <span class='op'>=</span> <span class='st'>"Sample_Name"</span>,
+                                        signal_var <span class='op'>=</span> <span class='st'>"Area"</span>,
+                                        column_group <span class='op'>=</span> <span class='st'>"Transition_Name"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>dilution_table</span>, width <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 24 x 5</span><span>
+#&gt;    Sample_Name Dilution_Batch Dilution_Percent Transition_Name    Area
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>             </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> Sample_010a B1                           10 Lipid1            </span><span style='text-decoration: underline;'>22</span><span>561
+#&gt; </span><span style='color: #555555;'> 2</span><span> Sample_010a B1                           10 Lipid2          2</span><span style='text-decoration: underline;'>299</span><span>075
+#&gt; </span><span style='color: #555555;'> 3</span><span> Sample_020a B1                           20 Lipid1            </span><span style='text-decoration: underline;'>31</span><span>178
+#&gt; </span><span style='color: #555555;'> 4</span><span> Sample_020a B1                           20 Lipid2          4</span><span style='text-decoration: underline;'>136</span><span>350
+#&gt; </span><span style='color: #555555;'> 5</span><span> Sample_040a B1                           40 Lipid1            </span><span style='text-decoration: underline;'>39</span><span>981
+#&gt; </span><span style='color: #555555;'> 6</span><span> Sample_040a B1                           40 Lipid2          7</span><span style='text-decoration: underline;'>020</span><span>062
+#&gt; </span><span style='color: #555555;'> 7</span><span> Sample_060a B1                           60 Lipid1            </span><span style='text-decoration: underline;'>48</span><span>390
+#&gt; </span><span style='color: #555555;'> 8</span><span> Sample_060a B1                           60 Lipid2          8</span><span style='text-decoration: underline;'>922</span><span>063
+#&gt; </span><span style='color: #555555;'> 9</span><span> Sample_080a B1                           80 Lipid1            </span><span style='text-decoration: underline;'>52</span><span>171
+#&gt; </span><span style='color: #555555;'>10</span><span> Sample_080a B1                           80 Lipid2          9</span><span style='text-decoration: underline;'>288</span><span>742
+#&gt; </span><span style='color: #555555;'># … with 14 more rows</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

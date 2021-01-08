@@ -40,8 +40,8 @@
 
 
 <meta property="og:title" content="Summarize Dilution Table — summarise_dilution_table" />
-<meta property="og:description" content="Create Dilution Summary Statistic Table from
-Dilution Table" />
+<meta property="og:description" content="Get the summary statistics of each group from
+the dilution table" />
 
 
 
@@ -81,7 +81,7 @@ Dilution Table" />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -96,13 +96,22 @@ Dilution Table" />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/ggplot-output.html">Plots in ggplot2</a>
+    </li>
+    <li>
       <a href="../articles/grouping.html">Grouping Variables in Dilution Table</a>
     </li>
     <li>
       <a href="../articles/lineval-customization.html">Customise Linearity Evaluation Workflow</a>
     </li>
     <li>
+      <a href="../articles/plotly-output.html">Plots in plotly</a>
+    </li>
+    <li>
       <a href="../articles/tidy-demo.html">Tidy Workflow Example</a>
+    </li>
+    <li>
+      <a href="../articles/trellis-output.html">Trellis Output</a>
     </li>
   </ul>
 </li>
@@ -110,7 +119,7 @@ Dilution Table" />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/SLINGhub/DCVtestkit/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -133,8 +142,8 @@ Dilution Table" />
     </div>
 
     <div class="ref-description">
-    <p>Create Dilution Summary Statistic Table from
-Dilution Table</p>
+    <p>Get the summary statistics of each group from
+the dilution table</p>
     </div>
 
     <pre class="usage"><span class='fu'>summarise_dilution_table</span><span class='op'>(</span>
@@ -174,11 +183,14 @@ Default: 'Area'</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A summary table output from the function <code>get_dilution_summary</code></p>
+    <p>A dilution summary table output from the function
+<code><a href='summarise_dilution_data.html'>summarise_dilution_data()</a></code> for each group</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Look at the function <code>get_dilution_summary</code> for more details on
-what summary data is given</p>
+    <p>The function first perform <code><a href='https://tidyr.tidyverse.org/reference/nest.html'>tidyr::nest</a></code> on <code>dilution_table</code>
+based on the <code>grouping_variable</code> to organise the dilution curve data
+for each group. Next for each group, the function
+<code><a href='summarise_dilution_data.html'>summarise_dilution_data()</a></code> is used to get the summary statistics.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>#Data Creation</span>
@@ -211,10 +223,21 @@ what summary data is given</p>
 <span class='fu'>summarise_dilution_table</span><span class='op'>(</span>grouping_variable <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Transition_Name"</span>,
                                                <span class='st'>"Dilution_Batch"</span><span class='op'>)</span>,
                          conc_var <span class='op'>=</span> <span class='st'>"Dilution_Percent"</span>,
-                         signal_var <span class='op'>=</span> <span class='st'>"Area"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-<span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>.data</span><span class='op'>$</span><span class='va'>Transition_Name</span><span class='op'>)</span>
-
-</div></pre>
+                         signal_var <span class='op'>=</span> <span class='st'>"Area"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>dilution_summary</span>, width <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 4 x 9</span><span>
+#&gt;   Transition_Name Dilution_Batch r_corr r2_linear r2_adj_linear mandel_stats
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span> Lipid1          B1              0.956     0.913         0.892        70.1 
+#&gt; </span><span style='color: #555555;'>2</span><span> Lipid2          B1              0.972     0.946         0.932         5.67
+#&gt; </span><span style='color: #555555;'>3</span><span> Lipid1          B2              0.956     0.913         0.892        70.1 
+#&gt; </span><span style='color: #555555;'>4</span><span> Lipid2          B2              0.972     0.946         0.932         5.67
+#&gt;   mandel_p_val pra_linear concavity
+#&gt;          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>      0.003</span><span style='text-decoration: underline;'>57</span><span>       66.4     -</span><span style='color: #BB0000;'>4.09</span><span>
+#&gt; </span><span style='color: #555555;'>2</span><span>      0.097</span><span style='text-decoration: underline;'>4</span><span>        74.8   -</span><span style='color: #BB0000;'>735.</span><span>  
+#&gt; </span><span style='color: #555555;'>3</span><span>      0.003</span><span style='text-decoration: underline;'>57</span><span>       66.4     -</span><span style='color: #BB0000;'>4.09</span><span>
+#&gt; </span><span style='color: #555555;'>4</span><span>      0.097</span><span style='text-decoration: underline;'>4</span><span>        74.8   -</span><span style='color: #BB0000;'>735.</span><span>  </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

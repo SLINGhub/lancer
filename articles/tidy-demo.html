@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -54,13 +54,22 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="../articles/ggplot-output.html">Plots in ggplot2</a>
+    </li>
+    <li>
       <a href="../articles/grouping.html">Grouping Variables in Dilution Table</a>
     </li>
     <li>
       <a href="../articles/lineval-customization.html">Customise Linearity Evaluation Workflow</a>
     </li>
     <li>
+      <a href="../articles/plotly-output.html">Plots in plotly</a>
+    </li>
+    <li>
       <a href="../articles/tidy-demo.html">Tidy Workflow Example</a>
+    </li>
+    <li>
+      <a href="../articles/trellis-output.html">Trellis Output</a>
     </li>
   </ul>
 </li>
@@ -68,7 +77,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/SLINGhub/DCVtestkit/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -82,8 +91,7 @@
 
       
 
-      </header><script src="tidy-demo_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="tidy-demo_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="tidy-demo_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="tidy-demo_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Tidy Workflow Example</h1>
@@ -142,7 +150,17 @@
                              Lipid1 <span class="op">=</span> <span class="va">lipid1_area_saturated</span>,
                              Lipid2 <span class="op">=</span> <span class="va">lipid2_area_linear</span>,
                              Lipid3 <span class="op">=</span> <span class="va">lipid3_area_lod</span>,
-                             Lipid4 <span class="op">=</span> <span class="va">lipid4_area_nonlinear</span><span class="op">)</span></code></pre></div>
+                             Lipid4 <span class="op">=</span> <span class="va">lipid4_area_nonlinear</span><span class="op">)</span>
+
+<span class="va">transition_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Lipid1"</span>, <span class="st">"Lipid2"</span>, <span class="st">"Lipid3"</span>, <span class="st">"Lipid4"</span><span class="op">)</span>
+<span class="va">transition_class</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Class1"</span>, <span class="st">"Class1"</span>, <span class="st">"Class2"</span>, <span class="st">"Class2"</span><span class="op">)</span>
+<span class="va">transition_species</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"SpeciesA"</span>, <span class="st">"SpeciesA"</span>, <span class="st">"SpeciesB"</span>, <span class="st">"SpeciesB"</span><span class="op">)</span>
+
+
+<span class="va">transition_annot</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>Transition_Name <span class="op">=</span> <span class="va">transition_name</span>,
+                                   Transition_Class <span class="op">=</span> <span class="va">transition_class</span>,
+                                   Transition_Species <span class="op">=</span> <span class="va">transition_species</span>
+                                   <span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Create dilution table and dilution statistical summary</span>
 <span class="va">dilution_summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_dilution_table.html">create_dilution_table</a></span><span class="op">(</span><span class="va">dilution_annot</span>, <span class="va">lipid_data</span>,
@@ -155,34 +173,36 @@
                            conc_var <span class="op">=</span> <span class="st">"Dilution_Percent"</span>,
                            signal_var <span class="op">=</span> <span class="st">"Area"</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/evaluate_linearity.html">evaluate_linearity</a></span><span class="op">(</span>grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Transition_Name"</span>,
-                                           <span class="st">"Dilution_Batch"</span><span class="op">)</span><span class="op">)</span>
+                                           <span class="st">"Dilution_Batch"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">transition_annot</span>,by <span class="op">=</span> <span class="st">"Transition_Name"</span><span class="op">)</span>
   </code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">dilution_summary</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 8 x 11</span>
-<span class="co">#&gt;   Transition_Name Dilution_Batch wf1_group      wf2_group      r_corr pra_linear</span>
-<span class="co">#&gt;   &lt;chr&gt;           &lt;chr&gt;          &lt;chr&gt;          &lt;chr&gt;           &lt;dbl&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 Lipid1          B1             Poor Linearity Saturation      0.963       70.5</span>
-<span class="co">#&gt; 2 Lipid2          B1             Good Linearity Good Linearity  0.990       92.8</span>
-<span class="co">#&gt; 3 Lipid3          B1             Poor Linearity LOD             0.964       71.2</span>
-<span class="co">#&gt; 4 Lipid4          B1             Poor Linearity Poor Linearity  0.311     -251. </span>
-<span class="co">#&gt; 5 Lipid1          B2             Poor Linearity Saturation      0.950       62.3</span>
-<span class="co">#&gt; 6 Lipid2          B2             Good Linearity Good Linearity  0.995       94.3</span>
-<span class="co">#&gt; 7 Lipid3          B2             Poor Linearity LOD             0.978       74.7</span>
-<span class="co">#&gt; 8 Lipid4          B2             Poor Linearity Poor Linearity  0.608      -73.1</span>
-<span class="co">#&gt;   mandel_p_val concavity r2_linear r2_adj_linear mandel_stats</span>
-<span class="co">#&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;        &lt;dbl&gt;</span>
-<span class="co">#&gt; 1   0.0000297  -4174.       0.928        0.920         71.2  </span>
-<span class="co">#&gt; 2   0.150         -4.91     0.980        0.978          2.53 </span>
-<span class="co">#&gt; 3   0.00000678     0.468    0.930        0.922        106.   </span>
-<span class="co">#&gt; 4   0.00660      -20.5      0.0970      -0.00333       13.2  </span>
-<span class="co">#&gt; 5   0.000166   -4137.       0.903        0.890         52.9  </span>
-<span class="co">#&gt; 6   0.382         -1.94     0.990        0.988          0.868</span>
-<span class="co">#&gt; 7   0.00256        0.321    0.956        0.951         20.9  </span>
-<span class="co">#&gt; 8   0.0533       -22.9      0.370        0.291          5.39</span></code></pre></div>
-<p>Results can be exported to Excel via <code>create_excel_report</code></p>
+<span class="co">#&gt; # A tibble: 8 x 13</span>
+<span class="co">#&gt;   Transition_Name Dilution_Batch wf1_group wf2_group r_corr pra_linear</span>
+<span class="co">#&gt;   &lt;chr&gt;           &lt;chr&gt;          &lt;chr&gt;     &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 Lipid1          B1             Poor Lin… Saturati…  0.963       70.5</span>
+<span class="co">#&gt; 2 Lipid2          B1             Good Lin… Good Lin…  0.990       92.8</span>
+<span class="co">#&gt; 3 Lipid3          B1             Poor Lin… LOD        0.964       71.2</span>
+<span class="co">#&gt; 4 Lipid4          B1             Poor Lin… Poor Lin…  0.311     -251. </span>
+<span class="co">#&gt; 5 Lipid1          B2             Poor Lin… Saturati…  0.950       62.3</span>
+<span class="co">#&gt; 6 Lipid2          B2             Good Lin… Good Lin…  0.995       94.3</span>
+<span class="co">#&gt; 7 Lipid3          B2             Poor Lin… LOD        0.978       74.7</span>
+<span class="co">#&gt; 8 Lipid4          B2             Poor Lin… Poor Lin…  0.608      -73.1</span>
+<span class="co">#&gt;   mandel_p_val concavity r2_linear r2_adj_linear mandel_stats Transition_Class</span>
+<span class="co">#&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;        &lt;dbl&gt; &lt;chr&gt;           </span>
+<span class="co">#&gt; 1   0.0000297  -4174.       0.928        0.920         71.2   Class1          </span>
+<span class="co">#&gt; 2   0.150         -4.91     0.980        0.978          2.53  Class1          </span>
+<span class="co">#&gt; 3   0.00000678     0.468    0.930        0.922        106.    Class2          </span>
+<span class="co">#&gt; 4   0.00660      -20.5      0.0970      -0.00333       13.2   Class2          </span>
+<span class="co">#&gt; 5   0.000166   -4137.       0.903        0.890         52.9   Class1          </span>
+<span class="co">#&gt; 6   0.382         -1.94     0.990        0.988          0.868 Class1          </span>
+<span class="co">#&gt; 7   0.00256        0.321    0.956        0.951         20.9   Class2          </span>
+<span class="co">#&gt; 8   0.0533       -22.9      0.370        0.291          5.39  Class2          </span>
+<span class="co">#&gt; # … with 1 more variable: Transition_Species &lt;chr&gt;</span></code></pre></div>
+<p>Results can be exported to Excel via <code>write_summary_excel</code></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/create_excel_report.html">create_excel_report</a></span><span class="op">(</span><span class="va">dilution_summary</span>, file_name <span class="op">=</span> <span class="st">"dilution_summary.xlsx"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/write_summary_excel.html">write_summary_excel</a></span><span class="op">(</span><span class="va">dilution_summary</span>, file_name <span class="op">=</span> <span class="st">"dilution_summary.xlsx"</span><span class="op">)</span></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

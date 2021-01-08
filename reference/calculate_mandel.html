@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculate the Mandel fitting test — calculate_mandel • DCVtestkit</title>
+<title>Calculate Mandel Fitting Test — calculate_mandel • DCVtestkit</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Calculate the Mandel fitting test — calculate_mandel" />
+<meta property="og:title" content="Calculate Mandel Fitting Test — calculate_mandel" />
 <meta property="og:description" content="Calculate the Mandel fitting test for dilution data" />
 
 
@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -95,13 +95,22 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/ggplot-output.html">Plots in ggplot2</a>
+    </li>
+    <li>
       <a href="../articles/grouping.html">Grouping Variables in Dilution Table</a>
     </li>
     <li>
       <a href="../articles/lineval-customization.html">Customise Linearity Evaluation Workflow</a>
     </li>
     <li>
+      <a href="../articles/plotly-output.html">Plots in plotly</a>
+    </li>
+    <li>
       <a href="../articles/tidy-demo.html">Tidy Workflow Example</a>
+    </li>
+    <li>
+      <a href="../articles/trellis-output.html">Trellis Output</a>
     </li>
   </ul>
 </li>
@@ -109,7 +118,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/SLINGhub/DCVtestkit/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -126,7 +135,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Calculate the Mandel fitting test</h1>
+    <h1>Calculate Mandel Fitting Test</h1>
     <small class="dont-index">Source: <a href='https://github.com/SLINGhub/DCVtestkit/blob/master/R/dilstats.R'><code>R/dilstats.R</code></a></small>
     <div class="hidden name"><code>calculate_mandel.Rd</code></div>
     </div>
@@ -146,11 +155,11 @@
     </tr>
     <tr>
       <th>conc_var</th>
-      <td><p>Column name in <code>diltuion_data</code> to indicate concentration</p></td>
+      <td><p>Column name in <code>dilution_data</code> to indicate concentration</p></td>
     </tr>
     <tr>
       <th>signal_var</th>
-      <td><p>Column name in <code>diltuion_data</code> to indicate signal</p></td>
+      <td><p>Column name in <code>dilution_data</code> to indicate signal</p></td>
     </tr>
     </table>
 
@@ -170,7 +179,11 @@ if the number of dilution points is less than or equal to three.</p>
 <span class='va'>area</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>22561</span>, <span class='fl'>31178</span>, <span class='fl'>39981</span>, <span class='fl'>48390</span>, <span class='fl'>52171</span>, <span class='fl'>53410</span><span class='op'>)</span>
 <span class='va'>dilution_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>Dilution_Percent <span class='op'>=</span> <span class='va'>dilution_percent</span>, Area <span class='op'>=</span> <span class='va'>area</span><span class='op'>)</span>
 <span class='va'>mandel_result</span> <span class='op'>&lt;-</span> <span class='fu'>calculate_mandel</span><span class='op'>(</span><span class='va'>dilution_data</span>, <span class='st'>"Dilution_Percent"</span>, <span class='st'>"Area"</span><span class='op'>)</span>
-</div></pre>
+<span class='va'>mandel_result</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 1 x 2</span><span>
+#&gt;   mandel_stats mandel_p_val
+#&gt;          </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>         70.1      0.003</span><span style='text-decoration: underline;'>57</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

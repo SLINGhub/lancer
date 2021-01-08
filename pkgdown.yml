@@ -2,8 +2,11 @@ pandoc: 2.7.3
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
+  ggplot-output: ggplot-output.html
   grouping: grouping.html
   lineval-customization: lineval-customization.html
+  plotly-output: plotly-output.html
   tidy-demo: tidy-demo.html
-last_built: 2020-11-16T08:57Z
+  trellis-output: trellis-output.html
+last_built: 2021-01-08T01:28Z
 

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Mark near zero columns — mark_near_zero_columns • DCVtestkit</title>
+<title>Mark Near Zero Columns — mark_near_zero_columns • DCVtestkit</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,9 @@
 
 
 
-<meta property="og:title" content="Mark near zero columns — mark_near_zero_columns" />
-<meta property="og:description" content="Mark numeric columns with near zero values from a dataset" />
+<meta property="og:title" content="Mark Near Zero Columns — mark_near_zero_columns" />
+<meta property="og:description" content="Mark numeric columns with near zero values from a dataset
+by changing the class from numeric to scientific" />
 
 
 
@@ -80,7 +81,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -95,13 +96,22 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/ggplot-output.html">Plots in ggplot2</a>
+    </li>
+    <li>
       <a href="../articles/grouping.html">Grouping Variables in Dilution Table</a>
     </li>
     <li>
       <a href="../articles/lineval-customization.html">Customise Linearity Evaluation Workflow</a>
     </li>
     <li>
+      <a href="../articles/plotly-output.html">Plots in plotly</a>
+    </li>
+    <li>
       <a href="../articles/tidy-demo.html">Tidy Workflow Example</a>
+    </li>
+    <li>
+      <a href="../articles/trellis-output.html">Trellis Output</a>
     </li>
   </ul>
 </li>
@@ -109,7 +119,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/SLINGhub/DCVtestkit/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -126,13 +136,14 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Mark near zero columns</h1>
-    <small class="dont-index">Source: <a href='https://github.com/SLINGhub/DCVtestkit/blob/master/R/outputdata.R'><code>R/outputdata.R</code></a></small>
+    <h1>Mark Near Zero Columns</h1>
+    <small class="dont-index">Source: <a href='https://github.com/SLINGhub/DCVtestkit/blob/master/R/outputdata-excel.R'><code>R/outputdata-excel.R</code></a></small>
     <div class="hidden name"><code>mark_near_zero_columns.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Mark numeric columns with near zero values from a dataset</p>
+    <p>Mark numeric columns with near zero values from a dataset
+by changing the class from <code>numeric</code> to <code>scientific</code></p>
     </div>
 
     <pre class="usage"><span class='fu'>mark_near_zero_columns</span><span class='op'>(</span><span class='va'>dilution_summary</span><span class='op'>)</span></pre>
@@ -142,8 +153,9 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dilution_summary</th>
-      <td><p>A data frame or tibble output
-from the function <code>get_dilution_summary</code>
+      <td><p>The summary table generated
+by function <code><a href='summarise_dilution_table.html'>summarise_dilution_table()</a></code> and/or
+<code><a href='evaluate_linearity.html'>evaluate_linearity()</a></code>
 but it can also be any generic data frame or tibble</p></td>
     </tr>
     </table>
