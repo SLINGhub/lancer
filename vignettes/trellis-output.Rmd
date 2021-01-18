@@ -209,4 +209,12 @@ view_trellis_html(trellis_table_orig_converted,
 
 ```
 
+![](vignettes-RstudioCommand.png)
 
+This will create a folder called “Dilution_Plot_Folder” as defined by `trellis_report_folder` in your current working directory.
+
+![](vignettes-OutputFolder.png)
+
+You may view the plots by clicking on "index.html"
+
+![](vignettes-htmlggplot.png)
