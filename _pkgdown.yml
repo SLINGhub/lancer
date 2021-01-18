@@ -72,7 +72,7 @@ reference:
       Functions that are not in used (defunct) or deprecated\n
       <a href="https://lifecycle.r-lib.org/articles/lifecycle.html">
       <img src='figures/lifecycle-defunct.svg' alt='Defunct lifecycle'/>
-      </a>\n
+      </a>
       <a href="https://lifecycle.r-lib.org/articles/lifecycle.html">
       <img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle'/>
       </a>

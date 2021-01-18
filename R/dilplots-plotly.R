@@ -26,8 +26,8 @@
 #'                  "Sample_025a", "Sample_040a", "Sample_050a",
 #'                  "Sample_060a", "Sample_075a", "Sample_080a",
 #'                  "Sample_100a", "Sample_125a", "Sample_150a")
-#' dilution_batch <- c("B1", "B1", "B1", "B1", "B1",
-#'                     "B1", "B1", "B1", "B1", "B1", "B1")
+#' dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1",
+#'                          "B1", "B1", "B1", "B1", "B1", "B1")
 #' lipid1_area_saturated <- c(5748124, 16616414, 21702718, 36191617,
 #'                            49324541, 55618266, 66947588, 74964771,
 #'                            75438063, 91770737, 94692060)
@@ -35,10 +35,10 @@
 #' dilution_data <- tibble::tibble(Sample_Name = sample_name,
 #'                                 Dilution_Percent = dilution_percent,
 #'                                 Area = lipid1_area_saturated,
-#'                                 Dilution_Batch_Name = dilution_batch
+#'                                 Dilution_Batch_Name = dilution_batch_name
 #' )
 #' # Get the dilution batch name from dilution_table
-#' dilution_batch_name <- dilution_batch %>%
+#' dilution_batch_name <- dilution_batch_name %>%
 #'   unique() %>%
 #'   as.character()
 #'
@@ -64,7 +64,7 @@ plot_curve_plotly <- function(dilution_data,
                               title,
                               pal,
                               sample_name_var = "Sample_Name",
-                              dil_batch_var = "Dilution_Batch",
+                              dil_batch_var = "Dilution_Batch_Name",
                               conc_var = "Dilution_Percent",
                               conc_var_units = "%",
                               conc_var_interval = 50,
@@ -252,14 +252,14 @@ plot_curve_plotly <- function(dilution_data,
 #' column names in `dilution_table`to indicate how each dilution curve
 #' should be grouped by. It is also going to be used as a conditional
 #' cognostics in the `trelliscopejs` report.
-#' Default: c("Transition_Name", "Dilution_Batch")
+#' Default: c("Transition_Name", "Dilution_Batch_Name")
 #' @param sample_name_var Column name in `dilution_table`
 #' to indicate the sample name. To be used in the dilution plot
 #' Default: 'Sample_Name'
 #' @param dil_batch_var Column name in `dilution_table`
 #' to indicate the group name of each dilution batch,
 #' used to colour the points in the dilution plot
-#' Default: 'Dilution_Batch'
+#' Default: 'Dilution_Batch_Name'
 #' @param dil_batch_col A vector of colours to be used for the dilution
 #' batch group named given in `dil_batch_var`,
 #' Default: c("#377eb8", "#4daf4a", "#9C27B0", "#BCAAA4", "#FF8A65", "#EFBBCF")
@@ -288,10 +288,10 @@ plot_curve_plotly <- function(dilution_data,
 #'                       75, 80, 100, 125, 150,
 #'                       10, 25, 40, 50, 60,
 #'                       75, 80, 100, 125, 150)
-#' dilution_batch <- c("B1", "B1", "B1", "B1", "B1",
-#'                     "B1", "B1", "B1", "B1", "B1", "B1",
-#'                     "B2", "B2", "B2", "B2", "B2",
-#'                     "B2", "B2", "B2", "B2", "B2")
+#' dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1",
+#'                          "B1", "B1", "B1", "B1", "B1", "B1",
+#'                          "B2", "B2", "B2", "B2", "B2",
+#'                          "B2", "B2", "B2", "B2", "B2")
 #' sample_name <- c("Sample_010a", "Sample_020a",
 #'                  "Sample_025a", "Sample_040a", "Sample_050a",
 #'                  "Sample_060a", "Sample_075a", "Sample_080a",
@@ -320,7 +320,7 @@ plot_curve_plotly <- function(dilution_data,
 #'                            426089, 413292, 450190, 415309, 457618)
 #'
 #' dilution_annot <- tibble::tibble(Sample_Name = sample_name,
-#'                                  Dilution_Batch = dilution_batch,
+#'                                  Dilution_Batch_Name = dilution_batch_name,
 #'                                  Dilution_Percent = dilution_percent)
 #' lipid_data <- tibble::tibble(Sample_Name = sample_name,
 #'                              Lipid1 = lipid1_area_saturated,
@@ -339,12 +339,12 @@ plot_curve_plotly <- function(dilution_data,
 #' # Create dilution table and dilution statistical summary
 #' dilution_summary <- dilution_table %>%
 #'   summarise_dilution_table(grouping_variable = c("Transition_Name",
-#'                                                  "Dilution_Batch"),
+#'                                                  "Dilution_Batch_Name"),
 #'                            conc_var = "Dilution_Percent",
 #'                            signal_var = "Area") %>%
 #'   dplyr::arrange(.data$Transition_Name) %>%
 #'   evaluate_linearity(grouping_variable = c("Transition_Name",
-#'                                            "Dilution_Batch"))
+#'                                            "Dilution_Batch_Name"))
 #'
 #'
 #' # Create a trellis table
@@ -354,9 +354,9 @@ plot_curve_plotly <- function(dilution_data,
 #' @export
 add_plotly_panel <- function(dilution_table, dilution_summary = NULL,
                              grouping_variable = c("Transition_Name",
-                                                   "Dilution_Batch"),
+                                                   "Dilution_Batch_Name"),
                              sample_name_var = "Sample_Name",
-                             dil_batch_var = "Dilution_Batch",
+                             dil_batch_var = "Dilution_Batch_Name",
                              dil_batch_col = c("#377eb8",
                                                "#4daf4a",
                                                "#9C27B0",
@@ -435,10 +435,20 @@ add_plotly_panel <- function(dilution_table, dilution_summary = NULL,
   # Group/Nest the dilution data for each group
   # and do a dilution plot for each of them
   dilution_plots <- dilution_table %>%
-    dplyr::mutate(Dilution_Batch_Name = .data[[dil_batch_var]]) %>%
+    #dplyr::mutate(Dilution_Batch_Name = .data[[dil_batch_var]]) %>%
     dplyr::group_by_at(dplyr::all_of(c(grouping_variable,"title"))) %>%
     dplyr::relocate(dplyr::all_of(c(grouping_variable,"title"))) %>%
     tidyr::nest() %>%
+    dplyr::mutate(data = purrr::map2(.data$data,
+                                     .data[[dil_batch_var]],
+                                     function(df,Dilution_Batch_Name) {
+                                       df <- df %>%
+                                         dplyr::mutate(!!dil_batch_var := Dilution_Batch_Name)
+                                       return(df)
+                                     }
+
+    )
+    ) %>%
     dplyr::ungroup() %>%
     dplyr::mutate(panel = trelliscopejs::map2_plot(.data$data,
                                                    .data$title,

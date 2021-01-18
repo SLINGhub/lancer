@@ -5,10 +5,10 @@ test_that("Able to plot dilution data with its statistical summary in a pdf repo
                         75, 80, 100, 125, 150,
                         10, 25, 40, 50, 60,
                         75, 80, 100, 125, 150)
-  dilution_batch <- c("B1", "B1", "B1", "B1", "B1",
-                      "B1", "B1", "B1", "B1", "B1", "B1",
-                      "B2", "B2", "B2", "B2", "B2",
-                      "B2", "B2", "B2", "B2", "B2")
+  dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1",
+                           "B1", "B1", "B1", "B1", "B1", "B1",
+                           "B2", "B2", "B2", "B2", "B2",
+                           "B2", "B2", "B2", "B2", "B2")
   sample_name <- c("Sample_010a", "Sample_020a",
                    "Sample_025a", "Sample_040a", "Sample_050a",
                    "Sample_060a", "Sample_075a", "Sample_080a",
@@ -37,7 +37,7 @@ test_that("Able to plot dilution data with its statistical summary in a pdf repo
                              426089, 413292, 450190, 415309, 457618)
 
   dilution_annot <- tibble::tibble(Sample_Name = sample_name,
-                                   Dilution_Batch = dilution_batch,
+                                   Dilution_Batch_Name = dilution_batch_name,
                                    Dilution_Percent = dilution_percent)
   lipid_data <- tibble::tibble(Sample_Name = sample_name,
                                Lipid1 = lipid1_area_saturated,
@@ -56,12 +56,12 @@ test_that("Able to plot dilution data with its statistical summary in a pdf repo
   # Create dilution table and dilution statistical summary
   dilution_summary <- dilution_table %>%
     summarise_dilution_table(grouping_variable = c("Transition_Name",
-                                                   "Dilution_Batch"),
+                                                   "Dilution_Batch_Name"),
                              conc_var = "Dilution_Percent",
                              signal_var = "Area") %>%
     dplyr::arrange(.data$Transition_Name) %>%
     evaluate_linearity(grouping_variable = c("Transition_Name",
-                                             "Dilution_Batch"))
+                                             "Dilution_Batch_Name"))
 
 
   # Create a ggplot table
@@ -69,7 +69,7 @@ test_that("Able to plot dilution data with its statistical summary in a pdf repo
     ggplot_table <- add_ggplot_panel(dilution_table,
                                      dilution_summary = dilution_summary,
                                      grouping_variable = c("Transition_Name",
-                                                           "Dilution_Batch"),
+                                                           "Dilution_Batch_Name"),
                                      conc_var = "Dilution_Percent",
                                      signal_var = "Area",
                                      plot_half_lin_reg = FALSE)
@@ -79,7 +79,7 @@ test_that("Able to plot dilution data with its statistical summary in a pdf repo
   testthat::expect_silent(
     ggplot_table_auto <- add_ggplot_panel(dilution_table,
                                           grouping_variable = c("Transition_Name",
-                                                                "Dilution_Batch"),
+                                                                "Dilution_Batch_Name"),
                                           conc_var = "Dilution_Percent",
                                           signal_var = "Area",
                                           plot_half_lin_reg = FALSE)

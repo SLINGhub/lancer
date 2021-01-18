@@ -7,9 +7,9 @@
 add_plotly_panel(
   dilution_table,
   dilution_summary = NULL,
-  grouping_variable = c("Transition_Name", "Dilution_Batch"),
+  grouping_variable = c("Transition_Name", "Dilution_Batch_Name"),
   sample_name_var = "Sample_Name",
-  dil_batch_var = "Dilution_Batch",
+  dil_batch_var = "Dilution_Batch_Name",
   dil_batch_col = c("#377eb8", "#4daf4a", "#9C27B0", "#BCAAA4", "#FF8A65", "#EFBBCF"),
   conc_var = "Dilution_Percent",
   conc_var_units = "\%",
@@ -36,7 +36,7 @@ Default: NULL}
 column names in \code{dilution_table}to indicate how each dilution curve
 should be grouped by. It is also going to be used as a conditional
 cognostics in the \code{trelliscopejs} report.
-Default: c("Transition_Name", "Dilution_Batch")}
+Default: c("Transition_Name", "Dilution_Batch_Name")}
 
 \item{sample_name_var}{Column name in \code{dilution_table}
 to indicate the sample name. To be used in the dilution plot
@@ -45,7 +45,7 @@ Default: 'Sample_Name'}
 \item{dil_batch_var}{Column name in \code{dilution_table}
 to indicate the group name of each dilution batch,
 used to colour the points in the dilution plot
-Default: 'Dilution_Batch'}
+Default: 'Dilution_Batch_Name'}
 
 \item{dil_batch_col}{A vector of colours to be used for the dilution
 batch group named given in \code{dil_batch_var},
@@ -87,10 +87,10 @@ dilution_percent <- c(10, 20, 25, 40, 50, 60,
                       75, 80, 100, 125, 150,
                       10, 25, 40, 50, 60,
                       75, 80, 100, 125, 150)
-dilution_batch <- c("B1", "B1", "B1", "B1", "B1",
-                    "B1", "B1", "B1", "B1", "B1", "B1",
-                    "B2", "B2", "B2", "B2", "B2",
-                    "B2", "B2", "B2", "B2", "B2")
+dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1",
+                         "B1", "B1", "B1", "B1", "B1", "B1",
+                         "B2", "B2", "B2", "B2", "B2",
+                         "B2", "B2", "B2", "B2", "B2")
 sample_name <- c("Sample_010a", "Sample_020a",
                  "Sample_025a", "Sample_040a", "Sample_050a",
                  "Sample_060a", "Sample_075a", "Sample_080a",
@@ -119,7 +119,7 @@ lipid4_area_nonlinear <- c(380519, 485372, 478770, 474467, 531640, 576301,
                            426089, 413292, 450190, 415309, 457618)
 
 dilution_annot <- tibble::tibble(Sample_Name = sample_name,
-                                 Dilution_Batch = dilution_batch,
+                                 Dilution_Batch_Name = dilution_batch_name,
                                  Dilution_Percent = dilution_percent)
 lipid_data <- tibble::tibble(Sample_Name = sample_name,
                              Lipid1 = lipid1_area_saturated,
@@ -138,12 +138,12 @@ dilution_table <- create_dilution_table(dilution_annot, lipid_data,
 # Create dilution table and dilution statistical summary
 dilution_summary <- dilution_table \%>\%
   summarise_dilution_table(grouping_variable = c("Transition_Name",
-                                                 "Dilution_Batch"),
+                                                 "Dilution_Batch_Name"),
                            conc_var = "Dilution_Percent",
                            signal_var = "Area") \%>\%
   dplyr::arrange(.data$Transition_Name) \%>\%
   evaluate_linearity(grouping_variable = c("Transition_Name",
-                                           "Dilution_Batch"))
+                                           "Dilution_Batch_Name"))
 
 
 # Create a trellis table

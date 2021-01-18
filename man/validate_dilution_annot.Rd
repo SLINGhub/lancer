@@ -24,14 +24,14 @@ Validate Dilution Annotation
 \examples{
 dilution_percent <- c(10, 20, 40, 60, 80, 100,
                       10, 20, 40, 60, 80, 100)
-dilution_batch <- c("B1", "B1", "B1", "B1", "B1", "B1",
-                    "B2", "B2", "B2", "B2", "B2", "B2")
+dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1", "B1",
+                         "B2", "B2", "B2", "B2", "B2", "B2")
 sample_name <- c("Sample_010a", "Sample_020a", "Sample_040a",
                  "Sample_060a", "Sample_080a", "Sample_100a",
                  "Sample_010b", "Sample_020b", "Sample_040b",
                  "Sample_060b", "Sample_080b", "Sample_100b")
 dilution_annot <- tibble::tibble(Sample_Name = sample_name,
-                                 Dilution_Batch = dilution_batch,
+                                 Dilution_Batch_Name = dilution_batch_name,
                                  Dilution_Percent = dilution_percent)
 validate_dilution_annot(dilution_annot,
                         needed_column = c("Sample_Name"))

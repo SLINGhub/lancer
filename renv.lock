@@ -177,13 +177,6 @@
       "Repository": "CRAN",
       "Hash": "6d80a9fc3c0c8473153b54fa54719dfd"
     },
-    "cowplot": {
-      "Package": "cowplot",
-      "Version": "1.1.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "870b41daf1a4c3640f2e3407a40c31b9"
-    },
     "cpp11": {
       "Package": "cpp11",
       "Version": "0.2.3",
@@ -448,10 +441,10 @@
     },
     "htmlwidgets": {
       "Package": "htmlwidgets",
-      "Version": "1.5.2",
+      "Version": "1.5.3",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "0aaf56b7960bb066646e1868cadcaf07"
+      "Hash": "6fdaa86d0700f8b3e92ee3c445a5a10d"
     },
     "httpuv": {
       "Package": "httpuv",
@@ -658,10 +651,10 @@
     },
     "plotly": {
       "Package": "plotly",
-      "Version": "4.9.2.2",
+      "Version": "4.9.3",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "d15a1ef71d99e20bf8e90cf5854bc3e7"
+      "Hash": "f6b85d9e4ed88074ea0ede1aa74bb00e"
     },
     "praise": {
       "Package": "praise",

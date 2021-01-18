@@ -57,10 +57,10 @@ lipid_data <- tibble::tibble(Sample_Name = sample_name,
                              Lipid2 = lipid2_area)
 dilution_percent <- c(10, 20, 40, 60, 80, 100,
                       10, 20, 40, 60, 80, 100)
-dilution_batch <- c("B1", "B1", "B1", "B1", "B1", "B1",
-                    "B2", "B2", "B2", "B2", "B2", "B2")
+dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1", "B1",
+                         "B2", "B2", "B2", "B2", "B2", "B2")
 dilution_annot <- tibble::tibble(Sample_Name = sample_name,
-                                 Dilution_Batch = dilution_batch,
+                                 Dilution_Batch_Name = dilution_batch_name,
                                  Dilution_Percent = dilution_percent)
 # Create dilution table
 dilution_table <- create_dilution_table(dilution_annot, lipid_data,

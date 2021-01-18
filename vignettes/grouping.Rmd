@@ -23,10 +23,10 @@ dilution_percent <- c(10, 20, 25, 40, 50, 60,
                       75, 80, 100, 125, 150,
                       10, 25, 40, 50, 60,
                       75, 80, 100, 125, 150)
-dilution_batch <- c("B2", "B2", "B2", "B2", "B2",
-                    "B2", "B2", "B2", "B2", "B2", "B2",
-                    "B1", "B1", "B1", "B1", "B1",
-                    "B1", "B1", "B1", "B1", "B1")
+dilution_batch_name <- c("B2", "B2", "B2", "B2", "B2",
+                         "B2", "B2", "B2", "B2", "B2", "B2",
+                         "B1", "B1", "B1", "B1", "B1",
+                         "B1", "B1", "B1", "B1", "B1")
 sample_name <- c("Sample_010a", "Sample_020a", "Sample_025a",
                  "Sample_040a", "Sample_050a", "Sample_060a",
                  "Sample_075a", "Sample_080a", "Sample_100a",
@@ -55,7 +55,7 @@ lipid1_area_nonlinear <- c(380519, 485372, 478770, 474467, 531640, 576301,
                            426089, 413292, 450190, 415309, 457618)
 
 dilution_annot <- tibble::tibble(Sample_Name = sample_name,
-                                 Dilution_Batch = dilution_batch,
+                                 Dilution_Batch_Name = dilution_batch_name,
                                  Dilution_Percent = dilution_percent)
 lipid_data <- tibble::tibble(Sample_Name = sample_name,
                              Lipid4 = lipid4_area_saturated,
@@ -64,7 +64,7 @@ lipid_data <- tibble::tibble(Sample_Name = sample_name,
                              Lipid1 = lipid1_area_nonlinear)
 ```
 
-Order of the `Dilution_Batch` and `Transition_Name` grouping variables is maintained when `summarise_dilution_table` is used. No sorting is involved.
+Order of the `Dilution_Batch_Name` and `Transition_Name` grouping variables is maintained when `summarise_dilution_table` is used. No sorting is involved.
 
 ```{r dilution table}
 # Create dilution table and dilution statistical summary
@@ -73,7 +73,7 @@ dilution_summary <- create_dilution_table(dilution_annot, lipid_data,
                                           signal_var = "Area",
                                           column_group = "Transition_Name"
                                         ) %>%
-  summarise_dilution_table(grouping_variable = c("Dilution_Batch",
+  summarise_dilution_table(grouping_variable = c("Dilution_Batch_Name",
                                                  "Transition_Name"),
                            conc_var = "Dilution_Percent",
                            signal_var = "Area")
@@ -88,7 +88,7 @@ print(dilution_summary, width = 100)
 
 ```{r dilution evaluation}
 dilution_classified <- evaluate_linearity(dilution_summary,
-                                          grouping_variable = c("Dilution_Batch",
+                                          grouping_variable = c("Dilution_Batch_Name",
                                                                 "Transition_Name"))
 
 ```

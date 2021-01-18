@@ -7,8 +7,8 @@ test_that("Able to plot dilution data with plotly correctly", {
                    "Sample_025a", "Sample_040a", "Sample_050a",
                    "Sample_060a", "Sample_075a", "Sample_080a",
                    "Sample_100a", "Sample_125a", "Sample_150a")
-  dilution_batch <- c("B1", "B1", "B1", "B1", "B1",
-                      "B1", "B1", "B1", "B1", "B1", "B1")
+  dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1",
+                           "B1", "B1", "B1", "B1", "B1", "B1")
   lipid1_area_saturated <- c(5748124, 16616414, 21702718, 36191617,
                              49324541, 55618266, 66947588, 74964771,
                              75438063, 91770737, 94692060)
@@ -28,11 +28,11 @@ test_that("Able to plot dilution data with plotly correctly", {
   dilution_data <- tibble::tibble(Sample_Name = sample_name,
                                   Dilution_Percent = dilution_percent,
                                   Area = lipid1_area_saturated,
-                                  Dilution_Batch_Name = dilution_batch
+                                  Dilution_Batch_Name = dilution_batch_name
                                   )
 
   # Get the dilution batch name from dilution_table
-  dilution_batch_name <- dilution_batch %>%
+  dilution_batch_name <- dilution_batch_name %>%
     unique() %>%
     as.character()
 
@@ -58,7 +58,7 @@ test_that("Able to plot dilution data with plotly correctly", {
   dilution_data <- tibble::tibble(Sample_Name = sample_name,
                                   Dilution_Percent = dilution_percent,
                                   Area = bad_area,
-                                  Dilution_Batch_Name = dilution_batch
+                                  Dilution_Batch_Name = dilution_batch_name
   )
 
   # Plot the html
@@ -77,7 +77,7 @@ test_that("Able to plot dilution data with plotly correctly", {
   dilution_data <- tibble::tibble(Sample_Name = sample_name,
                                   Dilution_Percent = bad_conc,
                                   Area = lipid1_area_saturated,
-                                  Dilution_Batch_Name = dilution_batch
+                                  Dilution_Batch_Name = dilution_batch_name
   )
 
   # Plot the html
@@ -97,7 +97,7 @@ test_that("Able to plot dilution data with plotly correctly", {
   dilution_data <- tibble::tibble(Sample_Name = sample_name,
                                   Dilution_Percent = bad_conc,
                                   Area = bad_area,
-                                  Dilution_Batch_Name = dilution_batch
+                                  Dilution_Batch_Name = dilution_batch_name
   )
 
   # Plot the html
@@ -116,7 +116,7 @@ test_that("Able to plot dilution data with plotly correctly", {
   dilution_data <- tibble::tibble(Sample_Name = sample_name,
                                   Dilution_Percent = dilution_percent,
                                   Area = na_area,
-                                  Dilution_Batch_Name = dilution_batch
+                                  Dilution_Batch_Name = dilution_batch_name
   )
 
   # Plot the html

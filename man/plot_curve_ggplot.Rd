@@ -9,7 +9,7 @@ plot_curve_ggplot(
   dilution_summary_grp,
   title,
   pal,
-  dil_batch_var = "Dilution_Batch",
+  dil_batch_var = "Dilution_Batch_Name",
   conc_var = "Dilution_Percent",
   conc_var_units = "\%",
   conc_var_interval = 50,
@@ -32,7 +32,7 @@ name is a dilution batch group given in \code{dil_batch_var}}
 \item{dil_batch_var}{Column name in \code{dilution_table}
 to indicate the group name of each dilution batch,
 used to colour the points in the dilution plot
-Default: 'Dilution_Batch'}
+Default: 'Dilution_Batch_Name'}
 
 \item{conc_var}{Column name in \code{dilution_table} to indicate concentration
 Default: 'Dilution_Percent'}
@@ -64,8 +64,8 @@ sample_name <- c("Sample_010a", "Sample_020a",
                  "Sample_025a", "Sample_040a", "Sample_050a",
                  "Sample_060a", "Sample_075a", "Sample_080a",
                  "Sample_100a", "Sample_125a", "Sample_150a")
-dilution_batch <- c("B1", "B1", "B1", "B1", "B1",
-                    "B1", "B1", "B1", "B1", "B1", "B1")
+dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1",
+                         "B1", "B1", "B1", "B1", "B1", "B1")
 transition_name <- c("Lipid1", "Lipid1", "Lipid1", "Lipid1",
                      "Lipid1", "Lipid1", "Lipid1", "Lipid1",
                      "Lipid1", "Lipid1", "Lipid1")
@@ -74,7 +74,7 @@ lipid1_area_saturated <- c(5748124, 16616414, 21702718, 36191617,
                            75438063, 91770737, 94692060)
 
 dilution_data <- tibble::tibble(Sample_Name = sample_name,
-                                Dilution_Batch_Name = dilution_batch,
+                                Dilution_Batch_Name = dilution_batch_name,
                                 Dilution_Percent = dilution_percent,
                                 Transition_Name = transition_name,
                                 Area = lipid1_area_saturated,
@@ -83,7 +83,7 @@ dilution_data <- tibble::tibble(Sample_Name = sample_name,
 grouping_variable <- c("Transition_Name","Dilution_Batch_Name")
 
 # Get the dilution batch name from dilution_table
-dilution_batch_name <- dilution_batch \%>\%
+dilution_batch_name <- dilution_batch_name \%>\%
   unique() \%>\%
   as.character()
 

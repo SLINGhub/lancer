@@ -26,9 +26,9 @@ Validate Cognostics Data
 }
 \examples{
 # Create Cognostics Dataframe
-col_name_vec <- c("Transition_Name", "Dilution_Batch")
+col_name_vec <- c("Transition_Name", "Dilution_Batch_Name")
 
-desc_vec <- c("Transition_Name", "Dilution_Batch")
+desc_vec <- c("Transition_Name", "Dilution_Batch_Name")
 
 type_vec <- c("factor","factor")
 

@@ -4,10 +4,10 @@ test_that("Able to print dilution summary data to excel", {
                         75, 80, 100, 125, 150,
                         10, 25, 40, 50, 60,
                         75, 80, 100, 125, 150)
-  dilution_batch <- c("B1", "B1", "B1", "B1", "B1",
-                      "B1", "B1", "B1", "B1", "B1", "B1",
-                      "B2", "B2", "B2", "B2", "B2",
-                      "B2", "B2", "B2", "B2", "B2")
+  dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1",
+                           "B1", "B1", "B1", "B1", "B1", "B1",
+                           "B2", "B2", "B2", "B2", "B2",
+                           "B2", "B2", "B2", "B2", "B2")
   sample_name <- c("Sample_010a", "Sample_020a", "Sample_025a",
                    "Sample_040a", "Sample_050a", "Sample_060a",
                    "Sample_075a", "Sample_080a", "Sample_100a",
@@ -36,7 +36,7 @@ test_that("Able to print dilution summary data to excel", {
                              426089, 413292, 450190, 415309, 457618)
 
   dilution_annot <- tibble::tibble(Sample_Name = sample_name,
-                                   Dilution_Batch = dilution_batch,
+                                   Dilution_Batch_Name = dilution_batch_name,
                                    Dilution_Percent = dilution_percent)
   lipid_data <- tibble::tibble(Sample_Name = sample_name,
                                Lipid1 = lipid1_area_saturated,
@@ -51,12 +51,12 @@ test_that("Able to print dilution summary data to excel", {
                                             column_group = "Transition_Name"
                                             ) %>%
     summarise_dilution_table(grouping_variable = c("Transition_Name",
-                                                   "Dilution_Batch"),
+                                                   "Dilution_Batch_Name"),
                              conc_var = "Dilution_Percent",
                              signal_var = "Area") %>%
     dplyr::arrange(.data$Transition_Name) %>%
     evaluate_linearity(grouping_variable = c("Transition_Name",
-                                             "Dilution_Batch"))
+                                             "Dilution_Batch_Name"))
 
   # Testing if the change in class for near zero column works
   class_change_check <- dilution_summary %>%

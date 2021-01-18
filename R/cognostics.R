@@ -9,9 +9,9 @@
 #' is not found in the Cognostics Data
 #' @examples
 #' # Create Cognostics Dataframe
-#' col_name_vec <- c("Transition_Name", "Dilution_Batch")
+#' col_name_vec <- c("Transition_Name", "Dilution_Batch_Name")
 #'
-#' desc_vec <- c("Transition_Name", "Dilution_Batch")
+#' desc_vec <- c("Transition_Name", "Dilution_Batch_Name")
 #'
 #' type_vec <- c("factor","factor")
 #'
@@ -52,12 +52,12 @@ create_default_cog_df <- function() {
   # More details in `trelliscopejs::cog` can be found in
   # <https://rdrr.io/cran/trelliscopejs/man/cog.html>
 
-  col_name_vec <- c("Transition_Name", "Dilution_Batch","Transition_Name_Class",
+  col_name_vec <- c("Transition_Name", "Dilution_Batch_Name","Transition_Name_Class",
                     "wf1_group", "wf2_group",
                     "r_corr", "pra_linear", "mandel_p_val",
                     "r2_linear", "r2_adj_linear", "mandel_stats")
 
-  desc_vec <- c("Transition_Name", "Dilution_Batch", "Classes of Transitions",
+  desc_vec <- c("Transition_Name", "Dilution_Batch_Name", "Classes of Transitions",
                 "Group from workflow 1","Group from workflow 2",
                 "Pearson Correlation R values",
                 "Linear Regression Percent Residual Accuracy", "P values for Mandel test",
@@ -104,10 +104,10 @@ create_default_cog_df <- function() {
 #'                       75, 80, 100, 125, 150,
 #'                       10, 25, 40, 50, 60,
 #'                       75, 80, 100, 125, 150)
-#' dilution_batch <- c("B1", "B1", "B1", "B1", "B1",
-#'                     "B1", "B1", "B1", "B1", "B1", "B1",
-#'                     "B2", "B2", "B2", "B2", "B2",
-#'                     "B2", "B2", "B2", "B2", "B2")
+#' dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1",
+#'                          "B1", "B1", "B1", "B1", "B1", "B1",
+#'                          "B2", "B2", "B2", "B2", "B2",
+#'                          "B2", "B2", "B2", "B2", "B2")
 #' sample_name <- c("Sample_010a", "Sample_020a",
 #'                  "Sample_025a", "Sample_040a", "Sample_050a",
 #'                  "Sample_060a", "Sample_075a", "Sample_080a",
@@ -136,7 +136,7 @@ create_default_cog_df <- function() {
 #'                            426089, 413292, 450190, 415309, 457618)
 #'
 #' dilution_annot <- tibble::tibble(Sample_Name = sample_name,
-#'                                  Dilution_Batch = dilution_batch,
+#'                                  Dilution_Batch_Name = dilution_batch_name,
 #'                                  Dilution_Percent = dilution_percent)
 #' lipid_data <- tibble::tibble(Sample_Name = sample_name,
 #'                              Lipid1 = lipid1_area_saturated,
@@ -155,18 +155,18 @@ create_default_cog_df <- function() {
 #' # Create dilution table and dilution statistical summary
 #' dilution_summary <- dilution_table %>%
 #'   summarise_dilution_table(grouping_variable = c("Transition_Name",
-#'                                                  "Dilution_Batch"),
+#'                                                  "Dilution_Batch_Name"),
 #'                            conc_var = "Dilution_Percent",
 #'                            signal_var = "Area") %>%
 #'   dplyr::arrange(.data$Transition_Name) %>%
 #'   evaluate_linearity(grouping_variable = c("Transition_Name",
-#'                                            "Dilution_Batch"))
+#'                                            "Dilution_Batch_Name"))
 #'
 #' # Create our own cog_df
-#' col_name_vec <- c("Transition_Name", "Dilution_Batch",
+#' col_name_vec <- c("Transition_Name", "Dilution_Batch_Name",
 #'                   "Transition_Name_Class")
 #'
-#' desc_vec <- c("Transition_Name", "Dilution_Batch",
+#' desc_vec <- c("Transition_Name", "Dilution_Batch_Name",
 #'               "Transition_Name_Class")
 #'
 #' type_vec <- c("factor", "factor", "factor")
@@ -242,10 +242,10 @@ update_cog_manual <- function(dilution_summary, cog_df,
 #'                       75, 80, 100, 125, 150,
 #'                       10, 25, 40, 50, 60,
 #'                       75, 80, 100, 125, 150)
-#' dilution_batch <- c("B1", "B1", "B1", "B1", "B1",
-#'                     "B1", "B1", "B1", "B1", "B1", "B1",
-#'                     "B2", "B2", "B2", "B2", "B2",
-#'                     "B2", "B2", "B2", "B2", "B2")
+#' dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1",
+#'                          "B1", "B1", "B1", "B1", "B1", "B1",
+#'                          "B2", "B2", "B2", "B2", "B2",
+#'                          "B2", "B2", "B2", "B2", "B2")
 #' sample_name <- c("Sample_010a", "Sample_020a",
 #'                  "Sample_025a", "Sample_040a", "Sample_050a",
 #'                  "Sample_060a", "Sample_075a", "Sample_080a",
@@ -274,7 +274,7 @@ update_cog_manual <- function(dilution_summary, cog_df,
 #'                            426089, 413292, 450190, 415309, 457618)
 #'
 #' dilution_annot <- tibble::tibble(Sample_Name = sample_name,
-#'                                  Dilution_Batch = dilution_batch,
+#'                                  Dilution_Batch_Name = dilution_batch_name,
 #'                                  Dilution_Percent = dilution_percent)
 #' lipid_data <- tibble::tibble(Sample_Name = sample_name,
 #'                              Lipid1 = lipid1_area_saturated,
@@ -293,12 +293,12 @@ update_cog_manual <- function(dilution_summary, cog_df,
 #' # Create dilution table and dilution statistical summary
 #' dilution_summary <- dilution_table %>%
 #'   summarise_dilution_table(grouping_variable = c("Transition_Name",
-#'                                                  "Dilution_Batch"),
+#'                                                  "Dilution_Batch_Name"),
 #'                            conc_var = "Dilution_Percent",
 #'                            signal_var = "Area") %>%
 #'   dplyr::arrange(.data$Transition_Name) %>%
 #'   evaluate_linearity(grouping_variable = c("Transition_Name",
-#'                                            "Dilution_Batch"))
+#'                                            "Dilution_Batch_Name"))
 #'
 #' updated_summary <- update_cog_auto(dilution_summary)
 #'
@@ -339,7 +339,7 @@ update_cog_auto <- function(dilution_summary) {
 #' column names in `dilution_summary`to indicate how each dilution curve
 #' should be grouped by. It is also going to be used as a conditional
 #' cognostics in the `trelliscopejs` report,
-#' Default: c("Transition_Name", "Dilution_Batch")
+#' Default: c("Transition_Name", "Dilution_Batch_Name")
 #' @param panel_variable A column name in `dilution_summary` to be converted
 #' into a panel for the `Trelliscope` display
 #' Default: NULL
@@ -362,10 +362,10 @@ update_cog_auto <- function(dilution_summary) {
 #'                       75, 80, 100, 125, 150,
 #'                       10, 25, 40, 50, 60,
 #'                       75, 80, 100, 125, 150)
-#' dilution_batch <- c("B1", "B1", "B1", "B1", "B1",
-#'                     "B1", "B1", "B1", "B1", "B1", "B1",
-#'                     "B2", "B2", "B2", "B2", "B2",
-#'                     "B2", "B2", "B2", "B2", "B2")
+#' dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1",
+#'                          "B1", "B1", "B1", "B1", "B1", "B1",
+#'                          "B2", "B2", "B2", "B2", "B2",
+#'                          "B2", "B2", "B2", "B2", "B2")
 #' sample_name <- c("Sample_010a", "Sample_020a",
 #'                  "Sample_025a", "Sample_040a", "Sample_050a",
 #'                  "Sample_060a", "Sample_075a", "Sample_080a",
@@ -394,7 +394,7 @@ update_cog_auto <- function(dilution_summary) {
 #'                            426089, 413292, 450190, 415309, 457618)
 #'
 #' dilution_annot <- tibble::tibble(Sample_Name = sample_name,
-#'                                  Dilution_Batch = dilution_batch,
+#'                                  Dilution_Batch_Name = dilution_batch_name,
 #'                                  Dilution_Percent = dilution_percent)
 #' lipid_data <- tibble::tibble(Sample_Name = sample_name,
 #'                              Lipid1 = lipid1_area_saturated,
@@ -413,12 +413,12 @@ update_cog_auto <- function(dilution_summary) {
 #' # Create dilution table and dilution statistical summary
 #' dilution_summary <- dilution_table %>%
 #'   summarise_dilution_table(grouping_variable = c("Transition_Name",
-#'                                                  "Dilution_Batch"),
+#'                                                  "Dilution_Batch_Name"),
 #'                            conc_var = "Dilution_Percent",
 #'                            signal_var = "Area") %>%
 #'   dplyr::arrange(.data$Transition_Name) %>%
 #'   evaluate_linearity(grouping_variable = c("Transition_Name",
-#'                                            "Dilution_Batch"))
+#'                                            "Dilution_Batch_Name"))
 #'
 #' updated_summary <- convert_to_cog(dilution_summary)
 #'
@@ -430,7 +430,7 @@ update_cog_auto <- function(dilution_summary) {
 #' @export
 convert_to_cog <- function(dilution_summary, cog_df = NULL,
                            grouping_variable = c("Transition_Name",
-                                                 "Dilution_Batch"),
+                                                 "Dilution_Batch_Name"),
                            panel_variable = NULL,
                            col_name_vec = "col_name_vec",
                            desc_vec = "desc_vec",

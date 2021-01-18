@@ -76,8 +76,8 @@ Write dilution summary table to an excel sheet
 \examples{
 transition_name <- c("Lipid1", "Lipid1", "Lipid1", "Lipid1",
                      "Lipid2", "Lipid2", "Lipid2", "Lipid2")
-dilution_batch <- c("B1", "B1", "B1", "B1",
-                    "B2", "B2", "B2", "B2")
+dilution_batch_name <- c("B1", "B1", "B1", "B1",
+                         "B2", "B2", "B2", "B2")
 wf1_group <- c("Poor Linearity", "Good Linearity",
                "Poor Linearity", "Poor Linearity",
                "Poor Linearity", "Good Linearity",
@@ -95,7 +95,7 @@ mandel_p_val <- c(2.899006e-07, 7.922290e-07, 2.903365e-01, 3.082930e-01,
 concavity <- c(-4133.501328, -4146.745747, -3.350942, -3.393617,
                0.3942824, 0.4012963, -19.9469621, -22.6144875)
 dilution_summary <- data.frame(Transition_Name = transition_name,
-                               Dilution_Batch = dilution_batch,
+                               Dilution_Batch_Name = dilution_batch_name,
                                wf1_group = wf1_group, wf2_group = wf2_group,
                                r_corr = r_corr, pra_linear = pra_linear,
                                mandel_p_val = mandel_p_val,

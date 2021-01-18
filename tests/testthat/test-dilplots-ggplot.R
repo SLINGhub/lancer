@@ -7,8 +7,8 @@ test_that("Able to plot good dilution data with ggplot correctly", {
                    "Sample_025a", "Sample_040a", "Sample_050a",
                    "Sample_060a", "Sample_075a", "Sample_080a",
                    "Sample_100a", "Sample_125a", "Sample_150a")
-  dilution_batch <- c("B1", "B1", "B1", "B1", "B1",
-                      "B1", "B1", "B1", "B1", "B1", "B1")
+  dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1",
+                           "B1", "B1", "B1", "B1", "B1", "B1")
   transition_name <- c("Lipid1", "Lipid1", "Lipid1", "Lipid1",
                        "Lipid1", "Lipid1", "Lipid1", "Lipid1",
                        "Lipid1", "Lipid1", "Lipid1")
@@ -17,7 +17,7 @@ test_that("Able to plot good dilution data with ggplot correctly", {
                              75438063, 91770737, 94692060)
 
   dilution_data <- tibble::tibble(Sample_Name = sample_name,
-                                   Dilution_Batch_Name = dilution_batch,
+                                   Dilution_Batch_Name = dilution_batch_name,
                                    Dilution_Percent = dilution_percent,
                                    Transition_Name = transition_name,
                                    Area = lipid1_area_saturated,
@@ -26,7 +26,7 @@ test_that("Able to plot good dilution data with ggplot correctly", {
   grouping_variable <- c("Transition_Name","Dilution_Batch_Name")
 
   # Get the dilution batch name from dilution_table
-  dilution_batch_name <- dilution_batch %>%
+  dilution_batch_name <- dilution_batch_name %>%
     unique() %>%
     as.character()
 
@@ -86,8 +86,8 @@ test_that("Able to plot horizontal dilution data with ggplot correctly", {
                    "Sample_025a", "Sample_040a", "Sample_050a",
                    "Sample_060a", "Sample_075a", "Sample_080a",
                    "Sample_100a", "Sample_125a", "Sample_150a")
-  dilution_batch <- c("B1", "B1", "B1", "B1", "B1",
-                      "B1", "B1", "B1", "B1", "B1", "B1")
+  dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1",
+                           "B1", "B1", "B1", "B1", "B1", "B1")
   transition_name <- c("Lipid1", "Lipid1", "Lipid1", "Lipid1",
                        "Lipid1", "Lipid1", "Lipid1", "Lipid1",
                        "Lipid1", "Lipid1", "Lipid1")
@@ -96,7 +96,7 @@ test_that("Able to plot horizontal dilution data with ggplot correctly", {
 
   # Handle the case of horizontal line
   dilution_data <- tibble::tibble(Sample_Name = sample_name,
-                                  Dilution_Batch_Name = dilution_batch,
+                                  Dilution_Batch_Name = dilution_batch_name,
                                   Dilution_Percent = dilution_percent,
                                   Transition_Name = transition_name,
                                   Area = bad_area,
@@ -105,7 +105,7 @@ test_that("Able to plot horizontal dilution data with ggplot correctly", {
   grouping_variable <- c("Transition_Name","Dilution_Batch_Name")
 
   # Get the dilution batch name from dilution_table
-  dilution_batch_name <- dilution_batch %>%
+  dilution_batch_name <- dilution_batch_name %>%
     unique() %>%
     as.character()
 
@@ -150,8 +150,8 @@ test_that("Able to plot vertical dilution data with ggplot correctly", {
                    "Sample_025a", "Sample_040a", "Sample_050a",
                    "Sample_060a", "Sample_075a", "Sample_080a",
                    "Sample_100a", "Sample_125a", "Sample_150a")
-  dilution_batch <- c("B1", "B1", "B1", "B1", "B1",
-                      "B1", "B1", "B1", "B1", "B1", "B1")
+  dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1",
+                           "B1", "B1", "B1", "B1", "B1", "B1")
   transition_name <- c("Lipid1", "Lipid1", "Lipid1", "Lipid1",
                        "Lipid1", "Lipid1", "Lipid1", "Lipid1",
                        "Lipid1", "Lipid1", "Lipid1")
@@ -163,7 +163,7 @@ test_that("Able to plot vertical dilution data with ggplot correctly", {
 
   # Handle the case of vertical line
   dilution_data <- tibble::tibble(Sample_Name = sample_name,
-                                  Dilution_Batch_Name = dilution_batch,
+                                  Dilution_Batch_Name = dilution_batch_name,
                                   Dilution_Percent = bad_conc,
                                   Transition_Name = transition_name,
                                   Area = lipid1_area_saturated,
@@ -172,7 +172,7 @@ test_that("Able to plot vertical dilution data with ggplot correctly", {
   grouping_variable <- c("Transition_Name","Dilution_Batch_Name")
 
   # Get the dilution batch name from dilution_table
-  dilution_batch_name <- dilution_batch %>%
+  dilution_batch_name <- dilution_batch_name %>%
     unique() %>%
     as.character()
 
@@ -216,8 +216,8 @@ test_that("Able to plot single point dilution data with ggplot correctly", {
                    "Sample_025a", "Sample_040a", "Sample_050a",
                    "Sample_060a", "Sample_075a", "Sample_080a",
                    "Sample_100a", "Sample_125a", "Sample_150a")
-  dilution_batch <- c("B1", "B1", "B1", "B1", "B1",
-                      "B1", "B1", "B1", "B1", "B1", "B1")
+  dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1",
+                           "B1", "B1", "B1", "B1", "B1", "B1")
   transition_name <- c("Lipid1", "Lipid1", "Lipid1", "Lipid1",
                        "Lipid1", "Lipid1", "Lipid1", "Lipid1",
                        "Lipid1", "Lipid1", "Lipid1")
@@ -228,7 +228,7 @@ test_that("Able to plot single point dilution data with ggplot correctly", {
 
   # Handle the case of a point
   dilution_data <- tibble::tibble(Sample_Name = sample_name,
-                                  Dilution_Batch_Name = dilution_batch,
+                                  Dilution_Batch_Name = dilution_batch_name,
                                   Dilution_Percent = bad_conc,
                                   Transition_Name = transition_name,
                                   Area = bad_area,
@@ -237,7 +237,7 @@ test_that("Able to plot single point dilution data with ggplot correctly", {
   grouping_variable <- c("Transition_Name","Dilution_Batch_Name")
 
   # Get the dilution batch name from dilution_table
-  dilution_batch_name <- dilution_batch %>%
+  dilution_batch_name <- dilution_batch_name %>%
     unique() %>%
     as.character()
 
@@ -281,8 +281,8 @@ test_that("Able to plot NA dilution data with ggplot correctly", {
                    "Sample_025a", "Sample_040a", "Sample_050a",
                    "Sample_060a", "Sample_075a", "Sample_080a",
                    "Sample_100a", "Sample_125a", "Sample_150a")
-  dilution_batch <- c("B1", "B1", "B1", "B1", "B1",
-                      "B1", "B1", "B1", "B1", "B1", "B1")
+  dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1",
+                           "B1", "B1", "B1", "B1", "B1", "B1")
   transition_name <- c("Lipid1", "Lipid1", "Lipid1", "Lipid1",
                        "Lipid1", "Lipid1", "Lipid1", "Lipid1",
                        "Lipid1", "Lipid1", "Lipid1")
@@ -292,7 +292,7 @@ test_that("Able to plot NA dilution data with ggplot correctly", {
 
   # Handle the case of a plot that gives no points
   dilution_data <- tibble::tibble(Sample_Name = sample_name,
-                                  Dilution_Batch_Name = dilution_batch,
+                                  Dilution_Batch_Name = dilution_batch_name,
                                   Dilution_Percent = dilution_percent,
                                   Transition_Name = transition_name,
                                   Area = na_area,
@@ -301,7 +301,7 @@ test_that("Able to plot NA dilution data with ggplot correctly", {
   grouping_variable <- c("Transition_Name","Dilution_Batch_Name")
 
   # Get the dilution batch name from dilution_table
-  dilution_batch_name <- dilution_batch %>%
+  dilution_batch_name <- dilution_batch_name %>%
     unique() %>%
     as.character()
 

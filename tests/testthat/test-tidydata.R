@@ -3,8 +3,8 @@ test_that("create dilution table and statistical summary", {
   # Data Creation
   dilution_percent <- c(10, 20, 40, 60, 80, 100,
                         10, 20, 40, 60, 80, 100)
-  dilution_batch <- c("B1", "B1", "B1", "B1", "B1", "B1",
-                      "B2", "B2", "B2", "B2", "B2", "B2")
+  dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1", "B1",
+                           "B2", "B2", "B2", "B2", "B2", "B2")
   sample_name <- c("Sample_010a", "Sample_020a", "Sample_040a",
                    "Sample_060a", "Sample_080a", "Sample_100a",
                    "Sample_010b", "Sample_020b", "Sample_040b",
@@ -15,13 +15,13 @@ test_that("create dilution table and statistical summary", {
                    2300075, 4137350, 7021062, 8923063, 9289742, 11366710)
 
   dilution_annot <- tibble::tibble(Sample_Name = sample_name,
-                                        Dilution_Batch = dilution_batch,
+                                        Dilution_Batch_Name = dilution_batch_name,
                                         Dilution_Percent = dilution_percent)
   lipid_data <- tibble::tibble(Sample_Name = sample_name,
                                Lipid1 = lipid1_area,
                                Lipid2 = lipid2_area)
   bad_dilution_annot <- tibble::tibble(Sample_Nam = sample_name,
-                                       Dilution_Batch = dilution_batch,
+                                       Dilution_Batch_Name = dilution_batch_name,
                                        Dilution_Percent = dilution_percent)
   bad_lipid_data <- tibble::tibble(Sample_Nam = sample_name,
                                    Lipid1 = lipid1_area,
@@ -36,7 +36,7 @@ test_that("create dilution table and statistical summary", {
   # Get dilution statistical summary
   dilution_summary <- dilution_table %>%
     summarise_dilution_table(grouping_variable = c("Transition_Name",
-                                                   "Dilution_Batch"),
+                                                   "Dilution_Batch_Name"),
                              conc_var = "Dilution_Percent",
                              signal_var = "Area") %>%
     dplyr::arrange(.data$Transition_Name)
@@ -64,14 +64,14 @@ test_that("create dilution table and statistical summary", {
   testthat::expect_error(
     summarise_dilution_table(dilution_table,
                              grouping_variable = c("Transition_Name",
-                                                   "Dilution_Batch"),
+                                                   "Dilution_Batch_Name"),
                              conc_var = "Dilution_Percen",
                              signal_var = "Area")
   )
   testthat::expect_error(
     summarise_dilution_table(dilution_table,
                              grouping_variable = c("Transition_Name",
-                                                   "Dilution_Batch"),
+                                                   "Dilution_Batch_Name"),
                              conc_var = "Dilution_Percent",
                              signal_var = "Are")
   )

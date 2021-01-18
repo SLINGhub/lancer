@@ -172,7 +172,7 @@ plot_summary_table <- function(dilution_summary_grp) {
 #' @param dil_batch_var Column name in `dilution_table`
 #' to indicate the group name of each dilution batch,
 #' used to colour the points in the dilution plot
-#' Default: 'Dilution_Batch'
+#' Default: 'Dilution_Batch_Name'
 #' @param conc_var Column name in `dilution_table` to indicate concentration
 #' Default: 'Dilution_Percent'
 #' @param conc_var_units Unit of measure for `conc_var`, Default: '%'
@@ -194,8 +194,8 @@ plot_summary_table <- function(dilution_summary_grp) {
 #'                  "Sample_025a", "Sample_040a", "Sample_050a",
 #'                  "Sample_060a", "Sample_075a", "Sample_080a",
 #'                  "Sample_100a", "Sample_125a", "Sample_150a")
-#' dilution_batch <- c("B1", "B1", "B1", "B1", "B1",
-#'                     "B1", "B1", "B1", "B1", "B1", "B1")
+#' dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1",
+#'                          "B1", "B1", "B1", "B1", "B1", "B1")
 #' transition_name <- c("Lipid1", "Lipid1", "Lipid1", "Lipid1",
 #'                      "Lipid1", "Lipid1", "Lipid1", "Lipid1",
 #'                      "Lipid1", "Lipid1", "Lipid1")
@@ -204,7 +204,7 @@ plot_summary_table <- function(dilution_summary_grp) {
 #'                            75438063, 91770737, 94692060)
 #'
 #' dilution_data <- tibble::tibble(Sample_Name = sample_name,
-#'                                 Dilution_Batch_Name = dilution_batch,
+#'                                 Dilution_Batch_Name = dilution_batch_name,
 #'                                 Dilution_Percent = dilution_percent,
 #'                                 Transition_Name = transition_name,
 #'                                 Area = lipid1_area_saturated,
@@ -213,7 +213,7 @@ plot_summary_table <- function(dilution_summary_grp) {
 #' grouping_variable <- c("Transition_Name","Dilution_Batch_Name")
 #'
 #' # Get the dilution batch name from dilution_table
-#' dilution_batch_name <- dilution_batch %>%
+#' dilution_batch_name <- dilution_batch_name %>%
 #'   unique() %>%
 #'   as.character()
 #'
@@ -249,7 +249,7 @@ plot_curve_ggplot <- function(dilution_data,
                               dilution_summary_grp,
                               title,
                               pal,
-                              dil_batch_var = "Dilution_Batch",
+                              dil_batch_var = "Dilution_Batch_Name",
                               conc_var = "Dilution_Percent",
                               conc_var_units = "%",
                               conc_var_interval = 50,
@@ -273,7 +273,7 @@ plot_curve_ggplot <- function(dilution_data,
   filtered_pal <- pal[which(names(pal) %in% names_of_dil_batch)]
 
   # Give an error if the palatte colour is not listed in
-  # dilution_batch
+  # dilution_batch_name
   stopifnot(length(filtered_pal) > 0)
 
   # Get conc_vector before we drop the rows
@@ -478,11 +478,11 @@ plot_curve_ggplot <- function(dilution_data,
 #' @param grouping_variable A character vector of
 #' column names in `dilution_table`to indicate how each dilution curve
 #' should be grouped by,
-#' Default: c("Transition_Name", "Dilution_Batch")
+#' Default: c("Transition_Name", "Dilution_Batch_Name")
 #' @param dil_batch_var Column name in `dilution_table`
 #' to indicate the group name of each dilution batch,
 #' used to colour the points in the dilution plot
-#' Default: 'Dilution_Batch'
+#' Default: 'Dilution_Batch_Name'
 #' @param dil_batch_col A vector of colours to be used for the dilution
 #' batch group named given in `dil_batch_var`,
 #' Default: c("#377eb8", "#4daf4a", "#9C27B0", "#BCAAA4", "#FF8A65", "#EFBBCF")
@@ -514,10 +514,10 @@ plot_curve_ggplot <- function(dilution_data,
 #'                       75, 80, 100, 125, 150,
 #'                       10, 25, 40, 50, 60,
 #'                       75, 80, 100, 125, 150)
-#' dilution_batch <- c("B1", "B1", "B1", "B1", "B1",
-#'                     "B1", "B1", "B1", "B1", "B1", "B1",
-#'                     "B2", "B2", "B2", "B2", "B2",
-#'                     "B2", "B2", "B2", "B2", "B2")
+#' dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1",
+#'                          "B1", "B1", "B1", "B1", "B1", "B1",
+#'                          "B2", "B2", "B2", "B2", "B2",
+#'                          "B2", "B2", "B2", "B2", "B2")
 #' sample_name <- c("Sample_010a", "Sample_020a",
 #'                  "Sample_025a", "Sample_040a", "Sample_050a",
 #'                  "Sample_060a", "Sample_075a", "Sample_080a",
@@ -546,7 +546,7 @@ plot_curve_ggplot <- function(dilution_data,
 #'                            426089, 413292, 450190, 415309, 457618)
 #'
 #' dilution_annot <- tibble::tibble(Sample_Name = sample_name,
-#'                                  Dilution_Batch = dilution_batch,
+#'                                  Dilution_Batch_Name = dilution_batch_name,
 #'                                  Dilution_Percent = dilution_percent)
 #' lipid_data <- tibble::tibble(Sample_Name = sample_name,
 #'                              Lipid1 = lipid1_area_saturated,
@@ -565,12 +565,12 @@ plot_curve_ggplot <- function(dilution_data,
 #' # Create dilution table and dilution statistical summary
 #' dilution_summary <- dilution_table %>%
 #'   summarise_dilution_table(grouping_variable = c("Transition_Name",
-#'                                                  "Dilution_Batch"),
+#'                                                  "Dilution_Batch_Name"),
 #'                            conc_var = "Dilution_Percent",
 #'                            signal_var = "Area") %>%
 #'   dplyr::arrange(.data$Transition_Name) %>%
 #'   evaluate_linearity(grouping_variable = c("Transition_Name",
-#'                                            "Dilution_Batch"))
+#'                                            "Dilution_Batch_Name"))
 #'
 #'
 #' # Create a ggplot table
@@ -583,22 +583,22 @@ plot_curve_ggplot <- function(dilution_data,
 #' ggplot_list[[3]]
 #' @export
 add_ggplot_panel <- function(dilution_table, dilution_summary = NULL,
-                                grouping_variable = c("Transition_Name",
-                                                      "Dilution_Batch"),
-                                dil_batch_var = "Dilution_Batch",
-                                dil_batch_col = c("#377eb8",
-                                                  "#4daf4a",
-                                                  "#9C27B0",
-                                                  "#BCAAA4",
-                                                  "#FF8A65",
-                                                  "#EFBBCF"),
-                                conc_var = "Dilution_Percent",
-                                conc_var_units = "%",
-                                conc_var_interval = 50,
-                                signal_var = "Area",
-                                have_plot_title = TRUE,
-                                plot_summary_table = TRUE,
-                                plot_half_lin_reg = FALSE) {
+                             grouping_variable = c("Transition_Name",
+                                                   "Dilution_Batch_Name"),
+                             dil_batch_var = "Dilution_Batch_Name",
+                             dil_batch_col = c("#377eb8",
+                                               "#4daf4a",
+                                               "#9C27B0",
+                                               "#BCAAA4",
+                                               "#FF8A65",
+                                               "#EFBBCF"),
+                             conc_var = "Dilution_Percent",
+                             conc_var_units = "%",
+                             conc_var_interval = 50,
+                             signal_var = "Area",
+                             have_plot_title = TRUE,
+                             plot_summary_table = TRUE,
+                             plot_half_lin_reg = FALSE) {
 
   # Check if dilution_table is valid with the relevant columns
   validate_dilution_table(dilution_table,
@@ -653,13 +653,25 @@ add_ggplot_panel <- function(dilution_table, dilution_summary = NULL,
       dplyr::mutate(summary = NA)
   }
 
-  # Add a dummy Dilution Batch Name, to be used for plotting later
+  # Add a dummy "Dilution Batch Name", to be used for plotting later
+  # Does not work if we have a column with that name...
   # Nest the data to be used for plotting
+
   dilution_table <- dilution_table %>%
-    dplyr::mutate(Dilution_Batch_Name = .data[[dil_batch_var]]) %>%
+    #dplyr::mutate(Dilution_Batch_Name = .data[[dil_batch_var]]) %>%
     dplyr::group_by_at(dplyr::all_of(grouping_variable)) %>%
     dplyr::relocate(dplyr::all_of(grouping_variable)) %>%
     tidyr::nest() %>%
+    dplyr::mutate(data = purrr::map2(.data$data,
+                                     .data[[dil_batch_var]],
+                                       function(df,Dilution_Batch_Name) {
+                                         df <- df %>%
+                                           dplyr::mutate(!!dil_batch_var := Dilution_Batch_Name)
+                                         return(df)
+                                       }
+
+    )
+                    ) %>%
     dplyr::ungroup() %>%
     dplyr::left_join(nested_dilution_summary, by = grouping_variable)
 
@@ -685,7 +697,7 @@ add_ggplot_panel <- function(dilution_table, dilution_summary = NULL,
                                            .data$title),
                                       plot_curve_ggplot,
                                       pal = pal,
-                                      dil_batch_var = "Dilution_Batch_Name",
+                                      dil_batch_var = dil_batch_var,
                                       conc_var = conc_var,
                                       conc_var_units = conc_var_units,
                                       conc_var_interval = conc_var_interval,

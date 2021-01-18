@@ -8,7 +8,7 @@ view_trellis_html(
   trellis_table,
   trellis_report_name = "Dilution_Plot",
   trellis_report_folder = "Dilution_Plot",
-  grouping_variable = c("Transition_Name", "Dilution_Batch"),
+  grouping_variable = c("Transition_Name", "Dilution_Batch_Name"),
   panel_variable = "panel",
   trellis_additional_labels = c(),
   testing = FALSE
@@ -32,7 +32,7 @@ column names in \code{trellis_table} to indicate how each dilution curve
 should be grouped by. It is also going to be used as a conditional
 cognostics in the \code{trelliscopejs} report. The function will check
 if these columns are indeed conditional cognostics
-Default: c("Transition_Name", "Dilution_Batch")}
+Default: c("Transition_Name", "Dilution_Batch_Name")}
 
 \item{panel_variable}{A column name in \code{trellis_table} to indicate
 the list of plots to be used in the \code{trelliscopejs} report. This column
@@ -67,10 +67,10 @@ lipid_data <- tibble::tibble(Sample_Name = sample_name,
                              Lipid2 = lipid2_area)
 dilution_percent <- c(10, 20, 40, 60, 80, 100,
                       10, 20, 40, 60, 80, 100)
-dilution_batch <- c("B1", "B1", "B1", "B1", "B1", "B1",
-                    "B2", "B2", "B2", "B2", "B2", "B2")
+dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1", "B1",
+                         "B2", "B2", "B2", "B2", "B2", "B2")
 dilution_annot <- tibble::tibble(Sample_Name = sample_name,
-                                 Dilution_Batch = dilution_batch,
+                                 Dilution_Batch_Name = dilution_batch_name,
                                  Dilution_Percent = dilution_percent)
 # Create dilution table
 dilution_table <- create_dilution_table(dilution_annot, lipid_data,
@@ -82,7 +82,7 @@ dilution_table <- create_dilution_table(dilution_annot, lipid_data,
 trellis_table_auto <- add_plotly_panel(dilution_table) \%>\%
    convert_to_cog(cog_df = NULL,
                  grouping_variable = c("Transition_Name",
-                                       "Dilution_Batch"),
+                                       "Dilution_Batch_Name"),
                  panel_variable = "panel",
                  col_name_vec = "col_name_vec",
                  desc_vec = "desc_vec",

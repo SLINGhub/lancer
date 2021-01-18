@@ -8,7 +8,7 @@
 #' should be grouped by. It is also going to be used as a conditional
 #' cognostics in the `trelliscopejs` report. The function will check
 #' if these columns are indeed conditional cognostics
-#' Default: c("Transition_Name", "Dilution_Batch")
+#' Default: c("Transition_Name", "Dilution_Batch_Name")
 #' @param panel_variable A column name in `trellis_table` to indicate
 #' the list of plots to be used in the `trelliscopejs` report. This column
 #' name must be fixed to the name `panel` and it must be of class
@@ -32,10 +32,10 @@
 #'                              Lipid2 = lipid2_area)
 #' dilution_percent <- c(10, 20, 40, 60, 80, 100,
 #'                       10, 20, 40, 60, 80, 100)
-#' dilution_batch <- c("B1", "B1", "B1", "B1", "B1", "B1",
-#'                     "B2", "B2", "B2", "B2", "B2", "B2")
+#' dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1", "B1",
+#'                          "B2", "B2", "B2", "B2", "B2", "B2")
 #' dilution_annot <- tibble::tibble(Sample_Name = sample_name,
-#'                                  Dilution_Batch = dilution_batch,
+#'                                  Dilution_Batch_Name = dilution_batch_name,
 #'                                  Dilution_Percent = dilution_percent)
 #' # Create dilution table
 #' dilution_table <- create_dilution_table(dilution_annot, lipid_data,
@@ -47,7 +47,7 @@
 #' trellis_table_auto <- add_plotly_panel(dilution_table) %>%
 #'    convert_to_cog(cog_df = NULL,
 #'                   grouping_variable = c("Transition_Name",
-#'                                         "Dilution_Batch"),
+#'                                         "Dilution_Batch_Name"),
 #'                   panel_variable = "panel",
 #'                   col_name_vec = "col_name_vec",
 #'                   desc_vec = "desc_vec",
@@ -59,7 +59,7 @@
 #' @export
 validate_trellis_table <- function(trellis_table,
                                    grouping_variable = c("Transition_Name",
-                                                         "Dilution_Batch"),
+                                                         "Dilution_Batch_Name"),
                                    panel_variable = "panel") {
 
   #Check if grouping_variable is a valid input
@@ -135,7 +135,7 @@ validate_trellis_table <- function(trellis_table,
 #' should be grouped by. It is also going to be used as a conditional
 #' cognostics in the `trelliscopejs` report. The function will check
 #' if these columns are indeed conditional cognostics
-#' Default: c("Transition_Name", "Dilution_Batch")
+#' Default: c("Transition_Name", "Dilution_Batch_Name")
 #' @param panel_variable A column name in `trellis_table` to indicate
 #' the list of plots to be used in the `trelliscopejs` report. This column
 #' name must be fixed to the name `panel` and it must be of class
@@ -162,10 +162,10 @@ validate_trellis_table <- function(trellis_table,
 #'                              Lipid2 = lipid2_area)
 #' dilution_percent <- c(10, 20, 40, 60, 80, 100,
 #'                       10, 20, 40, 60, 80, 100)
-#' dilution_batch <- c("B1", "B1", "B1", "B1", "B1", "B1",
-#'                     "B2", "B2", "B2", "B2", "B2", "B2")
+#' dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1", "B1",
+#'                          "B2", "B2", "B2", "B2", "B2", "B2")
 #' dilution_annot <- tibble::tibble(Sample_Name = sample_name,
-#'                                  Dilution_Batch = dilution_batch,
+#'                                  Dilution_Batch_Name = dilution_batch_name,
 #'                                  Dilution_Percent = dilution_percent)
 #' # Create dilution table
 #' dilution_table <- create_dilution_table(dilution_annot, lipid_data,
@@ -177,7 +177,7 @@ validate_trellis_table <- function(trellis_table,
 #' trellis_table_auto <- add_plotly_panel(dilution_table) %>%
 #'    convert_to_cog(cog_df = NULL,
 #'                  grouping_variable = c("Transition_Name",
-#'                                        "Dilution_Batch"),
+#'                                        "Dilution_Batch_Name"),
 #'                  panel_variable = "panel",
 #'                  col_name_vec = "col_name_vec",
 #'                  desc_vec = "desc_vec",
@@ -191,7 +191,7 @@ view_trellis_html <- function(trellis_table,
                               trellis_report_name = "Dilution_Plot",
                               trellis_report_folder = "Dilution_Plot",
                               grouping_variable = c("Transition_Name",
-                                                    "Dilution_Batch"),
+                                                    "Dilution_Batch_Name"),
                               panel_variable = "panel",
                               trellis_additional_labels = c(),
                               testing = FALSE) {
