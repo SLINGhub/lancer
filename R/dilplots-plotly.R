@@ -142,13 +142,13 @@ plot_curve_plotly <- function(dilution_data,
       p <- p %>%
         plotly::add_trace(data = dilution_data, x = dilution,
                           y = stats::predict(linear_model,
-                                             data.frame(Dilution_Percent = dilution)),
+                                             tibble::tibble(!!conc_var := dilution)),
                           type = "scattergl", mode = "lines", name = "lin reg",
                           line = list(color = "black", width = 1),
                           inherit = FALSE) %>%
         plotly::add_trace(data = dilution_data, x = dilution,
                           y = stats::predict(quad_model,
-                                             data.frame(Dilution_Percent = dilution)),
+                                             tibble::tibble(!!conc_var := dilution)),
                           type = "scattergl", mode = "lines", name = "quad reg",
                           line = list(color = "red", width = 1, opacity = 0.25),
                           inherit = FALSE)
@@ -158,7 +158,7 @@ plot_curve_plotly <- function(dilution_data,
 
         # Get the points for the partial linear curve
         partial_conc_points <- dilution_data %>%
-          dplyr::pull(.data$Dilution_Percent) %>%
+          dplyr::pull(.data[[conc_var]]) %>%
           as.numeric() %>%
           sort() %>%
           unique()
@@ -176,7 +176,7 @@ plot_curve_plotly <- function(dilution_data,
         p <- p %>%
           plotly::add_trace(data = partial_dilution_data, x = dilution,
                             y = stats::predict(partial_linear_model,
-                                               data.frame(Dilution_Percent = dilution)),
+                                               tibble::tibble(!!conc_var := dilution)),
                             type = "scattergl", mode = "lines", name = "lin half reg",
                             line = list(color = "blue", width = 1),
                             inherit = FALSE)
@@ -188,11 +188,17 @@ plot_curve_plotly <- function(dilution_data,
 
   }
 
+  # If conc_var_units is empty, do not add brackets
+  x_title <- conc_var
+  if(conc_var_units != "") {
+    x_title <- paste0(conc_var, " (",  conc_var_units, ")")
+  }
+
   # Create the layout to be the same as ggplot2
   p <- p %>%
     plotly::layout(title = list(text = title,
                                 x = 0.1) ,
-                   xaxis = list(title = paste0(conc_var, " (",  conc_var_units, ")"),
+                   xaxis = list(title = x_title,
                                 titlefont = list(size = 10),
                                 gridcolor = "rgb(255,255,255)",
                                 showgrid = TRUE,

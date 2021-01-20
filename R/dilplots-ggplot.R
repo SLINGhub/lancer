@@ -351,9 +351,9 @@ plot_curve_ggplot <- function(dilution_data,
 
       # Create the y values for the line
       y_lin_predict <- stats::predict(linear_model,
-                                      data.frame(Dilution_Percent = dilution))
+                                      tibble::tibble(!!conc_var := dilution))
       y_quad_predict <- stats::predict(quad_model,
-                                       data.frame(Dilution_Percent = dilution))
+                                       tibble::tibble(!!conc_var := dilution))
       reg_data <- data.frame(dilution = dilution,
                              y_lin_predict = y_lin_predict,
                              y_quad_predict = y_quad_predict)
@@ -374,7 +374,7 @@ plot_curve_ggplot <- function(dilution_data,
 
         # Get the points for the partial linear curve
         partial_conc_points <- dilution_data %>%
-          dplyr::pull(.data$Dilution_Percent) %>%
+          dplyr::pull(.data[[conc_var]]) %>%
           as.numeric() %>%
           sort() %>%
           unique()
@@ -390,7 +390,7 @@ plot_curve_ggplot <- function(dilution_data,
                                                     conc_var, signal_var)
 
         y_partial_lin_predict <- stats::predict(partial_linear_model,
-                                                data.frame(Dilution_Percent = dilution))
+                                                tibble::tibble(!!conc_var := dilution))
 
         partial_reg_data <- data.frame(dilution = dilution,
                                        y_partial_lin_predict = y_partial_lin_predict)
@@ -419,6 +419,12 @@ plot_curve_ggplot <- function(dilution_data,
 
   conc_tick_points <- seq(0, max_conc, by = conc_var_interval)
 
+  # If conc_var_units is empty, do not add brackets
+  x_title <- conc_var
+  if(conc_var_units != "") {
+    x_title <- paste0(conc_var, " (",  conc_var_units, ")")
+  }
+
   # Create the layout for legend, colours, axis
   p <- p +
     ggplot2::scale_colour_manual(values = c(filtered_pal,reg_col_vec),
@@ -445,7 +451,7 @@ plot_curve_ggplot <- function(dilution_data,
                                            vjust = 1)
     ) +
     ggplot2::labs(title = title,
-                  x = paste0(conc_var, " (",  conc_var_units, ")"),
+                  x = x_title,
                   y = signal_var)
 
 
@@ -635,11 +641,11 @@ add_ggplot_panel <- function(dilution_table, dilution_summary = NULL,
 
   # Create a summary table for each group for plotting the
   # summary table using gridExtra::tableGrob
-  nested_dilution_summary <- dilution_summary %>%
-    dplyr::group_by_at(dplyr::all_of(grouping_variable)) %>%
-    tidyr::nest() %>%
-    dplyr::ungroup() %>%
-    dplyr::rename(summary = .data$data)
+  # nested_dilution_summary <- dilution_summary %>%
+  #   dplyr::group_by_at(dplyr::all_of(grouping_variable)) %>%
+  #   tidyr::nest() %>%
+  #   dplyr::ungroup() %>%
+  #   dplyr::rename(summary = .data$data)
 
   if(isTRUE(plot_summary_table)) {
     nested_dilution_summary <- dilution_summary %>%

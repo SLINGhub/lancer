@@ -17,6 +17,9 @@
 #' @export
 create_linear_model <- function(dilution_data, conc_var, signal_var) {
 
+  conc_var <- paste0("`",conc_var,"`")
+  signal_var <- paste0("`",signal_var,"`")
+
   # Create the formula
   linear_formula <- stats::as.formula(paste(signal_var, "~",
                                             paste(conc_var, collapse = " + ")
@@ -49,6 +52,9 @@ create_linear_model <- function(dilution_data, conc_var, signal_var) {
 #' @rdname create_quad_model
 #' @export
 create_quad_model <- function(dilution_data, conc_var, signal_var) {
+
+  conc_var <- paste0("`",conc_var,"`")
+  signal_var <- paste0("`",signal_var,"`")
 
   # Create the formula
   quad_formula <- stats::as.formula(paste(signal_var, "~",
