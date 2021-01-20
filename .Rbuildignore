@@ -10,4 +10,4 @@
 ^pkgdown$
 ^codecov\.yml$
 ^\.covrignore$
-^results$
+^reports\$
