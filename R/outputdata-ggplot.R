@@ -117,19 +117,20 @@ view_ggplot_pdf <- function(ggplot_list,
 
   number_of_plots_per_page <- Inf
 
-  if(!is.null(page_layout$ncol) & !is.null(page_layout$nrow))
+  if(!is.null(page_layout$ncol) & !is.null(page_layout$nrow)) {
     number_of_plots_per_page <- page_layout$ncol * page_layout$nrow
-  else if(!is.null(page_layout$ncol))
+  } else if(!is.null(page_layout$ncol)) {
     number_of_plots_per_page <- page_layout$ncol
-  else if(!is.null(page_layout$nrow))
+  } else if(!is.null(page_layout$nrow)) {
     number_of_plots_per_page <- page_layout$nrow
-
+  }
 
   # Split plots over multiple pages
   if (number_of_plots > number_of_plots_per_page) {
     # Each element in the list is a list of ggplots for one pdf page
     ggplot_group_list <-
-      split(ggplot_list, ceiling(seq_along(ggplot_list) / number_of_plots_per_page))
+      split(ggplot_list,
+            ceiling(seq_along(ggplot_list) / number_of_plots_per_page))
   } else {
     # All plot in one pdf page
     ggplot_group_list <- list(ggplot_list)

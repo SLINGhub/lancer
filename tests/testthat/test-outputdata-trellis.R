@@ -135,6 +135,23 @@ test_that("Able to plot dilution data with its statistical summary in a trellis 
                     trellis_report_folder = "Dilution_Plot")
 
 
+  # Check if convert_to_cog and view_trellis_html works
+  # if input panel_variable is not called "panel"
+  different_panel_table <- add_plotly_panel(dilution_table,
+                                            dilution_summary = dilution_summary) %>%
+    dplyr::rename(paneldiff = panel) %>%
+    convert_to_cog(cog_df = NULL,
+                   grouping_variable = c("Transition_Name",
+                                         "Dilution_Batch_Name"),
+                   panel_variable = "paneldiff",
+                   col_name_vec = "col_name_vec",
+                   desc_vec = "desc_vec",
+                   type_vec = "type_vec") %>%
+    view_trellis_html(trellis_report_name = "Dilution_Plot_Different",
+                      trellis_report_folder = "Dilution_Plot",
+                      panel_variable = "paneldiff")
+
+
   unlink("Dilution_Plot", recursive = TRUE)
 
 

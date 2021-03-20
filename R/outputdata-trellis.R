@@ -68,18 +68,21 @@ validate_trellis_table <- function(trellis_table,
     stop("input grouping variable cannot be an empty vector or vector with NA")
   }
 
+  important_variable <- c(grouping_variable, panel_variable) %>%
+    unique()
+
   # Check if things in needed_column are in trellis_table
   assertable::assert_colnames(trellis_table,
-                              c(grouping_variable, panel_variable),
+                              important_variable,
                               only_colnames = FALSE, quiet = TRUE)
 
   non_grouping_variable <- trellis_table %>%
-    dplyr::select(-dplyr::one_of(c(grouping_variable, "panel"))) %>%
+    dplyr::select(-dplyr::one_of(important_variable)) %>%
     colnames()
 
 
   # Check if panel_variable is valid
-  trellis_column_class <- attributes(trellis_table$panel)$class
+  trellis_column_class <- attributes(trellis_table[[panel_variable]])$class
   if (!("trelliscope_panels" %in% trellis_column_class)) {
     stop(paste("column panel is not of class 'trelliscope_panels' "))
   }
@@ -214,6 +217,7 @@ view_trellis_html <- function(trellis_table,
   if(!testing) {
     suppressWarnings(trelliscopejs::trelliscope(trellis_table,
                                                 name = trellis_report_name,
+                                                panel_col = panel_variable,
                                                 path = trellis_report_folder,
                                                 state = list(
                                                   labels = trellis_labels
