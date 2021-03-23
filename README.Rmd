@@ -36,7 +36,7 @@ If this repository is private, go to this [link](https://maurolepore.netlify.app
 
 ## How it works
 
-We try to categorise dilution curves based on the results of three parameters  
+We try to categorise dilution curves based on the results of three parameters.  
 
  * Correlation Coefficient ( $R$ ) 
  * Percent Residual Accuracy ( $PRA$ )
