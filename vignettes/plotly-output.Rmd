@@ -115,8 +115,6 @@ trellis_list_orig <- trellis_table_orig$panel
 Each `plotly` plot for each group can be found in the column `panel`
 
 ```{r print plotly plot}
-trellis_list_orig[[1]]
-trellis_list_orig[[7]]
 ```
 
 To see the regression line on half the dilution points, set `plot_half_lin_reg = TRUE`
@@ -142,8 +140,7 @@ trellis_list <- trellis_table$panel
 ```
 
 ```{r print plotly plot with half linear regression}
-trellis_list[[1]]
-trellis_list[[7]]
+
 ```
 
 Units of `conc_var` and `conc_var_interval` can be customised to suit the range of `conc_var`
@@ -170,8 +167,7 @@ trellis_list <- trellis_table$panel
 ```
 
 ```{r print plotly table with conc customisation}
-trellis_list[[2]]
-trellis_list[[8]]
+
 ```
 
 To output these plots as a trellis in html, there is a need to convert the column
