@@ -69,7 +69,7 @@ reference:
     - create_char_seq
   - title: Defunct and deprecated functions
     desc: >
-      Functions that are not in used (defunct) or deprecated\n
+      Functions that are not in used (defunct) or deprecated
       <a href="https://lifecycle.r-lib.org/articles/lifecycle.html">
       <img src='figures/lifecycle-defunct.svg' alt='Defunct lifecycle'/>
       </a>
