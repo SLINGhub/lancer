@@ -383,6 +383,9 @@ write_summary_excel <- function(dilution_summary, file_name,
   # Create a new worksheet
   openxlsx::addWorksheet(wb = my_workbook, sheetName = sheet_name)
 
+  # Change the font to Consolas
+  openxlsx::modifyBaseFont(wb = my_workbook, fontName = "Consolas")
+
   # Create numeric style based on column name
   dilution_summary %>%
     mark_near_zero_columns() %>%
