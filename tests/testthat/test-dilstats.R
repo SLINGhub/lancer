@@ -211,6 +211,50 @@ test_that("calculate dil linear GOF", {
 
 })
 
+test_that("calculate average deviation from linearity", {
+
+  dilution_percent <- c(10, 20, 40, 60, 80, 100)
+  area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+  dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+
+  adl_value <- calculate_adl(dilution_data, "Dilution_Percent", "Area")
+
+  # Handle the case of a straight horizontal line input. Give NA
+  dilution_percent <- c(0, 10, 8, 13)
+  area <- c(2, 2, 2, 2)
+  dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+  adl_value <- calculate_adl(dilution_data, "Dilution_Percent", "Area")
+  testthat::expect_equal(NA, unname(adl_value))
+
+  # Handle the case of a straight vertical line input. Give NA
+  dilution_percent <- c(10, 10, 10, 10)
+  area <- c(0, 5.23, 4.23, 6.35)
+  dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+  pra_value <- calculate_pra_linear(dilution_data, "Dilution_Percent", "Area")
+  testthat::expect_equal(NA, unname(pra_value))
+
+  # Too little valid point (<= 3) will give an NA
+  dilution_percent <- c(0, 10, 8, 13)
+  area <- c(0, 5.23, 4.23, 6.35)
+  dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+  pra_value <- calculate_pra_linear(dilution_data, "Dilution_Percent", "Area")
+  testthat::expect_equal(NA, unname(pra_value))
+
+  dilution_data <- data.frame(Dilution_Percent = c(NA, NA), Area =  c(NA, NA))
+  pra_value <- calculate_pra_linear(dilution_data, "Dilution_Percent", "Area")
+  testthat::expect_equal(NA, unname(pra_value))
+
+  dilution_data <- data.frame(Dilution_Percent = NA, Area = NA)
+  pra_value <- calculate_pra_linear(dilution_data, "Dilution_Percent", "Area")
+  testthat::expect_equal(NA, unname(pra_value))
+
+  dilution_data <- NA
+  pra_value <- calculate_pra_linear(dilution_data, "Dilution_Percent", "Area")
+  testthat::expect_equal(NA, unname(pra_value))
+
+
+})
+
 
 test_that("validate_dilution_data", {
 

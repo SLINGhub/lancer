@@ -345,8 +345,8 @@ plot_curve_ggplot <- function(dilution_data,
       linear_model <- create_linear_model(dilution_data, conc_var, signal_var)
       quad_model <- create_quad_model(dilution_data, conc_var, signal_var)
 
-      dilution <- seq(min(dilution_data[[conc_var]]),
-                      max(dilution_data[[conc_var]]),
+      dilution <- seq(min(dilution_data[[conc_var]], na.rm = TRUE),
+                      max(dilution_data[[conc_var]], na.rm = TRUE),
                       length.out = 15)
 
       # Create the y values for the line

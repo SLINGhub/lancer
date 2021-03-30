@@ -72,6 +72,127 @@ create_quad_model <- function(dilution_data, conc_var, signal_var) {
 
 }
 
+#' @title Create Cubic Model
+#' @description A wrapper to create a cubic model for dilution data
+#' @param dilution_data A data frame or tibble containing dilution data
+#' @param conc_var Column name in `dilution_data` to indicate concentration
+#' @param signal_var Column name in `dilution_data` to indicate signal
+#' @return A linear model object from `stats:lm()` with formula
+#' `signal_var ~ conc_var + I(conc_var * conc_var * conc_var)`
+#' from data `diltuion_data`
+#' @examples
+#' dilution_percent <- c(10, 20, 40, 60, 80, 100)
+#' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+#' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+#' cubic_model <- create_cubic_model(dilution_data,
+#'                                  "Dilution_Percent",
+#'                                  "Area")
+#' cubic_model
+#' @rdname create_cubic_model
+#' @export
+create_cubic_model <- function(dilution_data, conc_var, signal_var) {
+
+  conc_var <- paste0("`",conc_var,"`")
+  signal_var <- paste0("`",signal_var,"`")
+
+  # Create the formula
+  cubic_formula <- stats::as.formula(paste(signal_var, "~",
+                                     paste(conc_var, "+",
+                                     paste0("I(",
+                                            conc_var, " * ",
+                                            conc_var, " * ",
+                                            conc_var, ")")
+                                          )
+                                          )
+                                     )
+
+  # Create the quadratic model on dilution data
+  cubic_model <- stats::lm(cubic_formula, data = dilution_data)
+
+  return(cubic_model)
+
+}
+
+#' @title Calculate Average Deviation From Linearity
+#' @description Calculate the average deviation from linearity
+#' @param dilution_data A data frame or tibble containing dilution data
+#' @param conc_var Column name in `dilution_data` to indicate concentration
+#' @param signal_var Column name in `dilution_data` to indicate signal
+#' @return The average deviation from linearity
+#' @details The function will return NA if the number of dilution points
+#' is less than or equal to three
+#' @examples
+#' dilution_percent <- c(10, 20, 40, 60, 80, 100)
+#' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+#' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+#' adl_value <- calculate_adl(dilution_data,
+#'                            "Dilution_Percent", "Area")
+#' adl_value
+#' @rdname calculate_adl
+#' @export
+calculate_adl <- function(dilution_data, conc_var, signal_var) {
+
+  adl <- NA
+
+  if (is.null(nrow(dilution_data))) {
+    return(adl)
+  }
+
+  # Drop rows whose value of signal_var is NA
+  dilution_data <- dilution_data %>%
+    tidyr::drop_na(.data[[signal_var]])
+
+  # Return NA for too little points
+  # Horizontal, Vertical line or single point
+  if (nrow(dilution_data) <= 3) {
+    return(adl)
+  }
+  if (stats::sd(dilution_data[[conc_var]]) == 0) {
+    return(adl)
+  }
+  if (stats::sd(dilution_data[[signal_var]]) == 0) {
+    return(adl)
+  }
+
+  # Create the models on dilution data
+  linear_model <- create_linear_model(dilution_data, conc_var, signal_var)
+  quad_model <- create_quad_model(dilution_data, conc_var, signal_var)
+  cubic_model <- create_cubic_model(dilution_data, conc_var, signal_var)
+
+  # Get the p values
+  linear_pval <- broom::glance(linear_model)$p.value
+  quad_pval <- broom::glance(quad_model)$p.value
+  cubic_pval <- broom::glance(cubic_model)$p.value
+
+  best_model <- min(linear_pval, quad_pval, cubic_pval, na.rm = TRUE)
+
+  # Case 1 - linear model is best fitting
+  if (best_model == linear_pval) {
+    return(adl)
+  }
+
+  # Case 2 - quad model is best fitting
+  if(best_model == quad_pval) {
+    linear_predict <- stats::predict(linear_model)
+    quad_predict <- stats::predict(quad_model)
+    adl <- mean(abs((linear_predict - quad_predict) / linear_predict),
+                na.rm = TRUE) * 100
+    return(adl)
+  }
+
+  # Case 3 - cubic model is best fitting
+  if(best_model == cubic_pval) {
+    linear_predict <- stats::predict(linear_model)
+    cubic_predict <- stats::predict(cubic_model)
+    adl <- mean(abs((linear_predict - cubic_predict) / linear_predict),
+                na.rm = TRUE) * 100
+    return(adl)
+  }
+
+  return(adl)
+
+}
+
 #' @title Calculate Concavity
 #' @description Calculate the concavity of the Dilution Quadratic Model
 #' @param dilution_data A data frame or tibble containing dilution data
@@ -424,7 +545,8 @@ summarise_dilution_data <- function(dilution_data, conc_var, signal_var) {
                                          conc_var, signal_var)
   one_value_tibble <- tibble::tibble(
     pra_linear = calculate_pra_linear(dilution_data, conc_var, signal_var),
-    concavity = calculate_concavity(dilution_data, conc_var, signal_var)
+    concavity = calculate_concavity(dilution_data, conc_var, signal_var),
+    adl_value = calculate_adl(dilution_data, conc_var, signal_var)
   )
 
   dilution_summary <- dil_linear_gof %>%

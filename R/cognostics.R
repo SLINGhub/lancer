@@ -55,18 +55,20 @@ create_default_cog_df <- function() {
   col_name_vec <- c("Transition_Name", "Dilution_Batch_Name","Transition_Name_Class",
                     "wf1_group", "wf2_group",
                     "r_corr", "pra_linear", "mandel_p_val",
-                    "r2_linear", "r2_adj_linear", "mandel_stats")
+                    "r2_linear", "r2_adj_linear", "mandel_stats",
+                    "adl_value")
 
   desc_vec <- c("Transition_Name", "Dilution_Batch_Name", "Classes of Transitions",
                 "Group from workflow 1","Group from workflow 2",
                 "Pearson Correlation R values",
                 "Linear Regression Percent Residual Accuracy", "P values for Mandel test",
                 "Linear Regression R^2 Value", "Linear Regression Adjusted R^2 Value",
-                "Test statistics for Mandel Test")
+                "Test statistics for Mandel Test",
+                "Average Deviation from Linearity")
 
   type_vec <- c("factor","factor",
                 "factor","factor","factor",
-                "numeric","numeric","numeric","numeric","numeric","numeric")
+                "numeric","numeric","numeric","numeric","numeric","numeric","numeric")
 
   cog_df <- data.frame(col_name_vec = col_name_vec,
                        desc_vec = desc_vec,
