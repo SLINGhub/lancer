@@ -26,14 +26,15 @@
 #' @export
 mark_near_zero_columns <- function(dilution_summary) {
 
-
   # Check if we have numeric columns
+  # Check to see if numeric column has at least one value
   # If have none, return as it is
   remaining_cols <- dilution_summary %>%
     dplyr::select_if(function(col) is.numeric(col)) %>%
-    colnames() %>%
-    length()
-  if (remaining_cols < 1) {
+    dplyr::select_if(function(col) !all(is.na(col))) %>%
+    colnames()
+
+  if (length(remaining_cols) < 1) {
     return(dilution_summary)
   }
 
@@ -41,8 +42,8 @@ mark_near_zero_columns <- function(dilution_summary) {
   # Collect the minimum value
   # If it is small enough, change the class to scientific
   near_zero_columns <- dilution_summary %>%
-    dplyr::mutate_if(is.numeric, abs) %>%
-    dplyr::summarise_if(is.numeric, min, na.rm = TRUE) %>%
+    dplyr::mutate_at(dplyr::all_of(remaining_cols), abs) %>%
+    dplyr::summarise_at(dplyr::all_of(remaining_cols), min, na.rm = TRUE) %>%
     tidyr::pivot_longer(cols = dplyr::everything(),
                         names_to = "summary_stats",
                         values_to = "min") %>%
