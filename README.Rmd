@@ -188,4 +188,71 @@ write_summary_excel(dilution_classified, file_name = "dilution_summary.xlsx")
 
 ![Excel Report](man/figures/README-ExcelResults.png)
 
+Results can be plotted using `add_ggplot_panel`. This will create a column called panel that contains all the `ggplot` plots
 
+```{r plot the curves}
+ggplot_table <- add_ggplot_panel(dilution_table,
+                                 dilution_summary = dilution_classified,
+                                 grouping_variable = c("Transition_Name",
+                                                      "Dilution_Batch_Name"),
+                                 conc_var = "Dilution_Percent",
+                                 signal_var = "Area",
+                                 plot_half_lin_reg = FALSE)
+
+# Get the list of ggplot list for each group
+ggplot_list <- ggplot_table$panel
+```
+
+Use `view_ggplot_pdf` to export the plots in a pdf file
+
+```{r view the plotted curves, eval = FALSE}
+view_ggplot_pdf(ggplot_list,
+                filename = "dilution_plot.pdf",
+                ncol_per_page = 2,
+                nrow_per_page = 2)
+```
+
+![README-PDFResults1](man/figures/README-PDFResults1.png)
+
+![README-PDFResults2](man/figures/README-PDFResults2.png)
+
+Results can also be plotted using `add_plotly_panel`. This will create a column called panel that contains all the `plotly` plots.
+
+To create an interactive trelliscope display as seen in [here](https://hafen.github.io/trelliscopejs/articles/trelliscopejs.html), each columns must be converted to a cognostics class. This is done using the function `convert_to_cog`
+
+```{r create plotly table}
+# Create a trellis table
+trellis_table <- add_plotly_panel(dilution_table,
+                                  dilution_summary = dilution_classified,
+                                  grouping_variable = c("Transition_Name",
+                                                        "Dilution_Batch_Name"),
+                                  sample_name_var = "Sample_Name",
+                                  dil_batch_var = "Dilution_Batch_Name",
+                                  dil_batch_col = c("#377eb8",
+                                                    "#4daf4a"),
+                                  conc_var = "Dilution_Percent",
+                                  conc_var_units = "%",
+                                  conc_var_interval = 50,
+                                  signal_var = "Area",
+                                  plot_half_lin_reg = FALSE,
+                                  have_plot_title = FALSE) %>% 
+  convert_to_cog(grouping_variable = c("Transition_Name",
+                                       "Dilution_Batch_Name"),
+                 panel_variable = "panel",
+                 col_name_vec = "col_name_vec",
+                 desc_vec = "desc_vec",
+                 type_vec = "type_vec"
+  )
+```
+
+Use `view_trellis_html` on the R console to output the interactive trelliscope display 
+
+```{r view trellis html, eval = FALSE}
+view_trellis_html(trellis_table,
+                  grouping_variable = c("Transition_Name",
+                                        "Dilution_Batch_Name"),
+                  trellis_report_name = "Dilution_Plot",
+                  trellis_report_folder = "Dilution_Plot_Folder")
+```
+
+![README-Trellis](man/figures/README-Trellis.gif)

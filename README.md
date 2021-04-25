@@ -179,7 +179,7 @@ dilution_summary <- summarise_dilution_table(dilution_table,
 
 ``` r
 print(dilution_summary, width = 100)
-#> # A tibble: 8 x 9
+#> # A tibble: 8 x 10
 #>   Transition_Name Dilution_Batch_Name r_corr r2_linear r2_adj_linear
 #>   <chr>           <chr>                <dbl>     <dbl>         <dbl>
 #> 1 Lipid1          B1                   0.963    0.928        0.920  
@@ -190,16 +190,16 @@ print(dilution_summary, width = 100)
 #> 6 Lipid2          B2                   0.995    0.990        0.988  
 #> 7 Lipid3          B2                   0.978    0.956        0.951  
 #> 8 Lipid4          B2                   0.608    0.370        0.291  
-#>   mandel_stats mandel_p_val pra_linear concavity
-#>          <dbl>        <dbl>      <dbl>     <dbl>
-#> 1       71.2     0.0000297        70.5 -4174.   
-#> 2        2.53    0.150            92.8    -4.91 
-#> 3      106.      0.00000678       71.2     0.468
-#> 4       13.2     0.00660        -251.    -20.5  
-#> 5       52.9     0.000166         62.3 -4137.   
-#> 6        0.868   0.382            94.3    -1.94 
-#> 7       20.9     0.00256          74.7     0.321
-#> 8        5.39    0.0533          -73.1   -22.9
+#>   mandel_stats mandel_p_val pra_linear concavity adl_value
+#>          <dbl>        <dbl>      <dbl>     <dbl>     <dbl>
+#> 1       71.2     0.0000297        70.5 -4174.        17.0 
+#> 2        2.53    0.150            92.8    -4.91      NA   
+#> 3      106.      0.00000678       71.2     0.468   1669.  
+#> 4       13.2     0.00660        -251.    -20.5        6.39
+#> 5       52.9     0.000166         62.3 -4137.        17.1 
+#> 6        0.868   0.382            94.3    -1.94      NA   
+#> 7       20.9     0.00256          74.7     0.321     30.9 
+#> 8        5.39    0.0533          -73.1   -22.9        8.79
 ```
 
 Classify each dilution curve according to Workflow 1 and Workflow 2.  
@@ -214,27 +214,27 @@ dilution_classified <- evaluate_linearity(dilution_summary,
 
 ``` r
 print(dilution_classified, width = 100)
-#> # A tibble: 8 x 11
-#>   Transition_Name Dilution_Batch_Name wf1_group      wf2_group      r_corr
-#>   <chr>           <chr>               <chr>          <chr>           <dbl>
-#> 1 Lipid1          B1                  Poor Linearity Saturation      0.963
-#> 2 Lipid2          B1                  Good Linearity Good Linearity  0.990
-#> 3 Lipid3          B1                  Poor Linearity LOD             0.964
-#> 4 Lipid4          B1                  Poor Linearity Poor Linearity  0.311
-#> 5 Lipid1          B2                  Poor Linearity Saturation      0.950
-#> 6 Lipid2          B2                  Good Linearity Good Linearity  0.995
-#> 7 Lipid3          B2                  Poor Linearity LOD             0.978
-#> 8 Lipid4          B2                  Poor Linearity Poor Linearity  0.608
-#>   pra_linear mandel_p_val concavity r2_linear r2_adj_linear mandel_stats
-#>        <dbl>        <dbl>     <dbl>     <dbl>         <dbl>        <dbl>
-#> 1       70.5   0.0000297  -4174.       0.928        0.920         71.2  
-#> 2       92.8   0.150         -4.91     0.980        0.978          2.53 
-#> 3       71.2   0.00000678     0.468    0.930        0.922        106.   
-#> 4     -251.    0.00660      -20.5      0.0970      -0.00333       13.2  
-#> 5       62.3   0.000166   -4137.       0.903        0.890         52.9  
-#> 6       94.3   0.382         -1.94     0.990        0.988          0.868
-#> 7       74.7   0.00256        0.321    0.956        0.951         20.9  
-#> 8      -73.1   0.0533       -22.9      0.370        0.291          5.39
+#> # A tibble: 8 x 12
+#>   Transition_Name Dilution_Batch_Na~ wf1_group    wf2_group    r_corr pra_linear
+#>   <chr>           <chr>              <chr>        <chr>         <dbl>      <dbl>
+#> 1 Lipid1          B1                 Poor Linear~ Saturation    0.963       70.5
+#> 2 Lipid2          B1                 Good Linear~ Good Linear~  0.990       92.8
+#> 3 Lipid3          B1                 Poor Linear~ LOD           0.964       71.2
+#> 4 Lipid4          B1                 Poor Linear~ Poor Linear~  0.311     -251. 
+#> 5 Lipid1          B2                 Poor Linear~ Saturation    0.950       62.3
+#> 6 Lipid2          B2                 Good Linear~ Good Linear~  0.995       94.3
+#> 7 Lipid3          B2                 Poor Linear~ LOD           0.978       74.7
+#> 8 Lipid4          B2                 Poor Linear~ Poor Linear~  0.608      -73.1
+#>   mandel_p_val concavity r2_linear r2_adj_linear mandel_stats adl_value
+#>          <dbl>     <dbl>     <dbl>         <dbl>        <dbl>     <dbl>
+#> 1   0.0000297  -4174.       0.928        0.920         71.2       17.0 
+#> 2   0.150         -4.91     0.980        0.978          2.53      NA   
+#> 3   0.00000678     0.468    0.930        0.922        106.      1669.  
+#> 4   0.00660      -20.5      0.0970      -0.00333       13.2        6.39
+#> 5   0.000166   -4137.       0.903        0.890         52.9       17.1 
+#> 6   0.382         -1.94     0.990        0.988          0.868     NA   
+#> 7   0.00256        0.321    0.956        0.951         20.9       30.9 
+#> 8   0.0533       -22.9      0.370        0.291          5.39       8.79
 ```
 
 Results can be exported to Excel via `write_summary_excel`
@@ -244,3 +244,78 @@ write_summary_excel(dilution_classified, file_name = "dilution_summary.xlsx")
 ```
 
 ![Excel Report](man/figures/README-ExcelResults.png)
+
+Results can be plotted using `add_ggplot_panel`. This will create a
+column called panel that contains all the `ggplot` plots
+
+``` r
+ggplot_table <- add_ggplot_panel(dilution_table,
+                                 dilution_summary = dilution_classified,
+                                 grouping_variable = c("Transition_Name",
+                                                      "Dilution_Batch_Name"),
+                                 conc_var = "Dilution_Percent",
+                                 signal_var = "Area",
+                                 plot_half_lin_reg = FALSE)
+
+# Get the list of ggplot list for each group
+ggplot_list <- ggplot_table$panel
+```
+
+Use `view_ggplot_pdf` to export the plots in a pdf file
+
+``` r
+view_ggplot_pdf(ggplot_list,
+                filename = "dilution_plot.pdf",
+                ncol_per_page = 2,
+                nrow_per_page = 2)
+```
+
+![README-PDFResults1](man/figures/README-PDFResults1.png)
+
+![README-PDFResults2](man/figures/README-PDFResults2.png)
+
+Results can also be plotted using `add_plotly_panel`. This will create a
+column called panel that contains all the `plotly` plots.
+
+To create an interactive trelliscope display as seen in
+[here](https://hafen.github.io/trelliscopejs/articles/trelliscopejs.html),
+each columns must be converted to a cognostics class. This is done using
+the function `convert_to_cog`
+
+``` r
+# Create a trellis table
+trellis_table <- add_plotly_panel(dilution_table,
+                                  dilution_summary = dilution_classified,
+                                  grouping_variable = c("Transition_Name",
+                                                        "Dilution_Batch_Name"),
+                                  sample_name_var = "Sample_Name",
+                                  dil_batch_var = "Dilution_Batch_Name",
+                                  dil_batch_col = c("#377eb8",
+                                                    "#4daf4a"),
+                                  conc_var = "Dilution_Percent",
+                                  conc_var_units = "%",
+                                  conc_var_interval = 50,
+                                  signal_var = "Area",
+                                  plot_half_lin_reg = FALSE,
+                                  have_plot_title = FALSE) %>% 
+  convert_to_cog(grouping_variable = c("Transition_Name",
+                                       "Dilution_Batch_Name"),
+                 panel_variable = "panel",
+                 col_name_vec = "col_name_vec",
+                 desc_vec = "desc_vec",
+                 type_vec = "type_vec"
+  )
+```
+
+Use `view_trellis_html` on the R console to output the interactive
+trelliscope display
+
+``` r
+view_trellis_html(trellis_table,
+                  grouping_variable = c("Transition_Name",
+                                        "Dilution_Batch_Name"),
+                  trellis_report_name = "Dilution_Plot",
+                  trellis_report_folder = "Dilution_Plot_Folder")
+```
+
+![README-Trellis](man/figures/README-Trellis.gif)
