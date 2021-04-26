@@ -26,19 +26,60 @@ If this repository is private, go to this
 [link](https://maurolepore.netlify.app/2017/12/06/2017-12-06-best-prectice-for-installing-packages-from-private-repos/)
 to learn how to set up your authorization token.
 
+## Motivation
+
+The Pearson correlation coefficient has been used widely to test for
+linearity. However, it is insufficent as indicated in this
+[paper](https://www.sciencedirect.com/science/article/abs/pii/S0165993615301242)
+
+Consider a saturated curve and a curve with limit of detection (LOD)
+
+``` r
+saturated_data <- data.frame(
+  conc_var = c(10, 25, 40, 50, 60,
+               75, 80, 100, 125, 150),
+  signal_var = c(5192648, 16594991, 32507833, 46499896,
+                 55388856, 62505210, 62778078, 72158161,
+                 78044338, 86158414)
+)
+
+lod_data <- data.frame(
+  conc_var = c(10, 25, 40, 50, 60,
+               75, 80, 100, 125, 150),
+  signal_var = c(500, 903, 1267, 2031, 2100,
+                 3563, 4500, 5300, 8500, 10430)
+)
+```
+
+<img src="man/figures/README-ViewMotivationData-1.png" width="100%" />
+
+The corresponding correlation coefficient are really high (&gt;0.9) even
+though the curves are non-linear. There is a need to explore better ways
+to categorise these two curves.
+
+``` r
+cor(saturated_data$conc_var,saturated_data$signal_var)
+#> [1] 0.9500072
+```
+
+``` r
+cor(lod_data$conc_var,lod_data$signal_var)
+#> [1] 0.9779585
+```
+
 ## How it works
 
 We try to categorise dilution curves based on the results of three
 parameters.
 
--   Correlation Coefficient ( *R* )
+-   Pearson Correlation Coefficient ( *R* )
 -   Percent Residual Accuracy ( *P**R**A* )
 -   Mandel’s Fitting Test
 
-Correlation Coefficient ( *R* ) can be found in Van Loco, J., Elskens,
-M., Croux, C. *et al.*, Linearity of calibration curves: use and misuse
-of the correlation coefficient. *Accred Qual Assur* **7**, 281-285
-(2002).
+Pearson Correlation Coefficient ( *R* ) can be found in Van Loco, J.,
+Elskens, M., Croux, C. *et al.*, Linearity of calibration curves: use
+and misuse of the correlation coefficient. *Accred Qual Assur* **7**,
+281-285 (2002).
 [10.1007/s00769-002-0487-6](https://doi.org/10.1007/s00769-002-0487-6).  
 Equation ( 1 ) is used.
 
@@ -59,7 +100,7 @@ Equation ( 6 ) is used.
 
 Two methods are proposed to categorise the dilution curves.
 
-### Workflow 1 (Fit For Purpose)
+### Workflow 1
 
 Workflow 1 involves using *R* and *P**R**A* to categorise the dilution
 curves.
@@ -236,6 +277,8 @@ print(dilution_classified, width = 100)
 #> 7   0.00256        0.321    0.956        0.951         20.9       30.9 
 #> 8   0.0533       -22.9      0.370        0.291          5.39       8.79
 ```
+
+## Output Results
 
 Results can be exported to Excel via `write_summary_excel`
 

@@ -12,6 +12,7 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
+library(DCVtestkit)
 ```
 
 # DCVtestkit (Dilution Curve Validation Testkit)
@@ -34,16 +35,161 @@ devtools::install_github("SLINGhub/DCVtestkit")
 
 If this repository is private, go to this [link](https://maurolepore.netlify.app/2017/12/06/2017-12-06-best-prectice-for-installing-packages-from-private-repos/) to learn how to set up your authorization token.
 
+## Motivation
+
+The Pearson correlation coefficient has been used widely to test for linearity. However, it is insufficent as indicated in this [paper](https://www.sciencedirect.com/science/article/abs/pii/S0165993615301242)
+
+Consider a saturated curve and a curve with limit of detection (LOD)
+
+```{r Motivation}
+saturated_data <- data.frame(
+  conc_var = c(10, 25, 40, 50, 60,
+               75, 80, 100, 125, 150),
+  signal_var = c(5192648, 16594991, 32507833, 46499896,
+                 55388856, 62505210, 62778078, 72158161,
+                 78044338, 86158414)
+)
+
+lod_data <- data.frame(
+  conc_var = c(10, 25, 40, 50, 60,
+               75, 80, 100, 125, 150),
+  signal_var = c(500, 903, 1267, 2031, 2100,
+                 3563, 4500, 5300, 8500, 10430)
+)
+```
+
+```{r ViewMotivationData, echo = FALSE}
+# Model the data
+linear_model <- DCVtestkit::create_linear_model(saturated_data, 
+                                                "conc_var", "signal_var")
+quad_model <- DCVtestkit::create_quad_model(saturated_data, 
+                                            "conc_var", "signal_var")
+
+dilution <- seq(min(saturated_data$conc_var, na.rm = TRUE),
+                max(saturated_data$conc_var, na.rm = TRUE),
+                length.out = 15)
+
+# Create the y values for the line
+y_lin_predict <- stats::predict(linear_model,
+                                tibble::tibble("conc_var" := dilution))
+y_quad_predict <- stats::predict(quad_model,
+                                 tibble::tibble("conc_var" := dilution))
+reg_data <- data.frame(
+  dilution = dilution,
+  y_lin_predict = y_lin_predict,
+  y_quad_predict = y_quad_predict
+)
+
+reg_col_vec <- c("Lin" = "black", "Quad" = "red")
+
+saturation_plot <- ggplot2::ggplot(saturated_data) +
+  ggplot2::aes(x = .data$conc_var,
+               y = .data$signal_var
+               ) +
+    ggplot2::geom_point(size = 5, colour = "#377eb8") +
+  ggplot2::geom_line(data = reg_data,
+                           mapping = ggplot2::aes(x = dilution, y=y_lin_predict,
+                                                  colour = "Lin")
+        ) +
+  ggplot2::geom_line(data = reg_data,
+                     mapping = ggplot2::aes(x = dilution, y=y_quad_predict,
+                                            colour = "Quad")
+  ) +
+  ggplot2::scale_colour_manual(values = c(reg_col_vec),
+                               labels = names(c(reg_col_vec)),
+                               guide = ggplot2::guide_legend(override.aes = list(
+                                 linetype = c(rep("solid", length(reg_col_vec))),
+                                 shape = c(rep(NA, length(reg_col_vec))),
+                                 colour = c(reg_col_vec)
+                               ))
+    ) +
+  ggplot2::theme(
+    legend.title = ggplot2::element_blank(),
+    legend.position = "top",
+    axis.title.y = ggplot2::element_text(angle = 0,
+                                         vjust = 1)
+  ) +
+  ggplot2::labs(title = "Saturation",
+                x = "Concentration",
+                y = "Signal")
+
+# Model the data
+linear_model <- DCVtestkit::create_linear_model(lod_data, 
+                                                "conc_var", "signal_var")
+quad_model <- DCVtestkit::create_quad_model(lod_data, 
+                                            "conc_var", "signal_var")
+
+dilution <- seq(min(lod_data$conc_var, na.rm = TRUE),
+                max(lod_data$conc_var, na.rm = TRUE),
+                length.out = 15)
+
+# Create the y values for the line
+y_lin_predict <- stats::predict(linear_model,
+                                tibble::tibble("conc_var" := dilution))
+y_quad_predict <- stats::predict(quad_model,
+                                 tibble::tibble("conc_var" := dilution))
+reg_data <- data.frame(
+  dilution = dilution,
+  y_lin_predict = y_lin_predict,
+  y_quad_predict = y_quad_predict
+)
+
+reg_col_vec <- c("Lin" = "black", "Quad" = "red")
+
+lod_plot <- ggplot2::ggplot(lod_data) +
+  ggplot2::aes(x = .data$conc_var,
+               y = .data$signal_var
+               ) +
+    ggplot2::geom_point(size = 5, colour = "#4daf4a") +
+  ggplot2::geom_line(data = reg_data,
+                           mapping = ggplot2::aes(x = dilution, y=y_lin_predict,
+                                                  colour = "Lin")
+        ) +
+  ggplot2::geom_line(data = reg_data,
+                     mapping = ggplot2::aes(x = dilution, y=y_quad_predict,
+                                            colour = "Quad")
+  ) +
+  ggplot2::scale_colour_manual(values = c(reg_col_vec),
+                               labels = names(c(reg_col_vec)),
+                               guide = ggplot2::guide_legend(override.aes = list(
+                                 linetype = c(rep("solid", length(reg_col_vec))),
+                                 shape = c(rep(NA, length(reg_col_vec))),
+                                 colour = c(reg_col_vec)
+                               ))
+    ) +
+  ggplot2::theme(
+    legend.title = ggplot2::element_blank(),
+    legend.position = "top",
+    axis.title.y = ggplot2::element_text(angle = 0,
+                                         vjust = 1)
+  ) +
+  ggplot2::labs(title = "LOD",
+                x = "Concentration",
+                y = "Signal")
+
+
+gridExtra::grid.arrange(saturation_plot,lod_plot, ncol=2)
+```
+
+The corresponding correlation coefficient are really high (>0.9) even though the curves are non-linear.
+There is a need to explore better ways to categorise these two curves.
+```{r Pearson Correlation Coefficient1}
+cor(saturated_data$conc_var,saturated_data$signal_var)
+```
+```{r Pearson Correlation Coefficient2}
+cor(lod_data$conc_var,lod_data$signal_var)
+```
+
 ## How it works
 
 We try to categorise dilution curves based on the results of three parameters.  
 
- * Correlation Coefficient ( $R$ ) 
+ * Pearson Correlation Coefficient ( $R$ ) 
  * Percent Residual Accuracy ( $PRA$ )
  * Mandel's Fitting Test
  
 
-Correlation Coefficient ( $R$ ) can be found in Van Loco, J., Elskens, M., Croux, C. *et al.*, 
+Pearson Correlation Coefficient ( $R$ ) can be found in Van Loco, J., Elskens, M., Croux, C. *et al.*, 
 Linearity of calibration curves: use and misuse of the correlation coefficient. 
 *Accred Qual Assur* **7**, 281-285 (2002). [10.1007/s00769-002-0487-6](https://doi.org/10.1007/s00769-002-0487-6).  
 Equation ( $1$ ) is used.
@@ -62,7 +208,7 @@ Equation ( $6$ ) is used.
 
 Two methods are proposed to categorise the dilution curves.
 
-### Workflow 1 (Fit For Purpose)
+### Workflow 1
 
 Workflow 1 involves using $R$ and $PRA$ to categorise the dilution curves.
 
@@ -179,6 +325,8 @@ dilution_classified <- evaluate_linearity(dilution_summary,
 ```{r print dilution evaluation}
 print(dilution_classified, width = 100)
 ```
+
+## Output Results
 
 Results can be exported to Excel via `write_summary_excel`
 
