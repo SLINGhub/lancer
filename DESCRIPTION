@@ -43,5 +43,6 @@ Imports:
     trelliscopejs,
     scales,
     gridExtra,
-    patchwork
+    patchwork,
+    performance
 VignetteBuilder: knitr
