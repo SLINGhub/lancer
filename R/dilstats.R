@@ -97,7 +97,12 @@ create_cubic_model <- function(dilution_data, conc_var, signal_var) {
 
   # Create the formula
   cubic_formula <- stats::as.formula(paste(signal_var, "~",
-                                     paste(conc_var, "+",
+                                     paste(conc_var,
+                                           "+",
+                                     paste0("I(",
+                                            conc_var, " * ",
+                                            conc_var, ")"),
+                                           "+",
                                      paste0("I(",
                                             conc_var, " * ",
                                             conc_var, " * ",
@@ -106,10 +111,120 @@ create_cubic_model <- function(dilution_data, conc_var, signal_var) {
                                           )
                                      )
 
-  # Create the quadratic model on dilution data
+  # Create the cubic model on dilution data
   cubic_model <- stats::lm(cubic_formula, data = dilution_data)
 
   return(cubic_model)
+
+}
+
+#' @title Calculate Average Deviation From Linearity Kroll Test
+#' @description Calculate the average deviation from linearity kroll test
+#' @param dilution_data A data frame or tibble containing dilution data
+#' @param conc_var Column name in `dilution_data` to indicate concentration
+#' @param signal_var Column name in `dilution_data` to indicate signal
+#' @return The average deviation from linearity
+#' @details The function will return NA if the number of dilution points
+#' is less than or equal to three
+#' @rdname calculate_adl_kroll_test
+#' @export
+calculate_adl_kroll_test <- function(dilution_data, conc_var, signal_var) {
+
+  adl_result <- tibble::tibble(adl_kroll = NA,
+                               best_model = NA)
+
+  if (is.null(nrow(dilution_data))) {
+    return(adl_result)
+  }
+
+  # Drop rows whose value of signal_var is NA
+  dilution_data <- dilution_data %>%
+    tidyr::drop_na(.data[[signal_var]])
+
+  # Return NA for too little points
+  # Horizontal, Vertical line or single point
+  if (nrow(dilution_data) <= 3) {
+    return(adl_result)
+  }
+  if (stats::sd(dilution_data[[conc_var]]) == 0) {
+    return(adl_result)
+  }
+  if (stats::sd(dilution_data[[signal_var]]) == 0) {
+    return(adl_result)
+  }
+
+  # Create the models on dilution data
+  linear_model <- create_linear_model(dilution_data, conc_var, signal_var)
+  quad_model <- create_quad_model(dilution_data, conc_var, signal_var)
+  cubic_model <- create_cubic_model(dilution_data, conc_var, signal_var)
+
+  print(broom::glance(linear_model))
+  print(broom::glance(quad_model))
+  print(broom::glance(cubic_model))
+  print(broom::glance(cubic_model)$sigma)
+
+  # print(broom::tidy(linear_model))
+  # print(broom::tidy(quad_model))
+  # print(broom::tidy(cubic_model))
+
+  # metrics = c("BIC","AIC","R2_adj","RMSE")
+  # g <- performance::compare_performance(linear_model,
+  #                                       quad_model,
+  #                                       cubic_model,
+  #                                       rank = TRUE,
+  #                                       metrics = c("common")
+  #                                       )
+
+  # Get the p values
+  linear_pval <- broom::glance(linear_model)$p.value
+  quad_pval <- broom::glance(quad_model)$p.value
+  cubic_pval <- broom::glance(cubic_model)$p.value
+
+  #print(c(linear_pval, quad_pval, cubic_pval))
+
+  best_model <- min(linear_pval, quad_pval, cubic_pval, na.rm = TRUE)
+  #print(best_model)
+
+  mean_of_y <- mean(dilution_data[[signal_var]], na.rm = TRUE)
+  S <- length(unique(conc_var))
+  R <- dilution_data %>%
+    dplyr::group_by(.data[[conc_var]]) %>%
+    dplyr::summarise(no_replicates = length(.data[[conc_var]])) %>%
+    dplyr::ungroup() %>%
+    dplyr::pull(.data[["no_replicates"]]) %>%
+    max(na.rm = FALSE)
+
+  # Case 1 - linear model is best fitting
+  if (best_model == linear_pval) {
+    adl_result <- tibble::tibble(adl_kroll = NA,
+                                 best_model = "linear")
+    return(adl_result)
+  }
+
+  # Case 2 - quad model is best fitting
+  if(best_model == quad_pval) {
+    linear_predict <- stats::predict(linear_model)
+    quad_predict <- stats::predict(quad_model)
+    adl_kroll <- 100 * sqrt(sum((quad_predict - linear_predict)^2)/(S*R))/mean_of_y
+    adl_result <- tibble::tibble(adl_kroll = adl_kroll,
+                                 best_model = "quadratic")
+    return(adl_result)
+  }
+
+  # Case 3 - cubic model is best fitting
+  if(best_model == cubic_pval) {
+    linear_predict <- stats::predict(linear_model)
+    cubic_predict <- stats::predict(cubic_model)
+    adl_kroll <- 100 * sqrt(sum((cubic_predict - linear_predict)^2)/(S*R))/mean_of_y
+    sigma <- broom::glance(cubic_model)$sigma
+    precision_on_percent_scale <- sigma/mean_of_y
+    df <- 2
+    adl_result <- tibble::tibble(adl_kroll = adl_kroll,
+                                 best_model = "cubic")
+    return(adl_result)
+  }
+
+  return(adl_result)
 
 }
 
@@ -549,9 +664,12 @@ summarise_dilution_data <- function(dilution_data, conc_var, signal_var) {
     adl_value = calculate_adl(dilution_data, conc_var, signal_var)
   )
 
+  kroll_tibble = calculate_adl_kroll_test(dilution_data, conc_var, signal_var)
+
   dilution_summary <- dil_linear_gof %>%
     dplyr::bind_cols(mandel_result,
-                     one_value_tibble
+                     one_value_tibble,
+                     kroll_tibble
     )
 
   return(dilution_summary)

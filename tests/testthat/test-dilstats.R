@@ -255,6 +255,21 @@ test_that("calculate average deviation from linearity", {
 
 })
 
+test_that("calculate adl kroll test", {
+
+  solution_number <- c(1, 1, 2, 2, 3, 3, 4, 4,
+                       5, 5, 6, 6, 7, 7)
+  result <- c(352, 348, 1009, 991, 1603, 1584, 3100, 3200,
+              4482, 4390, 5101, 5046, 5669, 5516)
+
+  dilution_data <- data.frame(Solution_Number = solution_number,
+                              Result = result)
+
+  adl_result <- calculate_adl_kroll_test(dilution_data, "Solution_Number", "Result")
+
+
+})
+
 
 test_that("validate_dilution_data", {
 
