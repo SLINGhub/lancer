@@ -158,14 +158,15 @@ calculate_adl_kroll_test <- function(dilution_data, conc_var, signal_var) {
   quad_model <- create_quad_model(dilution_data, conc_var, signal_var)
   cubic_model <- create_cubic_model(dilution_data, conc_var, signal_var)
 
-  print(broom::glance(linear_model))
-  print(broom::glance(quad_model))
-  print(broom::glance(cubic_model))
-  print(broom::glance(cubic_model)$sigma)
+  # print(broom::glance(linear_model))
+  # print(broom::glance(quad_model))
+  # print(broom::glance(cubic_model))
 
   # print(broom::tidy(linear_model))
   # print(broom::tidy(quad_model))
   # print(broom::tidy(cubic_model))
+
+  # print(summary(cubic_model))
 
   # metrics = c("BIC","AIC","R2_adj","RMSE")
   # g <- performance::compare_performance(linear_model,
@@ -174,25 +175,33 @@ calculate_adl_kroll_test <- function(dilution_data, conc_var, signal_var) {
   #                                       rank = TRUE,
   #                                       metrics = c("common")
   #                                       )
+  #
+  # print(g)
 
   # Get the p values
   linear_pval <- broom::glance(linear_model)$p.value
   quad_pval <- broom::glance(quad_model)$p.value
   cubic_pval <- broom::glance(cubic_model)$p.value
 
-  #print(c(linear_pval, quad_pval, cubic_pval))
+  best_model = cubic_pval
 
-  best_model <- min(linear_pval, quad_pval, cubic_pval, na.rm = TRUE)
-  #print(best_model)
+  #best_model <- min(linear_pval, quad_pval, cubic_pval, na.rm = TRUE)
+
 
   mean_of_y <- mean(dilution_data[[signal_var]], na.rm = TRUE)
-  S <- length(unique(conc_var))
+  S <- length(unique(dilution_data[[conc_var]]))
   R <- dilution_data %>%
     dplyr::group_by(.data[[conc_var]]) %>%
     dplyr::summarise(no_replicates = length(.data[[conc_var]])) %>%
     dplyr::ungroup() %>%
     dplyr::pull(.data[["no_replicates"]]) %>%
     max(na.rm = FALSE)
+
+  signal_var_mean <- dilution_data %>%
+    dplyr::group_by(.data[[conc_var]]) %>%
+    dplyr::summarise(result_mean = mean(.data[[signal_var]], na.rm = TRUE)) %>%
+    dplyr::ungroup() %>%
+    dplyr::select(.data[["result_mean"]])
 
   # Case 1 - linear model is best fitting
   if (best_model == linear_pval) {
@@ -215,7 +224,7 @@ calculate_adl_kroll_test <- function(dilution_data, conc_var, signal_var) {
   if(best_model == cubic_pval) {
     linear_predict <- stats::predict(linear_model)
     cubic_predict <- stats::predict(cubic_model)
-    adl_kroll <- 100 * sqrt(sum((cubic_predict - linear_predict)^2)/(S*R))/mean_of_y
+    adl_kroll <- 100 * sqrt(sum((cubic_predict - linear_predict)^2)/(S))/mean_of_y
     sigma <- broom::glance(cubic_model)$sigma
     precision_on_percent_scale <- sigma/mean_of_y
     df <- 2
@@ -664,12 +673,11 @@ summarise_dilution_data <- function(dilution_data, conc_var, signal_var) {
     adl_value = calculate_adl(dilution_data, conc_var, signal_var)
   )
 
-  kroll_tibble = calculate_adl_kroll_test(dilution_data, conc_var, signal_var)
+  # kroll_tibble = calculate_adl_kroll_test(dilution_data, conc_var, signal_var)
 
   dilution_summary <- dil_linear_gof %>%
     dplyr::bind_cols(mandel_result,
-                     one_value_tibble,
-                     kroll_tibble
+                     one_value_tibble
     )
 
   return(dilution_summary)

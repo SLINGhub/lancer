@@ -12,9 +12,8 @@
 #'   expression, which is like a blueprint for the delayed computation.
 #'   \code{enquos()} returns a list of such quoted expressions.
 #'
-#' * \code{\link[rlang:nse-defuse]{expr}()} quotes
-#'   a new expression _locally_. It is mostly useful to build new
-#'   expressions around arguments
+#' * \code{\link[rlang:nse-defuse]{expr}()} quotes a new expression _locally_. It
+#'   is mostly useful to build new expressions around arguments
 #'   captured with [enquo()] or [enquos()]:
 #'   \code{expr(mean(!!enquo(arg), na.rm = TRUE))}.
 #'
@@ -46,72 +45,3 @@
 #' @aliases expr enquo enquos sym syms .data := as_name as_label
 #' @export expr enquo enquos sym syms .data := as_name as_label
 NULL
-
-
-required_package <- function(pkg){
-  if (!requireNamespace(pkg, quietly = TRUE)) {
-    stop(
-      pkg, " package needed to be installed before using this function. ",
-      "Type this in R: install.packages('", pkg, "')"
-    )
-  }
-}
-
-#' @title Symbol reduction
-#' @description
-#' An approach to reducing a vector of characters to
-#' a single expression.
-#' @param syms A vector of characters.
-#' @param op
-#' Operation used to glue the characters together, Default: '+'.
-#' @return
-#' A single expression that to be used for
-#' non-standard evaluation like formula in `stats::lm()`.
-#' @details
-#' From <https://github.com/tidyverse/glue/issues/108>, it is not advisable
-#' to generate code expression with strings. This function is meant to provide
-#' a more robust way to generate expressions from strings
-#' Code is taken from
-#' <https://community.rstudio.com/t/tidy-evaluation-and-formulae/4561/12>
-#' @examples
-#' syms_reduce(c("a"))
-#' syms_reduce(c("a", "b", "c"))
-#' syms_reduce(c("1()", "`a`e", "_foo"))
-#' syms_reduce(c("a", "b", "c"), op = "*")
-#' syms_reduce(c("a", "b", "c"), op = "plus")
-#' @export
-#' @rdname syms_reduce
-syms_reduce <- function(syms, op = "+") {
-  exprs_reduce(rlang::syms(syms), op = op)
-}
-
-#' @title Expression reduction
-#' @description
-#' An approach to reducing a list of expressions
-#' into one long expression
-#' @param exprs A list of expression output from `rlang::exprs`
-#' @param op
-#' Operation used to glue the expression together, Default: '+'.
-#' @return
-#' A single expression that to be used for
-#' non-standard evaluation like formula in `stats::lm()`.
-#' @details
-#' Code is taken from
-#' <https://community.rstudio.com/t/tidy-evaluation-and-formulae/4561/12>
-#' @examples
-#' exprs <- rlang::exprs(foo(), bar(baz), quux + blip)
-#' exprs_reduce(exprs, "-")
-#' @export
-#' @rdname exprs_reduce
-exprs_reduce <- function(exprs, op = "+") {
-
-  if (length(exprs) == 0) {
-    rlang::abort("Empty list of expressions")
-  }
-  if (length(exprs) == 1) {
-    return(exprs[[1]])
-  }
-
-  op <- rlang::sym(op)
-  purrr::reduce(exprs, function(x, y) rlang::expr((!!op)(!!x, !!y)))
-}
