@@ -382,7 +382,7 @@ trellis_table <- add_plotly_panel(dilution_table,
                                   conc_var_units = "%",
                                   conc_var_interval = 50,
                                   signal_var = "Area",
-                                  plot_half_lin_reg = FALSE,
+                                  plot_first_half_lin_reg = FALSE,
                                   have_plot_title = FALSE) %>% 
   convert_to_cog(grouping_variable = c("Transition_Name",
                                        "Dilution_Batch_Name"),
