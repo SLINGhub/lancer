@@ -158,34 +158,28 @@ calculate_adl_kroll_test <- function(dilution_data, conc_var, signal_var) {
   quad_model <- create_quad_model(dilution_data, conc_var, signal_var)
   cubic_model <- create_cubic_model(dilution_data, conc_var, signal_var)
 
-  # print(broom::glance(linear_model))
-  # print(broom::glance(quad_model))
-  # print(broom::glance(cubic_model))
+  # print(broom::glance(linear_model),width = Inf)
+  # print(broom::glance(quad_model),width = Inf)
+  # print(broom::glance(cubic_model),width = Inf)
 
   # print(broom::tidy(linear_model))
   # print(broom::tidy(quad_model))
   # print(broom::tidy(cubic_model))
 
-  # print(summary(cubic_model))
+  g <- performance::compare_performance(linear_model,
+                                        quad_model,
+                                        cubic_model,
+                                        rank = TRUE,
+                                        metrics = c("all")
+                                        )
 
-  # metrics = c("BIC","AIC","R2_adj","RMSE")
-  # g <- performance::compare_performance(linear_model,
-  #                                       quad_model,
-  #                                       cubic_model,
-  #                                       rank = TRUE,
-  #                                       metrics = c("common")
-  #                                       )
-  #
-  # print(g)
+  best_model <- g$Name[1]
 
   # Get the p values
-  linear_pval <- broom::glance(linear_model)$p.value
-  quad_pval <- broom::glance(quad_model)$p.value
-  cubic_pval <- broom::glance(cubic_model)$p.value
-
-  best_model = cubic_pval
-
-  #best_model <- min(linear_pval, quad_pval, cubic_pval, na.rm = TRUE)
+  # linear_pval <- broom::glance(linear_model)$p.value
+  # quad_pval <- broom::glance(quad_model)$p.value
+  # cubic_pval <- broom::glance(cubic_model)$p.value
+  # best_model <- min(linear_pval, quad_pval, cubic_pval, na.rm = TRUE)
 
 
   mean_of_y <- mean(dilution_data[[signal_var]], na.rm = TRUE)
@@ -203,32 +197,76 @@ calculate_adl_kroll_test <- function(dilution_data, conc_var, signal_var) {
     dplyr::ungroup() %>%
     dplyr::select(.data[["result_mean"]])
 
+  new_data <- tibble::tibble(!!conc_var := unique(dilution_data[[conc_var]]))
+
   # Case 1 - linear model is best fitting
-  if (best_model == linear_pval) {
+  if (best_model == "linear_model") {
     adl_result <- tibble::tibble(adl_kroll = NA,
+                                 precision_on_percent_scale = NA,
+                                 uncorrected_critical_value = NA,
+                                 corrected_critical_value = NA,
+                                 uncorrected_kroll_results = NA,
+                                 corrected_kroll_results = NA,
                                  best_model = "linear")
     return(adl_result)
   }
 
   # Case 2 - quad model is best fitting
-  if(best_model == quad_pval) {
-    linear_predict <- stats::predict(linear_model)
-    quad_predict <- stats::predict(quad_model)
-    adl_kroll <- 100 * sqrt(sum((quad_predict - linear_predict)^2)/(S*R))/mean_of_y
+  if(best_model == "quad_model") {
+    linear_predict <- stats::predict(linear_model,
+                                     newdata = new_data)
+    quad_predict <- stats::predict(quad_model,
+                                   newdata = new_data)
+    adl_kroll <- 100 * sqrt(sum((quad_predict - linear_predict)^2)/(S))/mean_of_y
+
+    sigma <- broom::glance(quad_model)$sigma
+    precision_on_percent_scale <- (sigma/mean_of_y) * 100
+
+    non_central_parameter <- (5^2*S*R)/(precision_on_percent_scale)^2
+
+    q_value <- stats::qchisq(p = .95, ncp = non_central_parameter, df=2)
+    uncorrected_critical_value = precision_on_percent_scale * sqrt((q_value/(S*R)))
+
+    q_value <- stats::qchisq(p = .05, ncp = non_central_parameter, df=2)
+    corrected_critical_value = precision_on_percent_scale * sqrt((q_value/(S*R)))
+
     adl_result <- tibble::tibble(adl_kroll = adl_kroll,
+                                 precision_on_percent_scale = precision_on_percent_scale,
+                                 uncorrected_critical_value = uncorrected_critical_value,
+                                 corrected_critical_value = corrected_critical_value,
+                                 uncorrected_kroll_results = as.character(adl_kroll < uncorrected_critical_value),
+                                 corrected_kroll_results = as.character(adl_kroll < corrected_critical_value),
                                  best_model = "quadratic")
+
     return(adl_result)
   }
 
   # Case 3 - cubic model is best fitting
-  if(best_model == cubic_pval) {
-    linear_predict <- stats::predict(linear_model)
-    cubic_predict <- stats::predict(cubic_model)
+  if(best_model == "cubic_model") {
+
+    linear_predict <- stats::predict(linear_model,
+                                     newdata = new_data)
+    cubic_predict <- stats::predict(cubic_model,
+                                    newdata = new_data)
     adl_kroll <- 100 * sqrt(sum((cubic_predict - linear_predict)^2)/(S))/mean_of_y
+
     sigma <- broom::glance(cubic_model)$sigma
-    precision_on_percent_scale <- sigma/mean_of_y
-    df <- 2
+    precision_on_percent_scale <- (sigma/mean_of_y) * 100
+
+    non_central_parameter <- (5^2*S*R)/(precision_on_percent_scale)^2
+
+    q_value <- stats::qchisq(p = .95, ncp = non_central_parameter, df=2)
+    uncorrected_critical_value = precision_on_percent_scale * sqrt((q_value/(S*R)))
+
+    q_value <- stats::qchisq(p = .05, ncp = non_central_parameter, df=2)
+    corrected_critical_value = precision_on_percent_scale * sqrt((q_value/(S*R)))
+
     adl_result <- tibble::tibble(adl_kroll = adl_kroll,
+                                 precision_on_percent_scale = precision_on_percent_scale,
+                                 uncorrected_critical_value = uncorrected_critical_value,
+                                 corrected_critical_value = corrected_critical_value,
+                                 uncorrected_kroll_results = as.character(adl_kroll < uncorrected_critical_value),
+                                 corrected_kroll_results = as.character(adl_kroll < corrected_critical_value),
                                  best_model = "cubic")
     return(adl_result)
   }
@@ -647,6 +685,8 @@ validate_dilution_data <- function(dilution_data, conc_var, signal_var) {
 #' @param dilution_data A data frame or tibble containing dilution data
 #' @param conc_var Column name in `dilution_data` to indicate concentration
 #' @param signal_var Column name in `dilution_data` to indicate signal
+#' @param details If set to `TRUE`, will include more columns in the dilution
+#' summary but there are mainly for development and testing.
 #' @return A tibble containing the Goodness of Fit measures of the linear model
 #' The Goodness of Fit measures are the Pearson correlation coefficient (R),
 #' R^2, adjusted R^2, Bayesian Information Criterion (BIC), Pearson correlation
@@ -662,23 +702,40 @@ validate_dilution_data <- function(dilution_data, conc_var, signal_var) {
 #' print(dilution_summary, width = 100)
 #' @rdname summarise_dilution_data
 #' @export
-summarise_dilution_data <- function(dilution_data, conc_var, signal_var) {
+summarise_dilution_data <- function(dilution_data, conc_var, signal_var,
+                                    details = FALSE) {
 
   mandel_result <- calculate_mandel(dilution_data, conc_var, signal_var)
   dil_linear_gof <- calculate_gof_linear(dilution_data,
                                          conc_var, signal_var)
-  one_value_tibble <- tibble::tibble(
-    pra_linear = calculate_pra_linear(dilution_data, conc_var, signal_var),
-    concavity = calculate_concavity(dilution_data, conc_var, signal_var),
-    adl_value = calculate_adl(dilution_data, conc_var, signal_var)
-  )
 
-  # kroll_tibble = calculate_adl_kroll_test(dilution_data, conc_var, signal_var)
+  if(isTRUE(details)) {
 
-  dilution_summary <- dil_linear_gof %>%
-    dplyr::bind_cols(mandel_result,
-                     one_value_tibble
+    one_value_tibble <- tibble::tibble(
+      pra_linear = calculate_pra_linear(dilution_data, conc_var, signal_var),
+      concavity = calculate_concavity(dilution_data, conc_var, signal_var),
+      adl_value = calculate_adl(dilution_data, conc_var, signal_var)
     )
+
+    kroll_tibble = calculate_adl_kroll_test(dilution_data, conc_var, signal_var)
+
+    dilution_summary <- dil_linear_gof %>%
+      dplyr::bind_cols(mandel_result,
+                       one_value_tibble,
+                       kroll_tibble
+      )
+
+  } else {
+    one_value_tibble <- tibble::tibble(
+      pra_linear = calculate_pra_linear(dilution_data, conc_var, signal_var),
+      concavity = calculate_concavity(dilution_data, conc_var, signal_var)
+    )
+
+    dilution_summary <- dil_linear_gof %>%
+      dplyr::bind_cols(mandel_result,
+                       one_value_tibble
+      )
+  }
 
   return(dilution_summary)
 }
