@@ -14,8 +14,11 @@
 #' @param conc_var_units Unit of measure for `conc_var` in the dilution plot
 #' @param conc_var_interval Distance between two tick labels
 #' @param signal_var Column name in `dilution_data` to indicate signal
-#' @param plot_half_lin_reg Decide if we plot an extra regression line that
+#' @param plot_first_half_lin_reg Decide if we plot an extra regression line that
 #' best fits the first half of `conc_var` dilution points.
+#' Default: FALSE
+#' @param plot_last_half_lin_reg Decide if we plot an extra regression line that
+#' best fits the last half of `conc_var` dilution points.
 #' Default: FALSE
 #' @return Output `plotly` dilution plot data of one dilution batch per transition
 #' @examples
@@ -69,7 +72,8 @@ plot_curve_plotly <- function(dilution_data,
                               conc_var_units = "%",
                               conc_var_interval = 50,
                               signal_var = "Area",
-                              plot_half_lin_reg = FALSE) {
+                              plot_first_half_lin_reg = FALSE,
+                              plot_last_half_lin_reg = FALSE) {
 
 
 
@@ -154,7 +158,7 @@ plot_curve_plotly <- function(dilution_data,
                           inherit = FALSE)
 
 
-      if(isTRUE(plot_half_lin_reg)){
+      if(isTRUE(plot_first_half_lin_reg)){
 
         # Get the points for the partial linear curve
         partial_conc_points <- dilution_data %>%
@@ -177,8 +181,39 @@ plot_curve_plotly <- function(dilution_data,
           plotly::add_trace(data = partial_dilution_data, x = dilution,
                             y = stats::predict(partial_linear_model,
                                                tibble::tibble(!!conc_var := dilution)),
-                            type = "scattergl", mode = "lines", name = "lin half reg",
+                            type = "scattergl", mode = "lines", name = "lin first half reg",
                             line = list(color = "blue", width = 1),
+                            inherit = FALSE)
+
+
+      }
+
+      if(isTRUE(plot_last_half_lin_reg)){
+
+        # Get the points for the partial linear curve
+        partial_conc_points <- dilution_data %>%
+          dplyr::pull(.data[[conc_var]]) %>%
+          as.numeric() %>%
+          sort() %>%
+          unique()
+
+        last_half_index <- ceiling(length(partial_conc_points)/2):length(partial_conc_points)
+        partial_conc_points <- partial_conc_points[last_half_index]
+
+        partial_dilution_data <- dilution_data %>%
+          dplyr::filter(.data[[conc_var]] %in% partial_conc_points)
+
+        # Create the partial model
+        partial_linear_model <- create_linear_model(partial_dilution_data,
+                                                    conc_var, signal_var)
+
+        # Create the lines in the dilution plot
+        p <- p %>%
+          plotly::add_trace(data = partial_dilution_data, x = dilution,
+                            y = stats::predict(partial_linear_model,
+                                               tibble::tibble(!!conc_var := dilution)),
+                            type = "scatter", mode = "lines", name = "lin last half reg",
+                            line = list(color = "purple", width = 1),
                             inherit = FALSE)
 
 
@@ -279,8 +314,11 @@ plot_curve_plotly <- function(dilution_data,
 #' @param have_plot_title Indicate if you want to have a plot title in
 #' the `plotly` plot.
 #' Default: FALSE
-#' @param plot_half_lin_reg Decide if we plot an extra regression line that
+#' @param plot_first_half_lin_reg Decide if we plot an extra regression line that
 #' best fits the first half of `conc_var` dilution points.
+#' Default: FALSE
+#' @param plot_last_half_lin_reg Decide if we plot an extra regression line that
+#' best fits the last half of `conc_var` dilution points.
 #' Default: FALSE
 #' @return A table that is suited for a `trelliscopejs` visualisation with
 #' `grouping variable` columns converted to conditional cognostics,
@@ -374,7 +412,8 @@ add_plotly_panel <- function(dilution_table, dilution_summary = NULL,
                              conc_var_interval = 50,
                              signal_var = "Area",
                              have_plot_title = FALSE,
-                             plot_half_lin_reg = FALSE) {
+                             plot_first_half_lin_reg = FALSE,
+                             plot_last_half_lin_reg = FALSE) {
 
 
 
@@ -466,7 +505,8 @@ add_plotly_panel <- function(dilution_table, dilution_summary = NULL,
                                                    conc_var_units = conc_var_units,
                                                    conc_var_interval = conc_var_interval,
                                                    signal_var = signal_var,
-                                                   plot_half_lin_reg = plot_half_lin_reg)
+                                                   plot_first_half_lin_reg = plot_first_half_lin_reg,
+                                                   plot_last_half_lin_reg = plot_last_half_lin_reg)
                   )
 
   # Convert the grouping variables to conditioning cognostics
