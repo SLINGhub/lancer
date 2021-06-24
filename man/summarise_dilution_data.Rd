@@ -4,7 +4,7 @@
 \alias{summarise_dilution_data}
 \title{Summarise Dilution Curve Data For One Group}
 \usage{
-summarise_dilution_data(dilution_data, conc_var, signal_var)
+summarise_dilution_data(dilution_data, conc_var, signal_var, details = FALSE)
 }
 \arguments{
 \item{dilution_data}{A data frame or tibble containing dilution data}
@@ -12,6 +12,9 @@ summarise_dilution_data(dilution_data, conc_var, signal_var)
 \item{conc_var}{Column name in \code{dilution_data} to indicate concentration}
 
 \item{signal_var}{Column name in \code{dilution_data} to indicate signal}
+
+\item{details}{If set to \code{TRUE}, will include more columns in the dilution
+summary but there are mainly for development and testing.}
 }
 \value{
 A tibble containing the Goodness of Fit measures of the linear model

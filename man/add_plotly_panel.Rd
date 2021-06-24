@@ -16,7 +16,8 @@ add_plotly_panel(
   conc_var_interval = 50,
   signal_var = "Area",
   have_plot_title = FALSE,
-  plot_half_lin_reg = FALSE
+  plot_first_half_lin_reg = FALSE,
+  plot_last_half_lin_reg = FALSE
 )
 }
 \arguments{
@@ -66,8 +67,12 @@ Default: 'Area'}
 the \code{plotly} plot.
 Default: FALSE}
 
-\item{plot_half_lin_reg}{Decide if we plot an extra regression line that
+\item{plot_first_half_lin_reg}{Decide if we plot an extra regression line that
 best fits the first half of \code{conc_var} dilution points.
+Default: FALSE}
+
+\item{plot_last_half_lin_reg}{Decide if we plot an extra regression line that
+best fits the last half of \code{conc_var} dilution points.
 Default: FALSE}
 }
 \value{

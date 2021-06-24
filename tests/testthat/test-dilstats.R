@@ -262,37 +262,20 @@ test_that("calculate adl kroll test", {
   result <- c(352, 348, 1009, 991, 1603, 1584, 3100, 3200,
               4482, 4390, 5101, 5046, 5669, 5516)
 
-  # Create data
+  # Create cubic best data
   solution_number <- c(1, 1, 2, 2, 3, 3, 4, 4,
                        5, 5)
   result <- c(1, 0.99, 1.6, 1.59, 2.5, 2.6, 4.36, 4.39,
               5.1, 5)
 
+  # Create quad best model data
+  solution_number <- c(1, 1, 2, 2, 3, 3, 4, 4,
+                       5, 5)
+  result <- c(4.7, 4.6, 7.8, 7.6, 10.4, 10.2, 13, 13.1,
+              15.5, 15.3)
+
   dilution_data <- data.frame(Solution_Number = solution_number,
                               Result = result)
-
-  # Build model
-  cubic_model <- stats::lm(Result ~ Solution_Number +
-                                    I(Solution_Number * Solution_Number) +
-                                    I(Solution_Number * Solution_Number * Solution_Number),
-                           data = dilution_data)
-
-  # Create new data to predict
-  new_data <- data.frame(new_solution_number = unique(dilution_data[["Solution_Number"]]))
-
-  cubic_predict <- stats::predict(cubic_model,
-                                  new_data = new_data)
-
-  new_data <- data.frame(new_solution_number = unique(dilution_data[["Solution_Number"]]),
-                         predicted = c(1.03,1.45,2.76,4.23,5.086))
-
-  signal_var_mean <- dilution_data %>%
-    dplyr::group_by(.data[["Solution_Number"]]) %>%
-    dplyr::summarise(result_mean = mean(.data[["Result"]], na.rm = TRUE)) %>%
-    dplyr::ungroup() %>%
-    dplyr::select(.data[["result_mean"]])
-
-
 
   adl_result <- calculate_adl_kroll_test(dilution_data, "Solution_Number",
                                          "Result")

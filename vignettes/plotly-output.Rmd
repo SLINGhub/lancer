@@ -133,7 +133,8 @@ trellis_table <- add_plotly_panel(dilution_table,
                                   conc_var_interval = 50,
                                   signal_var = "Area",
                                   have_plot_title = TRUE,
-                                  plot_half_lin_reg = TRUE)
+                                  plot_first_half_lin_reg = TRUE,
+                                  plot_last_half_lin_reg = TRUE)
 
 trellis_list <- trellis_table$panel
 
@@ -160,7 +161,8 @@ trellis_table <- add_plotly_panel(dilution_table,
                                   conc_var_interval = 20,
                                   signal_var = "Area",
                                   have_plot_title = TRUE,
-                                  plot_half_lin_reg = TRUE)
+                                  plot_first_half_lin_reg = TRUE,
+                                  plot_last_half_lin_reg = TRUE)
 
 trellis_list <- trellis_table$panel
 
