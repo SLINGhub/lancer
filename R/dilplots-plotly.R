@@ -248,7 +248,9 @@ plot_curve_plotly <- function(dilution_data,
                                 showspikes = TRUE,
                                 spikemode = "toaxis+marker",
                                 spikesnap = "data"),
-                   yaxis = list(title = signal_var,
+                   # Make y axis to have no title because it
+                   # will be added later as an annotaton.
+                   yaxis = list(title = "",
                                 autorange = TRUE,
                                 fixedrange = FALSE,
                                 titlefont = list(size = 10),
@@ -270,6 +272,16 @@ plot_curve_plotly <- function(dilution_data,
                    paper_bgcolor = "rgb(255,255,255)",
                    plot_bgcolor = "rgb(229,229,229)",
                    showlegend = TRUE
+    ) %>%
+    plotly::add_annotations(
+      x=0,
+      y=1,
+      xref = "paper",
+      yref = "paper",
+      xanchor = 'right',
+      yanchor = "bottom",
+      text = signal_var,
+      showarrow = FALSE
     )
 
   return(p)

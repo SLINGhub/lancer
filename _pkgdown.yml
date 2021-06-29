@@ -42,6 +42,7 @@ reference:
       Functions used to write dilution summary table to Excel
     contents:
     - write_summary_excel
+    - calculate_column_max_char_vector
     - format_char_cell_colour
     - format_num_cell_colour
     - format_num_cell_style

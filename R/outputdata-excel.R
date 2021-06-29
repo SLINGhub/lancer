@@ -1,3 +1,58 @@
+#' @title Calculate Column Maximum Char
+#' @description Calculate the maximum number of
+#' characters for each column in the input data frame
+#' or tibble, including the column name.
+#' @param dilution_summary The summary table generated
+#' by function [summarise_dilution_table()] and/or
+#' [evaluate_linearity()]
+#' but it can also be any generic data frame or tibble
+#' @return A numeric vector each value indicated the
+#' maximum number of characters for each column of the
+#' input data frame or tibble
+#' @examples
+#' r_corr <- c(0.951956, 0.948683, 0.978057, 0.976462,
+#'             0.970618, 0.969348, 0.343838, 0.383552)
+#' pra_linear <- c(65.78711, 64.58687, 90.21257, 89.95473,
+#'                 72.91220, 72.36528, -233.05949, -172.13659)
+#' mandel_p_val <- c(2.899006e-07, 7.922290e-07, 2.903365e-01, 3.082930e-01,
+#'                   3.195779e-08, 6.366588e-08, 3.634004e-02, 1.864090e-02)
+#' concavity <- c(-4133.501328, -4146.745747, -3.350942, -3.393617,
+#'                0.3942824, 0.4012963, -19.9469621, -22.6144875)
+#' dilution_summary <- data.frame(r_corr = r_corr, pra_linear = pra_linear,
+#'                                mandel_p_val = mandel_p_val,
+#'                                concavity = concavity)
+#' column_max_char <- calculate_column_max_char_vector(dilution_summary)
+#' @rdname calculate_column_max_char_vector
+#' @export
+calculate_column_max_char_vector <- function(dilution_summary) {
+
+  #Start with an empty vector
+  column_max_char_vector <- c()
+
+  for (i in seq_len(ncol(dilution_summary))) {
+    # For each column
+
+    # Get the number of char for the column name
+    column_name_char <- colnames(dilution_summary)[i] %>%
+      nchar()
+
+    # Get the number of char for each data in the column
+    data_char <- dilution_summary[,i,drop = TRUE] %>%
+      nchar()
+
+    # Get the maximun number of char and append
+    longest_char <- max(data_char,column_name_char,
+                        na.rm = TRUE)
+
+    column_max_char_vector <- c(column_max_char_vector,
+                                longest_char)
+
+  }
+
+  return(column_max_char_vector)
+}
+
+
 #' @title Mark Near Zero Columns
 #' @description Mark numeric columns with near zero values from a dataset
 #' by changing the class from `numeric` to `scientific`
@@ -398,11 +453,12 @@ write_summary_excel <- function(dilution_summary, file_name,
   # https://stackoverflow.com/questions/45860085/r-autofit-excel-column-width
 
   font_size <- as.integer(openxlsx::getBaseFont(my_workbook)$size$val)
-  openxlsx::setColWidths(wb = my_workbook, sheet = sheet_name,
-                         cols = seq_len(ncol(dilution_summary)),
-                         widths = nchar(colnames(dilution_summary)) + font_size
-                         - 6
-                         )
+  openxlsx::setColWidths(
+    wb = my_workbook,
+    sheet = sheet_name,
+    cols = seq_len(ncol(dilution_summary)),
+    widths = calculate_column_max_char_vector(dilution_summary) +
+             font_size - 6)
 
   # Write to worksheet as an Excel Table
   openxlsx::writeDataTable(wb = my_workbook, sheet = sheet_name,
