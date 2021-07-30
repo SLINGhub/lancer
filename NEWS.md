@@ -8,6 +8,7 @@
 ## Completed
 
 * Changed output excel sheet font to "Consolas" so that the number "0" and the letter "O" can be differentiated easily.
+* In `cognostics.R`, function `convert_to_cog`, add code to ensure logical columns are converted to character columns as logical column will turn to NA when `trelliscopejs::as_cognostics` is applied
 
 # DCVtestkit 0.0.1
 

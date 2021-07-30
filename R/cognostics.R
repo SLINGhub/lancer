@@ -52,23 +52,28 @@ create_default_cog_df <- function() {
   # More details in `trelliscopejs::cog` can be found in
   # <https://rdrr.io/cran/trelliscopejs/man/cog.html>
 
-  col_name_vec <- c("Transition_Name", "Dilution_Batch_Name","Transition_Name_Class",
+  col_name_vec <- c("Transition_Name", "Dilution_Batch_Name",
+                    "Transition_Name_Class",
                     "wf1_group", "wf2_group",
                     "r_corr", "pra_linear", "mandel_p_val",
                     "r2_linear", "r2_adj_linear", "mandel_stats",
                     "adl_value")
 
-  desc_vec <- c("Transition_Name", "Dilution_Batch_Name", "Classes of Transitions",
-                "Group from workflow 1","Group from workflow 2",
+  desc_vec <- c("Transition_Name", "Dilution_Batch_Name",
+                "Classes of Transitions",
+                "Group from workflow 1", "Group from workflow 2",
                 "Pearson Correlation R values",
-                "Linear Regression Percent Residual Accuracy", "P values for Mandel test",
-                "Linear Regression R^2 Value", "Linear Regression Adjusted R^2 Value",
+                "Linear Regression Percent Residual Accuracy",
+                "P values for Mandel test",
+                "Linear Regression R^2 Value",
+                "Linear Regression Adjusted R^2 Value",
                 "Test statistics for Mandel Test",
                 "Average Deviation from Linearity")
 
-  type_vec <- c("factor","factor",
-                "factor","factor","factor",
-                "numeric","numeric","numeric","numeric","numeric","numeric","numeric")
+  type_vec <- c("factor", "factor",
+                "factor", "factor", "factor",
+                "numeric", "numeric", "numeric",
+                "numeric", "numeric", "numeric", "numeric")
 
   cog_df <- data.frame(col_name_vec = col_name_vec,
                        desc_vec = desc_vec,
@@ -207,7 +212,9 @@ update_cog_manual <- function(dilution_summary, cog_df,
   )
 
   # See this webpage to learn how to mutate specific columns.
-  # https://stackoverflow.com/questions/52998471/dynamically-determine-if-a-dataframe-column-exists-and-mutate-if-it-does
+  # https://stackoverflow.com/questions/52998471/
+  # dynamically-determine-if-a-dataframe-column-exists-
+  # and-mutate-if-it-does
 
   for (colname in colnames(dilution_summary)) {
     row_index <- which(cog_df$col_name_vec == colname)
@@ -327,8 +334,8 @@ update_cog_auto <- function(dilution_summary) {
 
 
 #' @title Convert To Cognostics
-#' @description Convert columns in `dilution_summary` to `trelliscopejs` cognostics
-#' for the `Trelliscope` display
+#' @description Convert columns in `dilution_summary` to
+#' `trelliscopejs` cognostics for the `Trelliscope` display
 #' @param dilution_summary The summary table generated
 #' by function [summarise_dilution_table()] and/or
 #' [evaluate_linearity()]
@@ -444,15 +451,20 @@ convert_to_cog <- function(dilution_summary, cog_df = NULL,
                               only_colnames = FALSE, quiet = TRUE)
 
   # Check if panel_variable is also a goruping variable
-  if(isTRUE(panel_variable %in% grouping_variable)){
+  if (isTRUE(panel_variable %in% grouping_variable)) {
     stop(paste("panel_variable", panel_variable,
                "cannot be a grouping_variable")
          )
   }
 
+  # Convert logical columns to characters
+  dilution_summary <- dilution_summary %>%
+    dplyr::mutate_if(is.logical,
+                     ~as.character(.x))
+
   # Separate the panel variables if it is in dilution_summary
   panel_df <- NULL
-  if(!is.null(panel_variable)) {
+  if (!is.null(panel_variable)) {
     panel_df <- dilution_summary %>%
       dplyr::select(dplyr::any_of(c(grouping_variable,
                                     panel_variable)))
@@ -478,7 +490,8 @@ convert_to_cog <- function(dilution_summary, cog_df = NULL,
 
 
   #Convert panel variables if any to trelliscope_panels
-  if(!is.null(panel_df) && ncol(panel_df) != length(grouping_variable)) {
+  if (!is.null(panel_df) &&
+      ncol(panel_df) != length(grouping_variable)) {
 
     # Ensure that the grouping variable is converted to
     # conditional columns
@@ -493,7 +506,7 @@ convert_to_cog <- function(dilution_summary, cog_df = NULL,
                          dplyr::select(dplyr::any_of(c(panel_variable)))
       ) %>%
       dplyr::mutate(dplyr::across(panel_variable,
-                    ~structure(.x,class = c("trelliscope_panels","list")))
+                    ~structure(.x, class = c("trelliscope_panels", "list")))
       )
 
     # Panel_df to do a left join with dilution summary

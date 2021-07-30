@@ -54,8 +54,8 @@ other columns in \code{dilution_summary} converted to cognostics
 to be used in the in the \code{trelliscopejs} report.
 }
 \description{
-Convert columns in \code{dilution_summary} to \code{trelliscopejs} cognostics
-for the \code{Trelliscope} display
+Convert columns in \code{dilution_summary} to
+\code{trelliscopejs} cognostics for the \code{Trelliscope} display
 }
 \examples{
 dilution_percent <- c(10, 20, 25, 40, 50, 60,
