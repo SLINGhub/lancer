@@ -75,7 +75,10 @@ plot_curve_plotly <- function(dilution_data,
                               plot_first_half_lin_reg = FALSE,
                               plot_last_half_lin_reg = FALSE) {
 
-
+  # Convert the column that holds the dilution_batch_var
+  # to character
+  dilution_data[[dil_batch_var]] <- dilution_data[[dil_batch_var]] %>%
+    as.character()
 
   # Drop rows whose value of signal_var is NA
   dilution_data <- dilution_data %>%
