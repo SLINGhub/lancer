@@ -26,6 +26,12 @@
 #' @export
 calculate_column_max_char_vector <- function(dilution_summary) {
 
+  # Convert factor columns to type character
+  # as nchar gives an error if a input vector
+  # is of type factor
+  dilution_summary <- dilution_summary %>%
+    dplyr::mutate_if(is.factor,is.character)
+
   #Start with an empty vector
   column_max_char_vector <- c()
 
