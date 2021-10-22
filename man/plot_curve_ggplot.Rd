@@ -14,7 +14,8 @@ plot_curve_ggplot(
   conc_var_units = "\%",
   conc_var_interval = 50,
   signal_var = "Area",
-  plot_half_lin_reg = FALSE
+  plot_first_half_lin_reg = FALSE,
+  plot_last_half_lin_reg = FALSE
 )
 }
 \arguments{
@@ -46,8 +47,12 @@ Default: 50}
 \item{signal_var}{Column name in \code{dilution_table} to indicate signal
 Default: 'Area'}
 
-\item{plot_half_lin_reg}{Decide if we plot an extra regression line that
+\item{plot_first_half_lin_reg}{Decide if we plot an extra regression line that
 best fits the first half of \code{conc_var} dilution points.
+Default: FALSE}
+
+\item{plot_last_half_lin_reg}{Decide if we plot an extra regression line that
+best fits the last half of \code{conc_var} dilution points.
 Default: FALSE}
 }
 \value{

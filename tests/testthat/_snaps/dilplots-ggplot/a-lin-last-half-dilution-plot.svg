@@ -74,6 +74,7 @@
 <circle cx='367.98' cy='159.82' r='5.69' style='stroke-width: 0.71; stroke: #377EB8; fill: #377EB8;' />
 <polyline points='80.94,474.64 101.44,448.27 121.95,421.90 142.45,395.53 162.95,369.15 183.46,342.78 203.96,316.41 224.46,290.04 244.97,263.67 265.47,237.30 285.97,210.93 306.47,184.55 326.98,158.18 347.48,131.81 367.98,105.44 ' style='stroke-width: 1.07; stroke-linecap: butt;' />
 <polyline points='80.94,518.96 101.44,471.63 121.95,427.65 142.45,387.02 162.95,349.73 183.46,315.80 203.96,285.21 224.46,257.97 244.97,234.07 265.47,213.53 285.97,196.33 306.47,182.47 326.98,171.97 347.48,164.81 367.98,161.00 ' style='stroke-width: 1.07; stroke: #FF0000; stroke-linecap: butt;' />
+<polyline points='80.94,380.55 101.44,363.79 121.95,347.03 142.45,330.26 162.95,313.50 183.46,296.74 203.96,279.97 224.46,263.21 244.97,246.45 265.47,229.68 285.97,212.92 306.47,196.15 326.98,179.39 347.48,162.63 367.98,145.86 ' style='stroke-width: 1.07; stroke: #A020F0; stroke-linecap: butt;' />
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <text x='61.66' y='542.54' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='24.72px' lengthAdjust='spacingAndGlyphs'>0e+00</text>
@@ -92,18 +93,25 @@
 <text x='367.98' y='550.62' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='14.68px' lengthAdjust='spacingAndGlyphs'>150</text>
 <text x='224.46' y='562.76' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='100.88px' lengthAdjust='spacingAndGlyphs'>Dilution_Percent (%)</text>
 <text x='22.58' y='92.33' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='23.24px' lengthAdjust='spacingAndGlyphs'>Area</text>
-<rect x='154.60' y='45.57' width='139.72' height='28.24' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<rect x='165.56' y='51.05' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #F2F2F2;' />
-<line x1='167.29' y1='59.69' x2='181.12' y2='59.69' style='stroke-width: 1.07; stroke-linecap: butt;' />
-<line x1='167.29' y1='59.69' x2='181.12' y2='59.69' style='stroke-width: 1.07; stroke-linecap: butt;' />
-<rect x='205.55' y='51.05' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #F2F2F2;' />
-<line x1='207.27' y1='59.69' x2='221.10' y2='59.69' style='stroke-width: 1.07; stroke: #FF0000; stroke-linecap: butt;' />
-<line x1='207.27' y1='59.69' x2='221.10' y2='59.69' style='stroke-width: 1.07; stroke: #FF0000; stroke-linecap: butt;' />
-<rect x='255.32' y='51.05' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #F2F2F2;' />
-<circle cx='263.96' cy='59.69' r='5.69' style='stroke-width: 0.71; stroke: none; fill: #377EB8;' />
-<text x='188.32' y='62.71' style='font-size: 8.80px; font-family: sans;' textLength='11.74px' lengthAdjust='spacingAndGlyphs'>Lin</text>
-<text x='228.30' y='62.71' style='font-size: 8.80px; font-family: sans;' textLength='21.53px' lengthAdjust='spacingAndGlyphs'>Quad</text>
-<text x='278.08' y='62.71' style='font-size: 8.80px; font-family: sans;' textLength='10.77px' lengthAdjust='spacingAndGlyphs'>B1</text>
+<rect x='116.03' y='45.57' width='216.87' height='28.24' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
+<rect x='126.98' y='51.05' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #F2F2F2;' />
+<line x1='128.71' y1='59.69' x2='142.54' y2='59.69' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<line x1='128.71' y1='59.69' x2='142.54' y2='59.69' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<line x1='128.71' y1='59.69' x2='142.54' y2='59.69' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<rect x='166.97' y='51.05' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #F2F2F2;' />
+<line x1='168.69' y1='59.69' x2='182.52' y2='59.69' style='stroke-width: 1.07; stroke: #FF0000; stroke-linecap: butt;' />
+<line x1='168.69' y1='59.69' x2='182.52' y2='59.69' style='stroke-width: 1.07; stroke: #FF0000; stroke-linecap: butt;' />
+<line x1='168.69' y1='59.69' x2='182.52' y2='59.69' style='stroke-width: 1.07; stroke: #FF0000; stroke-linecap: butt;' />
+<rect x='216.74' y='51.05' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #F2F2F2;' />
+<line x1='218.46' y1='59.69' x2='232.29' y2='59.69' style='stroke-width: 1.07; stroke: #A020F0; stroke-linecap: butt;' />
+<line x1='218.46' y1='59.69' x2='232.29' y2='59.69' style='stroke-width: 1.07; stroke: #A020F0; stroke-linecap: butt;' />
+<line x1='218.46' y1='59.69' x2='232.29' y2='59.69' style='stroke-width: 1.07; stroke: #A020F0; stroke-linecap: butt;' />
+<rect x='293.90' y='51.05' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #F2F2F2;' />
+<circle cx='302.54' cy='59.69' r='5.69' style='stroke-width: 0.71; stroke: none; fill: #377EB8;' />
+<text x='149.74' y='62.71' style='font-size: 8.80px; font-family: sans;' textLength='11.74px' lengthAdjust='spacingAndGlyphs'>Lin</text>
+<text x='189.73' y='62.71' style='font-size: 8.80px; font-family: sans;' textLength='21.53px' lengthAdjust='spacingAndGlyphs'>Quad</text>
+<text x='239.50' y='62.71' style='font-size: 8.80px; font-family: sans;' textLength='48.92px' lengthAdjust='spacingAndGlyphs'>Lin Last Half</text>
+<text x='316.65' y='62.71' style='font-size: 8.80px; font-family: sans;' textLength='10.77px' lengthAdjust='spacingAndGlyphs'>B1</text>
 <text x='10.96' y='37.35' style='font-size: 13.20px; font-family: sans;' textLength='92.47px' lengthAdjust='spacingAndGlyphs'>Lipid_Saturated</text>
 </g>
 <defs>
@@ -415,6 +423,6 @@
 <g clip-path='url(#cpMzkzLjI5fDcwOS4wNHw1NjUuMDR8NTY1LjA0)'>
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
-<text x='10.96' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='114.48px' lengthAdjust='spacingAndGlyphs'>A usual dilution plot</text>
+<text x='10.96' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='156.29px' lengthAdjust='spacingAndGlyphs'>A Lin Last Half dilution plot</text>
 </g>
 </svg>

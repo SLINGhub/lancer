@@ -181,8 +181,11 @@ plot_summary_table <- function(dilution_summary_grp) {
 #' Default: 50
 #' @param signal_var Column name in `dilution_table` to indicate signal
 #' Default: 'Area'
-#' @param plot_half_lin_reg Decide if we plot an extra regression line that
+#' @param plot_first_half_lin_reg Decide if we plot an extra regression line that
 #' best fits the first half of `conc_var` dilution points.
+#' Default: FALSE
+#' @param plot_last_half_lin_reg Decide if we plot an extra regression line that
+#' best fits the last half of `conc_var` dilution points.
 #' Default: FALSE
 #' @return Output `ggplot` dilution plot data of one dilution batch per transition
 #' @rdname plot_curve_ggplot
@@ -254,7 +257,8 @@ plot_curve_ggplot <- function(dilution_data,
                               conc_var_units = "%",
                               conc_var_interval = 50,
                               signal_var = "Area",
-                              plot_half_lin_reg = FALSE) {
+                              plot_first_half_lin_reg = FALSE,
+                              plot_last_half_lin_reg = FALSE) {
 
 
   # Number of dilution batches
@@ -334,8 +338,13 @@ plot_curve_ggplot <- function(dilution_data,
 
     } else {
 
-      if(plot_half_lin_reg) {
-        reg_col_vec <- c("Lin" = "black", "Quad" = "red", "Lin Half" = "blue")
+      if(plot_first_half_lin_reg && plot_last_half_lin_reg) {
+        reg_col_vec <- c("Lin" = "black", "Quad" = "red",
+                         "Lin First Half" = "blue", "Lin Last Half" = "purple")
+      } else if(plot_first_half_lin_reg && !plot_last_half_lin_reg) {
+        reg_col_vec <- c("Lin" = "black", "Quad" = "red", "Lin First Half" = "blue")
+      } else if(!plot_first_half_lin_reg && plot_last_half_lin_reg) {
+        reg_col_vec <- c("Lin" = "black", "Quad" = "red", "Lin Last Half" = "purple")
       } else {
         reg_col_vec <- c("Lin" = "black", "Quad" = "red")
       }
@@ -370,7 +379,7 @@ plot_curve_ggplot <- function(dilution_data,
         )
 
 
-      if(plot_half_lin_reg) {
+      if(plot_first_half_lin_reg) {
 
         # Get the points for the partial linear curve
         partial_conc_points <- dilution_data %>%
@@ -379,7 +388,8 @@ plot_curve_ggplot <- function(dilution_data,
           sort() %>%
           unique()
 
-        partial_conc_points <- partial_conc_points[1:ceiling(length(partial_conc_points)/2)]
+        first_half_index <- 1:ceiling(length(partial_conc_points)/2)
+        partial_conc_points <- partial_conc_points[first_half_index]
 
         partial_dilution_Data <- dilution_data %>%
           dplyr::filter(.data[[conc_var]] %in% partial_conc_points)
@@ -399,7 +409,42 @@ plot_curve_ggplot <- function(dilution_data,
         p <- p +
           ggplot2::geom_line(data = partial_reg_data,
                              mapping = ggplot2::aes(x = dilution, y=y_partial_lin_predict,
-                                                    colour = "Lin Half")
+                                                    colour = "Lin First Half")
+          )
+
+      }
+
+      if(plot_last_half_lin_reg) {
+
+        # Get the points for the partial linear curve
+        partial_conc_points <- dilution_data %>%
+          dplyr::pull(.data[[conc_var]]) %>%
+          as.numeric() %>%
+          sort() %>%
+          unique()
+
+        last_half_index <- ceiling(length(partial_conc_points)/2):length(partial_conc_points)
+        partial_conc_points <- partial_conc_points[last_half_index]
+
+        partial_dilution_Data <- dilution_data %>%
+          dplyr::filter(.data[[conc_var]] %in% partial_conc_points)
+
+
+        # Create the partial model
+        partial_linear_model <- create_linear_model(partial_dilution_Data,
+                                                    conc_var, signal_var)
+
+        y_partial_lin_predict <- stats::predict(partial_linear_model,
+                                                tibble::tibble(!!conc_var := dilution))
+
+        partial_reg_data <- data.frame(dilution = dilution,
+                                       y_partial_lin_predict = y_partial_lin_predict)
+
+        # Plot the half regression line
+        p <- p +
+          ggplot2::geom_line(data = partial_reg_data,
+                             mapping = ggplot2::aes(x = dilution, y=y_partial_lin_predict,
+                                                    colour = "Lin Last Half")
           )
 
       }
@@ -426,6 +471,11 @@ plot_curve_ggplot <- function(dilution_data,
   }
 
   # Create the layout for legend, colours, axis
+  legend_nrow = 1
+  if(plot_first_half_lin_reg && plot_last_half_lin_reg) {
+    legend_nrow = 2
+  }
+
   p <- p +
     ggplot2::scale_colour_manual(values = c(filtered_pal,reg_col_vec),
                                  labels = names(c(reg_col_vec,filtered_pal)),
@@ -438,7 +488,8 @@ plot_curve_ggplot <- function(dilution_data,
                                                rep(16,no_of_dil_batch)
                                      ),
                                      colour = c(reg_col_vec,filtered_pal)
-                                   )
+                                   ),
+                                   nrow = legend_nrow,
                                  )
     ) +
     ggplot2::scale_x_continuous(breaks = conc_tick_points,
@@ -448,7 +499,8 @@ plot_curve_ggplot <- function(dilution_data,
       legend.title = ggplot2::element_blank(),
       legend.position = "top",
       axis.title.y = ggplot2::element_text(angle = 0,
-                                           vjust = 1)
+                                           vjust = 1),
+      plot.title.position = "plot"
     ) +
     ggplot2::labs(title = title,
                   x = x_title,
@@ -506,8 +558,11 @@ plot_curve_ggplot <- function(dilution_data,
 #' @param plot_summary_table Indicate if you want to plot the summary table
 #' in the `ggplot` plot.
 #' Default: TRUE
-#' @param plot_half_lin_reg Decide if we plot an extra regression line that
+#' @param plot_first_half_lin_reg Decide if we plot an extra regression line that
 #' best fits the first half of `conc_var` dilution points.
+#' Default: FALSE
+#' @param plot_last_half_lin_reg Decide if we plot an extra regression line that
+#' best fits the last half of `conc_var` dilution points.
 #' Default: FALSE
 #' @return A table with columns from `grouping variable`
 #' and a new column `panel` created containing a `ggplot` dilution plot
@@ -604,7 +659,8 @@ add_ggplot_panel <- function(dilution_table, dilution_summary = NULL,
                              signal_var = "Area",
                              have_plot_title = TRUE,
                              plot_summary_table = TRUE,
-                             plot_half_lin_reg = FALSE) {
+                             plot_first_half_lin_reg = FALSE,
+                             plot_last_half_lin_reg = FALSE) {
 
   # Check if dilution_table is valid with the relevant columns
   validate_dilution_table(dilution_table,
@@ -708,7 +764,8 @@ add_ggplot_panel <- function(dilution_table, dilution_summary = NULL,
                                       conc_var_units = conc_var_units,
                                       conc_var_interval = conc_var_interval,
                                       signal_var = signal_var,
-                                      plot_half_lin_reg = plot_half_lin_reg)
+                                      plot_first_half_lin_reg = plot_first_half_lin_reg,
+                                      plot_last_half_lin_reg = plot_last_half_lin_reg)
                   )
 
 

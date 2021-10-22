@@ -44,14 +44,17 @@ test_that("Able to plot dilution data with plotly correctly", {
 
   # Plot the html
   p <- plot_curve_plotly(dilution_data,
-                            title = "Lipid_Saturated",
-                            sample_name_var = "Sample_Name",
-                            dil_batch_var = "Dilution_Batch_Name",
-                            conc_var = "Dilution_Percent",
-                            conc_var_units = "%",
-                            conc_var_interval = 50,
-                            signal_var = "Area",
-                            pal = pal)
+                         title = "Lipid_Saturated",
+                         pal = pal,
+                         sample_name_var = "Sample_Name",
+                         dil_batch_var = "Dilution_Batch_Name",
+                         conc_var = "Dilution_Percent",
+                         conc_var_units = "%",
+                         conc_var_interval = 50,
+                         signal_var = "Area",
+                         plot_first_half_lin_reg = TRUE,
+                         plot_last_half_lin_reg = TRUE)
+
   #htmlwidgets::saveWidget(p, "index.html")
 
   # Handle the case of horizontal line
@@ -63,14 +66,14 @@ test_that("Able to plot dilution data with plotly correctly", {
 
   # Plot the html
   p <- plot_curve_plotly(dilution_data,
-                            title = "Lipid_Horizontal",
-                            sample_name_var = "Sample_Name",
-                            dil_batch_var = "Dilution_Batch_Name",
-                            conc_var = "Dilution_Percent",
-                            conc_var_units = "%",
-                            conc_var_interval = 50,
-                            signal_var = "Area",
-                            pal = pal)
+                         title = "Lipid_Horizontal",
+                         pal = pal,
+                         sample_name_var = "Sample_Name",
+                         dil_batch_var = "Dilution_Batch_Name",
+                         conc_var = "Dilution_Percent",
+                         conc_var_units = "%",
+                         conc_var_interval = 50,
+                         signal_var = "Area")
   #htmlwidgets::saveWidget(p, "index.html")
 
   # Handle the case of vertical line
@@ -82,14 +85,14 @@ test_that("Able to plot dilution data with plotly correctly", {
 
   # Plot the html
   p <- plot_curve_plotly(dilution_data,
-                            title = "Lipid_Vertical",
-                            sample_name_var = "Sample_Name",
-                            dil_batch_var = "Dilution_Batch_Name",
-                            conc_var = "Dilution_Percent",
-                            conc_var_units = "%",
-                            conc_var_interval = 50,
-                            signal_var = "Area",
-                            pal = pal)
+                         title = "Lipid_Vertical",
+                         pal = pal,
+                         sample_name_var = "Sample_Name",
+                         dil_batch_var = "Dilution_Batch_Name",
+                         conc_var = "Dilution_Percent",
+                         conc_var_units = "%",
+                         conc_var_interval = 50,
+                         signal_var = "Area")
   #htmlwidgets::saveWidget(p, "index.html")
 
 
@@ -102,14 +105,14 @@ test_that("Able to plot dilution data with plotly correctly", {
 
   # Plot the html
   p <- plot_curve_plotly(dilution_data,
-                            title = "Lipid_Point",
-                            sample_name_var = "Sample_Name",
-                            dil_batch_var = "Dilution_Batch_Name",
-                            conc_var = "Dilution_Percent",
-                            conc_var_units = "%",
-                            conc_var_interval = 50,
-                            signal_var = "Area",
-                            pal = pal)
+                         title = "Lipid_Point",
+                         pal = pal,
+                         sample_name_var = "Sample_Name",
+                         dil_batch_var = "Dilution_Batch_Name",
+                         conc_var = "Dilution_Percent",
+                         conc_var_units = "%",
+                         conc_var_interval = 50,
+                         signal_var = "Area")
   #htmlwidgets::saveWidget(p, "index.html")
 
   # Handle the case of a plot that gives no points
@@ -121,14 +124,14 @@ test_that("Able to plot dilution data with plotly correctly", {
 
   # Plot the html
   p <- plot_curve_plotly(dilution_data,
-                            title = "Lipid_No_Point",
-                            sample_name_var = "Sample_Name",
-                            dil_batch_var = "Dilution_Batch_Name",
-                            conc_var = "Dilution_Percent",
-                            conc_var_units = "%",
-                            conc_var_interval = 50,
-                            signal_var = "Area",
-                            pal = pal)
+                         title = "Lipid_No_Point",
+                         pal = pal,
+                         sample_name_var = "Sample_Name",
+                         dil_batch_var = "Dilution_Batch_Name",
+                         conc_var = "Dilution_Percent",
+                         conc_var_units = "%",
+                         conc_var_interval = 50,
+                         signal_var = "Area")
 
 
 

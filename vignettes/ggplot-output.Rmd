@@ -102,7 +102,7 @@ ggplot_table_orig <- add_ggplot_panel(dilution_table,
                                       conc_var_units = "%",
                                       conc_var_interval = 50,
                                       signal_var = "Area",
-                                      plot_half_lin_reg = FALSE)
+                                      plot_first_half_lin_reg = FALSE)
 
 # Get the list of ggplot list for each group
 ggplot_list_orig <- ggplot_table_orig$panel
@@ -130,7 +130,7 @@ ggplot_table <- add_ggplot_panel(dilution_table,
                                  conc_var_units = "%",
                                  conc_var_interval = 50,
                                  signal_var = "Area",
-                                 plot_half_lin_reg = TRUE)
+                                 plot_first_half_lin_reg = TRUE)
 
 ggplot_list <- ggplot_table$panel
 
@@ -155,7 +155,7 @@ ggplot_table <- add_ggplot_panel(dilution_table,
                                  conc_var_units = "mol",
                                  conc_var_interval = 20,
                                  signal_var = "Area",
-                                 plot_half_lin_reg = TRUE)
+                                 plot_first_half_lin_reg = TRUE)
 
 ggplot_list <- ggplot_table$panel
 

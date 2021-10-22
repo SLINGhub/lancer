@@ -72,7 +72,7 @@ test_that("Able to plot dilution data with its statistical summary in a pdf repo
                                                            "Dilution_Batch_Name"),
                                      conc_var = "Dilution_Percent",
                                      signal_var = "Area",
-                                     plot_half_lin_reg = FALSE)
+                                     plot_first_half_lin_reg = FALSE)
   )
 
   # Create a ggplot table without dilution summary
@@ -82,7 +82,7 @@ test_that("Able to plot dilution data with its statistical summary in a pdf repo
                                                                 "Dilution_Batch_Name"),
                                           conc_var = "Dilution_Percent",
                                           signal_var = "Area",
-                                          plot_half_lin_reg = FALSE)
+                                          plot_first_half_lin_reg = FALSE)
   )
 
   # Get the list of ggplot list for each group
