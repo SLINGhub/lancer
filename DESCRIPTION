@@ -38,6 +38,7 @@ Imports:
     openxlsx,
     strex,
     plotly,
+    glue,
     ggplot2,
     trelliscopejs,
     scales,

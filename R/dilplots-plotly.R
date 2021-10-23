@@ -84,6 +84,13 @@ plot_curve_plotly <- function(dilution_data,
   dilution_data <- dilution_data %>%
     tidyr::drop_na(.data[[signal_var]])
 
+  # For the hover text
+  text_input <- glue::glue(
+    "<b>{dilution_data[[sample_name_var]]}</b>\\
+     <br>{conc_var}: {dilution_data[[conc_var]]}\\
+     <br>{signal_var}: {format(dilution_data[[signal_var]], big.mark = ",", nsmall = 1)}"
+  )
+
   # Create the dots in the dilution plot
   p <- plotly::plot_ly() %>%
     plotly::add_trace(data = dilution_data,
@@ -97,11 +104,7 @@ plot_curve_plotly <- function(dilution_data,
                       colors = pal,
                       hoverinfo = "text",
                       text = ~dilution_data[[sample_name_var]],
-                      hovertemplate = paste(
-                        "<b>%{text}</b><br>",
-                        "%{xaxis.title.text}: %{x}<br>",
-                        "%{yaxis.title.text}: %{y:,0f}<br>",
-                        "<extra></extra>"),
+                      hovertemplate = text_input,
                       inherit = FALSE)
 
   if(nrow(dilution_data) > 3) {
