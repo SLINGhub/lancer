@@ -65,6 +65,10 @@ calculate_column_max_char_vector <- function(dilution_summary) {
 #' @param dilution_summary The summary table generated
 #' by function [summarise_dilution_table()] and/or
 #' [evaluate_linearity()]
+#' @param threshold_value A small cut off value such that any
+#' numeric column with a number smaller than this value
+#' will be given the class scientific
+#' Default: 0.01
 #' but it can also be any generic data frame or tibble
 #' @return A data frame or tibble with the class with numeric columns
 #' with near zero values changed from numeric to scientific
@@ -85,7 +89,8 @@ calculate_column_max_char_vector <- function(dilution_summary) {
 #' dilution_summary <- mark_near_zero_columns(dilution_summary)
 #' @rdname mark_near_zero_columns
 #' @export
-mark_near_zero_columns <- function(dilution_summary) {
+mark_near_zero_columns <- function(dilution_summary,
+                                   threshold_value = 0.01) {
 
   # Check if we have numeric columns
   # Check to see if numeric column has at least one value
@@ -108,7 +113,7 @@ mark_near_zero_columns <- function(dilution_summary) {
     tidyr::pivot_longer(cols = dplyr::everything(),
                         names_to = "summary_stats",
                         values_to = "min") %>%
-    dplyr::filter(.data$min < 0.01) %>%
+    dplyr::filter(.data$min < threshold_value) %>%
     dplyr::pull(.data$summary_stats)
 
   for (variables in near_zero_columns) {

@@ -4,12 +4,17 @@
 \alias{mark_near_zero_columns}
 \title{Mark Near Zero Columns}
 \usage{
-mark_near_zero_columns(dilution_summary)
+mark_near_zero_columns(dilution_summary, threshold_value = 0.01)
 }
 \arguments{
 \item{dilution_summary}{The summary table generated
 by function \code{\link[=summarise_dilution_table]{summarise_dilution_table()}} and/or
-\code{\link[=evaluate_linearity]{evaluate_linearity()}}
+\code{\link[=evaluate_linearity]{evaluate_linearity()}}}
+
+\item{threshold_value}{A small cut off value such that any
+numeric column with a number smaller than this value
+will be given the class scientific
+Default: 0.01
 but it can also be any generic data frame or tibble}
 }
 \value{
