@@ -505,7 +505,7 @@ convert_to_cog <- function(dilution_summary, cog_df = NULL,
       dplyr::bind_cols(panel_df %>%
                          dplyr::select(dplyr::any_of(c(panel_variable)))
       ) %>%
-      dplyr::mutate(dplyr::across(panel_variable,
+      dplyr::mutate(dplyr::across(dplyr::all_of(panel_variable),
                     ~structure(.x, class = c("trelliscope_panels", "list")))
       )
 
