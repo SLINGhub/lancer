@@ -1,6 +1,7 @@
 ---
 output:
-  github_document
+  md_document:
+    variant: gfm
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -16,6 +17,7 @@ library(DCVtestkit)
 ```
 
 # DCVtestkit (Dilution Curve Validation Testkit)
+<img src="figures/logo.png" align="right" height="200" />
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/SLINGhub/DCVtestkit/workflows/R-CMD-check/badge.svg)](https://github.com/SLINGhub/DCVtestkit/actions)
@@ -280,6 +282,14 @@ lipid_data <- tibble::tibble(Sample_Name = sample_name,
                              Lipid4 = lipid4_area_nonlinear)
 ```
 
+
+The `dilution_annot` should look like this.
+
+```{r dilution annot}
+print(dilution_annot, width = 100)
+```
+
+
 Merge the data together using `create_dilution_table` 
 
 ```{r dilution table}
@@ -345,7 +355,8 @@ ggplot_table <- add_ggplot_panel(dilution_table,
                                                       "Dilution_Batch_Name"),
                                  conc_var = "Dilution_Percent",
                                  signal_var = "Area",
-                                 plot_half_lin_reg = FALSE)
+                                 plot_first_half_lin_reg = FALSE,
+                                 plot_last_half_lin_reg = FALSE)
 
 # Get the list of ggplot list for each group
 ggplot_list <- ggplot_table$panel

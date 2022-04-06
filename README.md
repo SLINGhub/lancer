@@ -1,7 +1,8 @@
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # DCVtestkit (Dilution Curve Validation Testkit)
+
+<img src="figures/logo.png" align="right" height="200" />
 
 <!-- badges: start -->
 
@@ -53,7 +54,7 @@ lod_data <- data.frame(
 
 <img src="man/figures/README-ViewMotivationData-1.png" width="100%" />
 
-The corresponding correlation coefficient are really high (&gt;0.9) even
+The corresponding correlation coefficient are really high (>0.9) even
 though the curves are non-linear. There is a need to explore better ways
 to categorise these two curves.
 
@@ -105,8 +106,8 @@ Two methods are proposed to categorise the dilution curves.
 Workflow 1 involves using *R* and *P**R**A* to categorise the dilution
 curves.
 
--   If *R* &lt; 0.8, classify as poor linearity.  
--   If *R* ≥ 0.8, *P**R**A* &lt; 80, classify as poor linearity.  
+-   If *R* \< 0.8, classify as poor linearity.  
+-   If *R* ≥ 0.8, *P**R**A* \< 80, classify as poor linearity.  
 -   If *R* ≥ 0.8, *P**R**A* ≥ 80, classify as good linearity.
 
 ### Workflow 2
@@ -114,10 +115,10 @@ curves.
 Workflow 2 involves using *R*, *P**R**A* and Mandel’s Fitting Test to
 categorise the dilution curves.
 
--   If *R* &lt; 0.8, classify as poor linearity.
--   If *R* ≥ 0.8, *P**R**A* &lt; 80, fit the quadratic model and use
+-   If *R* \< 0.8, classify as poor linearity.
+-   If *R* ≥ 0.8, *P**R**A* \< 80, fit the quadratic model and use
     Mandel’s Fitting Test to see if the quadratic model is a better fit
-    ( p value  &lt; 0.05 ).
+    ( p value  \< 0.05 ).
     -   If not better, classify as poor linearity
     -   If better, check concavity of the quadratic model
         -   If concavity is negative, classify as saturation
@@ -175,6 +176,26 @@ lipid_data <- tibble::tibble(Sample_Name = sample_name,
                              Lipid2 = lipid2_area_linear,
                              Lipid3 = lipid3_area_lod,
                              Lipid4 = lipid4_area_nonlinear)
+```
+
+The `dilution_annot` should look like this.
+
+``` r
+print(dilution_annot, width = 100)
+#> # A tibble: 21 x 3
+#>    Sample_Name Dilution_Batch_Name Dilution_Percent
+#>    <chr>       <chr>                          <dbl>
+#>  1 Sample_010a B1                                10
+#>  2 Sample_020a B1                                20
+#>  3 Sample_025a B1                                25
+#>  4 Sample_040a B1                                40
+#>  5 Sample_050a B1                                50
+#>  6 Sample_060a B1                                60
+#>  7 Sample_075a B1                                75
+#>  8 Sample_080a B1                                80
+#>  9 Sample_100a B1                               100
+#> 10 Sample_125a B1                               125
+#> # ... with 11 more rows
 ```
 
 Merge the data together using `create_dilution_table`
@@ -298,7 +319,8 @@ ggplot_table <- add_ggplot_panel(dilution_table,
                                                       "Dilution_Batch_Name"),
                                  conc_var = "Dilution_Percent",
                                  signal_var = "Area",
-                                 plot_half_lin_reg = FALSE)
+                                 plot_first_half_lin_reg = FALSE,
+                                 plot_last_half_lin_reg = FALSE)
 
 # Get the list of ggplot list for each group
 ggplot_list <- ggplot_table$panel
