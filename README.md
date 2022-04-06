@@ -198,6 +198,26 @@ print(dilution_annot, width = 100)
 #> # ... with 11 more rows
 ```
 
+The `lipid_data` should look like this.
+
+``` r
+print(lipid_data, width = 100)
+#> # A tibble: 21 x 5
+#>    Sample_Name   Lipid1 Lipid2 Lipid3 Lipid4
+#>    <chr>          <dbl>  <dbl>  <dbl>  <dbl>
+#>  1 Sample_010a  5748124  31538    544 380519
+#>  2 Sample_020a 16616414  53709    397 485372
+#>  3 Sample_025a 21702718  69990    829 478770
+#>  4 Sample_040a 36191617 101977   1437 474467
+#>  5 Sample_050a 49324541 146436   1808 531640
+#>  6 Sample_060a 55618266 180960   2231 576301
+#>  7 Sample_075a 66947588 232881   3343 501068
+#>  8 Sample_080a 74964771 283780   2915 550201
+#>  9 Sample_100a 75438063 298289   5268 515110
+#> 10 Sample_125a 91770737 344519   8031 499543
+#> # ... with 11 more rows
+```
+
 Merge the data together using `create_dilution_table`
 
 ``` r
