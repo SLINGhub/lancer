@@ -670,14 +670,14 @@ add_ggplot_panel <- function(dilution_table, dilution_summary = NULL,
                                             signal_var)
   )
 
-  # Try to create dilution summary if you do not have one.
-  if (is.null(dilution_summary)) {
-    dilution_summary <- dilution_table %>%
-      summarise_dilution_table(grouping_variable = grouping_variable,
-                               conc_var = conc_var,
-                               signal_var = signal_var) %>%
-      evaluate_linearity(grouping_variable = grouping_variable)
-  }
+  # # Try to create dilution summary if you do not have one.
+  # if (is.null(dilution_summary)) {
+  #   dilution_summary <- dilution_table %>%
+  #     summarise_dilution_table(grouping_variable = grouping_variable,
+  #                              conc_var = conc_var,
+  #                              signal_var = signal_var) %>%
+  #     evaluate_linearity(grouping_variable = grouping_variable)
+  # }
 
   # Check if things in needed_column are in dilution_summary
   assertable::assert_colnames(dilution_summary, grouping_variable,

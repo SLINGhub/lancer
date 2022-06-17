@@ -18,6 +18,10 @@ JauntyJJS](https://img.shields.io/badge/Maintainer-JauntyJJS-blue.svg)](https://
 R package used to validate if a quality control sample dilution curve is
 linear or has signal suppression by statistical analysis and plots.
 
+An overview of the workflow is as follows
+
+![README-Workflow](man/figures/README-Workflow.png)
+
 ## Installation
 
 You can install the development version from
