@@ -7,9 +7,9 @@ Authors@R:
            family = "Selva",
            role = c("aut", "cre"),
            email = "bchjjs@nus.edu.sg")
-Description: The package is meant to assess if a transition can be used, 
-             based on different tests (check for linearity) applied, 
-             on its corresponding dilution curve.
+Description: Validate if a quality control sample dilution curve is 
+             linear or has signal suppression by statistical summary
+             and plots.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

@@ -12,3 +12,4 @@
 ^\.covrignore$
 ^reports$
 ^figures$
+^CONTRIBUTING.md$
