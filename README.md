@@ -8,7 +8,7 @@
 
 [![R-CMD-check](https://github.com/SLINGhub/DCVtestkit/workflows/R-CMD-check/badge.svg)](https://github.com/SLINGhub/DCVtestkit/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/SLINGhub/DCVtestkit/branch/master/graph/badge.svg?token=RNlP8VlaL2)](https://codecov.io/gh/SLINGhub/DCVtestkit)
+coverage](https://codecov.io/gh/SLINGhub/DCVtestkit/branch/main/graph/badge.svg?token=RNlP8VlaL2)](https://codecov.io/gh/SLINGhub/DCVtestkit)
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/SLINGhub/DCVtestkit/blob/main/LICENSE.md)
 [![Maintainer:
@@ -16,7 +16,7 @@ JauntyJJS](https://img.shields.io/badge/Maintainer-JauntyJJS-blue.svg)](https://
 <!-- badges: end -->
 
 R package used to validate if a quality control sample dilution curve is
-linear or has signal suppression.
+linear or has signal suppression by statistical analysis and plots.
 
 ## Installation
 
