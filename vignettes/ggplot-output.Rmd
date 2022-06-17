@@ -3,7 +3,7 @@ title: "Plots in ggplot2"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Plots in ggplot2}
-  %\VignetteEngine{knitr::knitr}
+  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 

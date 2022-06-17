@@ -32,7 +32,7 @@ If this repository is private, go to this
 [link](https://maurolepore.netlify.app/2017/12/06/2017-12-06-best-prectice-for-installing-packages-from-private-repos/)
 to learn how to set up your authorization token.
 
-\##Meta
+## Meta
 
 -   We welcome contributions from general questions to bug reports.
     Check out the [contributions](CONTRIBUTING.md) guidelines. Please
