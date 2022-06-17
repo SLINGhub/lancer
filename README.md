@@ -18,10 +18,6 @@ JauntyJJS](https://img.shields.io/badge/Maintainer-JauntyJJS-blue.svg)](https://
 R package used to validate if a quality control sample dilution curve is
 linear or has signal suppression by statistical analysis and plots.
 
-An overview of the workflow is as follows
-
-![README-Workflow](man/figures/README-Workflow.png)
-
 ## Installation
 
 You can install the development version from
@@ -35,6 +31,12 @@ devtools::install_github("SLINGhub/DCVtestkit")
 If this repository is private, go to this
 [link](https://maurolepore.netlify.app/2017/12/06/2017-12-06-best-prectice-for-installing-packages-from-private-repos/)
 to learn how to set up your authorization token.
+
+## Overview
+
+An overview of the workflow is as follows
+
+![README-Workflow](man/figures/README-Workflow.png)
 
 ## Meta
 
