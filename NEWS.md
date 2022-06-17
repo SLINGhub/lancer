@@ -9,7 +9,7 @@
 ## Completed
 
 * Add the hex sticker logo for this package.
-* Correct README to ensure the add_ggplot_panel function is correctly used.
+* Correct README to ensure the `add_ggplot_panel` function is correctly used.
 
 # DCVtestkit 0.0.2
 

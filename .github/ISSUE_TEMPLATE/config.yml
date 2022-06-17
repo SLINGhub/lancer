@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+ - name: Bug Report Guidelines 🌐
+   url: https://www.softwaretestinghelp.com/how-to-write-good-bug-report/
+   about: Link to help you write a good bug report.
+ - name: Feature Request Guidelines 🌐
+   url: https://github.com/rstudio/rstudio/wiki/Writing-Good-Feature-Requests
+   about: Link to help you write a good feature request.
+ - name: General Question or Help ❓️
+   url: https://github.com/SLINGhub/MSTemplate_Creator/discussions
+   about: If you wish to ask a general question, try out the Discussions section of this repository.

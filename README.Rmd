@@ -17,14 +17,16 @@ library(DCVtestkit)
 ```
 
 # DCVtestkit (Dilution Curve Validation Testkit)
-<img src="figures/logo.png" align="right" height="200" />
+<img src="man/figures/README-logo.png" align="right" height="200" />
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/SLINGhub/DCVtestkit/workflows/R-CMD-check/badge.svg)](https://github.com/SLINGhub/DCVtestkit/actions)
 [![Codecov test coverage](https://codecov.io/gh/SLINGhub/DCVtestkit/branch/master/graph/badge.svg?token=RNlP8VlaL2)](https://codecov.io/gh/SLINGhub/DCVtestkit)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/SLINGhub/DCVtestkit/blob/main/LICENSE.md)
+[![Maintainer: JauntyJJS](https://img.shields.io/badge/Maintainer-JauntyJJS-blue.svg)](https://github.com/JauntyJJS)
 <!-- badges: end -->
 
-R package used to validate if a dilution curve is linear or not.
+R package used to validate if a quality control sample dilution curve is linear or has signal suppression.
 
 ## Installation
 
@@ -36,6 +38,14 @@ devtools::install_github("SLINGhub/DCVtestkit")
 ```
 
 If this repository is private, go to this [link](https://maurolepore.netlify.app/2017/12/06/2017-12-06-best-prectice-for-installing-packages-from-private-repos/) to learn how to set up your authorization token.
+
+##Meta
+
+* We welcome contributions from general questions to bug reports. Check out the [contributions](CONTRIBUTING.md) guidelines. Please note that this project is released with a [Contributor Code of Conduct](https://www.contributor-covenant.org/version/2/0/code_of_conduct/). By participating in this project you agree to abide by its terms.
+* License: [MIT](https://github.com/SLINGhub/DCVtestkit/blob/main/LICENSE.md)
+* Think `DCVtestkit` is useful? Let others discover it, by telling them in person, via Twitter [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/LOGIN) or a blog post.
+* Refer to the [NEWS.md file](https://github.com/SLINGhub/DCVtestkit/blob/main/NEWS.md) to see what is being worked on as well as update to changes between back to back versions.
+
 
 ## Motivation
 
@@ -359,9 +369,7 @@ ggplot_table <- add_ggplot_panel(dilution_table,
                                  grouping_variable = c("Transition_Name",
                                                       "Dilution_Batch_Name"),
                                  conc_var = "Dilution_Percent",
-                                 signal_var = "Area",
-                                 plot_first_half_lin_reg = FALSE,
-                                 plot_last_half_lin_reg = FALSE)
+                                 signal_var = "Area")
 
 # Get the list of ggplot list for each group
 ggplot_list <- ggplot_table$panel
@@ -398,7 +406,6 @@ trellis_table <- add_plotly_panel(dilution_table,
                                   conc_var_units = "%",
                                   conc_var_interval = 50,
                                   signal_var = "Area",
-                                  plot_first_half_lin_reg = FALSE,
                                   have_plot_title = FALSE) %>% 
   convert_to_cog(grouping_variable = c("Transition_Name",
                                        "Dilution_Batch_Name"),

@@ -3,7 +3,7 @@ title: "Plots in ggplot2"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Plots in ggplot2}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{knitr::knitr}
   %\VignetteEncoding{UTF-8}
 ---
 
@@ -101,8 +101,7 @@ ggplot_table_orig <- add_ggplot_panel(dilution_table,
                                       conc_var = "Dilution_Percent",
                                       conc_var_units = "%",
                                       conc_var_interval = 50,
-                                      signal_var = "Area",
-                                      plot_first_half_lin_reg = FALSE)
+                                      signal_var = "Area")
 
 # Get the list of ggplot list for each group
 ggplot_list_orig <- ggplot_table_orig$panel
@@ -116,7 +115,30 @@ ggplot_list_orig[[1]]
 ggplot_list_orig[[7]]
 ```
 
-To see the regression line on half the dilution points, set `plot_half_lin_reg = TRUE`
+To only plot the dilution curve without the summary table, set `plot_summary_table = TRUE`. You may not need to have any input for `dilution_summary`
+
+```{r create ggplot table without the summary table}
+ggplot_table <- add_ggplot_panel(dilution_table,
+                                 grouping_variable = c("Transition_Name",
+                                                       "Dilution_Batch_Name"),
+                                 dil_batch_var = "Dilution_Batch_Name",
+                                 dil_batch_col = c("#377eb8",
+                                                   "#4daf4a"),
+                                 conc_var = "Dilution_Percent",
+                                 conc_var_units = "%",
+                                 conc_var_interval = 50,
+                                 signal_var = "Area",
+                                 plot_summary_table = FALSE)
+
+ggplot_list <- ggplot_table$panel
+
+```
+
+```{r print ggplot plot without the summary table}
+ggplot_list[[1]]
+```
+
+To see the regression line on half the dilution points, set `plot_first_half_lin_reg = TRUE`
 
 ```{r create ggplot table with half linear regression}
 ggplot_table <- add_ggplot_panel(dilution_table,

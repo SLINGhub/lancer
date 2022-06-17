@@ -2,16 +2,21 @@
 
 # DCVtestkit (Dilution Curve Validation Testkit)
 
-<img src="figures/logo.png" align="right" height="200" />
+<img src="man/figures/README-logo.png" align="right" height="200" />
 
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/SLINGhub/DCVtestkit/workflows/R-CMD-check/badge.svg)](https://github.com/SLINGhub/DCVtestkit/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/SLINGhub/DCVtestkit/branch/master/graph/badge.svg?token=RNlP8VlaL2)](https://codecov.io/gh/SLINGhub/DCVtestkit)
+[![License:
+MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/SLINGhub/DCVtestkit/blob/main/LICENSE.md)
+[![Maintainer:
+JauntyJJS](https://img.shields.io/badge/Maintainer-JauntyJJS-blue.svg)](https://github.com/JauntyJJS)
 <!-- badges: end -->
 
-R package used to validate if a dilution curve is linear or not.
+R package used to validate if a quality control sample dilution curve is
+linear or has signal suppression.
 
 ## Installation
 
@@ -26,6 +31,24 @@ devtools::install_github("SLINGhub/DCVtestkit")
 If this repository is private, go to this
 [link](https://maurolepore.netlify.app/2017/12/06/2017-12-06-best-prectice-for-installing-packages-from-private-repos/)
 to learn how to set up your authorization token.
+
+\##Meta
+
+-   We welcome contributions from general questions to bug reports.
+    Check out the [contributions](CONTRIBUTING.md) guidelines. Please
+    note that this project is released with a [Contributor Code of
+    Conduct](https://www.contributor-covenant.org/version/2/0/code_of_conduct/).
+    By participating in this project you agree to abide by its terms.
+-   License:
+    [MIT](https://github.com/SLINGhub/DCVtestkit/blob/main/LICENSE.md)
+-   Think `DCVtestkit` is useful? Let others discover it, by telling
+    them in person, via Twitter
+    [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/LOGIN)
+    or a blog post.
+-   Refer to the [NEWS.md
+    file](https://github.com/SLINGhub/DCVtestkit/blob/main/NEWS.md) to
+    see what is being worked on as well as update to changes between
+    back to back versions.
 
 ## Motivation
 
@@ -54,7 +77,7 @@ lod_data <- data.frame(
 
 <img src="man/figures/README-ViewMotivationData-1.png" width="100%" />
 
-The corresponding correlation coefficient are really high (>0.9) even
+The corresponding correlation coefficient are really high (\>0.9) even
 though the curves are non-linear. There is a need to explore better ways
 to categorise these two curves.
 
@@ -182,7 +205,7 @@ The `dilution_annot` should look like this.
 
 ``` r
 print(dilution_annot, width = 100)
-#> # A tibble: 21 x 3
+#> # A tibble: 21 × 3
 #>    Sample_Name Dilution_Batch_Name Dilution_Percent
 #>    <chr>       <chr>                          <dbl>
 #>  1 Sample_010a B1                                10
@@ -195,14 +218,14 @@ print(dilution_annot, width = 100)
 #>  8 Sample_080a B1                                80
 #>  9 Sample_100a B1                               100
 #> 10 Sample_125a B1                               125
-#> # ... with 11 more rows
+#> # … with 11 more rows
 ```
 
 The `lipid_data` should look like this.
 
 ``` r
 print(lipid_data, width = 100)
-#> # A tibble: 21 x 5
+#> # A tibble: 21 × 5
 #>    Sample_Name   Lipid1 Lipid2 Lipid3 Lipid4
 #>    <chr>          <dbl>  <dbl>  <dbl>  <dbl>
 #>  1 Sample_010a  5748124  31538    544 380519
@@ -215,7 +238,7 @@ print(lipid_data, width = 100)
 #>  8 Sample_080a 74964771 283780   2915 550201
 #>  9 Sample_100a 75438063 298289   5268 515110
 #> 10 Sample_125a 91770737 344519   8031 499543
-#> # ... with 11 more rows
+#> # … with 11 more rows
 ```
 
 Merge the data together using `create_dilution_table`
@@ -231,7 +254,7 @@ dilution_table <- create_dilution_table(dilution_annot, lipid_data,
 
 ``` r
 print(dilution_table, width = 100)
-#> # A tibble: 84 x 5
+#> # A tibble: 84 × 5
 #>    Sample_Name Dilution_Batch_Name Dilution_Percent Transition_Name     Area
 #>    <chr>       <chr>                          <dbl> <chr>              <dbl>
 #>  1 Sample_010a B1                                10 Lipid1           5748124
@@ -244,7 +267,7 @@ print(dilution_table, width = 100)
 #>  8 Sample_020a B1                                20 Lipid4            485372
 #>  9 Sample_025a B1                                25 Lipid1          21702718
 #> 10 Sample_025a B1                                25 Lipid2             69990
-#> # ... with 74 more rows
+#> # … with 74 more rows
 ```
 
 Summarise each dilution curve for each transition and batch with
@@ -261,7 +284,7 @@ dilution_summary <- summarise_dilution_table(dilution_table,
 
 ``` r
 print(dilution_summary, width = 100)
-#> # A tibble: 8 x 9
+#> # A tibble: 8 × 9
 #>   Transition_Name Dilution_Batch_Name r_corr r2_linear r2_adj_linear
 #>   <chr>           <chr>                <dbl>     <dbl>         <dbl>
 #> 1 Lipid1          B1                   0.963    0.928        0.920  
@@ -296,7 +319,7 @@ dilution_classified <- evaluate_linearity(dilution_summary,
 
 ``` r
 print(dilution_classified, width = 100)
-#> # A tibble: 8 x 11
+#> # A tibble: 8 × 11
 #>   Transition_Name Dilution_Batch_Name wf1_group      wf2_group      r_corr
 #>   <chr>           <chr>               <chr>          <chr>           <dbl>
 #> 1 Lipid1          B1                  Poor Linearity Saturation      0.963
@@ -338,9 +361,7 @@ ggplot_table <- add_ggplot_panel(dilution_table,
                                  grouping_variable = c("Transition_Name",
                                                       "Dilution_Batch_Name"),
                                  conc_var = "Dilution_Percent",
-                                 signal_var = "Area",
-                                 plot_first_half_lin_reg = FALSE,
-                                 plot_last_half_lin_reg = FALSE)
+                                 signal_var = "Area")
 
 # Get the list of ggplot list for each group
 ggplot_list <- ggplot_table$panel
@@ -381,7 +402,6 @@ trellis_table <- add_plotly_panel(dilution_table,
                                   conc_var_units = "%",
                                   conc_var_interval = 50,
                                   signal_var = "Area",
-                                  plot_first_half_lin_reg = FALSE,
                                   have_plot_title = FALSE) %>% 
   convert_to_cog(grouping_variable = c("Transition_Name",
                                        "Dilution_Batch_Name"),
