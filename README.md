@@ -79,13 +79,29 @@ lod_data <- data.frame(
   signal_var = c(500, 903, 1267, 2031, 2100,
                  3563, 4500, 5300, 8500, 10430)
 )
+
+dilution_percent <- c(10, 25, 40, 50, 60,
+                      75, 80, 100, 125, 150)
+
+
+linear_data <- data.frame(
+  conc_var = c(10, 25, 40, 50, 60,
+               75, 80, 100, 125, 150),
+  signal_var = c(25463, 63387, 90624, 131274, 138069,
+                 205353, 202407, 260205, 292257, 367924)
+)
 ```
 
 <img src="man/figures/README-ViewMotivationData-1.png" width="100%" />
 
-The corresponding correlation coefficient are really high (\>0.9) even
-though the curves are non-linear. There is a need to explore better ways
-to categorise these two curves.
+The corresponding Pearson correlation coefficient are really high
+(\>0.9) even though the curves are non-linear. There is a need to
+explore better ways to categorise these two curves.
+
+``` r
+cor(linear_data$conc_var,linear_data$signal_var)
+#> [1] 0.9948151
+```
 
 ``` r
 cor(saturated_data$conc_var,saturated_data$signal_var)
@@ -95,6 +111,31 @@ cor(saturated_data$conc_var,saturated_data$signal_var)
 ``` r
 cor(lod_data$conc_var,lod_data$signal_var)
 #> [1] 0.9779585
+```
+
+One example is the use of the Percent Residual Accuracy found in [Logue,
+B. A. and Manandhar, E.](https://doi.org/10.1016/j.talanta.2018.07.046)
+which is more sensitive than Pearson correlation coefficient.
+
+``` r
+DCVtestkit::calculate_pra_linear(dilution_data = linear_data,
+                                 conc_var = "conc_var",
+                                 signal_var = "signal_var")
+#> [1] 94.32046
+```
+
+``` r
+DCVtestkit::calculate_pra_linear(dilution_data = saturated_data,
+                                 conc_var = "conc_var",
+                                 signal_var = "signal_var")
+#> [1] 62.30351
+```
+
+``` r
+DCVtestkit::calculate_pra_linear(dilution_data = lod_data,
+                                 conc_var = "conc_var",
+                                 signal_var = "signal_var")
+#> [1] 74.69452
 ```
 
 ## How it works
