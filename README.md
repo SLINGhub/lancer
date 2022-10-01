@@ -62,9 +62,17 @@ The Pearson correlation coefficient has been used widely to test for
 linearity. However, it is insufficent as indicated in this
 [paper](https://www.sciencedirect.com/science/article/abs/pii/S0165993615301242)
 
-Consider a saturated curve and a curve with limit of detection (LOD)
+Consider a linear curve, saturated curve and a curve with limit of
+detection (LOD)
 
 ``` r
+linear_data <- data.frame(
+  conc_var = c(10, 25, 40, 50, 60,
+               75, 80, 100, 125, 150),
+  signal_var = c(25463, 63387, 90624, 131274, 138069,
+                 205353, 202407, 260205, 292257, 367924)
+)
+
 saturated_data <- data.frame(
   conc_var = c(10, 25, 40, 50, 60,
                75, 80, 100, 125, 150),
@@ -79,20 +87,11 @@ lod_data <- data.frame(
   signal_var = c(500, 903, 1267, 2031, 2100,
                  3563, 4500, 5300, 8500, 10430)
 )
-
-dilution_percent <- c(10, 25, 40, 50, 60,
-                      75, 80, 100, 125, 150)
-
-
-linear_data <- data.frame(
-  conc_var = c(10, 25, 40, 50, 60,
-               75, 80, 100, 125, 150),
-  signal_var = c(25463, 63387, 90624, 131274, 138069,
-                 205353, 202407, 260205, 292257, 367924)
-)
 ```
 
-<img src="man/figures/README-ViewMotivationData-1.png" width="100%" />
+<img src="man/figures/README-ViewMotivationData1-1.png" width="100%" />
+
+<img src="man/figures/README-ViewMotivationData2-1.png" width="100%" />
 
 The corresponding Pearson correlation coefficient are really high
 (\>0.9) even though the curves are non-linear. There is a need to
