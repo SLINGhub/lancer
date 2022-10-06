@@ -1,4 +1,4 @@
-#' @title Calculate Column Maximum Char
+#' @title Calculate Column Maximum Character
 #' @description Calculate the maximum number of
 #' characters for each column in the input data frame
 #' or tibble, including the column name.
@@ -21,16 +21,17 @@
 #' dilution_summary <- data.frame(r_corr = r_corr, pra_linear = pra_linear,
 #'                                mandel_p_val = mandel_p_val,
 #'                                concavity = concavity)
-#' column_max_char <- calculate_column_max_char_vector(dilution_summary)
-#' @rdname calculate_column_max_char_vector
+#' column_max_char <- calculate_column_max_char(dilution_summary)
+#' column_max_char
+#' @rdname calculate_column_max_char
 #' @export
-calculate_column_max_char_vector <- function(dilution_summary) {
+calculate_column_max_char <- function(dilution_summary) {
 
   # Convert factor columns to type character
   # as nchar gives an error if a input vector
   # is of type factor
   dilution_summary <- dilution_summary %>%
-    dplyr::mutate_if(is.factor,is.character)
+    dplyr::mutate_if(is.factor, is.character)
 
   #Start with an empty vector
   column_max_char_vector <- c()
@@ -43,11 +44,11 @@ calculate_column_max_char_vector <- function(dilution_summary) {
       nchar()
 
     # Get the number of char for each data in the column
-    data_char <- dilution_summary[,i,drop = TRUE] %>%
+    data_char <- dilution_summary[, i, drop = TRUE] %>%
       nchar()
 
     # Get the maximun number of char and append
-    longest_char <- max(data_char,column_name_char,
+    longest_char <- max(data_char, column_name_char,
                         na.rm = TRUE)
 
     column_max_char_vector <- c(column_max_char_vector,
@@ -468,7 +469,7 @@ write_summary_excel <- function(dilution_summary, file_name,
     wb = my_workbook,
     sheet = sheet_name,
     cols = seq_len(ncol(dilution_summary)),
-    widths = calculate_column_max_char_vector(dilution_summary) +
+    widths = calculate_column_max_char(dilution_summary) +
              font_size - 6)
 
   # Write to worksheet as an Excel Table

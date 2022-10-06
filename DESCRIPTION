@@ -1,7 +1,7 @@
 Config/testthat/edition: 3
 Package: DCVtestkit
 Title: Dilution Curve Validation Test Kit
-Version: 0.0.1.9000
+Version: 0.0.2.9000
 Authors@R: 
     person(given = "Jeremy",
            family = "Selva",
@@ -13,7 +13,7 @@ Description: Validate if a quality control sample dilution curve is
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1
 Suggests:
     spelling,
     testthat,

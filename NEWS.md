@@ -2,9 +2,7 @@
 
 ## TODO
 
-* Check if R package can work with the new version of R.
-* Regarding the spurious cases of the dilution curves: flag curves every time they have a PRA value close to 0.8?
-* Flag curves with negative correlation close to 1
+
 
 ## Completed
 

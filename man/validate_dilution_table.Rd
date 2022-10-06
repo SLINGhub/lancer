@@ -6,8 +6,7 @@
 \usage{
 validate_dilution_table(
   dilution_table,
-  needed_column = c("Transition_Name", "Dilution_Batch_Name", "Dilution_Percent",
-    "Area")
+  needed_column = c("Transition_Name", "Dilution_Batch_Name", "Dilution_Percent", "Area")
 )
 }
 \arguments{

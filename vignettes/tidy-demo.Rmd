@@ -88,8 +88,8 @@ dilution_summary <- create_dilution_table(dilution_annot, lipid_data,
                            signal_var = "Area") %>%
   evaluate_linearity(grouping_variable = c("Transition_Name",
                                            "Dilution_Batch_Name")) %>%
-  dplyr::left_join(transition_annot,by = "Transition_Name")
-  
+  dplyr::left_join(transition_annot, by = "Transition_Name")
+
 ```
 
 ```{r print dilution summary}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/dilstats.R
 \name{calculate_adl_kroll_test}
 \alias{calculate_adl_kroll_test}
-\title{Calculate Average Deviation From Linearity Kroll Test}
+\title{Calculate Kroll's Linearity Test}
 \usage{
 calculate_adl_kroll_test(dilution_data, conc_var, signal_var)
 }
@@ -14,12 +14,76 @@ calculate_adl_kroll_test(dilution_data, conc_var, signal_var)
 \item{signal_var}{Column name in \code{dilution_data} to indicate signal}
 }
 \value{
-The average deviation from linearity
+A data frame of statistical results from
+\href{https://doi.org/10.5858/2000-124-1331-EOTEON}{Kroll et. al. (2000)}
+\itemize{
+\item \code{adl_kroll}:
+Average deviation from linearity as defined in
+\href{https://doi.org/10.5858/2000-124-1331-EOTEON}{Kroll et. al. (2000)}
+\item \code{precision_on_percent_scale}:
+Estimate of precision on percent scale.
+It is the ratio of the estimated regression standard error from
+the best-fit polynomial and the estimated solution mean.
+\item \code{uncorrected_critical_value}:
+Critical value (Uncorrected) as defined in
+\href{https://doi.org/10.5858/2000-124-1331-EOTEON}{Kroll et. al. (2000)}
+\item \code{corrected_critical_value}:
+Critical value (Corrected) as defined in
+\href{https://doi.org/10.1080/10543400802071378}{Hsieh et. al. (2008)}
+\item \code{uncorrected_kroll_results}:
+Indicate if \code{adl_kroll} is less than
+\code{uncorrected_critical_value}
+If \code{FALSE}, there is sufficient evidence to reject the hypothesis that
+the points are linear.
+\item \code{corrected_kroll_results}:
+Indicate if \code{adl_kroll} is less than
+\code{corrected_critical_value}
+If \code{FALSE}, there is sufficient evidence to reject the hypothesis that
+the points are linear.
+\item \code{best_model}
+Gives values linear, quadratic or cubic to indicate the model
+that "best fit" the points. The function
+\code{\link[performance]{compare_performance}} is used
+to determine the best fit.
+}
 }
 \description{
-Calculate the average deviation from linearity kroll test
+Calculate a statistical test for linearity from
+\href{https://doi.org/10.5858/2000-124-1331-EOTEON}{Kroll et. al. (2000)}
+using average deviation from linearity
 }
 \details{
 The function will return NA if the number of dilution points
-is less than or equal to three
+is less than or equal to three.
+}
+\examples{
+# Data from Kroll's 2000 paper
+solution_number <- c(1, 1, 2, 2, 3, 3, 4, 4,
+                     5, 5, 6, 6, 7, 7)
+result <- c(352, 348, 1009, 991, 1603, 1584, 3100, 3200,
+            4482, 4390, 5101, 5046, 5669, 5516)
+
+dilution_data <- data.frame(Solution_Number = solution_number,
+                            Result = result)
+
+adl_result <- calculate_adl_kroll_test(dilution_data,
+                                       "Solution_Number",
+                                       "Result")
+adl_result
+}
+\references{
+Kroll, M. H., Praestgaard, J., Michaliszyn, E.,
+& Styer, P. E. (2000).
+Evaluation of the extent of nonlinearity
+in reportable range studies.
+\emph{Archives of pathology & laboratory medicine},
+\emph{124}(9), 1331–1338.
+\url{https://doi.org/10.5858/2000-124-1331-EOTEON}
+\cr\cr
+Hsieh E., & Liu J. P. (2008).
+On Statistical Evaluation of the
+Linearity in Assay Validation
+\emph{Journal of Biopharmaceutical Statistics},
+\emph{18}(4), 677–690.
+\url{https://doi.org/10.1080/10543400802071378}
 }

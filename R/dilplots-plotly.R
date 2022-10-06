@@ -14,13 +14,14 @@
 #' @param conc_var_units Unit of measure for `conc_var` in the dilution plot
 #' @param conc_var_interval Distance between two tick labels
 #' @param signal_var Column name in `dilution_data` to indicate signal
-#' @param plot_first_half_lin_reg Decide if we plot an extra regression line that
-#' best fits the first half of `conc_var` dilution points.
+#' @param plot_first_half_lin_reg Decide if we plot an extra regression line
+#' that best fits the first half of `conc_var` dilution points.
 #' Default: FALSE
-#' @param plot_last_half_lin_reg Decide if we plot an extra regression line that
-#' best fits the last half of `conc_var` dilution points.
+#' @param plot_last_half_lin_reg Decide if we plot an extra regression line
+#' that best fits the last half of `conc_var` dilution points.
 #' Default: FALSE
-#' @return Output `plotly` dilution plot data of one dilution batch per transition
+#' @return Output `plotly` dilution plot data of one dilution batch
+#' per transition
 #' @examples
 #' # Data Creation
 #' dilution_percent <- c(10, 20, 25, 40, 50, 60,
@@ -88,7 +89,8 @@ plot_curve_plotly <- function(dilution_data,
   text_input <- glue::glue(
     "<b>{dilution_data[[sample_name_var]]}</b>\\
      <br>{conc_var}: {dilution_data[[conc_var]]}\\
-     <br>{signal_var}: {format(dilution_data[[signal_var]], big.mark = ",", nsmall = 1)}"
+     <br>{signal_var}: {\\
+    format(dilution_data[[signal_var]], big.mark = " , ", nsmall = 1)}"
   )
 
   # Create the dots in the dilution plot
@@ -107,10 +109,10 @@ plot_curve_plotly <- function(dilution_data,
                       hovertemplate = text_input,
                       inherit = FALSE)
 
-  if(nrow(dilution_data) > 3) {
+  if (nrow(dilution_data) > 3) {
 
     # When we need to plot a horizontal line
-    if(stats::sd(dilution_data[[signal_var]]) == 0) {
+    if (stats::sd(dilution_data[[signal_var]]) == 0) {
 
       min_x <- min(dilution_data[[conc_var]], na.rm = TRUE)
       max_x <- max(dilution_data[[conc_var]], na.rm = TRUE)
@@ -150,21 +152,27 @@ plot_curve_plotly <- function(dilution_data,
 
       # Create the linear and quadratic curve in the dilution plot
       p <- p %>%
-        plotly::add_trace(data = dilution_data, x = dilution,
-                          y = stats::predict(linear_model,
-                                             tibble::tibble(!!conc_var := dilution)),
-                          type = "scattergl", mode = "lines", name = "lin reg",
-                          line = list(color = "black", width = 1),
-                          inherit = FALSE) %>%
-        plotly::add_trace(data = dilution_data, x = dilution,
-                          y = stats::predict(quad_model,
-                                             tibble::tibble(!!conc_var := dilution)),
-                          type = "scattergl", mode = "lines", name = "quad reg",
-                          line = list(color = "red", width = 1, opacity = 0.25),
-                          inherit = FALSE)
+        plotly::add_trace(
+          data = dilution_data,
+          x = dilution,
+          y = stats::predict(linear_model,
+                             tibble::tibble(!!conc_var := dilution)),
+          type = "scattergl", mode = "lines", name = "lin reg",
+          line = list(color = "black", width = 1),
+          inherit = FALSE) %>%
+        plotly::add_trace(
+          data = dilution_data,
+          x = dilution,
+          y = stats::predict(quad_model,
+                             tibble::tibble(!!conc_var := dilution)),
+          type = "scattergl", mode = "lines", name = "quad reg",
+          line = list(color = "red",
+                      width = 1,
+                      opacity = 0.25),
+          inherit = FALSE)
 
 
-      if(isTRUE(plot_first_half_lin_reg)){
+      if (isTRUE(plot_first_half_lin_reg)) {
 
         # Get the points for the partial linear curve
         partial_conc_points <- dilution_data %>%
@@ -173,7 +181,8 @@ plot_curve_plotly <- function(dilution_data,
           sort() %>%
           unique()
 
-        partial_conc_points <- partial_conc_points[1:ceiling(length(partial_conc_points)/2)]
+        partial_conc_points <-
+          partial_conc_points[1:ceiling(length(partial_conc_points) / 2)]
 
         partial_dilution_data <- dilution_data %>%
           dplyr::filter(.data[[conc_var]] %in% partial_conc_points)
@@ -184,17 +193,20 @@ plot_curve_plotly <- function(dilution_data,
 
         # Create the lines in the dilution plot
         p <- p %>%
-          plotly::add_trace(data = partial_dilution_data, x = dilution,
-                            y = stats::predict(partial_linear_model,
-                                               tibble::tibble(!!conc_var := dilution)),
-                            type = "scattergl", mode = "lines", name = "lin first half reg",
-                            line = list(color = "blue", width = 1),
-                            inherit = FALSE)
+          plotly::add_trace(
+            data = partial_dilution_data,
+            x = dilution,
+            y = stats::predict(
+              partial_linear_model,
+              tibble::tibble(!!conc_var := dilution)),
+            type = "scattergl", mode = "lines", name = "lin first half reg",
+            line = list(color = "blue", width = 1),
+            inherit = FALSE)
 
 
       }
 
-      if(isTRUE(plot_last_half_lin_reg)){
+      if (isTRUE(plot_last_half_lin_reg)) {
 
         # Get the points for the partial linear curve
         partial_conc_points <- dilution_data %>%
@@ -203,7 +215,8 @@ plot_curve_plotly <- function(dilution_data,
           sort() %>%
           unique()
 
-        last_half_index <- ceiling(length(partial_conc_points)/2):length(partial_conc_points)
+        last_half_index <-
+          ceiling(length(partial_conc_points) / 2):length(partial_conc_points)
         partial_conc_points <- partial_conc_points[last_half_index]
 
         partial_dilution_data <- dilution_data %>%
@@ -215,12 +228,15 @@ plot_curve_plotly <- function(dilution_data,
 
         # Create the lines in the dilution plot
         p <- p %>%
-          plotly::add_trace(data = partial_dilution_data, x = dilution,
-                            y = stats::predict(partial_linear_model,
-                                               tibble::tibble(!!conc_var := dilution)),
-                            type = "scatter", mode = "lines", name = "lin last half reg",
-                            line = list(color = "purple", width = 1),
-                            inherit = FALSE)
+          plotly::add_trace(
+            data = partial_dilution_data,
+            x = dilution,
+            y = stats::predict(
+              partial_linear_model,
+              tibble::tibble(!!conc_var := dilution)),
+            type = "scatter", mode = "lines", name = "lin last half reg",
+            line = list(color = "purple", width = 1),
+            inherit = FALSE)
 
 
       }
@@ -231,7 +247,7 @@ plot_curve_plotly <- function(dilution_data,
 
   # If conc_var_units is empty, do not add brackets
   x_title <- conc_var
-  if(conc_var_units != "") {
+  if (conc_var_units != "") {
     x_title <- paste0(conc_var, " (",  conc_var_units, ")")
   }
 
@@ -280,11 +296,11 @@ plot_curve_plotly <- function(dilution_data,
                    showlegend = TRUE
     ) %>%
     plotly::add_annotations(
-      x=0,
-      y=1,
+      x = 0,
+      y = 1,
       xref = "paper",
       yref = "paper",
-      xanchor = 'right',
+      xanchor = "right",
       yanchor = "bottom",
       text = signal_var,
       showarrow = FALSE
@@ -325,18 +341,19 @@ plot_curve_plotly <- function(dilution_data,
 #' @param conc_var Column name in `dilution_table` to indicate concentration
 #' Default: 'Dilution_Percent'
 #' @param conc_var_units Unit of measure for `conc_var`, Default: '%'
-#' @param conc_var_interval Distance between two tick labels in the dilution plot,
+#' @param conc_var_interval Distance between two tick labels
+#' in the dilution plot,
 #' Default: 50
 #' @param signal_var Column name in `dilution_table` to indicate signal
 #' Default: 'Area'
 #' @param have_plot_title Indicate if you want to have a plot title in
 #' the `plotly` plot.
 #' Default: FALSE
-#' @param plot_first_half_lin_reg Decide if we plot an extra regression line that
-#' best fits the first half of `conc_var` dilution points.
+#' @param plot_first_half_lin_reg Decide if we plot an extra regression line
+#' that best fits the first half of `conc_var` dilution points.
 #' Default: FALSE
-#' @param plot_last_half_lin_reg Decide if we plot an extra regression line that
-#' best fits the last half of `conc_var` dilution points.
+#' @param plot_last_half_lin_reg Decide if we plot an extra regression line
+#' that best fits the last half of `conc_var` dilution points.
 #' Default: FALSE
 #' @return A table that is suited for a `trelliscopejs` visualisation with
 #' `grouping variable` columns converted to conditional cognostics,
@@ -445,7 +462,7 @@ add_plotly_panel <- function(dilution_table, dilution_summary = NULL,
   )
 
   # Try to create dilution summary if you do not have one.
-  if(is.null(dilution_summary)) {
+  if (is.null(dilution_summary)) {
     dilution_summary <- dilution_table %>%
       summarise_dilution_table(grouping_variable = grouping_variable,
                                conc_var = conc_var,
@@ -456,17 +473,6 @@ add_plotly_panel <- function(dilution_table, dilution_summary = NULL,
   # Check if things in needed_column are in dilution_summary
   assertable::assert_colnames(dilution_summary, grouping_variable,
                               only_colnames = FALSE, quiet = TRUE)
-
-
-  # # Get cognostics for dilution_summary
-  # # Grouping variables must be the conditional columns
-  # dilution_summary <- dilution_summary %>%
-  #   convert_to_cog(cog_df = cog_df,
-  #                  grouping_variable = grouping_variable,
-  #                  col_name_vec = col_name_vec,
-  #                  desc_vec = desc_vec,
-  #                  type_vec = type_vec)
-
 
   # Get the dilution batch name from dilution_table
   dilution_batch_name <- dilution_table %>%
@@ -481,8 +487,7 @@ add_plotly_panel <- function(dilution_table, dilution_summary = NULL,
 
 
   # Create a title name for each group
-  #https://stackoverflow.com/questions/44613279/dplyr-concat-columns-stored-in-variable-mutate-and-non-standard-evaluation?rq=1
-  if(isTRUE(have_plot_title)) {
+  if (isTRUE(have_plot_title)) {
     dilution_table <- dilution_table %>%
       dplyr::rowwise() %>%
       dplyr::mutate(title = paste0(
@@ -499,42 +504,40 @@ add_plotly_panel <- function(dilution_table, dilution_summary = NULL,
   # and do a dilution plot for each of them
   dilution_plots <- dilution_table %>%
     #dplyr::mutate(Dilution_Batch_Name = .data[[dil_batch_var]]) %>%
-    dplyr::group_by_at(dplyr::all_of(c(grouping_variable,"title"))) %>%
-    dplyr::relocate(dplyr::all_of(c(grouping_variable,"title"))) %>%
+    dplyr::group_by_at(dplyr::all_of(c(grouping_variable, "title"))) %>%
+    dplyr::relocate(dplyr::all_of(c(grouping_variable, "title"))) %>%
     tidyr::nest() %>%
-    dplyr::mutate(data = purrr::map2(.data$data,
-                                     .data[[dil_batch_var]],
-                                     function(df,Dilution_Batch_Name) {
-                                       df <- df %>%
-                                         dplyr::mutate(!!dil_batch_var := Dilution_Batch_Name)
-                                       return(df)
-                                     }
+    dplyr::mutate(data = purrr::map2(
+      .x = .data$data,
+      .y = .data[[dil_batch_var]],
+      .f = function(df, dilution_batch_name) {
+        df <- df %>%
+          dplyr::mutate(!!dil_batch_var := dilution_batch_name)
+        return(df)
+      }
 
     )
     ) %>%
     dplyr::ungroup() %>%
-    dplyr::mutate(panel = trelliscopejs::map2_plot(.data$data,
-                                                   .data$title,
-                                                   plot_curve_plotly,
-                                                   pal = pal,
-                                                   sample_name_var = sample_name_var,
-                                                   dil_batch_var = "Dilution_Batch_Name",
-                                                   conc_var = conc_var,
-                                                   conc_var_units = conc_var_units,
-                                                   conc_var_interval = conc_var_interval,
-                                                   signal_var = signal_var,
-                                                   plot_first_half_lin_reg = plot_first_half_lin_reg,
-                                                   plot_last_half_lin_reg = plot_last_half_lin_reg)
-                  )
+    dplyr::mutate(panel = trelliscopejs::map2_plot(
+      .x = .data$data,
+      .y = .data$title,
+      .f = plot_curve_plotly,
+      pal = pal,
+      sample_name_var = sample_name_var,
+      dil_batch_var = "Dilution_Batch_Name",
+      conc_var = conc_var,
+      conc_var_units = conc_var_units,
+      conc_var_interval = conc_var_interval,
+      signal_var = signal_var,
+      plot_first_half_lin_reg = plot_first_half_lin_reg,
+      plot_last_half_lin_reg = plot_last_half_lin_reg)
+    )
 
-  # Convert the grouping variables to conditioning cognostics
-  # So that we can join the data
-  # Left Join with the dilution_summary
+
+  # Left Join plots with grouping variable and dilution_summary
   trellis_table <- dilution_plots %>%
     dplyr::select(dplyr::all_of(c(grouping_variable))) %>%
-    # trelliscopejs::as_cognostics(cond_cols = grouping_variable,
-    #                              needs_cond = TRUE,
-    #                              needs_key = FALSE) %>%
     dplyr::bind_cols(dilution_plots %>%
                        dplyr::select(.data[["panel"]])) %>%
     dplyr::left_join(dilution_summary, by = grouping_variable) %>%

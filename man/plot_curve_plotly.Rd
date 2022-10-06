@@ -42,16 +42,17 @@ used to colour the points in the dilution plot}
 
 \item{signal_var}{Column name in \code{dilution_data} to indicate signal}
 
-\item{plot_first_half_lin_reg}{Decide if we plot an extra regression line that
-best fits the first half of \code{conc_var} dilution points.
+\item{plot_first_half_lin_reg}{Decide if we plot an extra regression line
+that best fits the first half of \code{conc_var} dilution points.
 Default: FALSE}
 
-\item{plot_last_half_lin_reg}{Decide if we plot an extra regression line that
-best fits the last half of \code{conc_var} dilution points.
+\item{plot_last_half_lin_reg}{Decide if we plot an extra regression line
+that best fits the last half of \code{conc_var} dilution points.
 Default: FALSE}
 }
 \value{
-Output \code{plotly} dilution plot data of one dilution batch per transition
+Output \code{plotly} dilution plot data of one dilution batch
+per transition
 }
 \description{
 Plot Dilution Data using \code{plotly}

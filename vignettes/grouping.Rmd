@@ -77,7 +77,6 @@ dilution_summary <- create_dilution_table(dilution_annot, lipid_data,
                                                  "Transition_Name"),
                            conc_var = "Dilution_Percent",
                            signal_var = "Area")
-  
 ```
 
 ```{r print dilution summary}
@@ -87,9 +86,10 @@ print(dilution_summary, width = 100)
 `grouping variable` in `evaluate_linearity` only put these variables to the front
 
 ```{r dilution evaluation}
-dilution_classified <- evaluate_linearity(dilution_summary,
-                                          grouping_variable = c("Dilution_Batch_Name",
-                                                                "Transition_Name"))
+dilution_classified <- evaluate_linearity(
+  dilution_summary,
+  grouping_variable = c("Dilution_Batch_Name",
+                        "Transition_Name"))
 
 ```
 

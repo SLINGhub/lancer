@@ -17,7 +17,9 @@ calculate_adl(dilution_data, conc_var, signal_var)
 The average deviation from linearity
 }
 \description{
-Calculate the average deviation from linearity
+Calculate the average deviation from linearity as
+defined in
+\href{https://doi.org/10.5858/2000-124-1331-EOTEON}{Kroll et. al. (2000)}
 }
 \details{
 The function will return NA if the number of dilution points
@@ -30,4 +32,13 @@ dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
 adl_value <- calculate_adl(dilution_data,
                            "Dilution_Percent", "Area")
 adl_value
+}
+\references{
+Kroll, M. H., Praestgaard, J., Michaliszyn, E.,
+& Styer, P. E. (2000).
+Evaluation of the extent of nonlinearity
+in reportable range studies.
+\emph{Archives of pathology & laboratory medicine},
+\emph{124}(9), 1331–1338.
+\url{https://doi.org/10.5858/2000-124-1331-EOTEON}
 }

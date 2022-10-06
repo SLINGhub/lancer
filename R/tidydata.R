@@ -247,11 +247,12 @@ create_dilution_table <- function(dilution_annot, lipid_data_wide,
 #' print(dilution_summary, width = 100)
 #' @rdname summarise_dilution_table
 #' @export
-summarise_dilution_table <- function(dilution_table,
-                                     grouping_variable = c("Transition_Name",
-                                                           "Dilution_Batch_Name"),
-                                     conc_var = "Dilution_Percent",
-                                     signal_var = "Area") {
+summarise_dilution_table <- function(
+    dilution_table,
+    grouping_variable = c("Transition_Name",
+                          "Dilution_Batch_Name"),
+    conc_var = "Dilution_Percent",
+    signal_var = "Area") {
 
   #Check if dilution_table is valid with the relevant columns
   validate_dilution_table(dilution_table,

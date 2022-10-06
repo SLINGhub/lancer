@@ -33,10 +33,13 @@
 plot_summary_table_char <- function(dilution_summary_grp) {
 
   dilution_char_data <- dilution_summary_grp %>%
-    dplyr::select_if(function(col) is.character(col) |
-                                   is.factor(col) |
-                                   is.logical(col)
-                     )
+    dplyr::select_if(
+      function(col) {
+        is.character(col) |
+          is.factor(col) |
+          is.logical(col)
+      }
+  )
 
   remaining_cols <- length(colnames(dilution_char_data))
 
@@ -44,7 +47,7 @@ plot_summary_table_char <- function(dilution_summary_grp) {
     dilution_char_data <- NULL
   } else {
     dilution_char_data <- dilution_char_data %>%
-      dplyr::mutate_if(is.logical,as.character) %>%
+      dplyr::mutate_if(is.logical, as.character) %>%
       tidyr::pivot_longer(cols = dplyr::everything()) %>%
       gridExtra::tableGrob(rows = NULL, cols = NULL)
   }
@@ -89,8 +92,10 @@ plot_summary_table_num <- function(dilution_summary_grp) {
 
   dilution_num_data <- dilution_summary_grp %>%
     mark_near_zero_columns() %>%
-    dplyr::select_if(function(col) is.numeric(col) |
-                       class(col) == "scientific"
+    dplyr::select_if(
+      function(col) {
+        is.numeric(col) | class(col) == "scientific"
+      }
     )
 
   remaining_cols <- length(colnames(dilution_num_data))
@@ -140,13 +145,13 @@ plot_summary_table_num <- function(dilution_summary_grp) {
 #' @rdname plot_summary_table
 #' @export
 plot_summary_table <- function(dilution_summary_grp) {
-  if(is.null(dilution_summary_grp) || isTRUE(is.na(dilution_summary_grp))) {
+  if (is.null(dilution_summary_grp) || isTRUE(is.na(dilution_summary_grp))) {
     return(NULL)
   }
   dilution_char_data <- plot_summary_table_char(dilution_summary_grp)
   dilution_num_data <- plot_summary_table_num(dilution_summary_grp)
 
-  if(is.null(dilution_char_data) && is.null(dilution_num_data)) {
+  if (is.null(dilution_char_data) && is.null(dilution_num_data)) {
     return(NULL)
   } else if (is.null(dilution_char_data)) {
     return(dilution_num_data)
@@ -157,6 +162,58 @@ plot_summary_table <- function(dilution_summary_grp) {
                                    along = 2)
     return(p)
   }
+}
+
+# regression_colour_vector
+
+#' @title Create Regression Colour Vector
+#' @description Internal function that create a named vector
+#' to indicate which regression line has what colour
+#' @param plot_first_half_lin_reg Decide if we plot an extra
+#' regression line that best fits the first half
+#' of `conc_var` dilution points.
+#' Default: FALSE
+#' @param plot_last_half_lin_reg Decide if we plot an extra
+#' regression line that best fits the last half
+#' of `conc_var` dilution points.
+#' Default: FALSE
+#' @return A named vector in which a linear regression is
+#' named as "Lin" and is given the colour black. A
+#' quadratic regression is named as "Quad" and is given
+#' the colour red. A linear regression of the first
+#' half of the dilution points is named as "Lin First Half"
+#' and is given the colour blue. A linear regression of
+#' the last half of the dilution points is
+#' named as "Lin Last Half" and is given the colour purple.
+#' @examples
+#' # Data Creation
+#' regression_colour_vector <- c(plot_first_half_lin_reg = TRUE,
+#'                               plot_last_half_lin_reg = TRUE)
+#'
+#' regression_colour_vector
+#'
+#' @rdname create_reg_col_vec
+#' @export
+#' @keywords internal
+create_reg_col_vec <- function(
+    plot_first_half_lin_reg = FALSE,
+    plot_last_half_lin_reg = FALSE) {
+
+  if (plot_first_half_lin_reg && plot_last_half_lin_reg) {
+    reg_col_vec <- c("Lin" = "black", "Quad" = "red",
+                     "Lin First Half" = "blue",
+                     "Lin Last Half" = "purple")
+  } else if (plot_first_half_lin_reg && !plot_last_half_lin_reg) {
+    reg_col_vec <- c("Lin" = "black", "Quad" = "red",
+                     "Lin First Half" = "blue")
+  } else if (!plot_first_half_lin_reg && plot_last_half_lin_reg) {
+    reg_col_vec <- c("Lin" = "black", "Quad" = "red",
+                     "Lin Last Half" = "purple")
+  } else {
+    reg_col_vec <- c("Lin" = "black", "Quad" = "red")
+  }
+
+  return(reg_col_vec)
 }
 
 
@@ -181,13 +238,16 @@ plot_summary_table <- function(dilution_summary_grp) {
 #' Default: 50
 #' @param signal_var Column name in `dilution_table` to indicate signal
 #' Default: 'Area'
-#' @param plot_first_half_lin_reg Decide if we plot an extra regression line that
-#' best fits the first half of `conc_var` dilution points.
+#' @param plot_first_half_lin_reg Decide if we plot an extra
+#' regression line that best fits the first half
+#' of `conc_var` dilution points.
 #' Default: FALSE
-#' @param plot_last_half_lin_reg Decide if we plot an extra regression line that
-#' best fits the last half of `conc_var` dilution points.
+#' @param plot_last_half_lin_reg Decide if we plot an extra
+#' regression line that best fits the last half
+#' of `conc_var` dilution points.
 #' Default: FALSE
-#' @return Output `ggplot` dilution plot data of one dilution batch per transition
+#' @return Output `ggplot` dilution plot data of one dilution
+#' batch per transition
 #' @rdname plot_curve_ggplot
 #' @examples
 #' # Data Creation
@@ -303,10 +363,10 @@ plot_curve_ggplot <- function(dilution_data,
       size = 5
     )
 
-  if(nrow(dilution_data) > 3) {
+  if (nrow(dilution_data) > 3) {
 
     # When we need to plot a horizontal line
-    if(stats::sd(dilution_data[[signal_var]]) == 0) {
+    if (stats::sd(dilution_data[[signal_var]]) == 0) {
 
       reg_col_vec <- c("Lin" = "black")
 
@@ -320,7 +380,7 @@ plot_curve_ggplot <- function(dilution_data,
                        y = cont_y, yend = cont_y,
                        colour = "Lin")
         )
-    } else if(stats::sd(dilution_data[[conc_var]]) == 0) {
+    } else if (stats::sd(dilution_data[[conc_var]]) == 0) {
       # When we need to plot a vertical line
 
       reg_col_vec <- c("Lin" = "black")
@@ -338,17 +398,9 @@ plot_curve_ggplot <- function(dilution_data,
 
     } else {
 
-      if(plot_first_half_lin_reg && plot_last_half_lin_reg) {
-        reg_col_vec <- c("Lin" = "black", "Quad" = "red",
-                         "Lin First Half" = "blue", "Lin Last Half" = "purple")
-      } else if(plot_first_half_lin_reg && !plot_last_half_lin_reg) {
-        reg_col_vec <- c("Lin" = "black", "Quad" = "red", "Lin First Half" = "blue")
-      } else if(!plot_first_half_lin_reg && plot_last_half_lin_reg) {
-        reg_col_vec <- c("Lin" = "black", "Quad" = "red", "Lin Last Half" = "purple")
-      } else {
-        reg_col_vec <- c("Lin" = "black", "Quad" = "red")
-      }
-
+      reg_col_vec <- create_reg_col_vec(
+        plot_first_half_lin_reg = plot_first_half_lin_reg,
+        plot_last_half_lin_reg = plot_last_half_lin_reg)
 
       # Model the data
       linear_model <- create_linear_model(dilution_data, conc_var, signal_var)
@@ -369,17 +421,19 @@ plot_curve_ggplot <- function(dilution_data,
 
       #Add the regression lines
       p <- p +
-        ggplot2::geom_line(data = reg_data,
-                           mapping = ggplot2::aes(x = dilution, y=y_lin_predict,
-                                                  colour = "Lin")
+        ggplot2::geom_line(
+          data = reg_data,
+          mapping = ggplot2::aes(x = dilution, y = y_lin_predict,
+                                 colour = "Lin")
         ) +
-        ggplot2::geom_line(data = reg_data,
-                           mapping = ggplot2::aes(x = dilution, y=y_quad_predict,
-                                                  colour = "Quad")
+        ggplot2::geom_line(
+          data = reg_data,
+          mapping = ggplot2::aes(x = dilution, y = y_quad_predict,
+                                 colour = "Quad")
         )
 
 
-      if(plot_first_half_lin_reg) {
+      if (plot_first_half_lin_reg) {
 
         # Get the points for the partial linear curve
         partial_conc_points <- dilution_data %>%
@@ -388,33 +442,37 @@ plot_curve_ggplot <- function(dilution_data,
           sort() %>%
           unique()
 
-        first_half_index <- 1:ceiling(length(partial_conc_points)/2)
+        first_half_index <- 1:ceiling(length(partial_conc_points) / 2)
         partial_conc_points <- partial_conc_points[first_half_index]
 
-        partial_dilution_Data <- dilution_data %>%
+        partial_dilution_data <- dilution_data %>%
           dplyr::filter(.data[[conc_var]] %in% partial_conc_points)
 
 
         # Create the partial model
-        partial_linear_model <- create_linear_model(partial_dilution_Data,
+        partial_linear_model <- create_linear_model(partial_dilution_data,
                                                     conc_var, signal_var)
 
-        y_partial_lin_predict <- stats::predict(partial_linear_model,
-                                                tibble::tibble(!!conc_var := dilution))
+        y_partial_lin_predict <- stats::predict(
+          partial_linear_model,
+          tibble::tibble(!!conc_var := dilution))
 
-        partial_reg_data <- data.frame(dilution = dilution,
-                                       y_partial_lin_predict = y_partial_lin_predict)
+        partial_reg_data <- data.frame(
+          dilution = dilution,
+          y_partial_lin_predict = y_partial_lin_predict)
 
         # Plot the half regression line
         p <- p +
-          ggplot2::geom_line(data = partial_reg_data,
-                             mapping = ggplot2::aes(x = dilution, y=y_partial_lin_predict,
-                                                    colour = "Lin First Half")
+          ggplot2::geom_line(
+            data = partial_reg_data,
+            mapping = ggplot2::aes(x = dilution,
+                                   y = y_partial_lin_predict,
+                                   colour = "Lin First Half")
           )
 
       }
 
-      if(plot_last_half_lin_reg) {
+      if (plot_last_half_lin_reg) {
 
         # Get the points for the partial linear curve
         partial_conc_points <- dilution_data %>%
@@ -423,28 +481,33 @@ plot_curve_ggplot <- function(dilution_data,
           sort() %>%
           unique()
 
-        last_half_index <- ceiling(length(partial_conc_points)/2):length(partial_conc_points)
+        last_half_index <-
+          ceiling(length(partial_conc_points) / 2):length(partial_conc_points)
         partial_conc_points <- partial_conc_points[last_half_index]
 
-        partial_dilution_Data <- dilution_data %>%
+        partial_dilution_data <- dilution_data %>%
           dplyr::filter(.data[[conc_var]] %in% partial_conc_points)
 
 
         # Create the partial model
-        partial_linear_model <- create_linear_model(partial_dilution_Data,
+        partial_linear_model <- create_linear_model(partial_dilution_data,
                                                     conc_var, signal_var)
 
-        y_partial_lin_predict <- stats::predict(partial_linear_model,
-                                                tibble::tibble(!!conc_var := dilution))
+        y_partial_lin_predict <- stats::predict(
+          partial_linear_model,
+          tibble::tibble(!!conc_var := dilution))
 
-        partial_reg_data <- data.frame(dilution = dilution,
-                                       y_partial_lin_predict = y_partial_lin_predict)
+        partial_reg_data <- data.frame(
+          dilution = dilution,
+          y_partial_lin_predict = y_partial_lin_predict)
 
         # Plot the half regression line
         p <- p +
-          ggplot2::geom_line(data = partial_reg_data,
-                             mapping = ggplot2::aes(x = dilution, y=y_partial_lin_predict,
-                                                    colour = "Lin Last Half")
+          ggplot2::geom_line(
+            data = partial_reg_data,
+            mapping = ggplot2::aes(x = dilution,
+                                   y = y_partial_lin_predict,
+                                   colour = "Lin Last Half")
           )
 
       }
@@ -454,10 +517,10 @@ plot_curve_ggplot <- function(dilution_data,
   }
 
   # Get maximum concentration value for scaling
-  if(nrow(dilution_data) == 0) {
+  if (nrow(dilution_data) == 0) {
     conc_vector <- conc_vector[!is.na(conc_vector)]
     max_conc <- ifelse(length(conc_vector) == 0,
-                       0,max(conc_vector, na.rm = TRUE))
+                       0, max(conc_vector, na.rm = TRUE))
   } else {
     max_conc <- max(dilution_data[[conc_var]], na.rm = TRUE)
   }
@@ -466,31 +529,28 @@ plot_curve_ggplot <- function(dilution_data,
 
   # If conc_var_units is empty, do not add brackets
   x_title <- conc_var
-  if(conc_var_units != "") {
+  if (conc_var_units != "") {
     x_title <- paste0(conc_var, " (",  conc_var_units, ")")
   }
 
   # Create the layout for legend, colours, axis
-  legend_nrow = 1
-  if(plot_first_half_lin_reg && plot_last_half_lin_reg) {
-    legend_nrow = 2
+  legend_nrow <- 1
+  if (plot_first_half_lin_reg && plot_last_half_lin_reg) {
+    legend_nrow <- 2
   }
 
   p <- p +
-    ggplot2::scale_colour_manual(values = c(filtered_pal,reg_col_vec),
-                                 labels = names(c(reg_col_vec,filtered_pal)),
-                                 guide = ggplot2::guide_legend(
-                                   override.aes = list(
-                                     linetype = c(rep("solid", length(reg_col_vec)),
-                                                  rep("blank", no_of_dil_batch)
-                                     ),
-                                     shape = c(rep(NA, length(reg_col_vec)),
-                                               rep(16,no_of_dil_batch)
-                                     ),
-                                     colour = c(reg_col_vec,filtered_pal)
-                                   ),
-                                   nrow = legend_nrow,
-                                 )
+    ggplot2::scale_colour_manual(
+      values = c(filtered_pal, reg_col_vec),
+      labels = names(c(reg_col_vec, filtered_pal)),
+      guide = ggplot2::guide_legend(override.aes = list(
+        linetype = c(rep("solid", length(reg_col_vec)),
+                     rep("blank", no_of_dil_batch)),
+        shape = c(rep(NA, length(reg_col_vec)),
+                  rep(16, no_of_dil_batch)),
+        colour = c(reg_col_vec, filtered_pal)
+      ),
+      nrow = legend_nrow)
     ) +
     ggplot2::scale_x_continuous(breaks = conc_tick_points,
                                 labels = scales::number) +
@@ -508,7 +568,6 @@ plot_curve_ggplot <- function(dilution_data,
 
 
   if (!is.null(tables)) {
-    #p <- ggarrange(p, tables, ncol = 2, nrow = 1, widths = (c(2, 1)))
     p <- patchwork::wrap_plots(p, tables, ncol = 2, nrow = 1)
   }
 
@@ -558,11 +617,11 @@ plot_curve_ggplot <- function(dilution_data,
 #' @param plot_summary_table Indicate if you want to plot the summary table
 #' in the `ggplot` plot.
 #' Default: TRUE
-#' @param plot_first_half_lin_reg Decide if we plot an extra regression line that
-#' best fits the first half of `conc_var` dilution points.
+#' @param plot_first_half_lin_reg Decide if we plot an extra regression line
+#' that best fits the first half of `conc_var` dilution points.
 #' Default: FALSE
-#' @param plot_last_half_lin_reg Decide if we plot an extra regression line that
-#' best fits the last half of `conc_var` dilution points.
+#' @param plot_last_half_lin_reg Decide if we plot an extra regression line
+#' that best fits the last half of `conc_var` dilution points.
 #' Default: FALSE
 #' @return A table with columns from `grouping variable`
 #' and a new column `panel` created containing a `ggplot` dilution plot
@@ -697,13 +756,8 @@ add_ggplot_panel <- function(dilution_table, dilution_summary = NULL,
 
   # Create a summary table for each group for plotting the
   # summary table using gridExtra::tableGrob
-  # nested_dilution_summary <- dilution_summary %>%
-  #   dplyr::group_by_at(dplyr::all_of(grouping_variable)) %>%
-  #   tidyr::nest() %>%
-  #   dplyr::ungroup() %>%
-  #   dplyr::rename(summary = .data$data)
 
-  if(isTRUE(plot_summary_table)) {
+  if (isTRUE(plot_summary_table)) {
     nested_dilution_summary <- dilution_summary %>%
       dplyr::group_by_at(dplyr::all_of(grouping_variable)) %>%
       tidyr::nest() %>%
@@ -724,22 +778,23 @@ add_ggplot_panel <- function(dilution_table, dilution_summary = NULL,
     dplyr::group_by_at(dplyr::all_of(grouping_variable)) %>%
     dplyr::relocate(dplyr::all_of(grouping_variable)) %>%
     tidyr::nest() %>%
-    dplyr::mutate(data = purrr::map2(.data$data,
-                                     .data[[dil_batch_var]],
-                                       function(df,Dilution_Batch_Name) {
-                                         df <- df %>%
-                                           dplyr::mutate(!!dil_batch_var := Dilution_Batch_Name)
-                                         return(df)
-                                       }
-
+    dplyr::mutate(data = purrr::map2(
+      .x = .data$data,
+      .y = .data[[dil_batch_var]],
+      .f = function(df, dilution_batch_name) {
+        df <- df %>%
+          dplyr::mutate(!!dil_batch_var := dilution_batch_name)
+        return(df)
+        }
     )
-                    ) %>%
+    ) %>%
     dplyr::ungroup() %>%
     dplyr::left_join(nested_dilution_summary, by = grouping_variable)
 
   # Create a title name for each group
-  #https://stackoverflow.com/questions/44613279/dplyr-concat-columns-stored-in-variable-mutate-and-non-standard-evaluation?rq=1
-  if(isTRUE(have_plot_title)) {
+  #https://stackoverflow.com/questions/44613279/dplyr-concat-columns
+  #-stored-in-variable-mutate-and-non-standard-evaluation?rq=1
+  if (isTRUE(have_plot_title)) {
     dilution_table <- dilution_table %>%
       dplyr::rowwise() %>%
       dplyr::mutate(title = paste0(
@@ -754,18 +809,19 @@ add_ggplot_panel <- function(dilution_table, dilution_summary = NULL,
 
   # Start the plotting
   dilution_plots <- dilution_table %>%
-    dplyr::mutate(panel = purrr::pmap(list(.data$data,
-                                           .data$summary,
-                                           .data$title),
-                                      plot_curve_ggplot,
-                                      pal = pal,
-                                      dil_batch_var = dil_batch_var,
-                                      conc_var = conc_var,
-                                      conc_var_units = conc_var_units,
-                                      conc_var_interval = conc_var_interval,
-                                      signal_var = signal_var,
-                                      plot_first_half_lin_reg = plot_first_half_lin_reg,
-                                      plot_last_half_lin_reg = plot_last_half_lin_reg)
+    dplyr::mutate(panel = purrr::pmap(
+      .l = list(.data$data,
+                .data$summary,
+                .data$title),
+      .f = plot_curve_ggplot,
+      pal = pal,
+      dil_batch_var = dil_batch_var,
+      conc_var = conc_var,
+      conc_var_units = conc_var_units,
+      conc_var_interval = conc_var_interval,
+      signal_var = signal_var,
+      plot_first_half_lin_reg = plot_first_half_lin_reg,
+      plot_last_half_lin_reg = plot_last_half_lin_reg)
                   )
 
 

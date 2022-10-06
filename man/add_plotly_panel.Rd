@@ -57,7 +57,8 @@ Default: 'Dilution_Percent'}
 
 \item{conc_var_units}{Unit of measure for \code{conc_var}, Default: '\%'}
 
-\item{conc_var_interval}{Distance between two tick labels in the dilution plot,
+\item{conc_var_interval}{Distance between two tick labels
+in the dilution plot,
 Default: 50}
 
 \item{signal_var}{Column name in \code{dilution_table} to indicate signal
@@ -67,12 +68,12 @@ Default: 'Area'}
 the \code{plotly} plot.
 Default: FALSE}
 
-\item{plot_first_half_lin_reg}{Decide if we plot an extra regression line that
-best fits the first half of \code{conc_var} dilution points.
+\item{plot_first_half_lin_reg}{Decide if we plot an extra regression line
+that best fits the first half of \code{conc_var} dilution points.
 Default: FALSE}
 
-\item{plot_last_half_lin_reg}{Decide if we plot an extra regression line that
-best fits the last half of \code{conc_var} dilution points.
+\item{plot_last_half_lin_reg}{Decide if we plot an extra regression line
+that best fits the last half of \code{conc_var} dilution points.
 Default: FALSE}
 }
 \value{

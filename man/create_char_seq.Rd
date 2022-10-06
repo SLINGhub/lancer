@@ -19,7 +19,8 @@ Create cyclic character sequence
 }
 \details{
 Taken from
-https://community.rstudio.com/t/fill-in-a-sequence-of-letters-based-on-a-given-order/88823/3
+https://community.rstudio.com/t/
+fill-in-a-sequence-of-letters-based-on-a-given-order/88823/3
 }
 \examples{
 group_name <- c("red", "green", "blue")

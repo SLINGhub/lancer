@@ -16,11 +16,11 @@ knitr::opts_chunk$set(
 library(DCVtestkit)
 ```
 
-# DCVtestkit (Dilution Curve Validation Testkit)
+# DCVtestkit (Dilution Curve Validation Test Kit)
 <img src="man/figures/README-logo.png" align="right" height="200" />
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/SLINGhub/DCVtestkit/workflows/R-CMD-check/badge.svg)](https://github.com/SLINGhub/DCVtestkit/actions)
+[![R-Command-check](https://github.com/SLINGhub/DCVtestkit/workflows/R-CMD-check/badge.svg)](https://github.com/SLINGhub/DCVtestkit/actions)
 [![Codecov test coverage](https://codecov.io/gh/SLINGhub/DCVtestkit/branch/main/graph/badge.svg?token=RNlP8VlaL2)](https://codecov.io/gh/SLINGhub/DCVtestkit)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/SLINGhub/DCVtestkit/blob/main/LICENSE.md)
 [![Maintainer: JauntyJJS](https://img.shields.io/badge/Maintainer-JauntyJJS-blue.svg)](https://github.com/JauntyJJS)
@@ -55,7 +55,7 @@ An overview of the workflow is as follows
 
 ## Motivation
 
-The Pearson correlation coefficient has been used widely to test for linearity. However, it is insufficent as indicated in this [paper](https://www.sciencedirect.com/science/article/abs/pii/S0165993615301242)
+The Pearson correlation coefficient has been used widely to test for linearity. However, it is insufficient as indicated in this [paper](https://www.sciencedirect.com/science/article/abs/pii/S0165993615301242)
 
 Consider a linear curve, saturated curve and a curve with limit of detection (LOD)
 
@@ -307,12 +307,12 @@ We try to categorise dilution curves based on the results of three parameters.
 
 Pearson Correlation Coefficient ( $R$ ) can be found in Van Loco, J., Elskens, M., Croux, C. *et al.*, 
 Linearity of calibration curves: use and misuse of the correlation coefficient. 
-*Accred Qual Assur* **7**, 281-285 (2002). [10.1007/s00769-002-0487-6](https://doi.org/10.1007/s00769-002-0487-6).  
+*Accreditation and Quality Assurance* **7**, 281-285 (2002). [10.1007/s00769-002-0487-6](https://doi.org/10.1007/s00769-002-0487-6).  
 Equation ( $1$ ) is used.
 
 Mandel's Fitting Test can be found in Andrade, J. M. and Gómez-Carracedo, M. P., 
 Notes on the use of Mandel's test to check for nonlinearity in laboratory calibrations. 
-*Anal. Methods* **5**, 1145-1149 (2013). [10.1039/C2AY26400E](https://dx.doi.org/10.1039/C2AY26400E).  
+*Analytical Methods* **5**, 1145-1149 (2013). [10.1039/C2AY26400E](https://dx.doi.org/10.1039/C2AY26400E).  
 Equation ( $5$ ) is used.
 
 Percent Residual Accuracy ( $PRA$ ) can be found in Logue, B. A. and Manandhar, E., 
@@ -488,9 +488,9 @@ view_ggplot_pdf(ggplot_list,
                 nrow_per_page = 2)
 ```
 
-![README-PDFResults1](man/figures/README-PDFResults1.png)
+![README-PDF Results1](man/figures/README-PDFResults1.png)
 
-![README-PDFResults2](man/figures/README-PDFResults2.png)
+![README-PDF Results2](man/figures/README-PDFResults2.png)
 
 Results can also be plotted using `add_plotly_panel`. This will create a column called panel that contains all the `plotly` plots.
 

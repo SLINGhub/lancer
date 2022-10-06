@@ -71,14 +71,13 @@ dilution_table <- create_dilution_table(dilution_annot,
 
 dilution_classified <- dilution_table %>%
   summarise_dilution_table(grouping_variable = c("Transition_Name",
-                                                 "Dilution_Batch_Name"), 
+                                                 "Dilution_Batch_Name"),
                            conc_var = "Dilution_Percent",
                            signal_var = "Area"
   ) %>%
   dplyr::arrange(.data$Transition_Name) %>%
   evaluate_linearity(grouping_variable = c("Transition_Name",
                                            "Dilution_Batch_Name"))
-  
 ```
 
 Here is the output of `dilution_table` and `dilution_classified` 
@@ -91,17 +90,18 @@ print(head(dilution_classified), width = 100)
 We then create the `ggplot` plots with `dilution_table` and `dilution_classified`
 
 ```{r create ggplot table}
-ggplot_table_orig <- add_ggplot_panel(dilution_table,
-                                      dilution_summary = dilution_classified,
-                                      grouping_variable = c("Transition_Name",
-                                                            "Dilution_Batch_Name"),
-                                      dil_batch_var = "Dilution_Batch_Name",
-                                      dil_batch_col = c("#377eb8",
-                                                        "#4daf4a"),
-                                      conc_var = "Dilution_Percent",
-                                      conc_var_units = "%",
-                                      conc_var_interval = 50,
-                                      signal_var = "Area")
+ggplot_table_orig <- add_ggplot_panel(
+  dilution_table,
+  dilution_summary = dilution_classified,
+  grouping_variable = c("Transition_Name",
+                        "Dilution_Batch_Name"),
+  dil_batch_var = "Dilution_Batch_Name",
+  dil_batch_col = c("#377eb8",
+                    "#4daf4a"),
+  conc_var = "Dilution_Percent",
+  conc_var_units = "%",
+  conc_var_interval = 50,
+  signal_var = "Area")
 
 # Get the list of ggplot list for each group
 ggplot_list_orig <- ggplot_table_orig$panel
@@ -191,12 +191,11 @@ ggplot_list[[8]]
 The list of ggplots can be output in pdf. You may have to adjust the width and height accordingly.
 
 ```{r create pdf page, eval = FALSE}
-view_ggplot_pdf(ggplot_list_orig, 
+view_ggplot_pdf(ggplot_list_orig,
                 filename = "dilution_plot.pdf",
                 ncol_per_page = 2,
                 nrow_per_page = 2,
                 width = 15, height = 8)
-
 ```
 
 Page 1

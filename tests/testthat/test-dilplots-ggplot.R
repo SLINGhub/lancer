@@ -23,14 +23,14 @@ test_that("Able to plot good dilution data with ggplot correctly", {
                                    Area = lipid1_area_saturated,
   )
 
-  grouping_variable <- c("Transition_Name","Dilution_Batch_Name")
+  grouping_variable <- c("Transition_Name", "Dilution_Batch_Name")
 
   # Get the dilution batch name from dilution_table
   dilution_batch_name <- dilution_batch_name %>%
     unique() %>%
     as.character()
 
-  dil_batch_col = c("#377eb8")
+  dil_batch_col <- c("#377eb8")
 
   # Create palette for each dilution batch for plotting
   pal <- dil_batch_col %>%
@@ -118,8 +118,8 @@ test_that("Able to plot horizontal dilution data with ggplot correctly", {
   transition_name <- c("Lipid1", "Lipid1", "Lipid1", "Lipid1",
                        "Lipid1", "Lipid1", "Lipid1", "Lipid1",
                        "Lipid1", "Lipid1", "Lipid1")
-  bad_area <- c(2,2,2,2,2,2,
-                2,2,2,2,2)
+  bad_area <- c(2, 2, 2, 2, 2, 2,
+                2, 2, 2, 2, 2)
 
   # Handle the case of horizontal line
   dilution_data <- tibble::tibble(Sample_Name = sample_name,
@@ -129,14 +129,14 @@ test_that("Able to plot horizontal dilution data with ggplot correctly", {
                                   Area = bad_area,
   )
 
-  grouping_variable <- c("Transition_Name","Dilution_Batch_Name")
+  grouping_variable <- c("Transition_Name", "Dilution_Batch_Name")
 
   # Get the dilution batch name from dilution_table
   dilution_batch_name <- dilution_batch_name %>%
     unique() %>%
     as.character()
 
-  dil_batch_col = c("#377eb8")
+  dil_batch_col <- c("#377eb8")
 
   # Create palette for each dilution batch for plotting
   pal <- dil_batch_col %>%
@@ -185,8 +185,8 @@ test_that("Able to plot vertical dilution data with ggplot correctly", {
   lipid1_area_saturated <- c(5748124, 16616414, 21702718, 36191617,
                              49324541, 55618266, 66947588, 74964771,
                              75438063, 91770737, 94692060)
-  bad_conc <- c(50,50,50,50,50,50,
-                50,50,50,50,50)
+  bad_conc <- c(50, 50, 50, 50, 50, 50,
+                50, 50, 50, 50, 50)
 
   # Handle the case of vertical line
   dilution_data <- tibble::tibble(Sample_Name = sample_name,
@@ -196,14 +196,14 @@ test_that("Able to plot vertical dilution data with ggplot correctly", {
                                   Area = lipid1_area_saturated,
   )
 
-  grouping_variable <- c("Transition_Name","Dilution_Batch_Name")
+  grouping_variable <- c("Transition_Name", "Dilution_Batch_Name")
 
   # Get the dilution batch name from dilution_table
   dilution_batch_name <- dilution_batch_name %>%
     unique() %>%
     as.character()
 
-  dil_batch_col = c("#377eb8")
+  dil_batch_col <- c("#377eb8")
 
   # Create palette for each dilution batch for plotting
   pal <- dil_batch_col %>%
@@ -248,10 +248,10 @@ test_that("Able to plot single point dilution data with ggplot correctly", {
   transition_name <- c("Lipid1", "Lipid1", "Lipid1", "Lipid1",
                        "Lipid1", "Lipid1", "Lipid1", "Lipid1",
                        "Lipid1", "Lipid1", "Lipid1")
-  bad_area <- c(2,2,2,2,2,2,
-                2,2,2,2,2)
-  bad_conc <- c(50,50,50,50,50,50,
-                50,50,50,50,50)
+  bad_area <- c(2, 2, 2, 2, 2, 2,
+                2, 2, 2, 2, 2)
+  bad_conc <- c(50, 50, 50, 50, 50, 50,
+                50, 50, 50, 50, 50)
 
   # Handle the case of a point
   dilution_data <- tibble::tibble(Sample_Name = sample_name,
@@ -261,14 +261,14 @@ test_that("Able to plot single point dilution data with ggplot correctly", {
                                   Area = bad_area,
   )
 
-  grouping_variable <- c("Transition_Name","Dilution_Batch_Name")
+  grouping_variable <- c("Transition_Name", "Dilution_Batch_Name")
 
   # Get the dilution batch name from dilution_table
   dilution_batch_name <- dilution_batch_name %>%
     unique() %>%
     as.character()
 
-  dil_batch_col = c("#377eb8")
+  dil_batch_col <- c("#377eb8")
 
   # Create palette for each dilution batch for plotting
   pal <- dil_batch_col %>%
@@ -325,14 +325,14 @@ test_that("Able to plot NA dilution data with ggplot correctly", {
                                   Area = na_area,
   )
 
-  grouping_variable <- c("Transition_Name","Dilution_Batch_Name")
+  grouping_variable <- c("Transition_Name", "Dilution_Batch_Name")
 
   # Get the dilution batch name from dilution_table
   dilution_batch_name <- dilution_batch_name %>%
     unique() %>%
     as.character()
 
-  dil_batch_col = c("#377eb8")
+  dil_batch_col <- c("#377eb8")
 
   # Create palette for each dilution batch for plotting
   pal <- dil_batch_col %>%
@@ -365,7 +365,9 @@ test_that("Able to plot NA dilution data with ggplot correctly", {
 })
 
 
-test_that("Able to plot summary (numeric and characters) grid table for one dilution group", {
+test_that(
+  "Able to plot summary (numeric and characters) grid table
+  for one dilution group", {
 
   wf1_group <- c("Poor Linearity")
   wf2_group <- c("Saturation")
@@ -391,7 +393,8 @@ test_that("Able to plot summary (numeric and characters) grid table for one dilu
 
 })
 
-test_that("Able to plot summary (only numeric) grid table for one dilution group", {
+test_that("Able to plot summary (only numeric) grid table
+          for one dilution group", {
 
   r_corr <- c(0.951956)
   pra_linear <- c(65.78711)
@@ -416,7 +419,8 @@ test_that("Able to plot summary (only numeric) grid table for one dilution group
 })
 
 
-test_that("Able to plot summary (only character) grid table for one dilution group", {
+test_that("Able to plot summary (only character) grid table
+          for one dilution group", {
 
   wf1_group <- c("Poor Linearity")
   wf2_group <- c("Saturation")
@@ -441,7 +445,8 @@ test_that("Able to plot summary (only character) grid table for one dilution gro
 
 })
 
-test_that("Able to return NULL when there is no summary for one dilution group", {
+test_that("Able to return NULL when there is no summary
+          for one dilution group", {
 
   dilution_summary_grp <- data.frame()
   # Test that it gives NULL when both columns types are missing
@@ -450,6 +455,3 @@ test_that("Able to return NULL when there is no summary for one dilution group",
   testthat::expect_null(plot_summary_table(NULL))
 
 })
-
-
-

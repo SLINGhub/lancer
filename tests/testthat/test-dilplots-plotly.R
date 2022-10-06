@@ -18,10 +18,10 @@ test_that("Able to plot dilution data with plotly correctly", {
                        3343, 2915, 5268, 8031, 11045)
   lipid4_area_nonlinear <- c(380519, 485372, 478770, 474467, 531640, 576301,
                              501068, 550201, 515110, 499543, 474745)
-  bad_area <- c(2,2,2,2,2,2,
-                2,2,2,2,2)
-  bad_conc <- c(50,50,50,50,50,50,
-                50,50,50,50,50)
+  bad_area <- c(2, 2, 2, 2, 2, 2,
+                2, 2, 2, 2, 2)
+  bad_conc <- c(50, 50, 50, 50, 50, 50,
+                50, 50, 50, 50, 50)
   na_area <- c(NA, NA, NA, NA, NA, NA,
                NA, NA, NA, NA, NA)
 
@@ -36,7 +36,7 @@ test_that("Able to plot dilution data with plotly correctly", {
     unique() %>%
     as.character()
 
-  dil_batch_col = c("#377eb8")
+  dil_batch_col <- c("#377eb8")
 
   # Create palette for each dilution batch for plotting
   pal <- dil_batch_col %>%
@@ -55,7 +55,15 @@ test_that("Able to plot dilution data with plotly correctly", {
                          plot_first_half_lin_reg = TRUE,
                          plot_last_half_lin_reg = TRUE)
 
-  #htmlwidgets::saveWidget(p, "index.html")
+  # The first trace is markers (scatter plot)
+  testthat::expect_equal(p$x$attrs[[2]]$mode,
+                         "markers")
+
+  # The next four traces are lines (regression)
+  for (trace_index in c(3:6)) {
+    testthat::expect_equal(p$x$attrs[[trace_index]]$mode,
+                           "lines")
+  }
 
   # Handle the case of horizontal line
   dilution_data <- tibble::tibble(Sample_Name = sample_name,
@@ -74,7 +82,17 @@ test_that("Able to plot dilution data with plotly correctly", {
                          conc_var_units = "%",
                          conc_var_interval = 50,
                          signal_var = "Area")
-  #htmlwidgets::saveWidget(p, "index.html")
+
+
+  # The first trace is markers (scatter plot)
+  testthat::expect_equal(p$x$attrs[[2]]$mode,
+                         "markers")
+
+  # The next trace is lines (horizontal line)
+  for (trace_index in c(3)) {
+    testthat::expect_equal(p$x$attrs[[trace_index]]$mode,
+                           "lines")
+  }
 
   # Handle the case of vertical line
   dilution_data <- tibble::tibble(Sample_Name = sample_name,
@@ -93,8 +111,16 @@ test_that("Able to plot dilution data with plotly correctly", {
                          conc_var_units = "%",
                          conc_var_interval = 50,
                          signal_var = "Area")
-  #htmlwidgets::saveWidget(p, "index.html")
 
+  # The first trace is markers (scatter plot)
+  testthat::expect_equal(p$x$attrs[[2]]$mode,
+                         "markers")
+
+  # The next trace is lines (vertical line)
+  for (trace_index in c(3)) {
+    testthat::expect_equal(p$x$attrs[[trace_index]]$mode,
+                           "lines")
+  }
 
   # Handle the case of a point
   dilution_data <- tibble::tibble(Sample_Name = sample_name,
@@ -113,7 +139,16 @@ test_that("Able to plot dilution data with plotly correctly", {
                          conc_var_units = "%",
                          conc_var_interval = 50,
                          signal_var = "Area")
-  #htmlwidgets::saveWidget(p, "index.html")
+
+  # The first trace is markers (scatter plot)
+  testthat::expect_equal(p$x$attrs[[2]]$mode,
+                         "markers")
+
+  # The next trace is lines (a dot)
+  for (trace_index in c(3)) {
+    testthat::expect_equal(p$x$attrs[[trace_index]]$mode,
+                           "lines")
+  }
 
   # Handle the case of a plot that gives no points
   dilution_data <- tibble::tibble(Sample_Name = sample_name,
@@ -133,6 +168,10 @@ test_that("Able to plot dilution data with plotly correctly", {
                          conc_var_interval = 50,
                          signal_var = "Area")
 
+  # The first trace is markers (scatter plot)
+  # No lines traces is present
+  testthat::expect_equal(p$x$attrs[[2]]$mode,
+                         "markers")
 
 
 })

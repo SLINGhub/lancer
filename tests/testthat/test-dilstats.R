@@ -58,15 +58,21 @@ test_that("calculate concavity", {
   # Handle the case of a straight horizontal line input. Give NA
   dilution_percent <- c(0, 10, 8, 13)
   area <- c(2, 2, 2, 2)
-  dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-  concavity_value <- calculate_concavity(dilution_data, "Dilution_Percent", "Area")
+  dilution_data <- data.frame(Dilution_Percent = dilution_percent,
+                              Area = area)
+  concavity_value <- calculate_concavity(dilution_data,
+                                         "Dilution_Percent",
+                                         "Area")
   testthat::expect_equal(NA, unname(concavity_value))
 
   # Handle the case of a straight vertical line input. Give NA
   dilution_percent <- c(10, 10, 10, 10)
   area <- c(0, 5.23, 4.23, 6.35)
-  dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-  concavity_value <- calculate_concavity(dilution_data, "Dilution_Percent", "Area")
+  dilution_data <- data.frame(Dilution_Percent = dilution_percent,
+                              Area = area)
+  concavity_value <- calculate_concavity(dilution_data,
+                                         "Dilution_Percent",
+                                         "Area")
   testthat::expect_equal(NA, unname(concavity_value))
 
   # Too little valid point (<= 3) will give an NA
@@ -230,49 +236,38 @@ test_that("calculate average deviation from linearity", {
   dilution_percent <- c(10, 10, 10, 10)
   area <- c(0, 5.23, 4.23, 6.35)
   dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-  pra_value <- calculate_pra_linear(dilution_data, "Dilution_Percent", "Area")
-  testthat::expect_equal(NA, unname(pra_value))
+  adl_value <- calculate_adl(dilution_data, "Dilution_Percent", "Area")
+  testthat::expect_equal(NA, unname(adl_value))
 
   # Too little valid point (<= 3) will give an NA
   dilution_percent <- c(0, 10, 8, 13)
   area <- c(0, 5.23, 4.23, 6.35)
   dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-  pra_value <- calculate_pra_linear(dilution_data, "Dilution_Percent", "Area")
-  testthat::expect_equal(NA, unname(pra_value))
+  adl_value <- calculate_adl(dilution_data, "Dilution_Percent", "Area")
+  testthat::expect_equal(NA, unname(adl_value))
 
   dilution_data <- data.frame(Dilution_Percent = c(NA, NA), Area =  c(NA, NA))
-  pra_value <- calculate_pra_linear(dilution_data, "Dilution_Percent", "Area")
-  testthat::expect_equal(NA, unname(pra_value))
+  adl_value <- calculate_adl(dilution_data, "Dilution_Percent", "Area")
+  testthat::expect_equal(NA, unname(adl_value))
 
   dilution_data <- data.frame(Dilution_Percent = NA, Area = NA)
-  pra_value <- calculate_pra_linear(dilution_data, "Dilution_Percent", "Area")
-  testthat::expect_equal(NA, unname(pra_value))
+  adl_value <- calculate_adl(dilution_data, "Dilution_Percent", "Area")
+  testthat::expect_equal(NA, unname(adl_value))
 
   dilution_data <- NA
-  pra_value <- calculate_pra_linear(dilution_data, "Dilution_Percent", "Area")
-  testthat::expect_equal(NA, unname(pra_value))
+  adl_value <- calculate_adl(dilution_data, "Dilution_Percent", "Area")
+  testthat::expect_equal(NA, unname(adl_value))
 
 
 })
 
-test_that("calculate adl kroll test", {
+test_that("calculate kroll linearity test using adl", {
 
+  # Data from the paper
   solution_number <- c(1, 1, 2, 2, 3, 3, 4, 4,
                        5, 5, 6, 6, 7, 7)
   result <- c(352, 348, 1009, 991, 1603, 1584, 3100, 3200,
               4482, 4390, 5101, 5046, 5669, 5516)
-
-  # Create cubic best data
-  solution_number <- c(1, 1, 2, 2, 3, 3, 4, 4,
-                       5, 5)
-  result <- c(1, 0.99, 1.6, 1.59, 2.5, 2.6, 4.36, 4.39,
-              5.1, 5)
-
-  # Create quad best model data
-  solution_number <- c(1, 1, 2, 2, 3, 3, 4, 4,
-                       5, 5)
-  result <- c(4.7, 4.6, 7.8, 7.6, 10.4, 10.2, 13, 13.1,
-              15.5, 15.3)
 
   dilution_data <- data.frame(Solution_Number = solution_number,
                               Result = result)
@@ -280,6 +275,20 @@ test_that("calculate adl kroll test", {
   adl_result <- calculate_adl_kroll_test(dilution_data, "Solution_Number",
                                          "Result")
 
+  testthat::expect_equal(8.631137, unname(adl_result$adl_kroll),
+                         tolerance  = 0.001)
+
+  # Data in which best fit is cubic
+  solution_number <- c(1, 1, 2, 2, 3, 3, 4, 4,
+                       5, 5)
+  result <- c(1, 0.99, 1.6, 1.59, 2.5, 2.6, 4.36, 4.39,
+              5.1, 5)
+
+  # Data in which best fit is quadratic
+  solution_number <- c(1, 1, 2, 2, 3, 3, 4, 4,
+                       5, 5)
+  result <- c(4.7, 4.6, 7.8, 7.6, 10.4, 10.2, 13, 13.1,
+              15.5, 15.3)
 
 })
 

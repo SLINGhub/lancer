@@ -70,12 +70,12 @@ Default: TRUE}
 in the \code{ggplot} plot.
 Default: TRUE}
 
-\item{plot_first_half_lin_reg}{Decide if we plot an extra regression line that
-best fits the first half of \code{conc_var} dilution points.
+\item{plot_first_half_lin_reg}{Decide if we plot an extra regression line
+that best fits the first half of \code{conc_var} dilution points.
 Default: FALSE}
 
-\item{plot_last_half_lin_reg}{Decide if we plot an extra regression line that
-best fits the last half of \code{conc_var} dilution points.
+\item{plot_last_half_lin_reg}{Decide if we plot an extra regression line
+that best fits the last half of \code{conc_var} dilution points.
 Default: FALSE}
 }
 \value{

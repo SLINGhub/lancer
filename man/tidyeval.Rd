@@ -22,8 +22,8 @@ character vector.
 several function arguments. \code{enquo()} returns a single quoted
 expression, which is like a blueprint for the delayed computation.
 \code{enquos()} returns a list of such quoted expressions.
-\item \code{\link[rlang:nse-defuse]{expr}()} quotes a new expression \emph{locally}. It
-is mostly useful to build new expressions around arguments
+\item \code{\link[rlang:nse-defuse]{expr}()} quotes a new expression \emph{locally}.
+It is mostly useful to build new expressions around arguments
 captured with \code{\link[=enquo]{enquo()}} or \code{\link[=enquos]{enquos()}}:
 \code{expr(mean(!!enquo(arg), na.rm = TRUE))}.
 \item \code{\link[rlang]{as_name}()} transforms a quoted variable name

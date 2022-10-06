@@ -1,4 +1,5 @@
-test_that("Able to plot dilution data with its statistical summary in a trellis table", {
+test_that("Able to plot dilution data with
+          its statistical summary in a trellis table", {
 
   # Data Creation
   dilution_percent <- c(10, 20, 25, 40, 50, 60,
@@ -65,8 +66,9 @@ test_that("Able to plot dilution data with its statistical summary in a trellis 
 
 
   # Create a plotly trellis table
-  plotly_trellis_table <- add_plotly_panel(dilution_table,
-                                           dilution_summary = dilution_summary) %>%
+  plotly_trellis_table <- add_plotly_panel(
+    dilution_table,
+    dilution_summary = dilution_summary) %>%
     convert_to_cog(cog_df = NULL,
                    grouping_variable = c("Transition_Name",
                                          "Dilution_Batch_Name"),
@@ -101,12 +103,14 @@ test_that("Able to plot dilution data with its statistical summary in a trellis 
   # Grouping variable in the wrong cognostics group
   invalid_trellis_table <- plotly_trellis_table
 
-  attributes(invalid_trellis_table[["Transition_Name"]])$cog_attrs$group <- "common"
+  attributes(invalid_trellis_table[["Transition_Name"]])$cog_attrs$group <-
+    "common"
+
   testthat::expect_error(validate_trellis_table(invalid_trellis_table))
 
   # Panel column is invalid
   invalid_trellis_table <- plotly_trellis_table
-  class(invalid_trellis_table$panel) = "list"
+  class(invalid_trellis_table$panel) <- "list"
   testthat::expect_error(validate_trellis_table(invalid_trellis_table))
 
 
@@ -137,8 +141,9 @@ test_that("Able to plot dilution data with its statistical summary in a trellis 
 
   # Check if convert_to_cog and view_trellis_html works
   # if input panel_variable is not called "panel"
-  different_panel_table <- add_plotly_panel(dilution_table,
-                                            dilution_summary = dilution_summary) %>%
+  different_panel_table <- add_plotly_panel(
+    dilution_table,
+    dilution_summary = dilution_summary) %>%
     dplyr::rename(paneldiff = panel) %>%
     convert_to_cog(cog_df = NULL,
                    grouping_variable = c("Transition_Name",

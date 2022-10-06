@@ -23,7 +23,10 @@ reference:
     - summarise_dilution_table
     - summarise_dilution_data
     - ends_with("_model")
-    - starts_with("calculate_")
+    - calculate_concavity
+    - calculate_gof_linear
+    - calculate_mandel
+    - calculate_pra_linear
     - evaluate_linearity
   - title: Plotting
     desc: >
@@ -42,7 +45,7 @@ reference:
       Functions used to write dilution summary table to Excel
     contents:
     - write_summary_excel
-    - calculate_column_max_char_vector
+    - calculate_column_max_char
     - format_char_cell_colour
     - format_num_cell_colour
     - format_num_cell_style
@@ -52,6 +55,7 @@ reference:
       Functions used to help output `ggplots` plots to pdf
     contents:
     - view_ggplot_pdf
+    - create_reg_col_vec
     - create_page_layout
   - title: Output in trellis
     desc: >
@@ -68,12 +72,21 @@ reference:
       Utilities functions
     contents:
     - create_char_seq
+  - title: Experiment functions
+    desc: >
+      Functions that are experimental
+      <a href="https://lifecycle.r-lib.org/articles/stages.html">
+      <img src='figures/lifecycle-experimental.svg' alt='Experimental lifecycle'/>
+      </a>
+    contents:
+    - calculate_adl
+    - calculate_adl_kroll_test
   - title: Defunct and deprecated functions
     desc: >
       Functions that are not in used (defunct) or deprecated
-      <a href="https://lifecycle.r-lib.org/articles/lifecycle.html">
+      <a href="https://lifecycle.r-lib.org/articles/stages.html">
       <img src='figures/lifecycle-defunct.svg' alt='Defunct lifecycle'/>
       </a>
-      <a href="https://lifecycle.r-lib.org/articles/lifecycle.html">
+      <a href="https://lifecycle.r-lib.org/articles/stages.html">
       <img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle'/>
       </a>

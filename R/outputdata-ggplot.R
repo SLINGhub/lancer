@@ -26,18 +26,16 @@
 #' @rdname create_page_layout
 #' @export
 create_page_layout <- function(number_of_plots,
-                               ncol = NULL, nrow = NULL){
+                               ncol = NULL, nrow = NULL) {
 
-  if(number_of_plots < 1) {
+  if (number_of_plots < 1) {
     stop("Number of plots in the input list must be greater than 1")
   }
-  if(!is.null(ncol) & !is.null(nrow)){
-  }
-  else if(!is.null(ncol)){
-    if(ncol == 1) nrow = number_of_plots
-  }
-  else if(!is.null(nrow)){
-    if(nrow == 1) ncol = number_of_plots
+  if (!is.null(ncol) && !is.null(nrow)) {
+  } else if (!is.null(ncol)) {
+    if (ncol == 1) nrow <- number_of_plots
+  } else if (!is.null(nrow)) {
+    if (nrow == 1) ncol <- number_of_plots
   }
   list(ncol = ncol, nrow = nrow)
 }
@@ -117,11 +115,11 @@ view_ggplot_pdf <- function(ggplot_list,
 
   number_of_plots_per_page <- Inf
 
-  if(!is.null(page_layout$ncol) & !is.null(page_layout$nrow)) {
+  if (!is.null(page_layout$ncol) && !is.null(page_layout$nrow)) {
     number_of_plots_per_page <- page_layout$ncol * page_layout$nrow
-  } else if(!is.null(page_layout$ncol)) {
+  } else if (!is.null(page_layout$ncol)) {
     number_of_plots_per_page <- page_layout$ncol
-  } else if(!is.null(page_layout$nrow)) {
+  } else if (!is.null(page_layout$nrow)) {
     number_of_plots_per_page <- page_layout$nrow
   }
 
@@ -136,20 +134,20 @@ view_ggplot_pdf <- function(ggplot_list,
     ggplot_group_list <- list(ggplot_list)
   }
 
-  # Each element in the list is a list of ggplots for one page plotted in the layout
-  # defined in get_page_layout
+  # Each element in the list is a list of ggplots for one page plotted
+  # in the layout defined in get_page_layout
   pdf_page_list <- purrr::map(ggplot_group_list, patchwork::wrap_plots,
                               ncol = page_layout$ncol,
                               nrow = page_layout$nrow)
 
-  if(!testing) {
+  if (!testing) {
 
     # Create the setting needed to male a pdf file
     dev <- grDevices::pdf
-    dev.opts <- list(file = filename,
+    dev_opts <- list(file = filename,
                      width = width,
                      height = height)
-    do.call(dev, dev.opts)
+    do.call(dev, dev_opts)
 
     # Output the plots to the pdf
     invisible(utils::capture.output(print(pdf_page_list)))

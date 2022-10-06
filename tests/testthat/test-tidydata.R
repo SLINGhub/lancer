@@ -14,18 +14,25 @@ test_that("create dilution table and statistical summary", {
   lipid2_area <- c(2299075, 4136350, 7020062, 8922063, 9288742, 11365710,
                    2300075, 4137350, 7021062, 8923063, 9289742, 11366710)
 
-  dilution_annot <- tibble::tibble(Sample_Name = sample_name,
-                                        Dilution_Batch_Name = dilution_batch_name,
-                                        Dilution_Percent = dilution_percent)
-  lipid_data <- tibble::tibble(Sample_Name = sample_name,
-                               Lipid1 = lipid1_area,
-                               Lipid2 = lipid2_area)
-  bad_dilution_annot <- tibble::tibble(Sample_Nam = sample_name,
-                                       Dilution_Batch_Name = dilution_batch_name,
-                                       Dilution_Percent = dilution_percent)
-  bad_lipid_data <- tibble::tibble(Sample_Nam = sample_name,
-                                   Lipid1 = lipid1_area,
-                                   Lipid2 = lipid2_area)
+  dilution_annot <- tibble::tibble(
+    Sample_Name = sample_name,
+    Dilution_Batch_Name = dilution_batch_name,
+    Dilution_Percent = dilution_percent)
+
+  lipid_data <- tibble::tibble(
+    Sample_Name = sample_name,
+    Lipid1 = lipid1_area,
+    Lipid2 = lipid2_area)
+
+  bad_dilution_annot <- tibble::tibble(
+    Sample_Nam = sample_name,
+    Dilution_Batch_Name = dilution_batch_name,
+    Dilution_Percent = dilution_percent)
+
+  bad_lipid_data <- tibble::tibble(
+    Sample_Nam = sample_name,
+    Lipid1 = lipid1_area,
+    Lipid2 = lipid2_area)
 
   # Create dilution table
   dilution_table <- create_dilution_table(dilution_annot, lipid_data,

@@ -1,12 +1,12 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# DCVtestkit (Dilution Curve Validation Testkit)
+# DCVtestkit (Dilution Curve Validation Test Kit)
 
 <img src="man/figures/README-logo.png" align="right" height="200" />
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/SLINGhub/DCVtestkit/workflows/R-CMD-check/badge.svg)](https://github.com/SLINGhub/DCVtestkit/actions)
+[![R-Command-check](https://github.com/SLINGhub/DCVtestkit/workflows/R-CMD-check/badge.svg)](https://github.com/SLINGhub/DCVtestkit/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/SLINGhub/DCVtestkit/branch/main/graph/badge.svg?token=RNlP8VlaL2)](https://codecov.io/gh/SLINGhub/DCVtestkit)
 [![License:
@@ -59,7 +59,7 @@ An overview of the workflow is as follows
 ## Motivation
 
 The Pearson correlation coefficient has been used widely to test for
-linearity. However, it is insufficent as indicated in this
+linearity. However, it is insufficient as indicated in this
 [paper](https://www.sciencedirect.com/science/article/abs/pii/S0165993615301242)
 
 Consider a linear curve, saturated curve and a curve with limit of
@@ -148,14 +148,14 @@ parameters.
 
 Pearson Correlation Coefficient ( *R* ) can be found in Van Loco, J.,
 Elskens, M., Croux, C. *et al.*, Linearity of calibration curves: use
-and misuse of the correlation coefficient. *Accred Qual Assur* **7**,
-281-285 (2002).
+and misuse of the correlation coefficient. *Accreditation and Quality
+Assurance* **7**, 281-285 (2002).
 [10.1007/s00769-002-0487-6](https://doi.org/10.1007/s00769-002-0487-6).  
 Equation ( 1 ) is used.
 
 Mandel’s Fitting Test can be found in Andrade, J. M. and
 Gómez-Carracedo, M. P., Notes on the use of Mandel’s test to check for
-nonlinearity in laboratory calibrations. *Anal. Methods* **5**,
+nonlinearity in laboratory calibrations. *Analytical Methods* **5**,
 1145-1149 (2013).
 [10.1039/C2AY26400E](https://dx.doi.org/10.1039/C2AY26400E).  
 Equation ( 5 ) is used.
@@ -422,9 +422,9 @@ view_ggplot_pdf(ggplot_list,
                 nrow_per_page = 2)
 ```
 
-![README-PDFResults1](man/figures/README-PDFResults1.png)
+![README-PDF Results1](man/figures/README-PDFResults1.png)
 
-![README-PDFResults2](man/figures/README-PDFResults2.png)
+![README-PDF Results2](man/figures/README-PDFResults2.png)
 
 Results can also be plotted using `add_plotly_panel`. This will create a
 column called panel that contains all the `plotly` plots.

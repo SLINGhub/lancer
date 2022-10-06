@@ -1,4 +1,5 @@
-test_that("Able to plot dilution data with its statistical summary in a pdf report", {
+test_that("Able to plot dilution data with its
+          statistical summary in a pdf report", {
 
   # Data Creation
   dilution_percent <- c(10, 20, 25, 40, 50, 60,
@@ -66,23 +67,25 @@ test_that("Able to plot dilution data with its statistical summary in a pdf repo
 
   # Create a ggplot table
   testthat::expect_silent(
-    ggplot_table <- add_ggplot_panel(dilution_table,
-                                     dilution_summary = dilution_summary,
-                                     grouping_variable = c("Transition_Name",
-                                                           "Dilution_Batch_Name"),
-                                     conc_var = "Dilution_Percent",
-                                     signal_var = "Area",
-                                     plot_first_half_lin_reg = FALSE)
+    ggplot_table <- add_ggplot_panel(
+      dilution_table,
+      dilution_summary = dilution_summary,
+      grouping_variable = c("Transition_Name",
+                            "Dilution_Batch_Name"),
+      conc_var = "Dilution_Percent",
+      signal_var = "Area",
+      plot_first_half_lin_reg = FALSE)
   )
 
   # Create a ggplot table without dilution summary
   testthat::expect_silent(
-    ggplot_table_auto <- add_ggplot_panel(dilution_table,
-                                          grouping_variable = c("Transition_Name",
-                                                                "Dilution_Batch_Name"),
-                                          conc_var = "Dilution_Percent",
-                                          signal_var = "Area",
-                                          plot_first_half_lin_reg = FALSE)
+    ggplot_table_auto <- add_ggplot_panel(
+      dilution_table,
+      grouping_variable = c("Transition_Name",
+                            "Dilution_Batch_Name"),
+      conc_var = "Dilution_Percent",
+      signal_var = "Area",
+      plot_first_half_lin_reg = FALSE)
   )
 
   # Get the list of ggplot list for each group

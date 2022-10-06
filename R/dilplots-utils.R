@@ -4,7 +4,8 @@
 #' @param output_length The length of the output sequence
 #' @return A cyclic character sequence with length `output_length`
 #' @details Taken from
-#' https://community.rstudio.com/t/fill-in-a-sequence-of-letters-based-on-a-given-order/88823/3
+#' https://community.rstudio.com/t/
+#' fill-in-a-sequence-of-letters-based-on-a-given-order/88823/3
 #' @examples
 #' group_name <- c("red", "green", "blue")
 #' create_char_seq(group_name, output_length = 2)

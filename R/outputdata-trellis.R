@@ -64,7 +64,7 @@ validate_trellis_table <- function(trellis_table,
 
   #Check if grouping_variable is a valid input
   grouping_variable <- grouping_variable[!is.na(grouping_variable)]
-  if(length(grouping_variable) == 0) {
+  if (length(grouping_variable) == 0) {
     stop("input grouping variable cannot be an empty vector or vector with NA")
   }
 
@@ -214,7 +214,7 @@ view_trellis_html <- function(trellis_table,
                       trellis_additional_labels) %>%
     unique()
 
-  if(!testing) {
+  if (!testing) {
     suppressWarnings(trelliscopejs::trelliscope(trellis_table,
                                                 name = trellis_report_name,
                                                 panel_col = panel_variable,
