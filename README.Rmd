@@ -274,7 +274,7 @@ cor(saturated_data$conc_var,saturated_data$signal_var)
 cor(lod_data$conc_var,lod_data$signal_var)
 ```
 
-One example is the use of the Percent Residual Accuracy found in [Logue, B. A. and Manandhar, E.](https://doi.org/10.1016/j.talanta.2018.07.046) which is more sensitive than Pearson correlation coefficient.
+One example is the use of the Percent Residual Accuracy found in [Logue, B. A. and Manandhar, E.](https://doi.org/10.1016/j.talanta.2018.07.046) which is more sensitive than Pearson correlation coefficient. Observe that the linear dilution curve gives a higher value compared to than the other two curves.
 
 ```{r Percent Residual Accuracy1}
 DCVtestkit::calculate_pra_linear(dilution_data = linear_data,
@@ -294,7 +294,25 @@ DCVtestkit::calculate_pra_linear(dilution_data = lod_data,
                                  conc_var = "conc_var",
                                  signal_var = "signal_var")
 ```
+Another example is the use of the Mandel's Fitting Test. Observe that the two non-linear dilution curves give a very low p value.
 
+```{r Mandel Test1}
+DCVtestkit::calculate_mandel(dilution_data = linear_data,
+                             conc_var = "conc_var",
+                             signal_var = "signal_var")
+```
+
+```{r Mandel Test2}
+DCVtestkit::calculate_mandel(dilution_data = saturated_data,
+                             conc_var = "conc_var",
+                             signal_var = "signal_var")
+```
+
+```{r Mandel Test3}
+DCVtestkit::calculate_mandel(dilution_data = lod_data,
+                             conc_var = "conc_var",
+                             signal_var = "signal_var")
+```
 
 ## How it works
 
