@@ -40,5 +40,5 @@ Evaluation of the extent of nonlinearity
 in reportable range studies.
 \emph{Archives of pathology & laboratory medicine},
 \emph{124}(9), 1331–1338.
-\url{https://doi.org/10.5858/2000-124-1331-EOTEON}
+\doi{10.5858/2000-124-1331-EOTEON}
 }

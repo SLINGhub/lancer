@@ -78,12 +78,12 @@ Evaluation of the extent of nonlinearity
 in reportable range studies.
 \emph{Archives of pathology & laboratory medicine},
 \emph{124}(9), 1331–1338.
-\url{https://doi.org/10.5858/2000-124-1331-EOTEON}
+\doi{10.5858/2000-124-1331-EOTEON}
 \cr\cr
 Hsieh E., & Liu J. P. (2008).
 On Statistical Evaluation of the
 Linearity in Assay Validation
 \emph{Journal of Biopharmaceutical Statistics},
 \emph{18}(4), 677–690.
-\url{https://doi.org/10.1080/10543400802071378}
+\doi{10.1080/10543400802071378}
 }
