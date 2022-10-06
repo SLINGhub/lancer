@@ -119,28 +119,29 @@ create_cubic_model <- function(dilution_data, conc_var, signal_var) {
 }
 
 #' @title Calculate Kroll's Linearity Test
-#' @description Calculate a statistical test for linearity from
-#' \href{https://doi.org/10.5858/2000-124-1331-EOTEON}{Kroll et. al. (2000)}
+#' @description Calculate a statistical test for linearity
+#' from Kroll et. al. (2000)
+#' \doi{10.5858/2000-124-1331-EOTEON}
 #' using average deviation from linearity
 #' @param dilution_data A data frame or tibble containing dilution data
 #' @param conc_var Column name in `dilution_data` to indicate concentration
 #' @param signal_var Column name in `dilution_data` to indicate signal
-#' @return A data frame of statistical results from
-#' \href{https://doi.org/10.5858/2000-124-1331-EOTEON}{Kroll et. al. (2000)}
+#' @return A data frame of statistical results from Kroll et. al. (2000)
+#' \doi{10.5858/2000-124-1331-EOTEON}
 #' \itemize{
 #'   \item \code{adl_kroll}:
-#'   Average deviation from linearity as defined in
-#'   \href{https://doi.org/10.5858/2000-124-1331-EOTEON}{Kroll et. al. (2000)}
+#'   Average deviation from linearity as defined in Kroll et. al. (2000)
+#'   \doi{10.5858/2000-124-1331-EOTEON}
 #'   \item \code{precision_on_percent_scale}:
 #'   Estimate of precision on percent scale.
 #'   It is the ratio of the estimated regression standard error from
 #'   the best-fit polynomial and the estimated solution mean.
 #'   \item \code{uncorrected_critical_value}:
-#'   Critical value (Uncorrected) as defined in
-#'   \href{https://doi.org/10.5858/2000-124-1331-EOTEON}{Kroll et. al. (2000)}
+#'   Critical value (Uncorrected) as defined in Kroll et. al. (2000)
+#'   \doi{10.5858/2000-124-1331-EOTEON}
 #'   \item \code{corrected_critical_value}:
-#'   Critical value (Corrected) as defined in
-#'   \href{https://doi.org/10.1080/10543400802071378}{Hsieh et. al. (2008)}
+#'   Critical value (Corrected) as defined in Hsieh et. al. (2008)
+#'   \doi{10.1080/10543400802071378}
 #'   \item \code{uncorrected_kroll_results}:
 #'   Indicate if \code{adl_kroll} is less than
 #'   \code{uncorrected_critical_value}
@@ -334,8 +335,8 @@ calculate_adl_kroll_test <- function(dilution_data, conc_var, signal_var) {
 
 #' @title Calculate Average Deviation From Linearity
 #' @description Calculate the average deviation from linearity as
-#' defined in
-#' \href{https://doi.org/10.5858/2000-124-1331-EOTEON}{Kroll et. al. (2000)}
+#' defined in Kroll et. al. (2000)
+#' \doi{10.5858/2000-124-1331-EOTEON}
 #' @param dilution_data A data frame or tibble containing dilution data
 #' @param conc_var Column name in `dilution_data` to indicate concentration
 #' @param signal_var Column name in `dilution_data` to indicate signal

@@ -18,8 +18,8 @@ The average deviation from linearity
 }
 \description{
 Calculate the average deviation from linearity as
-defined in
-\href{https://doi.org/10.5858/2000-124-1331-EOTEON}{Kroll et. al. (2000)}
+defined in Kroll et. al. (2000)
+\doi{10.5858/2000-124-1331-EOTEON}
 }
 \details{
 The function will return NA if the number of dilution points
