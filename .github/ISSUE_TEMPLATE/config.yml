@@ -6,6 +6,3 @@ contact_links:
  - name: Feature Request Guidelines 🌐
    url: https://github.com/rstudio/rstudio/wiki/Writing-Good-Feature-Requests
    about: Link to help you write a good feature request.
- - name: General Question or Help ❓️
-   url: https://github.com/SLINGhub/MSTemplate_Creator/discussions
-   about: If you wish to ask a general question, try out the Discussions section of this repository.

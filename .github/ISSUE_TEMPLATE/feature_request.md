@@ -2,7 +2,7 @@
 name: Feature Request 💡
 about: Suggest a new feature request or idea for this project 
 title: ''
-labels: ''
+labels: 'feature request 💭 or idea 💡'
 assignees: 'JauntyJJS'
 ---
 
