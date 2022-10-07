@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,23 +33,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">DCVtestkit</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.2.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -73,10 +69,13 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/SLINGhub/DCVtestkit/">
+  <a href="https://github.com/SLINGhub/DCVtestkit/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -91,13 +90,13 @@
 
       
 
-      </header><script src="grouping_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Grouping Variables in Dilution Table</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/SLINGhub/DCVtestkit/blob/master/vignettes/grouping.Rmd"><code>vignettes/grouping.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/SLINGhub/DCVtestkit/blob/HEAD/vignettes/grouping.Rmd" class="external-link"><code>vignettes/grouping.Rmd</code></a></small>
       <div class="hidden name"><code>grouping.Rmd</code></div>
 
     </div>
@@ -106,115 +105,115 @@
     
 <p>Here is an example when the Dilution Batch and Transitions (Lipids) are not sorted in alphabetical order.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/SLINGhub/DCVtestkit">DCVtestkit</a></span><span class="op">)</span>
-<span class="co"># Data Creation</span>
-<span class="va">dilution_percent</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">25</span>, <span class="fl">40</span>, <span class="fl">50</span>, <span class="fl">60</span>,
-                      <span class="fl">75</span>, <span class="fl">80</span>, <span class="fl">100</span>, <span class="fl">125</span>, <span class="fl">150</span>,
-                      <span class="fl">10</span>, <span class="fl">25</span>, <span class="fl">40</span>, <span class="fl">50</span>, <span class="fl">60</span>,
-                      <span class="fl">75</span>, <span class="fl">80</span>, <span class="fl">100</span>, <span class="fl">125</span>, <span class="fl">150</span><span class="op">)</span>
-<span class="va">dilution_batch</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>,
-                    <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>,
-                    <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>,
-                    <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span><span class="op">)</span>
-<span class="va">sample_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Sample_010a"</span>, <span class="st">"Sample_020a"</span>, <span class="st">"Sample_025a"</span>,
-                 <span class="st">"Sample_040a"</span>, <span class="st">"Sample_050a"</span>, <span class="st">"Sample_060a"</span>,
-                 <span class="st">"Sample_075a"</span>, <span class="st">"Sample_080a"</span>, <span class="st">"Sample_100a"</span>,
-                 <span class="st">"Sample_125a"</span>, <span class="st">"Sample_150a"</span>,
-                 <span class="st">"Sample_010a"</span>, <span class="st">"Sample_025a"</span>,
-                 <span class="st">"Sample_040a"</span>, <span class="st">"Sample_050a"</span>, <span class="st">"Sample_060a"</span>,
-                 <span class="st">"Sample_075a"</span>, <span class="st">"Sample_080a"</span>, <span class="st">"Sample_100a"</span>,
-                 <span class="st">"Sample_125a"</span>, <span class="st">"Sample_150a"</span><span class="op">)</span>
-<span class="va">lipid4_area_saturated</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5748124</span>, <span class="fl">16616414</span>, <span class="fl">21702718</span>, <span class="fl">36191617</span>,
-                           <span class="fl">49324541</span>, <span class="fl">55618266</span>, <span class="fl">66947588</span>, <span class="fl">74964771</span>,
-                           <span class="fl">75438063</span>, <span class="fl">91770737</span>, <span class="fl">94692060</span>,
-                           <span class="fl">5192648</span>, <span class="fl">16594991</span>, <span class="fl">32507833</span>, <span class="fl">46499896</span>,
-                           <span class="fl">55388856</span>, <span class="fl">62505210</span>, <span class="fl">62778078</span>, <span class="fl">72158161</span>,
-                           <span class="fl">78044338</span>, <span class="fl">86158414</span><span class="op">)</span>
-<span class="va">lipid3_area_linear</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">31538</span>, <span class="fl">53709</span>, <span class="fl">69990</span>, <span class="fl">101977</span>, <span class="fl">146436</span>, <span class="fl">180960</span>,
-                        <span class="fl">232881</span>, <span class="fl">283780</span>, <span class="fl">298289</span>, <span class="fl">344519</span>, <span class="fl">430432</span>,
-                        <span class="fl">25463</span>, <span class="fl">63387</span>, <span class="fl">90624</span>, <span class="fl">131274</span>, <span class="fl">138069</span>,
-                        <span class="fl">205353</span>, <span class="fl">202407</span>, <span class="fl">260205</span>, <span class="fl">292257</span>, <span class="fl">367924</span><span class="op">)</span>
-<span class="va">lipid2_area_lod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">544</span>, <span class="fl">397</span>, <span class="fl">829</span>, <span class="fl">1437</span>, <span class="fl">1808</span>, <span class="fl">2231</span>,
-                     <span class="fl">3343</span>, <span class="fl">2915</span>, <span class="fl">5268</span>, <span class="fl">8031</span>, <span class="fl">11045</span>,
-                     <span class="fl">500</span>, <span class="fl">903</span>, <span class="fl">1267</span>, <span class="fl">2031</span>, <span class="fl">2100</span>,
-                     <span class="fl">3563</span>, <span class="fl">4500</span>, <span class="fl">5300</span>, <span class="fl">8500</span>, <span class="fl">10430</span><span class="op">)</span>
-<span class="va">lipid1_area_nonlinear</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">380519</span>, <span class="fl">485372</span>, <span class="fl">478770</span>, <span class="fl">474467</span>, <span class="fl">531640</span>, <span class="fl">576301</span>,
-                           <span class="fl">501068</span>, <span class="fl">550201</span>, <span class="fl">515110</span>, <span class="fl">499543</span>, <span class="fl">474745</span>,
-                           <span class="fl">197417</span>, <span class="fl">322846</span>, <span class="fl">478398</span>, <span class="fl">423174</span>, <span class="fl">418577</span>,
-                           <span class="fl">426089</span>, <span class="fl">413292</span>, <span class="fl">450190</span>, <span class="fl">415309</span>, <span class="fl">457618</span><span class="op">)</span>
-
-<span class="va">dilution_annot</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>Sample_Name <span class="op">=</span> <span class="va">sample_name</span>,
-                                 Dilution_Batch <span class="op">=</span> <span class="va">dilution_batch</span>,
-                                 Dilution_Percent <span class="op">=</span> <span class="va">dilution_percent</span><span class="op">)</span>
-<span class="va">lipid_data</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>Sample_Name <span class="op">=</span> <span class="va">sample_name</span>,
-                             Lipid4 <span class="op">=</span> <span class="va">lipid4_area_saturated</span>,
-                             Lipid3 <span class="op">=</span> <span class="va">lipid3_area_linear</span>,
-                             Lipid2 <span class="op">=</span> <span class="va">lipid2_area_lod</span>,
-                             Lipid1 <span class="op">=</span> <span class="va">lipid1_area_nonlinear</span><span class="op">)</span></code></pre></div>
-<p>Order of the <code>Dilution_Batch</code> and <code>Transition_Name</code> grouping variables is maintained when <code>summarise_dilution_table</code> is used. No sorting is involved.</p>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/SLINGhub/DCVtestkit" class="external-link">DCVtestkit</a></span><span class="op">)</span></span>
+<span><span class="co"># Data Creation</span></span>
+<span><span class="va">dilution_percent</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">25</span>, <span class="fl">40</span>, <span class="fl">50</span>, <span class="fl">60</span>,</span>
+<span>                      <span class="fl">75</span>, <span class="fl">80</span>, <span class="fl">100</span>, <span class="fl">125</span>, <span class="fl">150</span>,</span>
+<span>                      <span class="fl">10</span>, <span class="fl">25</span>, <span class="fl">40</span>, <span class="fl">50</span>, <span class="fl">60</span>,</span>
+<span>                      <span class="fl">75</span>, <span class="fl">80</span>, <span class="fl">100</span>, <span class="fl">125</span>, <span class="fl">150</span><span class="op">)</span></span>
+<span><span class="va">dilution_batch_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>,</span>
+<span>                         <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>,</span>
+<span>                         <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>,</span>
+<span>                         <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span><span class="op">)</span></span>
+<span><span class="va">sample_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sample_010a"</span>, <span class="st">"Sample_020a"</span>, <span class="st">"Sample_025a"</span>,</span>
+<span>                 <span class="st">"Sample_040a"</span>, <span class="st">"Sample_050a"</span>, <span class="st">"Sample_060a"</span>,</span>
+<span>                 <span class="st">"Sample_075a"</span>, <span class="st">"Sample_080a"</span>, <span class="st">"Sample_100a"</span>,</span>
+<span>                 <span class="st">"Sample_125a"</span>, <span class="st">"Sample_150a"</span>,</span>
+<span>                 <span class="st">"Sample_010a"</span>, <span class="st">"Sample_025a"</span>,</span>
+<span>                 <span class="st">"Sample_040a"</span>, <span class="st">"Sample_050a"</span>, <span class="st">"Sample_060a"</span>,</span>
+<span>                 <span class="st">"Sample_075a"</span>, <span class="st">"Sample_080a"</span>, <span class="st">"Sample_100a"</span>,</span>
+<span>                 <span class="st">"Sample_125a"</span>, <span class="st">"Sample_150a"</span><span class="op">)</span></span>
+<span><span class="va">lipid4_area_saturated</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5748124</span>, <span class="fl">16616414</span>, <span class="fl">21702718</span>, <span class="fl">36191617</span>,</span>
+<span>                           <span class="fl">49324541</span>, <span class="fl">55618266</span>, <span class="fl">66947588</span>, <span class="fl">74964771</span>,</span>
+<span>                           <span class="fl">75438063</span>, <span class="fl">91770737</span>, <span class="fl">94692060</span>,</span>
+<span>                           <span class="fl">5192648</span>, <span class="fl">16594991</span>, <span class="fl">32507833</span>, <span class="fl">46499896</span>,</span>
+<span>                           <span class="fl">55388856</span>, <span class="fl">62505210</span>, <span class="fl">62778078</span>, <span class="fl">72158161</span>,</span>
+<span>                           <span class="fl">78044338</span>, <span class="fl">86158414</span><span class="op">)</span></span>
+<span><span class="va">lipid3_area_linear</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">31538</span>, <span class="fl">53709</span>, <span class="fl">69990</span>, <span class="fl">101977</span>, <span class="fl">146436</span>, <span class="fl">180960</span>,</span>
+<span>                        <span class="fl">232881</span>, <span class="fl">283780</span>, <span class="fl">298289</span>, <span class="fl">344519</span>, <span class="fl">430432</span>,</span>
+<span>                        <span class="fl">25463</span>, <span class="fl">63387</span>, <span class="fl">90624</span>, <span class="fl">131274</span>, <span class="fl">138069</span>,</span>
+<span>                        <span class="fl">205353</span>, <span class="fl">202407</span>, <span class="fl">260205</span>, <span class="fl">292257</span>, <span class="fl">367924</span><span class="op">)</span></span>
+<span><span class="va">lipid2_area_lod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">544</span>, <span class="fl">397</span>, <span class="fl">829</span>, <span class="fl">1437</span>, <span class="fl">1808</span>, <span class="fl">2231</span>,</span>
+<span>                     <span class="fl">3343</span>, <span class="fl">2915</span>, <span class="fl">5268</span>, <span class="fl">8031</span>, <span class="fl">11045</span>,</span>
+<span>                     <span class="fl">500</span>, <span class="fl">903</span>, <span class="fl">1267</span>, <span class="fl">2031</span>, <span class="fl">2100</span>,</span>
+<span>                     <span class="fl">3563</span>, <span class="fl">4500</span>, <span class="fl">5300</span>, <span class="fl">8500</span>, <span class="fl">10430</span><span class="op">)</span></span>
+<span><span class="va">lipid1_area_nonlinear</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">380519</span>, <span class="fl">485372</span>, <span class="fl">478770</span>, <span class="fl">474467</span>, <span class="fl">531640</span>, <span class="fl">576301</span>,</span>
+<span>                           <span class="fl">501068</span>, <span class="fl">550201</span>, <span class="fl">515110</span>, <span class="fl">499543</span>, <span class="fl">474745</span>,</span>
+<span>                           <span class="fl">197417</span>, <span class="fl">322846</span>, <span class="fl">478398</span>, <span class="fl">423174</span>, <span class="fl">418577</span>,</span>
+<span>                           <span class="fl">426089</span>, <span class="fl">413292</span>, <span class="fl">450190</span>, <span class="fl">415309</span>, <span class="fl">457618</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">dilution_annot</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>Sample_Name <span class="op">=</span> <span class="va">sample_name</span>,</span>
+<span>                                 Dilution_Batch_Name <span class="op">=</span> <span class="va">dilution_batch_name</span>,</span>
+<span>                                 Dilution_Percent <span class="op">=</span> <span class="va">dilution_percent</span><span class="op">)</span></span>
+<span><span class="va">lipid_data</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>Sample_Name <span class="op">=</span> <span class="va">sample_name</span>,</span>
+<span>                             Lipid4 <span class="op">=</span> <span class="va">lipid4_area_saturated</span>,</span>
+<span>                             Lipid3 <span class="op">=</span> <span class="va">lipid3_area_linear</span>,</span>
+<span>                             Lipid2 <span class="op">=</span> <span class="va">lipid2_area_lod</span>,</span>
+<span>                             Lipid1 <span class="op">=</span> <span class="va">lipid1_area_nonlinear</span><span class="op">)</span></span></code></pre></div>
+<p>Order of the <code>Dilution_Batch_Name</code> and <code>Transition_Name</code> grouping variables is maintained when <code>summarise_dilution_table</code> is used. No sorting is involved.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Create dilution table and dilution statistical summary</span>
-<span class="va">dilution_summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_dilution_table.html">create_dilution_table</a></span><span class="op">(</span><span class="va">dilution_annot</span>, <span class="va">lipid_data</span>,
-                                          common_column <span class="op">=</span> <span class="st">"Sample_Name"</span>,
-                                          signal_var <span class="op">=</span> <span class="st">"Area"</span>,
-                                          column_group <span class="op">=</span> <span class="st">"Transition_Name"</span>
-                                        <span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/summarise_dilution_table.html">summarise_dilution_table</a></span><span class="op">(</span>grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Dilution_Batch"</span>,
-                                                 <span class="st">"Transition_Name"</span><span class="op">)</span>,
-                           conc_var <span class="op">=</span> <span class="st">"Dilution_Percent"</span>,
-                           signal_var <span class="op">=</span> <span class="st">"Area"</span><span class="op">)</span>
-  </code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Create dilution table and dilution statistical summary</span></span>
+<span><span class="va">dilution_summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_dilution_table.html">create_dilution_table</a></span><span class="op">(</span><span class="va">dilution_annot</span>, <span class="va">lipid_data</span>,</span>
+<span>                                          common_column <span class="op">=</span> <span class="st">"Sample_Name"</span>,</span>
+<span>                                          signal_var <span class="op">=</span> <span class="st">"Area"</span>,</span>
+<span>                                          column_group <span class="op">=</span> <span class="st">"Transition_Name"</span></span>
+<span>                                        <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="../reference/summarise_dilution_table.html">summarise_dilution_table</a></span><span class="op">(</span>grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Dilution_Batch_Name"</span>,</span>
+<span>                                                 <span class="st">"Transition_Name"</span><span class="op">)</span>,</span>
+<span>                           conc_var <span class="op">=</span> <span class="st">"Dilution_Percent"</span>,</span>
+<span>                           signal_var <span class="op">=</span> <span class="st">"Area"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">dilution_summary</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 8 x 9</span>
-<span class="co">#&gt;   Dilution_Batch Transition_Name r_corr r2_linear r2_adj_linear mandel_stats</span>
-<span class="co">#&gt;   &lt;chr&gt;          &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;        &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 B2             Lipid4           0.952     0.906        0.901         62.5 </span>
-<span class="co">#&gt; 2 B2             Lipid3           0.978     0.957        0.954          1.19</span>
-<span class="co">#&gt; 3 B2             Lipid2           0.971     0.942        0.939         84.6 </span>
-<span class="co">#&gt; 4 B2             Lipid1           0.344     0.118        0.0718         5.11</span>
-<span class="co">#&gt; 5 B1             Lipid4           0.949     0.9          0.894         57.0 </span>
-<span class="co">#&gt; 6 B1             Lipid3           0.976     0.953        0.951          1.10</span>
-<span class="co">#&gt; 7 B1             Lipid2           0.969     0.940        0.936         82.2 </span>
-<span class="co">#&gt; 8 B1             Lipid1           0.384     0.147        0.0997         6.77</span>
-<span class="co">#&gt;   mandel_p_val pra_linear concavity</span>
-<span class="co">#&gt;          &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 0.000000290        65.8 -4134.   </span>
-<span class="co">#&gt; 2 0.290              90.2    -3.35 </span>
-<span class="co">#&gt; 3 0.0000000320       72.9     0.394</span>
-<span class="co">#&gt; 4 0.0363           -233.    -19.9  </span>
-<span class="co">#&gt; 5 0.000000792        64.6 -4147.   </span>
-<span class="co">#&gt; 6 0.308              90.0    -3.39 </span>
-<span class="co">#&gt; 7 0.0000000637       72.4     0.401</span>
-<span class="co">#&gt; 8 0.0186           -172.    -22.6</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">dilution_summary</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 8 × 9</span></span></span>
+<span><span class="co">#&gt;   Dilution_Batch_Name Transition_Name r_corr r2_linear r2_adj_linear</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> B2                  Lipid4           0.952     0.906        0.901 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> B2                  Lipid3           0.978     0.957        0.954 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> B2                  Lipid2           0.971     0.942        0.939 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> B2                  Lipid1           0.344     0.118        0.071<span style="text-decoration: underline;">8</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> B1                  Lipid4           0.949     0.9          0.894 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> B1                  Lipid3           0.976     0.953        0.951 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> B1                  Lipid2           0.969     0.940        0.936 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> B1                  Lipid1           0.384     0.147        0.099<span style="text-decoration: underline;">7</span></span></span>
+<span><span class="co">#&gt;   mandel_stats mandel_p_val pra_linear concavity</span></span>
+<span><span class="co">#&gt;          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>        62.5  0.000<span style="text-decoration: underline;">000</span>290        65.8 -<span style="color: #BB0000; text-decoration: underline;">4</span><span style="color: #BB0000;">134.</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>         1.19 0.290              90.2    -<span style="color: #BB0000;">3.35</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>        84.6  0.000<span style="text-decoration: underline;">000</span>032<span style="text-decoration: underline;">0</span>       72.9     0.394</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>         5.11 0.036<span style="text-decoration: underline;">3</span>           -<span style="color: #BB0000;">233.</span>    -<span style="color: #BB0000;">19.9</span>  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>        57.0  0.000<span style="text-decoration: underline;">000</span>792        64.6 -<span style="color: #BB0000; text-decoration: underline;">4</span><span style="color: #BB0000;">147.</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>         1.10 0.308              90.0    -<span style="color: #BB0000;">3.39</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span>        82.2  0.000<span style="text-decoration: underline;">000</span>063<span style="text-decoration: underline;">7</span>       72.4     0.401</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span>         6.77 0.018<span style="text-decoration: underline;">6</span>           -<span style="color: #BB0000;">172.</span>    -<span style="color: #BB0000;">22.6</span></span></span></code></pre></div>
 <p><code>grouping variable</code> in <code>evaluate_linearity</code> only put these variables to the front</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dilution_classified</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/evaluate_linearity.html">evaluate_linearity</a></span><span class="op">(</span><span class="va">dilution_summary</span>,
-                                          grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Dilution_Batch"</span>,
-                                                                <span class="st">"Transition_Name"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">dilution_classified</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/evaluate_linearity.html">evaluate_linearity</a></span><span class="op">(</span></span>
+<span>  <span class="va">dilution_summary</span>,</span>
+<span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Dilution_Batch_Name"</span>,</span>
+<span>                        <span class="st">"Transition_Name"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">dilution_classified</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 8 x 11</span>
-<span class="co">#&gt;   Dilution_Batch Transition_Name wf1_group      wf2_group      r_corr pra_linear</span>
-<span class="co">#&gt;   &lt;chr&gt;          &lt;chr&gt;           &lt;chr&gt;          &lt;chr&gt;           &lt;dbl&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 B2             Lipid4          Poor Linearity Saturation      0.952       65.8</span>
-<span class="co">#&gt; 2 B2             Lipid3          Good Linearity Good Linearity  0.978       90.2</span>
-<span class="co">#&gt; 3 B2             Lipid2          Poor Linearity LOD             0.971       72.9</span>
-<span class="co">#&gt; 4 B2             Lipid1          Poor Linearity Poor Linearity  0.344     -233. </span>
-<span class="co">#&gt; 5 B1             Lipid4          Poor Linearity Saturation      0.949       64.6</span>
-<span class="co">#&gt; 6 B1             Lipid3          Good Linearity Good Linearity  0.976       90.0</span>
-<span class="co">#&gt; 7 B1             Lipid2          Poor Linearity LOD             0.969       72.4</span>
-<span class="co">#&gt; 8 B1             Lipid1          Poor Linearity Poor Linearity  0.384     -172. </span>
-<span class="co">#&gt;   mandel_p_val concavity r2_linear r2_adj_linear mandel_stats</span>
-<span class="co">#&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;        &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 0.000000290  -4134.        0.906        0.901         62.5 </span>
-<span class="co">#&gt; 2 0.290           -3.35      0.957        0.954          1.19</span>
-<span class="co">#&gt; 3 0.0000000320     0.394     0.942        0.939         84.6 </span>
-<span class="co">#&gt; 4 0.0363         -19.9       0.118        0.0718         5.11</span>
-<span class="co">#&gt; 5 0.000000792  -4147.        0.9          0.894         57.0 </span>
-<span class="co">#&gt; 6 0.308           -3.39      0.953        0.951          1.10</span>
-<span class="co">#&gt; 7 0.0000000637     0.401     0.940        0.936         82.2 </span>
-<span class="co">#&gt; 8 0.0186         -22.6       0.147        0.0997         6.77</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">dilution_classified</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 8 × 11</span></span></span>
+<span><span class="co">#&gt;   Dilution_Batch_Name Transition_Name wf1_group      wf2_group      r_corr</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> B2                  Lipid4          Poor Linearity Saturation      0.952</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> B2                  Lipid3          Good Linearity Good Linearity  0.978</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> B2                  Lipid2          Poor Linearity LOD             0.971</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> B2                  Lipid1          Poor Linearity Poor Linearity  0.344</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> B1                  Lipid4          Poor Linearity Saturation      0.949</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> B1                  Lipid3          Good Linearity Good Linearity  0.976</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span> B1                  Lipid2          Poor Linearity LOD             0.969</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span> B1                  Lipid1          Poor Linearity Poor Linearity  0.384</span></span>
+<span><span class="co">#&gt;   pra_linear mandel_p_val concavity r2_linear r2_adj_linear mandel_stats</span></span>
+<span><span class="co">#&gt;        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>       65.8 0.000<span style="text-decoration: underline;">000</span>290  -<span style="color: #BB0000; text-decoration: underline;">4</span><span style="color: #BB0000;">134.</span>        0.906        0.901         62.5 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>       90.2 0.290           -<span style="color: #BB0000;">3.35</span>      0.957        0.954          1.19</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>       72.9 0.000<span style="text-decoration: underline;">000</span>032<span style="text-decoration: underline;">0</span>     0.394     0.942        0.939         84.6 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     -<span style="color: #BB0000;">233.</span>  0.036<span style="text-decoration: underline;">3</span>         -<span style="color: #BB0000;">19.9</span>       0.118        0.071<span style="text-decoration: underline;">8</span>         5.11</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>       64.6 0.000<span style="text-decoration: underline;">000</span>792  -<span style="color: #BB0000; text-decoration: underline;">4</span><span style="color: #BB0000;">147.</span>        0.9          0.894         57.0 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>       90.0 0.308           -<span style="color: #BB0000;">3.39</span>      0.953        0.951          1.10</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span>       72.4 0.000<span style="text-decoration: underline;">000</span>063<span style="text-decoration: underline;">7</span>     0.401     0.940        0.936         82.2 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span>     -<span style="color: #BB0000;">172.</span>  0.018<span style="text-decoration: underline;">6</span>         -<span style="color: #BB0000;">22.6</span>       0.147        0.099<span style="text-decoration: underline;">7</span>         6.77</span></span></code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -226,11 +225,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Jeremy Selva.</p>
+  <p></p>
+<p>Developed by Jeremy Selva.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
@@ -238,6 +239,8 @@
 
   
 
+
+  
 
   </body>
 </html>
