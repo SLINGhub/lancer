@@ -30,11 +30,13 @@ col_name_vec <- c("Transition_Name", "Dilution_Batch_Name")
 
 desc_vec <- c("Transition_Name", "Dilution_Batch_Name")
 
-type_vec <- c("factor","factor")
+type_vec <- c("factor", "factor")
 
-cog_df <- data.frame(col_name_vec = col_name_vec,
-                     desc_vec = desc_vec,
-                     type_vec = type_vec)
+cog_df <- data.frame(
+  col_name_vec = col_name_vec,
+  desc_vec = desc_vec,
+  type_vec = type_vec
+)
 
 validate_cog_df(cog_df)
 }

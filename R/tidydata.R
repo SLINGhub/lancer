@@ -8,19 +8,28 @@
 #' @return An error if the things in `needed_column`
 #' is not found in the Dilution Data
 #' @examples
-#' dilution_percent <- c(10, 20, 40, 60, 80, 100,
-#'                       10, 20, 40, 60, 80, 100)
-#' dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1", "B1",
-#'                          "B2", "B2", "B2", "B2", "B2", "B2")
-#' sample_name <- c("Sample_010a", "Sample_020a", "Sample_040a",
-#'                  "Sample_060a", "Sample_080a", "Sample_100a",
-#'                  "Sample_010b", "Sample_020b", "Sample_040b",
-#'                  "Sample_060b", "Sample_080b", "Sample_100b")
-#' dilution_annot <- tibble::tibble(Sample_Name = sample_name,
-#'                                  Dilution_Batch_Name = dilution_batch_name,
-#'                                  Dilution_Percent = dilution_percent)
+#' dilution_percent <- c(
+#'   10, 20, 40, 60, 80, 100,
+#'   10, 20, 40, 60, 80, 100
+#' )
+#' dilution_batch_name <- c(
+#'   "B1", "B1", "B1", "B1", "B1", "B1",
+#'   "B2", "B2", "B2", "B2", "B2", "B2"
+#' )
+#' sample_name <- c(
+#'   "Sample_010a", "Sample_020a", "Sample_040a",
+#'   "Sample_060a", "Sample_080a", "Sample_100a",
+#'   "Sample_010b", "Sample_020b", "Sample_040b",
+#'   "Sample_060b", "Sample_080b", "Sample_100b"
+#' )
+#' dilution_annot <- tibble::tibble(
+#'   Sample_Name = sample_name,
+#'   Dilution_Batch_Name = dilution_batch_name,
+#'   Dilution_Percent = dilution_percent
+#' )
 #' validate_dilution_annot(dilution_annot,
-#'                         needed_column = c("Sample_Name"))
+#'   needed_column = c("Sample_Name")
+#' )
 #' @rdname validate_dilution_annot
 #' @export
 validate_dilution_annot <- function(dilution_annot,
@@ -28,9 +37,8 @@ validate_dilution_annot <- function(dilution_annot,
 
   # Check if things in needed_column are in dilution_annot
   assertable::assert_colnames(dilution_annot, needed_column,
-                              only_colnames = FALSE, quiet = TRUE)
-
-
+    only_colnames = FALSE, quiet = TRUE
+  )
 }
 
 
@@ -47,19 +55,28 @@ validate_dilution_annot <- function(dilution_annot,
 #' @return An error if the things in `needed_column`
 #' is not found in the Lipid Data in wide form
 #' @examples
-#' sample_name <- c("Sample_010a", "Sample_020a", "Sample_040a",
-#'                  "Sample_060a", "Sample_080a", "Sample_100a",
-#'                  "Sample_010b", "Sample_020b", "Sample_040b",
-#'                  "Sample_060b", "Sample_080b", "Sample_100b")
-#' lipid1_area <- c(22561, 31178, 39981, 48390, 52171, 53410,
-#'                  32561, 41178, 49981, 58390, 62171, 63410)
-#' lipid2_area <- c(2299075, 4136350, 7020062, 8922063, 9288742, 11365710,
-#'                  2300075, 4137350, 7021062, 8923063, 9289742, 11366710)
-#' lipid_data_wide <- tibble::tibble(Sample_Name = sample_name,
-#'                                   Lipid1 = lipid1_area,
-#'                                   Lipid2 = lipid2_area)
+#' sample_name <- c(
+#'   "Sample_010a", "Sample_020a", "Sample_040a",
+#'   "Sample_060a", "Sample_080a", "Sample_100a",
+#'   "Sample_010b", "Sample_020b", "Sample_040b",
+#'   "Sample_060b", "Sample_080b", "Sample_100b"
+#' )
+#' lipid1_area <- c(
+#'   22561, 31178, 39981, 48390, 52171, 53410,
+#'   32561, 41178, 49981, 58390, 62171, 63410
+#' )
+#' lipid2_area <- c(
+#'   2299075, 4136350, 7020062, 8922063, 9288742, 11365710,
+#'   2300075, 4137350, 7021062, 8923063, 9289742, 11366710
+#' )
+#' lipid_data_wide <- tibble::tibble(
+#'   Sample_Name = sample_name,
+#'   Lipid1 = lipid1_area,
+#'   Lipid2 = lipid2_area
+#' )
 #' validate_lipid_data_wide(lipid_data_wide,
-#'                          needed_column =c("Sample_Name"))
+#'   needed_column = c("Sample_Name")
+#' )
 #' @rdname validate_lipid_data_wide
 #' @export
 validate_lipid_data_wide <- function(lipid_data_wide,
@@ -67,9 +84,8 @@ validate_lipid_data_wide <- function(lipid_data_wide,
 
   # Check if things in needed_column are in lipid_data_wide
   assertable::assert_colnames(lipid_data_wide, needed_column,
-                              only_colnames = FALSE, quiet = TRUE)
-
-
+    only_colnames = FALSE, quiet = TRUE
+  )
 }
 
 #' @title Validate Dilution Table
@@ -84,39 +100,53 @@ validate_lipid_data_wide <- function(lipid_data_wide,
 #' @return An error if the things in `needed_column`
 #' is not found in Dilution Table
 #' @examples
-#' dilution_percent <- c(10, 20, 40, 60, 80, 100,
-#'                       10, 20, 40, 60, 80, 100)
-#' dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1", "B1",
-#'                          "B2", "B2", "B2", "B2", "B2", "B2")
-#' lipid1_area <- c(22561, 31178, 39981, 48390, 52171, 53410,
-#'                  32561, 41178, 49981, 58390, 62171, 63410)
-#' transition_name <- c("Lipid1", "Lipid1", "Lipid1",
-#'                      "Lipid1", "Lipid1", "Lipid1",
-#'                      "Lipid1", "Lipid1", "Lipid1",
-#'                      "Lipid1", "Lipid1", "Lipid1")
-#' dilution_table <- tibble::tibble(Transition_Name = transition_name,
-#'                                  Dilution_Batch_Name = dilution_batch_name,
-#'                                  Area = lipid1_area,
-#'                                  Dilution_Percent = dilution_percent)
+#' dilution_percent <- c(
+#'   10, 20, 40, 60, 80, 100,
+#'   10, 20, 40, 60, 80, 100
+#' )
+#' dilution_batch_name <- c(
+#'   "B1", "B1", "B1", "B1", "B1", "B1",
+#'   "B2", "B2", "B2", "B2", "B2", "B2"
+#' )
+#' lipid1_area <- c(
+#'   22561, 31178, 39981, 48390, 52171, 53410,
+#'   32561, 41178, 49981, 58390, 62171, 63410
+#' )
+#' transition_name <- c(
+#'   "Lipid1", "Lipid1", "Lipid1",
+#'   "Lipid1", "Lipid1", "Lipid1",
+#'   "Lipid1", "Lipid1", "Lipid1",
+#'   "Lipid1", "Lipid1", "Lipid1"
+#' )
+#' dilution_table <- tibble::tibble(
+#'   Transition_Name = transition_name,
+#'   Dilution_Batch_Name = dilution_batch_name,
+#'   Area = lipid1_area,
+#'   Dilution_Percent = dilution_percent
+#' )
 #' validate_lipid_data_wide(dilution_table,
-#'                          needed_column = c("Transition_Name",
-#'                                            "Dilution_Batch_Name",
-#'                                            "Dilution_Percent",
-#'                                            "Area"))
+#'   needed_column = c(
+#'     "Transition_Name",
+#'     "Dilution_Batch_Name",
+#'     "Dilution_Percent",
+#'     "Area"
+#'   )
+#' )
 #'
 #' @rdname validate_dilution_table
 #' @export
 validate_dilution_table <- function(dilution_table,
-                                    needed_column = c("Transition_Name",
-                                                      "Dilution_Batch_Name",
-                                                      "Dilution_Percent",
-                                                      "Area")) {
+                                    needed_column = c(
+                                      "Transition_Name",
+                                      "Dilution_Batch_Name",
+                                      "Dilution_Percent",
+                                      "Area"
+                                    )) {
 
   # Check if things in needed_column are in dilution_table
   assertable::assert_colnames(dilution_table, needed_column,
-                              only_colnames = FALSE, quiet = TRUE)
-
-
+    only_colnames = FALSE, quiet = TRUE
+  )
 }
 
 
@@ -145,30 +175,45 @@ validate_dilution_table <- function(dilution_table,
 #' via one or more common columns. Next we convert the data from a wide to
 #' a long format. Merging with a Sample Annotation data can be done after this
 #' @examples
-#' #Data Creation
-#' dilution_percent <- c(10, 20, 40, 60, 80, 100,
-#'                       10, 20, 40, 60, 80, 100)
-#' dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1", "B1",
-#'                          "B2", "B2", "B2", "B2", "B2", "B2")
-#' sample_name <- c("Sample_010a", "Sample_020a", "Sample_040a",
-#'                  "Sample_060a", "Sample_080a", "Sample_100a",
-#'                  "Sample_010b", "Sample_020b", "Sample_040b",
-#'                  "Sample_060b", "Sample_080b", "Sample_100b")
-#' lipid1_area <- c(22561, 31178, 39981, 48390, 52171, 53410,
-#'                  32561, 41178, 49981, 58390, 62171, 63410)
-#' lipid2_area <- c(2299075, 4136350, 7020062, 8922063, 9288742, 11365710,
-#'                  2300075, 4137350, 7021062, 8923063, 9289742, 11366710)
-#' dilution_annot <- tibble::tibble(Sample_Name = sample_name,
-#'                                  Dilution_Batch_Name = dilution_batch_name,
-#'                                  Dilution_Percent = dilution_percent)
-#' lipid_data <- tibble::tibble(Sample_Name = sample_name,
-#'                              Lipid1 = lipid1_area,
-#'                              Lipid2 = lipid2_area)
+#' # Data Creation
+#' dilution_percent <- c(
+#'   10, 20, 40, 60, 80, 100,
+#'   10, 20, 40, 60, 80, 100
+#' )
+#' dilution_batch_name <- c(
+#'   "B1", "B1", "B1", "B1", "B1", "B1",
+#'   "B2", "B2", "B2", "B2", "B2", "B2"
+#' )
+#' sample_name <- c(
+#'   "Sample_010a", "Sample_020a", "Sample_040a",
+#'   "Sample_060a", "Sample_080a", "Sample_100a",
+#'   "Sample_010b", "Sample_020b", "Sample_040b",
+#'   "Sample_060b", "Sample_080b", "Sample_100b"
+#' )
+#' lipid1_area <- c(
+#'   22561, 31178, 39981, 48390, 52171, 53410,
+#'   32561, 41178, 49981, 58390, 62171, 63410
+#' )
+#' lipid2_area <- c(
+#'   2299075, 4136350, 7020062, 8922063, 9288742, 11365710,
+#'   2300075, 4137350, 7021062, 8923063, 9289742, 11366710
+#' )
+#' dilution_annot <- tibble::tibble(
+#'   Sample_Name = sample_name,
+#'   Dilution_Batch_Name = dilution_batch_name,
+#'   Dilution_Percent = dilution_percent
+#' )
+#' lipid_data <- tibble::tibble(
+#'   Sample_Name = sample_name,
+#'   Lipid1 = lipid1_area,
+#'   Lipid2 = lipid2_area
+#' )
 #' # Create dilution table
-#' dilution_table <- create_dilution_table(dilution_annot,lipid_data,
-#'                                         common_column = "Sample_Name",
-#'                                         signal_var = "Area",
-#'                                         column_group = "Transition_Name")
+#' dilution_table <- create_dilution_table(dilution_annot, lipid_data,
+#'   common_column = "Sample_Name",
+#'   signal_var = "Area",
+#'   column_group = "Transition_Name"
+#' )
 #' print(dilution_table, width = 100)
 #' @rdname create_dilution_table
 #' @export
@@ -183,12 +228,13 @@ create_dilution_table <- function(dilution_annot, lipid_data_wide,
 
   # Merge the two data together and make it long
   dilution_table <- dplyr::inner_join(dilution_annot, lipid_data_wide,
-                                      by = common_column) %>%
+    by = common_column
+  ) %>%
     tidyr::pivot_longer(-dplyr::any_of(colnames(dilution_annot)),
-                        names_to = column_group, values_to = signal_var)
+      names_to = column_group, values_to = signal_var
+    )
 
   return(dilution_table)
-
 }
 
 
@@ -213,52 +259,74 @@ create_dilution_table <- function(dilution_annot, lipid_data_wide,
 #' for each group. Next for each group, the function
 #' [summarise_dilution_data()] is used to get the summary statistics.
 #' @examples
-#' #Data Creation
-#' dilution_percent <- c(10, 20, 40, 60, 80, 100,
-#'                       10, 20, 40, 60, 80, 100)
-#' dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1", "B1",
-#'                          "B2", "B2", "B2", "B2", "B2", "B2")
-#' sample_name <- c("Sample_010a", "Sample_020a", "Sample_040a",
-#'                  "Sample_060a", "Sample_080a", "Sample_100a",
-#'                  "Sample_010b", "Sample_020b", "Sample_040b",
-#'                  "Sample_060b", "Sample_080b", "Sample_100b")
-#' lipid1_area <- c(22561, 31178, 39981, 48390, 52171, 53410,
-#'                  32561, 41178, 49981, 58390, 62171, 63410)
-#' lipid2_area <- c(2299075, 4136350, 7020062, 8922063, 9288742, 11365710,
-#'                  2300075, 4137350, 7021062, 8923063, 9289742, 11366710)
-#' dilution_annot <- tibble::tibble(Sample_Name = sample_name,
-#'                                  Dilution_Batch_Name = dilution_batch_name,
-#'                                  Dilution_Percent = dilution_percent)
-#' lipid_data <- tibble::tibble(Sample_Name = sample_name,
-#'                              Lipid1 = lipid1_area,
-#'                              Lipid2 = lipid2_area)
+#' # Data Creation
+#' dilution_percent <- c(
+#'   10, 20, 40, 60, 80, 100,
+#'   10, 20, 40, 60, 80, 100
+#' )
+#' dilution_batch_name <- c(
+#'   "B1", "B1", "B1", "B1", "B1", "B1",
+#'   "B2", "B2", "B2", "B2", "B2", "B2"
+#' )
+#' sample_name <- c(
+#'   "Sample_010a", "Sample_020a", "Sample_040a",
+#'   "Sample_060a", "Sample_080a", "Sample_100a",
+#'   "Sample_010b", "Sample_020b", "Sample_040b",
+#'   "Sample_060b", "Sample_080b", "Sample_100b"
+#' )
+#' lipid1_area <- c(
+#'   22561, 31178, 39981, 48390, 52171, 53410,
+#'   32561, 41178, 49981, 58390, 62171, 63410
+#' )
+#' lipid2_area <- c(
+#'   2299075, 4136350, 7020062, 8922063, 9288742, 11365710,
+#'   2300075, 4137350, 7021062, 8923063, 9289742, 11366710
+#' )
+#' dilution_annot <- tibble::tibble(
+#'   Sample_Name = sample_name,
+#'   Dilution_Batch_Name = dilution_batch_name,
+#'   Dilution_Percent = dilution_percent
+#' )
+#' lipid_data <- tibble::tibble(
+#'   Sample_Name = sample_name,
+#'   Lipid1 = lipid1_area,
+#'   Lipid2 = lipid2_area
+#' )
 #' # Create dilution table
-#' dilution_table  <- create_dilution_table(dilution_annot,lipid_data,
-#'                                          common_column = "Sample_Name",
-#'                                          signal_var = "Area",
-#'                                          column_group = "Transition_Name")
+#' dilution_table <- create_dilution_table(dilution_annot, lipid_data,
+#'   common_column = "Sample_Name",
+#'   signal_var = "Area",
+#'   column_group = "Transition_Name"
+#' )
 #' # Give summary result for each dilution curve grouped by Transition_Name
 #' # and Dilution Batch
 #' dilution_summary <- dilution_table %>%
-#' summarise_dilution_table(grouping_variable = c("Transition_Name",
-#'                                                "Dilution_Batch_Name"),
-#'                          conc_var = "Dilution_Percent",
-#'                          signal_var = "Area")
+#'   summarise_dilution_table(
+#'     grouping_variable = c(
+#'       "Transition_Name",
+#'       "Dilution_Batch_Name"
+#'     ),
+#'     conc_var = "Dilution_Percent",
+#'     signal_var = "Area"
+#'   )
 #' print(dilution_summary, width = 100)
 #' @rdname summarise_dilution_table
 #' @export
-summarise_dilution_table <- function(
-    dilution_table,
-    grouping_variable = c("Transition_Name",
-                          "Dilution_Batch_Name"),
-    conc_var = "Dilution_Percent",
-    signal_var = "Area") {
+summarise_dilution_table <- function(dilution_table,
+                                     grouping_variable = c(
+                                       "Transition_Name",
+                                       "Dilution_Batch_Name"
+                                     ),
+                                     conc_var = "Dilution_Percent",
+                                     signal_var = "Area") {
 
-  #Check if dilution_table is valid with the relevant columns
+  # Check if dilution_table is valid with the relevant columns
   validate_dilution_table(dilution_table,
-                          needed_column = c(grouping_variable,
-                                            conc_var,
-                                            signal_var)
+    needed_column = c(
+      grouping_variable,
+      conc_var,
+      signal_var
+    )
   )
 
   # Group/Nest the dilution data for each group
@@ -269,13 +337,12 @@ summarise_dilution_table <- function(
     tidyr::nest() %>%
     dplyr::ungroup() %>%
     dplyr::mutate(dil_summary = purrr::map(.data$data,
-                                           summarise_dilution_data,
-                                           conc_var = conc_var,
-                                           signal_var = signal_var)) %>%
+      summarise_dilution_data,
+      conc_var = conc_var,
+      signal_var = signal_var
+    )) %>%
     tidyr::unnest(.data$dil_summary) %>%
     dplyr::select(!c(.data$data))
 
   return(dilution_summary)
-
-
 }

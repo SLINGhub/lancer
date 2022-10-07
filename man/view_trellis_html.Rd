@@ -54,39 +54,57 @@ View \code{ggplot} or \code{plotly} dilution plots in a \code{trelliscope}
 html report
 }
 \examples{
-sample_name <- c("Sample_010a", "Sample_020a", "Sample_040a",
-                 "Sample_060a", "Sample_080a", "Sample_100a",
-                 "Sample_010b", "Sample_020b", "Sample_040b",
-                 "Sample_060b", "Sample_080b", "Sample_100b")
-lipid1_area <- c(22561, 31178, 39981, 48390, 52171, 53410,
-                 32561, 41178, 49981, 58390, 62171, 63410)
-lipid2_area <- c(2299075, 4136350, 7020062, 8922063, 9288742, 11365710,
-                 2300075, 4137350, 7021062, 8923063, 9289742, 11366710)
-lipid_data <- tibble::tibble(Sample_Name = sample_name,
-                             Lipid1 = lipid1_area,
-                             Lipid2 = lipid2_area)
-dilution_percent <- c(10, 20, 40, 60, 80, 100,
-                      10, 20, 40, 60, 80, 100)
-dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1", "B1",
-                         "B2", "B2", "B2", "B2", "B2", "B2")
-dilution_annot <- tibble::tibble(Sample_Name = sample_name,
-                                 Dilution_Batch_Name = dilution_batch_name,
-                                 Dilution_Percent = dilution_percent)
+sample_name <- c(
+  "Sample_010a", "Sample_020a", "Sample_040a",
+  "Sample_060a", "Sample_080a", "Sample_100a",
+  "Sample_010b", "Sample_020b", "Sample_040b",
+  "Sample_060b", "Sample_080b", "Sample_100b"
+)
+lipid1_area <- c(
+  22561, 31178, 39981, 48390, 52171, 53410,
+  32561, 41178, 49981, 58390, 62171, 63410
+)
+lipid2_area <- c(
+  2299075, 4136350, 7020062, 8922063, 9288742, 11365710,
+  2300075, 4137350, 7021062, 8923063, 9289742, 11366710
+)
+lipid_data <- tibble::tibble(
+  Sample_Name = sample_name,
+  Lipid1 = lipid1_area,
+  Lipid2 = lipid2_area
+)
+dilution_percent <- c(
+  10, 20, 40, 60, 80, 100,
+  10, 20, 40, 60, 80, 100
+)
+dilution_batch_name <- c(
+  "B1", "B1", "B1", "B1", "B1", "B1",
+  "B2", "B2", "B2", "B2", "B2", "B2"
+)
+dilution_annot <- tibble::tibble(
+  Sample_Name = sample_name,
+  Dilution_Batch_Name = dilution_batch_name,
+  Dilution_Percent = dilution_percent
+)
 # Create dilution table
 dilution_table <- create_dilution_table(dilution_annot, lipid_data,
-                                        common_column = "Sample_Name",
-                                        signal_var = "Area",
-                                        column_group = "Transition_Name"
+  common_column = "Sample_Name",
+  signal_var = "Area",
+  column_group = "Transition_Name"
 )
 # Add a plotly panel without dilution summary
 trellis_table_auto <- add_plotly_panel(dilution_table) \%>\%
-   convert_to_cog(cog_df = NULL,
-                 grouping_variable = c("Transition_Name",
-                                       "Dilution_Batch_Name"),
-                 panel_variable = "panel",
-                 col_name_vec = "col_name_vec",
-                 desc_vec = "desc_vec",
-                 type_vec = "type_vec")
+  convert_to_cog(
+    cog_df = NULL,
+    grouping_variable = c(
+      "Transition_Name",
+      "Dilution_Batch_Name"
+    ),
+    panel_variable = "panel",
+    col_name_vec = "col_name_vec",
+    desc_vec = "desc_vec",
+    type_vec = "type_vec"
+  )
 
 # Create a trellis report, set testing = FALSE to output results
 view_trellis_html(trellis_table_auto, testing = TRUE)

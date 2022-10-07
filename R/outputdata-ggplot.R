@@ -19,15 +19,16 @@
 #' it needs to produce
 #' @examples
 #'
-#' create_page_layout(number_of_plots = 4,
-#'                    ncol = 2,
-#'                    nrow = 2)
+#' create_page_layout(
+#'   number_of_plots = 4,
+#'   ncol = 2,
+#'   nrow = 2
+#' )
 #'
 #' @rdname create_page_layout
 #' @export
 create_page_layout <- function(number_of_plots,
                                ncol = NULL, nrow = NULL) {
-
   if (number_of_plots < 1) {
     stop("Number of plots in the input list must be greater than 1")
   }
@@ -61,29 +62,43 @@ create_page_layout <- function(number_of_plots,
 #' if so, no pdf report is given out
 #' Default: FALSE
 #' @examples
-#' sample_name <- c("Sample_010a", "Sample_020a", "Sample_040a",
-#'                  "Sample_060a", "Sample_080a", "Sample_100a",
-#'                  "Sample_010b", "Sample_020b", "Sample_040b",
-#'                  "Sample_060b", "Sample_080b", "Sample_100b")
-#' lipid1_area <- c(22561, 31178, 39981, 48390, 52171, 53410,
-#'                  32561, 41178, 49981, 58390, 62171, 63410)
-#' lipid2_area <- c(2299075, 4136350, 7020062, 8922063, 9288742, 11365710,
-#'                  2300075, 4137350, 7021062, 8923063, 9289742, 11366710)
-#' lipid_data <- tibble::tibble(Sample_Name = sample_name,
-#'                              Lipid1 = lipid1_area,
-#'                              Lipid2 = lipid2_area)
-#' dilution_percent <- c(10, 20, 40, 60, 80, 100,
-#'                       10, 20, 40, 60, 80, 100)
-#' dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1", "B1",
-#'                          "B2", "B2", "B2", "B2", "B2", "B2")
-#' dilution_annot <- tibble::tibble(Sample_Name = sample_name,
-#'                                  Dilution_Batch_Name = dilution_batch_name,
-#'                                  Dilution_Percent = dilution_percent)
+#' sample_name <- c(
+#'   "Sample_010a", "Sample_020a", "Sample_040a",
+#'   "Sample_060a", "Sample_080a", "Sample_100a",
+#'   "Sample_010b", "Sample_020b", "Sample_040b",
+#'   "Sample_060b", "Sample_080b", "Sample_100b"
+#' )
+#' lipid1_area <- c(
+#'   22561, 31178, 39981, 48390, 52171, 53410,
+#'   32561, 41178, 49981, 58390, 62171, 63410
+#' )
+#' lipid2_area <- c(
+#'   2299075, 4136350, 7020062, 8922063, 9288742, 11365710,
+#'   2300075, 4137350, 7021062, 8923063, 9289742, 11366710
+#' )
+#' lipid_data <- tibble::tibble(
+#'   Sample_Name = sample_name,
+#'   Lipid1 = lipid1_area,
+#'   Lipid2 = lipid2_area
+#' )
+#' dilution_percent <- c(
+#'   10, 20, 40, 60, 80, 100,
+#'   10, 20, 40, 60, 80, 100
+#' )
+#' dilution_batch_name <- c(
+#'   "B1", "B1", "B1", "B1", "B1", "B1",
+#'   "B2", "B2", "B2", "B2", "B2", "B2"
+#' )
+#' dilution_annot <- tibble::tibble(
+#'   Sample_Name = sample_name,
+#'   Dilution_Batch_Name = dilution_batch_name,
+#'   Dilution_Percent = dilution_percent
+#' )
 #' # Create dilution table
 #' dilution_table <- create_dilution_table(dilution_annot, lipid_data,
-#'                                         common_column = "Sample_Name",
-#'                                         signal_var = "Area",
-#'                                         column_group = "Transition_Name"
+#'   common_column = "Sample_Name",
+#'   signal_var = "Area",
+#'   column_group = "Transition_Name"
 #' )
 #'
 #' # Create a ggplot table without dilution summary
@@ -102,15 +117,15 @@ view_ggplot_pdf <- function(ggplot_list,
                             nrow_per_page = 2,
                             width = 15, height = 8,
                             testing = FALSE) {
-
-
   number_of_plots <- length(ggplot_list)
 
   # Get the layout for one page
-  page_layout <- create_page_layout(number_of_plots = number_of_plots,
-                                    ncol = ncol_per_page, nrow = nrow_per_page)
+  page_layout <- create_page_layout(
+    number_of_plots = number_of_plots,
+    ncol = ncol_per_page, nrow = nrow_per_page
+  )
   # Get the number of plots per page
-  #number_of_plots_per_page <- get_number_of_plots_per_page(page_layout$ncol,
+  # number_of_plots_per_page <- get_number_of_plots_per_page(page_layout$ncol,
   #                                                         page_layout$nrow)
 
   number_of_plots_per_page <- Inf
@@ -127,8 +142,10 @@ view_ggplot_pdf <- function(ggplot_list,
   if (number_of_plots > number_of_plots_per_page) {
     # Each element in the list is a list of ggplots for one pdf page
     ggplot_group_list <-
-      split(ggplot_list,
-            ceiling(seq_along(ggplot_list) / number_of_plots_per_page))
+      split(
+        ggplot_list,
+        ceiling(seq_along(ggplot_list) / number_of_plots_per_page)
+      )
   } else {
     # All plot in one pdf page
     ggplot_group_list <- list(ggplot_list)
@@ -137,16 +154,19 @@ view_ggplot_pdf <- function(ggplot_list,
   # Each element in the list is a list of ggplots for one page plotted
   # in the layout defined in get_page_layout
   pdf_page_list <- purrr::map(ggplot_group_list, patchwork::wrap_plots,
-                              ncol = page_layout$ncol,
-                              nrow = page_layout$nrow)
+    ncol = page_layout$ncol,
+    nrow = page_layout$nrow
+  )
 
   if (!testing) {
 
     # Create the setting needed to male a pdf file
     dev <- grDevices::pdf
-    dev_opts <- list(file = filename,
-                     width = width,
-                     height = height)
+    dev_opts <- list(
+      file = filename,
+      width = width,
+      height = height
+    )
     do.call(dev, dev_opts)
 
     # Output the plots to the pdf
@@ -157,5 +177,4 @@ view_ggplot_pdf <- function(ggplot_list,
   } else {
     return(pdf_page_list)
   }
-
 }

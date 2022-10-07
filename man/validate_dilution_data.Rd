@@ -23,6 +23,8 @@ Validate Dilution Data
 dilution_percent <- c(10, 20, 40, 60, 80, 100)
 area <- c(22561, 31178, 39981, 48390, 52171, 53410)
 dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-validate_dilution_data(dilution_data,
-                       "Dilution_Percent", "Area")
+validate_dilution_data(
+  dilution_data,
+  "Dilution_Percent", "Area"
+)
 }

@@ -33,5 +33,4 @@ create_char_seq <- function(group_name, output_length) {
   output <- set[1:output_length]
 
   return(output)
-
 }

@@ -27,7 +27,9 @@ is less than or equal to three
 dilution_percent <- c(10, 20, 40, 60, 80, 100)
 area <- c(22561, 31178, 39981, 48390, 52171, 53410)
 dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-concavity_value <- calculate_concavity(dilution_data,
-                                       "Dilution_Percent", "Area")
+concavity_value <- calculate_concavity(
+  dilution_data,
+  "Dilution_Percent", "Area"
+)
 concavity_value
 }

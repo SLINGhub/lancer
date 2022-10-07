@@ -13,26 +13,29 @@
 #'
 #' desc_vec <- c("Transition_Name", "Dilution_Batch_Name")
 #'
-#' type_vec <- c("factor","factor")
+#' type_vec <- c("factor", "factor")
 #'
-#' cog_df <- data.frame(col_name_vec = col_name_vec,
-#'                      desc_vec = desc_vec,
-#'                      type_vec = type_vec)
+#' cog_df <- data.frame(
+#'   col_name_vec = col_name_vec,
+#'   desc_vec = desc_vec,
+#'   type_vec = type_vec
+#' )
 #'
 #' validate_cog_df(cog_df)
 #' @rdname validate_cog_df
 #' @export
 validate_cog_df <- function(cog_df,
-                            needed_column = c("col_name_vec",
-                                              "desc_vec",
-                                              "type_vec")) {
+                            needed_column = c(
+                              "col_name_vec",
+                              "desc_vec",
+                              "type_vec"
+                            )) {
 
 
   # Check if things in needed_column are in cog_df
   assertable::assert_colnames(cog_df, needed_column,
-                              only_colnames = FALSE, quiet = TRUE)
-
-
+    only_colnames = FALSE, quiet = TRUE
+  )
 }
 
 
@@ -52,32 +55,40 @@ create_default_cog_df <- function() {
   # More details in `trelliscopejs::cog` can be found in
   # <https://rdrr.io/cran/trelliscopejs/man/cog.html>
 
-  col_name_vec <- c("Transition_Name", "Dilution_Batch_Name",
-                    "Transition_Name_Class",
-                    "wf1_group", "wf2_group",
-                    "r_corr", "pra_linear", "mandel_p_val",
-                    "r2_linear", "r2_adj_linear", "mandel_stats",
-                    "adl_value")
+  col_name_vec <- c(
+    "Transition_Name", "Dilution_Batch_Name",
+    "Transition_Name_Class",
+    "wf1_group", "wf2_group",
+    "r_corr", "pra_linear", "mandel_p_val",
+    "r2_linear", "r2_adj_linear", "mandel_stats",
+    "adl_value"
+  )
 
-  desc_vec <- c("Transition_Name", "Dilution_Batch_Name",
-                "Classes of Transitions",
-                "Group from workflow 1", "Group from workflow 2",
-                "Pearson Correlation R values",
-                "Linear Regression Percent Residual Accuracy",
-                "P values for Mandel test",
-                "Linear Regression R^2 Value",
-                "Linear Regression Adjusted R^2 Value",
-                "Test statistics for Mandel Test",
-                "Average Deviation from Linearity")
+  desc_vec <- c(
+    "Transition_Name", "Dilution_Batch_Name",
+    "Classes of Transitions",
+    "Group from workflow 1", "Group from workflow 2",
+    "Pearson Correlation R values",
+    "Linear Regression Percent Residual Accuracy",
+    "P values for Mandel test",
+    "Linear Regression R^2 Value",
+    "Linear Regression Adjusted R^2 Value",
+    "Test statistics for Mandel Test",
+    "Average Deviation from Linearity"
+  )
 
-  type_vec <- c("factor", "factor",
-                "factor", "factor", "factor",
-                "numeric", "numeric", "numeric",
-                "numeric", "numeric", "numeric", "numeric")
+  type_vec <- c(
+    "factor", "factor",
+    "factor", "factor", "factor",
+    "numeric", "numeric", "numeric",
+    "numeric", "numeric", "numeric", "numeric"
+  )
 
-  cog_df <- data.frame(col_name_vec = col_name_vec,
-                       desc_vec = desc_vec,
-                       type_vec = type_vec)
+  cog_df <- data.frame(
+    col_name_vec = col_name_vec,
+    desc_vec = desc_vec,
+    type_vec = type_vec
+  )
 
   return(cog_df)
 }
@@ -106,87 +117,118 @@ create_default_cog_df <- function() {
 #' More details in `trelliscopejs::cog` can be found in
 #' <https://rdrr.io/cran/trelliscopejs/man/cog.html>
 #' @examples
-#` # Data Creation
-#' dilution_percent <- c(10, 20, 25, 40, 50, 60,
-#'                       75, 80, 100, 125, 150,
-#'                       10, 25, 40, 50, 60,
-#'                       75, 80, 100, 125, 150)
-#' dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1",
-#'                          "B1", "B1", "B1", "B1", "B1", "B1",
-#'                          "B2", "B2", "B2", "B2", "B2",
-#'                          "B2", "B2", "B2", "B2", "B2")
-#' sample_name <- c("Sample_010a", "Sample_020a",
-#'                  "Sample_025a", "Sample_040a", "Sample_050a",
-#'                  "Sample_060a", "Sample_075a", "Sample_080a",
-#'                  "Sample_100a", "Sample_125a", "Sample_150a",
-#'                  "Sample_010b", "Sample_025b",
-#'                  "Sample_040b", "Sample_050b", "Sample_060b",
-#'                  "Sample_075b", "Sample_080b", "Sample_100b",
-#'                  "Sample_125b", "Sample_150b")
-#' lipid1_area_saturated <- c(5748124, 16616414, 21702718, 36191617,
-#'                            49324541, 55618266, 66947588, 74964771,
-#'                            75438063, 91770737, 94692060,
-#'                            5192648, 16594991, 32507833, 46499896,
-#'                            55388856, 62505210, 62778078, 72158161,
-#'                            78044338, 86158414)
-#' lipid2_area_linear <- c(31538, 53709, 69990, 101977, 146436, 180960,
-#'                         232881, 283780, 298289, 344519, 430432,
-#'                         25463, 63387, 90624, 131274, 138069,
-#'                         205353, 202407, 260205, 292257, 367924)
-#' lipid3_area_lod <- c(544, 397, 829, 1437, 1808, 2231,
-#'                      3343, 2915, 5268, 8031, 11045,
-#'                      500, 903, 1267, 2031, 2100,
-#'                      3563, 4500, 5300, 8500, 10430)
-#' lipid4_area_nonlinear <- c(380519, 485372, 478770, 474467, 531640, 576301,
-#'                            501068, 550201, 515110, 499543, 474745,
-#'                            197417, 322846, 478398, 423174, 418577,
-#'                            426089, 413292, 450190, 415309, 457618)
+# ` # Data Creation
+#' dilution_percent <- c(
+#'   10, 20, 25, 40, 50, 60,
+#'   75, 80, 100, 125, 150,
+#'   10, 25, 40, 50, 60,
+#'   75, 80, 100, 125, 150
+#' )
+#' dilution_batch_name <- c(
+#'   "B1", "B1", "B1", "B1", "B1",
+#'   "B1", "B1", "B1", "B1", "B1", "B1",
+#'   "B2", "B2", "B2", "B2", "B2",
+#'   "B2", "B2", "B2", "B2", "B2"
+#' )
+#' sample_name <- c(
+#'   "Sample_010a", "Sample_020a",
+#'   "Sample_025a", "Sample_040a", "Sample_050a",
+#'   "Sample_060a", "Sample_075a", "Sample_080a",
+#'   "Sample_100a", "Sample_125a", "Sample_150a",
+#'   "Sample_010b", "Sample_025b",
+#'   "Sample_040b", "Sample_050b", "Sample_060b",
+#'   "Sample_075b", "Sample_080b", "Sample_100b",
+#'   "Sample_125b", "Sample_150b"
+#' )
+#' lipid1_area_saturated <- c(
+#'   5748124, 16616414, 21702718, 36191617,
+#'   49324541, 55618266, 66947588, 74964771,
+#'   75438063, 91770737, 94692060,
+#'   5192648, 16594991, 32507833, 46499896,
+#'   55388856, 62505210, 62778078, 72158161,
+#'   78044338, 86158414
+#' )
+#' lipid2_area_linear <- c(
+#'   31538, 53709, 69990, 101977, 146436, 180960,
+#'   232881, 283780, 298289, 344519, 430432,
+#'   25463, 63387, 90624, 131274, 138069,
+#'   205353, 202407, 260205, 292257, 367924
+#' )
+#' lipid3_area_lod <- c(
+#'   544, 397, 829, 1437, 1808, 2231,
+#'   3343, 2915, 5268, 8031, 11045,
+#'   500, 903, 1267, 2031, 2100,
+#'   3563, 4500, 5300, 8500, 10430
+#' )
+#' lipid4_area_nonlinear <- c(
+#'   380519, 485372, 478770, 474467, 531640, 576301,
+#'   501068, 550201, 515110, 499543, 474745,
+#'   197417, 322846, 478398, 423174, 418577,
+#'   426089, 413292, 450190, 415309, 457618
+#' )
 #'
-#' dilution_annot <- tibble::tibble(Sample_Name = sample_name,
-#'                                  Dilution_Batch_Name = dilution_batch_name,
-#'                                  Dilution_Percent = dilution_percent)
-#' lipid_data <- tibble::tibble(Sample_Name = sample_name,
-#'                              Lipid1 = lipid1_area_saturated,
-#'                              Lipid2 = lipid2_area_linear,
-#'                              Lipid3 = lipid3_area_lod,
-#'                              Lipid4 = lipid4_area_nonlinear)
+#' dilution_annot <- tibble::tibble(
+#'   Sample_Name = sample_name,
+#'   Dilution_Batch_Name = dilution_batch_name,
+#'   Dilution_Percent = dilution_percent
+#' )
+#' lipid_data <- tibble::tibble(
+#'   Sample_Name = sample_name,
+#'   Lipid1 = lipid1_area_saturated,
+#'   Lipid2 = lipid2_area_linear,
+#'   Lipid3 = lipid3_area_lod,
+#'   Lipid4 = lipid4_area_nonlinear
+#' )
 #'
 #'
 #' # Create dilution table
 #' dilution_table <- create_dilution_table(dilution_annot, lipid_data,
-#'                                         common_column = "Sample_Name",
-#'                                         signal_var = "Area",
-#'                                         column_group = "Transition_Name"
+#'   common_column = "Sample_Name",
+#'   signal_var = "Area",
+#'   column_group = "Transition_Name"
 #' )
 #'
 #' # Create dilution table and dilution statistical summary
 #' dilution_summary <- dilution_table %>%
-#'   summarise_dilution_table(grouping_variable = c("Transition_Name",
-#'                                                  "Dilution_Batch_Name"),
-#'                            conc_var = "Dilution_Percent",
-#'                            signal_var = "Area") %>%
+#'   summarise_dilution_table(
+#'     grouping_variable = c(
+#'       "Transition_Name",
+#'       "Dilution_Batch_Name"
+#'     ),
+#'     conc_var = "Dilution_Percent",
+#'     signal_var = "Area"
+#'   ) %>%
 #'   dplyr::arrange(.data$Transition_Name) %>%
-#'   evaluate_linearity(grouping_variable = c("Transition_Name",
-#'                                            "Dilution_Batch_Name"))
+#'   evaluate_linearity(grouping_variable = c(
+#'     "Transition_Name",
+#'     "Dilution_Batch_Name"
+#'   ))
 #'
 #' # Create our own cog_df
-#' col_name_vec <- c("Transition_Name", "Dilution_Batch_Name",
-#'                   "Transition_Name_Class")
+#' col_name_vec <- c(
+#'   "Transition_Name", "Dilution_Batch_Name",
+#'   "Transition_Name_Class"
+#' )
 #'
-#' desc_vec <- c("Transition_Name", "Dilution_Batch_Name",
-#'               "Transition_Name_Class")
+#' desc_vec <- c(
+#'   "Transition_Name", "Dilution_Batch_Name",
+#'   "Transition_Name_Class"
+#' )
 #'
 #' type_vec <- c("factor", "factor", "factor")
 #'
 #'
-#' cog_df <- data.frame(col_name_vec = col_name_vec,
-#'                      desc_vec = desc_vec,
-#'                      type_vec = type_vec)
+#' cog_df <- data.frame(
+#'   col_name_vec = col_name_vec,
+#'   desc_vec = desc_vec,
+#'   type_vec = type_vec
+#' )
 #'
 #' updated_summary <- update_cog_manual(dilution_summary, cog_df,
-#'                                      col_name_vec = "col_name_vec",
-#'                                      desc_vec = "desc_vec",
-#'                                      type_vec = "type_vec")
+#'   col_name_vec = "col_name_vec",
+#'   desc_vec = "desc_vec",
+#'   type_vec = "type_vec"
+#' )
 #'
 #' # Observe that the first two columns has been converted
 #' # to class cognostics
@@ -198,17 +240,17 @@ update_cog_manual <- function(dilution_summary, cog_df,
                               col_name_vec = "col_name_vec",
                               desc_vec = "desc_vec",
                               type_vec = "type_vec") {
-
-
   if (is.null(cog_df)) {
     return(dilution_summary)
   }
 
-  #Check if cog_df is valid with the relevant columns
+  # Check if cog_df is valid with the relevant columns
   validate_cog_df(cog_df,
-                  needed_column = c(col_name_vec,
-                                    desc_vec,
-                                    type_vec)
+    needed_column = c(
+      col_name_vec,
+      desc_vec,
+      type_vec
+    )
   )
 
   # See this webpage to learn how to mutate specific columns.
@@ -246,68 +288,92 @@ update_cog_manual <- function(dilution_summary, cog_df,
 #' More details in `trelliscopejs::cog` can be found in
 #' <https://rdrr.io/cran/trelliscopejs/man/cog.html>
 #' @examples
-#` # Data Creation
-#' dilution_percent <- c(10, 20, 25, 40, 50, 60,
-#'                       75, 80, 100, 125, 150,
-#'                       10, 25, 40, 50, 60,
-#'                       75, 80, 100, 125, 150)
-#' dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1",
-#'                          "B1", "B1", "B1", "B1", "B1", "B1",
-#'                          "B2", "B2", "B2", "B2", "B2",
-#'                          "B2", "B2", "B2", "B2", "B2")
-#' sample_name <- c("Sample_010a", "Sample_020a",
-#'                  "Sample_025a", "Sample_040a", "Sample_050a",
-#'                  "Sample_060a", "Sample_075a", "Sample_080a",
-#'                  "Sample_100a", "Sample_125a", "Sample_150a",
-#'                  "Sample_010b", "Sample_025b",
-#'                  "Sample_040b", "Sample_050b", "Sample_060b",
-#'                  "Sample_075b", "Sample_080b", "Sample_100b",
-#'                  "Sample_125b", "Sample_150b")
-#' lipid1_area_saturated <- c(5748124, 16616414, 21702718, 36191617,
-#'                            49324541, 55618266, 66947588, 74964771,
-#'                            75438063, 91770737, 94692060,
-#'                            5192648, 16594991, 32507833, 46499896,
-#'                            55388856, 62505210, 62778078, 72158161,
-#'                            78044338, 86158414)
-#' lipid2_area_linear <- c(31538, 53709, 69990, 101977, 146436, 180960,
-#'                         232881, 283780, 298289, 344519, 430432,
-#'                         25463, 63387, 90624, 131274, 138069,
-#'                         205353, 202407, 260205, 292257, 367924)
-#' lipid3_area_lod <- c(544, 397, 829, 1437, 1808, 2231,
-#'                      3343, 2915, 5268, 8031, 11045,
-#'                      500, 903, 1267, 2031, 2100,
-#'                      3563, 4500, 5300, 8500, 10430)
-#' lipid4_area_nonlinear <- c(380519, 485372, 478770, 474467, 531640, 576301,
-#'                            501068, 550201, 515110, 499543, 474745,
-#'                            197417, 322846, 478398, 423174, 418577,
-#'                            426089, 413292, 450190, 415309, 457618)
+# ` # Data Creation
+#' dilution_percent <- c(
+#'   10, 20, 25, 40, 50, 60,
+#'   75, 80, 100, 125, 150,
+#'   10, 25, 40, 50, 60,
+#'   75, 80, 100, 125, 150
+#' )
+#' dilution_batch_name <- c(
+#'   "B1", "B1", "B1", "B1", "B1",
+#'   "B1", "B1", "B1", "B1", "B1", "B1",
+#'   "B2", "B2", "B2", "B2", "B2",
+#'   "B2", "B2", "B2", "B2", "B2"
+#' )
+#' sample_name <- c(
+#'   "Sample_010a", "Sample_020a",
+#'   "Sample_025a", "Sample_040a", "Sample_050a",
+#'   "Sample_060a", "Sample_075a", "Sample_080a",
+#'   "Sample_100a", "Sample_125a", "Sample_150a",
+#'   "Sample_010b", "Sample_025b",
+#'   "Sample_040b", "Sample_050b", "Sample_060b",
+#'   "Sample_075b", "Sample_080b", "Sample_100b",
+#'   "Sample_125b", "Sample_150b"
+#' )
+#' lipid1_area_saturated <- c(
+#'   5748124, 16616414, 21702718, 36191617,
+#'   49324541, 55618266, 66947588, 74964771,
+#'   75438063, 91770737, 94692060,
+#'   5192648, 16594991, 32507833, 46499896,
+#'   55388856, 62505210, 62778078, 72158161,
+#'   78044338, 86158414
+#' )
+#' lipid2_area_linear <- c(
+#'   31538, 53709, 69990, 101977, 146436, 180960,
+#'   232881, 283780, 298289, 344519, 430432,
+#'   25463, 63387, 90624, 131274, 138069,
+#'   205353, 202407, 260205, 292257, 367924
+#' )
+#' lipid3_area_lod <- c(
+#'   544, 397, 829, 1437, 1808, 2231,
+#'   3343, 2915, 5268, 8031, 11045,
+#'   500, 903, 1267, 2031, 2100,
+#'   3563, 4500, 5300, 8500, 10430
+#' )
+#' lipid4_area_nonlinear <- c(
+#'   380519, 485372, 478770, 474467, 531640, 576301,
+#'   501068, 550201, 515110, 499543, 474745,
+#'   197417, 322846, 478398, 423174, 418577,
+#'   426089, 413292, 450190, 415309, 457618
+#' )
 #'
-#' dilution_annot <- tibble::tibble(Sample_Name = sample_name,
-#'                                  Dilution_Batch_Name = dilution_batch_name,
-#'                                  Dilution_Percent = dilution_percent)
-#' lipid_data <- tibble::tibble(Sample_Name = sample_name,
-#'                              Lipid1 = lipid1_area_saturated,
-#'                              Lipid2 = lipid2_area_linear,
-#'                              Lipid3 = lipid3_area_lod,
-#'                              Lipid4 = lipid4_area_nonlinear)
+#' dilution_annot <- tibble::tibble(
+#'   Sample_Name = sample_name,
+#'   Dilution_Batch_Name = dilution_batch_name,
+#'   Dilution_Percent = dilution_percent
+#' )
+#' lipid_data <- tibble::tibble(
+#'   Sample_Name = sample_name,
+#'   Lipid1 = lipid1_area_saturated,
+#'   Lipid2 = lipid2_area_linear,
+#'   Lipid3 = lipid3_area_lod,
+#'   Lipid4 = lipid4_area_nonlinear
+#' )
 #'
 #'
 #' # Create dilution table
 #' dilution_table <- create_dilution_table(dilution_annot, lipid_data,
-#'                                         common_column = "Sample_Name",
-#'                                         signal_var = "Area",
-#'                                         column_group = "Transition_Name"
+#'   common_column = "Sample_Name",
+#'   signal_var = "Area",
+#'   column_group = "Transition_Name"
 #' )
 #'
 #' # Create dilution table and dilution statistical summary
 #' dilution_summary <- dilution_table %>%
-#'   summarise_dilution_table(grouping_variable = c("Transition_Name",
-#'                                                  "Dilution_Batch_Name"),
-#'                            conc_var = "Dilution_Percent",
-#'                            signal_var = "Area") %>%
+#'   summarise_dilution_table(
+#'     grouping_variable = c(
+#'       "Transition_Name",
+#'       "Dilution_Batch_Name"
+#'     ),
+#'     conc_var = "Dilution_Percent",
+#'     signal_var = "Area"
+#'   ) %>%
 #'   dplyr::arrange(.data$Transition_Name) %>%
-#'   evaluate_linearity(grouping_variable = c("Transition_Name",
-#'                                            "Dilution_Batch_Name"))
+#'   evaluate_linearity(grouping_variable = c(
+#'     "Transition_Name",
+#'     "Dilution_Batch_Name"
+#'   ))
 #'
 #' updated_summary <- update_cog_auto(dilution_summary)
 #'
@@ -328,7 +394,6 @@ update_cog_auto <- function(dilution_summary) {
     update_cog_manual(cog_df = cog_df)
 
   return(dilution_summary)
-
 }
 
 
@@ -366,68 +431,92 @@ update_cog_auto <- function(dilution_summary) {
 #' other columns in `dilution_summary` converted to cognostics
 #' to be used in the in the `trelliscopejs` report.
 #' @examples
-#` # Data Creation
-#' dilution_percent <- c(10, 20, 25, 40, 50, 60,
-#'                       75, 80, 100, 125, 150,
-#'                       10, 25, 40, 50, 60,
-#'                       75, 80, 100, 125, 150)
-#' dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1",
-#'                          "B1", "B1", "B1", "B1", "B1", "B1",
-#'                          "B2", "B2", "B2", "B2", "B2",
-#'                          "B2", "B2", "B2", "B2", "B2")
-#' sample_name <- c("Sample_010a", "Sample_020a",
-#'                  "Sample_025a", "Sample_040a", "Sample_050a",
-#'                  "Sample_060a", "Sample_075a", "Sample_080a",
-#'                  "Sample_100a", "Sample_125a", "Sample_150a",
-#'                  "Sample_010b", "Sample_025b",
-#'                  "Sample_040b", "Sample_050b", "Sample_060b",
-#'                  "Sample_075b", "Sample_080b", "Sample_100b",
-#'                  "Sample_125b", "Sample_150b")
-#' lipid1_area_saturated <- c(5748124, 16616414, 21702718, 36191617,
-#'                            49324541, 55618266, 66947588, 74964771,
-#'                            75438063, 91770737, 94692060,
-#'                            5192648, 16594991, 32507833, 46499896,
-#'                            55388856, 62505210, 62778078, 72158161,
-#'                            78044338, 86158414)
-#' lipid2_area_linear <- c(31538, 53709, 69990, 101977, 146436, 180960,
-#'                         232881, 283780, 298289, 344519, 430432,
-#'                         25463, 63387, 90624, 131274, 138069,
-#'                         205353, 202407, 260205, 292257, 367924)
-#' lipid3_area_lod <- c(544, 397, 829, 1437, 1808, 2231,
-#'                      3343, 2915, 5268, 8031, 11045,
-#'                      500, 903, 1267, 2031, 2100,
-#'                      3563, 4500, 5300, 8500, 10430)
-#' lipid4_area_nonlinear <- c(380519, 485372, 478770, 474467, 531640, 576301,
-#'                            501068, 550201, 515110, 499543, 474745,
-#'                            197417, 322846, 478398, 423174, 418577,
-#'                            426089, 413292, 450190, 415309, 457618)
+# ` # Data Creation
+#' dilution_percent <- c(
+#'   10, 20, 25, 40, 50, 60,
+#'   75, 80, 100, 125, 150,
+#'   10, 25, 40, 50, 60,
+#'   75, 80, 100, 125, 150
+#' )
+#' dilution_batch_name <- c(
+#'   "B1", "B1", "B1", "B1", "B1",
+#'   "B1", "B1", "B1", "B1", "B1", "B1",
+#'   "B2", "B2", "B2", "B2", "B2",
+#'   "B2", "B2", "B2", "B2", "B2"
+#' )
+#' sample_name <- c(
+#'   "Sample_010a", "Sample_020a",
+#'   "Sample_025a", "Sample_040a", "Sample_050a",
+#'   "Sample_060a", "Sample_075a", "Sample_080a",
+#'   "Sample_100a", "Sample_125a", "Sample_150a",
+#'   "Sample_010b", "Sample_025b",
+#'   "Sample_040b", "Sample_050b", "Sample_060b",
+#'   "Sample_075b", "Sample_080b", "Sample_100b",
+#'   "Sample_125b", "Sample_150b"
+#' )
+#' lipid1_area_saturated <- c(
+#'   5748124, 16616414, 21702718, 36191617,
+#'   49324541, 55618266, 66947588, 74964771,
+#'   75438063, 91770737, 94692060,
+#'   5192648, 16594991, 32507833, 46499896,
+#'   55388856, 62505210, 62778078, 72158161,
+#'   78044338, 86158414
+#' )
+#' lipid2_area_linear <- c(
+#'   31538, 53709, 69990, 101977, 146436, 180960,
+#'   232881, 283780, 298289, 344519, 430432,
+#'   25463, 63387, 90624, 131274, 138069,
+#'   205353, 202407, 260205, 292257, 367924
+#' )
+#' lipid3_area_lod <- c(
+#'   544, 397, 829, 1437, 1808, 2231,
+#'   3343, 2915, 5268, 8031, 11045,
+#'   500, 903, 1267, 2031, 2100,
+#'   3563, 4500, 5300, 8500, 10430
+#' )
+#' lipid4_area_nonlinear <- c(
+#'   380519, 485372, 478770, 474467, 531640, 576301,
+#'   501068, 550201, 515110, 499543, 474745,
+#'   197417, 322846, 478398, 423174, 418577,
+#'   426089, 413292, 450190, 415309, 457618
+#' )
 #'
-#' dilution_annot <- tibble::tibble(Sample_Name = sample_name,
-#'                                  Dilution_Batch_Name = dilution_batch_name,
-#'                                  Dilution_Percent = dilution_percent)
-#' lipid_data <- tibble::tibble(Sample_Name = sample_name,
-#'                              Lipid1 = lipid1_area_saturated,
-#'                              Lipid2 = lipid2_area_linear,
-#'                              Lipid3 = lipid3_area_lod,
-#'                              Lipid4 = lipid4_area_nonlinear)
+#' dilution_annot <- tibble::tibble(
+#'   Sample_Name = sample_name,
+#'   Dilution_Batch_Name = dilution_batch_name,
+#'   Dilution_Percent = dilution_percent
+#' )
+#' lipid_data <- tibble::tibble(
+#'   Sample_Name = sample_name,
+#'   Lipid1 = lipid1_area_saturated,
+#'   Lipid2 = lipid2_area_linear,
+#'   Lipid3 = lipid3_area_lod,
+#'   Lipid4 = lipid4_area_nonlinear
+#' )
 #'
 #'
 #' # Create dilution table
 #' dilution_table <- create_dilution_table(dilution_annot, lipid_data,
-#'                                         common_column = "Sample_Name",
-#'                                         signal_var = "Area",
-#'                                         column_group = "Transition_Name"
+#'   common_column = "Sample_Name",
+#'   signal_var = "Area",
+#'   column_group = "Transition_Name"
 #' )
 #'
 #' # Create dilution table and dilution statistical summary
 #' dilution_summary <- dilution_table %>%
-#'   summarise_dilution_table(grouping_variable = c("Transition_Name",
-#'                                                  "Dilution_Batch_Name"),
-#'                            conc_var = "Dilution_Percent",
-#'                            signal_var = "Area") %>%
+#'   summarise_dilution_table(
+#'     grouping_variable = c(
+#'       "Transition_Name",
+#'       "Dilution_Batch_Name"
+#'     ),
+#'     conc_var = "Dilution_Percent",
+#'     signal_var = "Area"
+#'   ) %>%
 #'   dplyr::arrange(.data$Transition_Name) %>%
-#'   evaluate_linearity(grouping_variable = c("Transition_Name",
-#'                                            "Dilution_Batch_Name"))
+#'   evaluate_linearity(grouping_variable = c(
+#'     "Transition_Name",
+#'     "Dilution_Batch_Name"
+#'   ))
 #'
 #' updated_summary <- convert_to_cog(dilution_summary)
 #'
@@ -438,8 +527,10 @@ update_cog_auto <- function(dilution_summary) {
 #' @rdname convert_to_cog
 #' @export
 convert_to_cog <- function(dilution_summary, cog_df = NULL,
-                           grouping_variable = c("Transition_Name",
-                                                 "Dilution_Batch_Name"),
+                           grouping_variable = c(
+                             "Transition_Name",
+                             "Dilution_Batch_Name"
+                           ),
                            panel_variable = NULL,
                            col_name_vec = "col_name_vec",
                            desc_vec = "desc_vec",
@@ -448,26 +539,32 @@ convert_to_cog <- function(dilution_summary, cog_df = NULL,
 
   # Check if things in needed_column are in dilution_summary
   assertable::assert_colnames(dilution_summary, grouping_variable,
-                              only_colnames = FALSE, quiet = TRUE)
+    only_colnames = FALSE, quiet = TRUE
+  )
 
   # Check if panel_variable is also a goruping variable
   if (isTRUE(panel_variable %in% grouping_variable)) {
-    stop(paste("panel_variable", panel_variable,
-               "cannot be a grouping_variable")
-         )
+    stop(paste(
+      "panel_variable", panel_variable,
+      "cannot be a grouping_variable"
+    ))
   }
 
   # Convert logical columns to characters
   dilution_summary <- dilution_summary %>%
-    dplyr::mutate_if(is.logical,
-                     ~as.character(.x))
+    dplyr::mutate_if(
+      is.logical,
+      ~ as.character(.x)
+    )
 
   # Separate the panel variables if it is in dilution_summary
   panel_df <- NULL
   if (!is.null(panel_variable)) {
     panel_df <- dilution_summary %>%
-      dplyr::select(dplyr::any_of(c(grouping_variable,
-                                    panel_variable)))
+      dplyr::select(dplyr::any_of(c(
+        grouping_variable,
+        panel_variable
+      )))
 
     dilution_summary <- dilution_summary %>%
       dplyr::select(-dplyr::any_of(c(panel_variable)))
@@ -481,17 +578,21 @@ convert_to_cog <- function(dilution_summary, cog_df = NULL,
   # Grouping variables must be the conditional columns
   dilution_summary <- dilution_summary %>%
     update_cog_auto() %>%
-    update_cog_manual(cog_df = cog_df,
-                      col_name_vec = col_name_vec,
-                      desc_vec = desc_vec,
-                      type_vec = type_vec) %>%
-    trelliscopejs::as_cognostics(cond_cols = grouping_variable,
-                                 needs_cond = TRUE, needs_key = FALSE)
+    update_cog_manual(
+      cog_df = cog_df,
+      col_name_vec = col_name_vec,
+      desc_vec = desc_vec,
+      type_vec = type_vec
+    ) %>%
+    trelliscopejs::as_cognostics(
+      cond_cols = grouping_variable,
+      needs_cond = TRUE, needs_key = FALSE
+    )
 
 
-  #Convert panel variables if any to trelliscope_panels
+  # Convert panel variables if any to trelliscope_panels
   if (!is.null(panel_df) &&
-      ncol(panel_df) != length(grouping_variable)) {
+    ncol(panel_df) != length(grouping_variable)) {
 
     # Ensure that the grouping variable is converted to
     # conditional columns
@@ -499,25 +600,26 @@ convert_to_cog <- function(dilution_summary, cog_df = NULL,
     # trelliscope_panel
     panel_df <- panel_df %>%
       dplyr::select(dplyr::all_of(c(grouping_variable))) %>%
-      trelliscopejs::as_cognostics(cond_cols = grouping_variable,
-                                   needs_cond = TRUE,
-                                   needs_key = FALSE) %>%
-      dplyr::bind_cols(panel_df %>%
-                         dplyr::select(dplyr::any_of(c(panel_variable)))
+      trelliscopejs::as_cognostics(
+        cond_cols = grouping_variable,
+        needs_cond = TRUE,
+        needs_key = FALSE
       ) %>%
-      dplyr::mutate(dplyr::across(dplyr::all_of(panel_variable),
-                    ~structure(.x, class = c("trelliscope_panels", "list")))
-      )
+      dplyr::bind_cols(panel_df %>%
+        dplyr::select(dplyr::any_of(c(panel_variable)))) %>%
+      dplyr::mutate(dplyr::across(
+        dplyr::all_of(panel_variable),
+        ~ structure(.x, class = c("trelliscope_panels", "list"))
+      ))
 
     # Panel_df to do a left join with dilution summary
     # Move panel_variable to the end
     dilution_summary <- panel_df %>%
       dplyr::left_join(dilution_summary, by = grouping_variable) %>%
       dplyr::relocate(dplyr::any_of(c(panel_variable)),
-                      .after = dplyr::last_col())
-
+        .after = dplyr::last_col()
+      )
   }
 
   return(dilution_summary)
-
 }

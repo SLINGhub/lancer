@@ -23,22 +23,33 @@ places. If it is \code{scientific}, numeric format is scientific of the
 form 0.00E+00.
 }
 \examples{
-r_corr <- c(0.951956, 0.948683, 0.978057, 0.976462,
-            0.970618, 0.969348, 0.343838, 0.383552)
-pra_linear <- c(65.78711, 64.58687, 90.21257, 89.95473,
-                72.91220, 72.36528, -233.05949, -172.13659)
-mandel_p_val <- c(2.899006e-07, 7.922290e-07, 2.903365e-01, 3.082930e-01,
-                  3.195779e-08, 6.366588e-08, 3.634004e-02, 1.864090e-02)
-concavity <- c(-4133.501328, -4146.745747, -3.350942, -3.393617,
-               0.3942824, 0.4012963, -19.9469621, -22.6144875)
-dilution_summary <- data.frame(r_corr = r_corr, pra_linear = pra_linear,
-                               mandel_p_val = mandel_p_val,
-                               concavity = concavity)
+r_corr <- c(
+  0.951956, 0.948683, 0.978057, 0.976462,
+  0.970618, 0.969348, 0.343838, 0.383552
+)
+pra_linear <- c(
+  65.78711, 64.58687, 90.21257, 89.95473,
+  72.91220, 72.36528, -233.05949, -172.13659
+)
+mandel_p_val <- c(
+  2.899006e-07, 7.922290e-07, 2.903365e-01, 3.082930e-01,
+  3.195779e-08, 6.366588e-08, 3.634004e-02, 1.864090e-02
+)
+concavity <- c(
+  -4133.501328, -4146.745747, -3.350942, -3.393617,
+  0.3942824, 0.4012963, -19.9469621, -22.6144875
+)
+dilution_summary <- data.frame(
+  r_corr = r_corr, pra_linear = pra_linear,
+  mandel_p_val = mandel_p_val,
+  concavity = concavity
+)
 dilution_summary <- mark_near_zero_columns(dilution_summary)
 # Create a new workbook
 my_workbook <- openxlsx::createWorkbook()
 # Create a new worksheet
 openxlsx::addWorksheet(wb = my_workbook, sheetName = "Dilution Summary")
 format_num_cell_style(dilution_summary,
-                      workbook = my_workbook, sheet = "Dilution Summary")
+  workbook = my_workbook, sheet = "Dilution Summary"
+)
 }

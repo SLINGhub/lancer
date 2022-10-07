@@ -9,28 +9,28 @@
 #' dilution_percent <- c(10, 20, 40, 60, 80, 100)
 #' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
 #' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-#' linear_model <- create_linear_model(dilution_data,
-#'                                     "Dilution_Percent",
-#'                                     "Area")
+#' linear_model <- create_linear_model(
+#'   dilution_data,
+#'   "Dilution_Percent",
+#'   "Area"
+#' )
 #' linear_model
 #' @rdname create_linear_model
 #' @export
 create_linear_model <- function(dilution_data, conc_var, signal_var) {
-
   conc_var <- paste0("`", conc_var, "`")
   signal_var <- paste0("`", signal_var, "`")
 
   # Create the formula
-  linear_formula <- stats::as.formula(paste(signal_var, "~",
-                                            paste(conc_var, collapse = " + ")
-  )
-  )
+  linear_formula <- stats::as.formula(paste(
+    signal_var, "~",
+    paste(conc_var, collapse = " + ")
+  ))
 
   # Create the linear model on dilution data
   linear_model <- stats::lm(linear_formula, data = dilution_data)
 
   return(linear_model)
-
 }
 
 #' @title Create Quadratic Model
@@ -45,31 +45,34 @@ create_linear_model <- function(dilution_data, conc_var, signal_var) {
 #' dilution_percent <- c(10, 20, 40, 60, 80, 100)
 #' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
 #' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-#' quad_model <- create_quad_model(dilution_data,
-#'                                 "Dilution_Percent",
-#'                                 "Area")
+#' quad_model <- create_quad_model(
+#'   dilution_data,
+#'   "Dilution_Percent",
+#'   "Area"
+#' )
 #' quad_model
 #' @rdname create_quad_model
 #' @export
 create_quad_model <- function(dilution_data, conc_var, signal_var) {
-
   conc_var <- paste0("`", conc_var, "`")
   signal_var <- paste0("`", signal_var, "`")
 
   # Create the formula
-  quad_formula <- stats::as.formula(paste(signal_var, "~",
-                                          paste(conc_var, "+",
-                                                paste0("I(", conc_var, " * ",
-                                                       conc_var, ")")
-                                          )
-  )
-  )
+  quad_formula <- stats::as.formula(paste(
+    signal_var, "~",
+    paste(
+      conc_var, "+",
+      paste0(
+        "I(", conc_var, " * ",
+        conc_var, ")"
+      )
+    )
+  ))
 
   # Create the quadratic model on dilution data
   quad_model <- stats::lm(quad_formula, data = dilution_data)
 
   return(quad_model)
-
 }
 
 #' @title Create Cubic Model
@@ -84,38 +87,43 @@ create_quad_model <- function(dilution_data, conc_var, signal_var) {
 #' dilution_percent <- c(10, 20, 40, 60, 80, 100)
 #' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
 #' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-#' cubic_model <- create_cubic_model(dilution_data,
-#'                                  "Dilution_Percent",
-#'                                  "Area")
+#' cubic_model <- create_cubic_model(
+#'   dilution_data,
+#'   "Dilution_Percent",
+#'   "Area"
+#' )
 #' cubic_model
 #' @rdname create_cubic_model
 #' @export
 create_cubic_model <- function(dilution_data, conc_var, signal_var) {
-
   conc_var <- paste0("`", conc_var, "`")
   signal_var <- paste0("`", signal_var, "`")
 
   # Create the formula
-  cubic_formula <- stats::as.formula(paste(signal_var, "~",
-                                     paste(conc_var,
-                                           "+",
-                                     paste0("I(",
-                                            conc_var, " * ",
-                                            conc_var, ")"),
-                                           "+",
-                                     paste0("I(",
-                                            conc_var, " * ",
-                                            conc_var, " * ",
-                                            conc_var, ")")
-                                          )
-                                          )
-                                     )
+  cubic_formula <- stats::as.formula(paste(
+    signal_var, "~",
+    paste(
+      conc_var,
+      "+",
+      paste0(
+        "I(",
+        conc_var, " * ",
+        conc_var, ")"
+      ),
+      "+",
+      paste0(
+        "I(",
+        conc_var, " * ",
+        conc_var, " * ",
+        conc_var, ")"
+      )
+    )
+  ))
 
   # Create the cubic model on dilution data
   cubic_model <- stats::lm(cubic_formula, data = dilution_data)
 
   return(cubic_model)
-
 }
 
 #' @title Calculate Kroll's Linearity Test
@@ -162,17 +170,25 @@ create_cubic_model <- function(dilution_data, conc_var, signal_var) {
 #' is less than or equal to three.
 #' @examples
 #' # Data from Kroll's 2000 paper
-#' solution_number <- c(1, 1, 2, 2, 3, 3, 4, 4,
-#'                      5, 5, 6, 6, 7, 7)
-#' result <- c(352, 348, 1009, 991, 1603, 1584, 3100, 3200,
-#'             4482, 4390, 5101, 5046, 5669, 5516)
+#' solution_number <- c(
+#'   1, 1, 2, 2, 3, 3, 4, 4,
+#'   5, 5, 6, 6, 7, 7
+#' )
+#' result <- c(
+#'   352, 348, 1009, 991, 1603, 1584, 3100, 3200,
+#'   4482, 4390, 5101, 5046, 5669, 5516
+#' )
 #'
-#' dilution_data <- data.frame(Solution_Number = solution_number,
-#'                             Result = result)
+#' dilution_data <- data.frame(
+#'   Solution_Number = solution_number,
+#'   Result = result
+#' )
 #'
-#' adl_result <- calculate_adl_kroll_test(dilution_data,
-#'                                        "Solution_Number",
-#'                                        "Result")
+#' adl_result <- calculate_adl_kroll_test(
+#'   dilution_data,
+#'   "Solution_Number",
+#'   "Result"
+#' )
 #' adl_result
 #' @rdname calculate_adl_kroll_test
 #' @export
@@ -192,9 +208,10 @@ create_cubic_model <- function(dilution_data, conc_var, signal_var) {
 #' \emph{18}(4), 677–690.
 #' \doi{10.1080/10543400802071378}
 calculate_adl_kroll_test <- function(dilution_data, conc_var, signal_var) {
-
-  adl_result <- tibble::tibble(adl_kroll = NA,
-                               best_model = NA)
+  adl_result <- tibble::tibble(
+    adl_kroll = NA,
+    best_model = NA
+  )
 
   if (is.null(nrow(dilution_data))) {
     return(adl_result)
@@ -222,11 +239,11 @@ calculate_adl_kroll_test <- function(dilution_data, conc_var, signal_var) {
   cubic_model <- create_cubic_model(dilution_data, conc_var, signal_var)
 
   g <- performance::compare_performance(linear_model,
-                                        quad_model,
-                                        cubic_model,
-                                        rank = TRUE,
-                                        metrics = c("all")
-                                        )
+    quad_model,
+    cubic_model,
+    rank = TRUE,
+    metrics = c("all")
+  )
 
   best_model <- g$Name[1]
 
@@ -243,25 +260,29 @@ calculate_adl_kroll_test <- function(dilution_data, conc_var, signal_var) {
 
   # Case 1 - linear model is best fitting
   if (best_model == "linear_model") {
-    adl_result <- tibble::tibble(adl_kroll = NA,
-                                 precision_on_percent_scale = NA,
-                                 uncorrected_critical_value = NA,
-                                 corrected_critical_value = NA,
-                                 uncorrected_kroll_results = NA,
-                                 corrected_kroll_results = NA,
-                                 best_model = "linear")
+    adl_result <- tibble::tibble(
+      adl_kroll = NA,
+      precision_on_percent_scale = NA,
+      uncorrected_critical_value = NA,
+      corrected_critical_value = NA,
+      uncorrected_kroll_results = NA,
+      corrected_kroll_results = NA,
+      best_model = "linear"
+    )
     return(adl_result)
   }
 
   # Case 2 - quad model is best fitting
   if (best_model == "quad_model") {
     linear_predict <- stats::predict(linear_model,
-                                     newdata = new_data)
+      newdata = new_data
+    )
     quad_predict <- stats::predict(quad_model,
-                                   newdata = new_data)
+      newdata = new_data
+    )
     adl_kroll <-
       100 * sqrt(sum((quad_predict - linear_predict)^2)
-                 / (s_in_paper)) / mean_of_y
+      / (s_in_paper)) / mean_of_y
 
     sigma <- broom::glance(quad_model)$sigma
     precision_on_percent_scale <- (sigma / mean_of_y) * 100
@@ -286,21 +307,23 @@ calculate_adl_kroll_test <- function(dilution_data, conc_var, signal_var) {
         as.character(adl_kroll < uncorrected_critical_value),
       corrected_kroll_results =
         as.character(adl_kroll < corrected_critical_value),
-      best_model = "quadratic")
+      best_model = "quadratic"
+    )
 
     return(adl_result)
   }
 
   # Case 3 - cubic model is best fitting
   if (best_model == "cubic_model") {
-
     linear_predict <- stats::predict(linear_model,
-                                     newdata = new_data)
+      newdata = new_data
+    )
     cubic_predict <- stats::predict(cubic_model,
-                                    newdata = new_data)
+      newdata = new_data
+    )
     adl_kroll <- 100 *
       sqrt(sum((cubic_predict - linear_predict)^2) /
-             (s_in_paper)) / mean_of_y
+        (s_in_paper)) / mean_of_y
 
     sigma <- broom::glance(cubic_model)$sigma
     precision_on_percent_scale <- (sigma / mean_of_y) * 100
@@ -325,12 +348,12 @@ calculate_adl_kroll_test <- function(dilution_data, conc_var, signal_var) {
         as.character(adl_kroll < uncorrected_critical_value),
       corrected_kroll_results =
         as.character(adl_kroll < corrected_critical_value),
-      best_model = "cubic")
+      best_model = "cubic"
+    )
     return(adl_result)
   }
 
   return(adl_result)
-
 }
 
 #' @title Calculate Average Deviation From Linearity
@@ -347,8 +370,10 @@ calculate_adl_kroll_test <- function(dilution_data, conc_var, signal_var) {
 #' dilution_percent <- c(10, 20, 40, 60, 80, 100)
 #' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
 #' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-#' adl_value <- calculate_adl(dilution_data,
-#'                            "Dilution_Percent", "Area")
+#' adl_value <- calculate_adl(
+#'   dilution_data,
+#'   "Dilution_Percent", "Area"
+#' )
 #' adl_value
 #' @rdname calculate_adl
 #' @export
@@ -361,7 +386,6 @@ calculate_adl_kroll_test <- function(dilution_data, conc_var, signal_var) {
 #' \emph{124}(9), 1331–1338.
 #' \doi{10.5858/2000-124-1331-EOTEON}
 calculate_adl <- function(dilution_data, conc_var, signal_var) {
-
   adl <- NA
 
   if (is.null(nrow(dilution_data))) {
@@ -406,7 +430,8 @@ calculate_adl <- function(dilution_data, conc_var, signal_var) {
     linear_predict <- stats::predict(linear_model)
     quad_predict <- stats::predict(quad_model)
     adl <- mean(abs((linear_predict - quad_predict) / linear_predict),
-                na.rm = TRUE) * 100
+      na.rm = TRUE
+    ) * 100
     return(adl)
   }
 
@@ -415,12 +440,12 @@ calculate_adl <- function(dilution_data, conc_var, signal_var) {
     linear_predict <- stats::predict(linear_model)
     cubic_predict <- stats::predict(cubic_model)
     adl <- mean(abs((linear_predict - cubic_predict) / linear_predict),
-                na.rm = TRUE) * 100
+      na.rm = TRUE
+    ) * 100
     return(adl)
   }
 
   return(adl)
-
 }
 
 #' @title Calculate Concavity
@@ -435,13 +460,14 @@ calculate_adl <- function(dilution_data, conc_var, signal_var) {
 #' dilution_percent <- c(10, 20, 40, 60, 80, 100)
 #' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
 #' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-#' concavity_value <- calculate_concavity(dilution_data,
-#'                                        "Dilution_Percent", "Area")
+#' concavity_value <- calculate_concavity(
+#'   dilution_data,
+#'   "Dilution_Percent", "Area"
+#' )
 #' concavity_value
 #' @rdname calculate_concavity
 #' @export
 calculate_concavity <- function(dilution_data, conc_var, signal_var) {
-
   concavity <- NA
 
   if (is.null(nrow(dilution_data))) {
@@ -474,7 +500,6 @@ calculate_concavity <- function(dilution_data, conc_var, signal_var) {
     dplyr::pull(.data$estimate)
 
   return(concavity)
-
 }
 
 #' @title Calculate Linear Model's Goodness Of Fit
@@ -491,16 +516,19 @@ calculate_concavity <- function(dilution_data, conc_var, signal_var) {
 #' dilution_percent <- c(10, 20, 40, 60, 80, 100)
 #' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
 #' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-#' dil_linear_gof <- calculate_gof_linear(dilution_data,
-#'                                        "Dilution_Percent", "Area")
+#' dil_linear_gof <- calculate_gof_linear(
+#'   dilution_data,
+#'   "Dilution_Percent", "Area"
+#' )
 #' dil_linear_gof
 #' @rdname calculate_gof_linear
 #' @export
 calculate_gof_linear <- function(dilution_data, conc_var, signal_var) {
-
-  dil_linear_gof <- tibble::tibble(r_corr = NA,
-                                   r2_linear = NA,
-                                   r2_adj_linear = NA)
+  dil_linear_gof <- tibble::tibble(
+    r_corr = NA,
+    r2_linear = NA,
+    r2_adj_linear = NA
+  )
 
   if (is.null(nrow(dilution_data))) {
     return(dil_linear_gof)
@@ -524,8 +552,9 @@ calculate_gof_linear <- function(dilution_data, conc_var, signal_var) {
 
   # Get the correlation results
   cor_result <- broom::tidy(stats::cor.test(dilution_data[[signal_var]],
-                                            dilution_data[[conc_var]],
-                                            method = "pearson"))
+    dilution_data[[conc_var]],
+    method = "pearson"
+  ))
   r_corr <- round(cor_result$estimate, digits = 6)
 
   # Create the linear model on dilution data
@@ -541,12 +570,13 @@ calculate_gof_linear <- function(dilution_data, conc_var, signal_var) {
   r2_adj_linear <- round(linear_gof$adj.r.squared, digits = 6)
 
 
-  dil_linear_gof <- tibble::tibble(r_corr = r_corr,
-                                   r2_linear = r2_linear,
-                                   r2_adj_linear = r2_adj_linear)
+  dil_linear_gof <- tibble::tibble(
+    r_corr = r_corr,
+    r2_linear = r2_linear,
+    r2_adj_linear = r2_adj_linear
+  )
 
   return(dil_linear_gof)
-
 }
 
 
@@ -570,9 +600,10 @@ calculate_gof_linear <- function(dilution_data, conc_var, signal_var) {
 #' @rdname calculate_mandel
 #' @export
 calculate_mandel <- function(dilution_data, conc_var, signal_var) {
-
-  mandel_result <- tibble::tibble(mandel_stats = NA,
-                                  mandel_p_val = NA)
+  mandel_result <- tibble::tibble(
+    mandel_stats = NA,
+    mandel_p_val = NA
+  )
 
   if (is.null(nrow(dilution_data))) {
     return(mandel_result)
@@ -610,16 +641,19 @@ calculate_mandel <- function(dilution_data, conc_var, signal_var) {
   mandel_denominator <- sum((quad_stat$.resid)^2, na.rm = TRUE) /
     (nrow(quad_stat) - 3)
   mandel_stats <- mandel_numerator / mandel_denominator
-  mandel_p_val <- stats::pf(q = mandel_stats,
-                            df1 = 1,
-                            df2 = nrow(quad_stat) - 3,
-                            lower.tail = FALSE)
+  mandel_p_val <- stats::pf(
+    q = mandel_stats,
+    df1 = 1,
+    df2 = nrow(quad_stat) - 3,
+    lower.tail = FALSE
+  )
 
-  mandel_result <- tibble::tibble(mandel_stats = mandel_stats,
-                                  mandel_p_val = mandel_p_val)
+  mandel_result <- tibble::tibble(
+    mandel_stats = mandel_stats,
+    mandel_p_val = mandel_p_val
+  )
 
   return(mandel_result)
-
 }
 
 #' @title Calculate Linear Model's Percent Residual Accuracy (PRA)
@@ -642,7 +676,6 @@ calculate_mandel <- function(dilution_data, conc_var, signal_var) {
 #' @rdname calculate_pra_linear
 #' @export
 calculate_pra_linear <- function(dilution_data, conc_var, signal_var) {
-
   pra_linear <- NA
 
   if (is.null(nrow(dilution_data))) {
@@ -683,7 +716,7 @@ calculate_pra_linear <- function(dilution_data, conc_var, signal_var) {
     .xfitted = (dilution_data[[signal_var]] - intercept) / (slope),
     .xerror = (dilution_data[[conc_var]] - .data$.xfitted) /
       dilution_data[[conc_var]]
-    )
+  )
 
   # Get GOF summary for linear model
   valid_xerror_data <- fit_aug$.xerror[is.finite(fit_aug$.xerror)]
@@ -706,19 +739,21 @@ calculate_pra_linear <- function(dilution_data, conc_var, signal_var) {
 #' dilution_percent <- c(10, 20, 40, 60, 80, 100)
 #' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
 #' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-#' validate_dilution_data(dilution_data,
-#'                        "Dilution_Percent", "Area")
+#' validate_dilution_data(
+#'   dilution_data,
+#'   "Dilution_Percent", "Area"
+#' )
 #' @rdname validate_dilution_data
 #' @export
 validate_dilution_data <- function(dilution_data, conc_var, signal_var) {
 
   # Check if conc_var and signal_var is are present in dilution_data
   assertable::assert_colnames(dilution_data, conc_var,
-                              only_colnames = FALSE, quiet = TRUE)
+    only_colnames = FALSE, quiet = TRUE
+  )
   assertable::assert_colnames(dilution_data, signal_var,
-                              only_colnames = FALSE, quiet = TRUE)
-
-
+    only_colnames = FALSE, quiet = TRUE
+  )
 }
 
 #' @title Summarise Dilution Curve Data For One Group
@@ -746,29 +781,31 @@ validate_dilution_data <- function(dilution_data, conc_var, signal_var) {
 #' @export
 summarise_dilution_data <- function(dilution_data, conc_var, signal_var,
                                     details = FALSE) {
-
   mandel_result <- calculate_mandel(dilution_data, conc_var, signal_var)
-  dil_linear_gof <- calculate_gof_linear(dilution_data,
-                                         conc_var, signal_var)
+  dil_linear_gof <- calculate_gof_linear(
+    dilution_data,
+    conc_var, signal_var
+  )
 
   if (isTRUE(details)) {
-
     one_value_tibble <- tibble::tibble(
       pra_linear = calculate_pra_linear(dilution_data, conc_var, signal_var),
       concavity = calculate_concavity(dilution_data, conc_var, signal_var),
       adl_value = calculate_adl(dilution_data, conc_var, signal_var)
     )
 
-    kroll_tibble <- calculate_adl_kroll_test(dilution_data,
-                                             conc_var,
-                                             signal_var)
+    kroll_tibble <- calculate_adl_kroll_test(
+      dilution_data,
+      conc_var,
+      signal_var
+    )
 
     dilution_summary <- dil_linear_gof %>%
-      dplyr::bind_cols(mandel_result,
-                       one_value_tibble,
-                       kroll_tibble
+      dplyr::bind_cols(
+        mandel_result,
+        one_value_tibble,
+        kroll_tibble
       )
-
   } else {
     one_value_tibble <- tibble::tibble(
       pra_linear = calculate_pra_linear(dilution_data, conc_var, signal_var),
@@ -776,8 +813,9 @@ summarise_dilution_data <- function(dilution_data, conc_var, signal_var,
     )
 
     dilution_summary <- dil_linear_gof %>%
-      dplyr::bind_cols(mandel_result,
-                       one_value_tibble
+      dplyr::bind_cols(
+        mandel_result,
+        one_value_tibble
       )
   }
 

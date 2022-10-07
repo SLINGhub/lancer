@@ -24,29 +24,38 @@
 #' per transition
 #' @examples
 #' # Data Creation
-#' dilution_percent <- c(10, 20, 25, 40, 50, 60,
-#'                       75, 80, 100, 125, 150)
-#' sample_name <- c("Sample_010a", "Sample_020a",
-#'                  "Sample_025a", "Sample_040a", "Sample_050a",
-#'                  "Sample_060a", "Sample_075a", "Sample_080a",
-#'                  "Sample_100a", "Sample_125a", "Sample_150a")
-#' dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1",
-#'                          "B1", "B1", "B1", "B1", "B1", "B1")
-#' lipid1_area_saturated <- c(5748124, 16616414, 21702718, 36191617,
-#'                            49324541, 55618266, 66947588, 74964771,
-#'                            75438063, 91770737, 94692060)
+#' dilution_percent <- c(
+#'   10, 20, 25, 40, 50, 60,
+#'   75, 80, 100, 125, 150
+#' )
+#' sample_name <- c(
+#'   "Sample_010a", "Sample_020a",
+#'   "Sample_025a", "Sample_040a", "Sample_050a",
+#'   "Sample_060a", "Sample_075a", "Sample_080a",
+#'   "Sample_100a", "Sample_125a", "Sample_150a"
+#' )
+#' dilution_batch_name <- c(
+#'   "B1", "B1", "B1", "B1", "B1",
+#'   "B1", "B1", "B1", "B1", "B1", "B1"
+#' )
+#' lipid1_area_saturated <- c(
+#'   5748124, 16616414, 21702718, 36191617,
+#'   49324541, 55618266, 66947588, 74964771,
+#'   75438063, 91770737, 94692060
+#' )
 #'
-#' dilution_data <- tibble::tibble(Sample_Name = sample_name,
-#'                                 Dilution_Percent = dilution_percent,
-#'                                 Area = lipid1_area_saturated,
-#'                                 Dilution_Batch_Name = dilution_batch_name
+#' dilution_data <- tibble::tibble(
+#'   Sample_Name = sample_name,
+#'   Dilution_Percent = dilution_percent,
+#'   Area = lipid1_area_saturated,
+#'   Dilution_Batch_Name = dilution_batch_name
 #' )
 #' # Get the dilution batch name from dilution_table
 #' dilution_batch_name <- dilution_batch_name %>%
 #'   unique() %>%
 #'   as.character()
 #'
-#' dil_batch_col = c("#377eb8")
+#' dil_batch_col <- c("#377eb8")
 #'
 #' # Create palette for each dilution batch for plotting
 #' pal <- dil_batch_col %>%
@@ -54,14 +63,15 @@
 #'
 #' # Plot the html
 #' p <- plot_curve_plotly(dilution_data,
-#'                           title = "Lipid_Saturated",
-#'                           sample_name_var = "Sample_Name",
-#'                           pal = pal,
-#'                           dil_batch_var = "Dilution_Batch_Name",
-#'                           conc_var = "Dilution_Percent",
-#'                           conc_var_units = "%",
-#'                           conc_var_interval = 50,
-#'                           signal_var = "Area")
+#'   title = "Lipid_Saturated",
+#'   sample_name_var = "Sample_Name",
+#'   pal = pal,
+#'   dil_batch_var = "Dilution_Batch_Name",
+#'   conc_var = "Dilution_Percent",
+#'   conc_var_units = "%",
+#'   conc_var_interval = 50,
+#'   signal_var = "Area"
+#' )
 #' @rdname plot_curve_plotly
 #' @export
 plot_curve_plotly <- function(dilution_data,
@@ -90,41 +100,45 @@ plot_curve_plotly <- function(dilution_data,
     "<b>{dilution_data[[sample_name_var]]}</b>\\
      <br>{conc_var}: {dilution_data[[conc_var]]}\\
      <br>{signal_var}: {\\
-    format(dilution_data[[signal_var]], big.mark = " , ", nsmall = 1)}"
+    format(dilution_data[[signal_var]], big.mark = ", ", nsmall = 1)}"
   )
 
   # Create the dots in the dilution plot
   p <- plotly::plot_ly() %>%
-    plotly::add_trace(data = dilution_data,
-                      x = ~dilution_data[[conc_var]],
-                      y = ~dilution_data[[signal_var]],
-                      type = "scattergl", mode = "markers",
-                      marker = list(size = 10, opacity = 1,
-                                    line = list(color = "black", width = 1.5)),
-                      name = ~dilution_data[[dil_batch_var]],
-                      color = ~dilution_data[[dil_batch_var]],
-                      colors = pal,
-                      hoverinfo = "text",
-                      text = ~dilution_data[[sample_name_var]],
-                      hovertemplate = text_input,
-                      inherit = FALSE)
+    plotly::add_trace(
+      data = dilution_data,
+      x = ~ dilution_data[[conc_var]],
+      y = ~ dilution_data[[signal_var]],
+      type = "scattergl", mode = "markers",
+      marker = list(
+        size = 10, opacity = 1,
+        line = list(color = "black", width = 1.5)
+      ),
+      name = ~ dilution_data[[dil_batch_var]],
+      color = ~ dilution_data[[dil_batch_var]],
+      colors = pal,
+      hoverinfo = "text",
+      text = ~ dilution_data[[sample_name_var]],
+      hovertemplate = text_input,
+      inherit = FALSE
+    )
 
   if (nrow(dilution_data) > 3) {
 
     # When we need to plot a horizontal line
     if (stats::sd(dilution_data[[signal_var]]) == 0) {
-
       min_x <- min(dilution_data[[conc_var]], na.rm = TRUE)
       max_x <- max(dilution_data[[conc_var]], na.rm = TRUE)
       cont_y <- unique(dilution_data[[signal_var]])
 
       p <- p %>%
-        plotly::add_segments(x = min_x, xend = max_x,
-                             y = cont_y, yend = cont_y,
-                             name = "lin reg",
-                             line = list(color = "black", width = 1),
-                             inherit = FALSE)
-
+        plotly::add_segments(
+          x = min_x, xend = max_x,
+          y = cont_y, yend = cont_y,
+          name = "lin reg",
+          line = list(color = "black", width = 1),
+          inherit = FALSE
+        )
     } else if (stats::sd(dilution_data[[conc_var]]) == 0) {
       # When we need to plot a vertical line
       min_y <- min(dilution_data[[signal_var]], na.rm = TRUE)
@@ -132,12 +146,13 @@ plot_curve_plotly <- function(dilution_data,
       cont_x <- unique(dilution_data[[conc_var]])
 
       p <- p %>%
-        plotly::add_segments(x = cont_x, xend = cont_x,
-                             y = min_y, yend = max_y,
-                             name = "lin reg",
-                             line = list(color = "black", width = 1),
-                             inherit = FALSE)
-
+        plotly::add_segments(
+          x = cont_x, xend = cont_x,
+          y = min_y, yend = max_y,
+          name = "lin reg",
+          line = list(color = "black", width = 1),
+          inherit = FALSE
+        )
     } else {
 
       # Plot the curves
@@ -147,29 +162,38 @@ plot_curve_plotly <- function(dilution_data,
       quad_model <- create_quad_model(dilution_data, conc_var, signal_var)
 
       dilution <- seq(min(dilution_data[[conc_var]]),
-                      max(dilution_data[[conc_var]]),
-                      length.out = 15)
+        max(dilution_data[[conc_var]]),
+        length.out = 15
+      )
 
       # Create the linear and quadratic curve in the dilution plot
       p <- p %>%
         plotly::add_trace(
           data = dilution_data,
           x = dilution,
-          y = stats::predict(linear_model,
-                             tibble::tibble(!!conc_var := dilution)),
+          y = stats::predict(
+            linear_model,
+            tibble::tibble(!!conc_var := dilution)
+          ),
           type = "scattergl", mode = "lines", name = "lin reg",
           line = list(color = "black", width = 1),
-          inherit = FALSE) %>%
+          inherit = FALSE
+        ) %>%
         plotly::add_trace(
           data = dilution_data,
           x = dilution,
-          y = stats::predict(quad_model,
-                             tibble::tibble(!!conc_var := dilution)),
+          y = stats::predict(
+            quad_model,
+            tibble::tibble(!!conc_var := dilution)
+          ),
           type = "scattergl", mode = "lines", name = "quad reg",
-          line = list(color = "red",
-                      width = 1,
-                      opacity = 0.25),
-          inherit = FALSE)
+          line = list(
+            color = "red",
+            width = 1,
+            opacity = 0.25
+          ),
+          inherit = FALSE
+        )
 
 
       if (isTRUE(plot_first_half_lin_reg)) {
@@ -188,8 +212,10 @@ plot_curve_plotly <- function(dilution_data,
           dplyr::filter(.data[[conc_var]] %in% partial_conc_points)
 
         # Create the partial model
-        partial_linear_model <- create_linear_model(partial_dilution_data,
-                                                        conc_var, signal_var)
+        partial_linear_model <- create_linear_model(
+          partial_dilution_data,
+          conc_var, signal_var
+        )
 
         # Create the lines in the dilution plot
         p <- p %>%
@@ -198,12 +224,12 @@ plot_curve_plotly <- function(dilution_data,
             x = dilution,
             y = stats::predict(
               partial_linear_model,
-              tibble::tibble(!!conc_var := dilution)),
+              tibble::tibble(!!conc_var := dilution)
+            ),
             type = "scattergl", mode = "lines", name = "lin first half reg",
             line = list(color = "blue", width = 1),
-            inherit = FALSE)
-
-
+            inherit = FALSE
+          )
       }
 
       if (isTRUE(plot_last_half_lin_reg)) {
@@ -223,8 +249,10 @@ plot_curve_plotly <- function(dilution_data,
           dplyr::filter(.data[[conc_var]] %in% partial_conc_points)
 
         # Create the partial model
-        partial_linear_model <- create_linear_model(partial_dilution_data,
-                                                    conc_var, signal_var)
+        partial_linear_model <- create_linear_model(
+          partial_dilution_data,
+          conc_var, signal_var
+        )
 
         # Create the lines in the dilution plot
         p <- p %>%
@@ -233,67 +261,74 @@ plot_curve_plotly <- function(dilution_data,
             x = dilution,
             y = stats::predict(
               partial_linear_model,
-              tibble::tibble(!!conc_var := dilution)),
+              tibble::tibble(!!conc_var := dilution)
+            ),
             type = "scatter", mode = "lines", name = "lin last half reg",
             line = list(color = "purple", width = 1),
-            inherit = FALSE)
-
-
+            inherit = FALSE
+          )
       }
-
     }
-
   }
 
   # If conc_var_units is empty, do not add brackets
   x_title <- conc_var
   if (conc_var_units != "") {
-    x_title <- paste0(conc_var, " (",  conc_var_units, ")")
+    x_title <- paste0(conc_var, " (", conc_var_units, ")")
   }
 
   # Create the layout to be the same as ggplot2
   p <- p %>%
-    plotly::layout(title = list(text = title,
-                                x = 0.1) ,
-                   xaxis = list(title = x_title,
-                                titlefont = list(size = 10),
-                                gridcolor = "rgb(255,255,255)",
-                                showgrid = TRUE,
-                                showline = FALSE,
-                                showticklabels = TRUE,
-                                tickcolor = "rgb(127,127,127)",
-                                ticks = "outside",
-                                zeroline = FALSE,
-                                tickfont = list(size = 10),
-                                tick0 = 0,
-                                dtick = conc_var_interval,
-                                showspikes = TRUE,
-                                spikemode = "toaxis+marker",
-                                spikesnap = "data"),
-                   # Make y axis to have no title because it
-                   # will be added later as an annotaton.
-                   yaxis = list(title = "",
-                                autorange = TRUE,
-                                fixedrange = FALSE,
-                                titlefont = list(size = 10),
-                                gridcolor = "rgb(255,255,255)",
-                                showgrid = TRUE,
-                                showline = FALSE,
-                                showticklabels = TRUE,
-                                tickcolor = "rgb(127,127,127)",
-                                ticks = "outside",
-                                zeroline = FALSE,
-                                tickfont = list(size = 10),
-                                exponentformat = "e",
-                                showspikes = TRUE,
-                                spikemode = "toaxis+marker",
-                                spikesnap = "data"),
-                   hovermode = "closest",
-                   legend = list(orientation = "v",
-                                 font = list(size = 10)),
-                   paper_bgcolor = "rgb(255,255,255)",
-                   plot_bgcolor = "rgb(229,229,229)",
-                   showlegend = TRUE
+    plotly::layout(
+      title = list(
+        text = title,
+        x = 0.1
+      ),
+      xaxis = list(
+        title = x_title,
+        titlefont = list(size = 10),
+        gridcolor = "rgb(255,255,255)",
+        showgrid = TRUE,
+        showline = FALSE,
+        showticklabels = TRUE,
+        tickcolor = "rgb(127,127,127)",
+        ticks = "outside",
+        zeroline = FALSE,
+        tickfont = list(size = 10),
+        tick0 = 0,
+        dtick = conc_var_interval,
+        showspikes = TRUE,
+        spikemode = "toaxis+marker",
+        spikesnap = "data"
+      ),
+      # Make y axis to have no title because it
+      # will be added later as an annotaton.
+      yaxis = list(
+        title = "",
+        autorange = TRUE,
+        fixedrange = FALSE,
+        titlefont = list(size = 10),
+        gridcolor = "rgb(255,255,255)",
+        showgrid = TRUE,
+        showline = FALSE,
+        showticklabels = TRUE,
+        tickcolor = "rgb(127,127,127)",
+        ticks = "outside",
+        zeroline = FALSE,
+        tickfont = list(size = 10),
+        exponentformat = "e",
+        showspikes = TRUE,
+        spikemode = "toaxis+marker",
+        spikesnap = "data"
+      ),
+      hovermode = "closest",
+      legend = list(
+        orientation = "v",
+        font = list(size = 10)
+      ),
+      paper_bgcolor = "rgb(255,255,255)",
+      plot_bgcolor = "rgb(229,229,229)",
+      showlegend = TRUE
     ) %>%
     plotly::add_annotations(
       x = 0,
@@ -363,85 +398,114 @@ plot_curve_plotly <- function(dilution_data,
 #' `trelliscopejs` visualisation.
 #' @examples
 #' # Data Creation
-#' dilution_percent <- c(10, 20, 25, 40, 50, 60,
-#'                       75, 80, 100, 125, 150,
-#'                       10, 25, 40, 50, 60,
-#'                       75, 80, 100, 125, 150)
-#' dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1",
-#'                          "B1", "B1", "B1", "B1", "B1", "B1",
-#'                          "B2", "B2", "B2", "B2", "B2",
-#'                          "B2", "B2", "B2", "B2", "B2")
-#' sample_name <- c("Sample_010a", "Sample_020a",
-#'                  "Sample_025a", "Sample_040a", "Sample_050a",
-#'                  "Sample_060a", "Sample_075a", "Sample_080a",
-#'                  "Sample_100a", "Sample_125a", "Sample_150a",
-#'                  "Sample_010b", "Sample_025b",
-#'                  "Sample_040b", "Sample_050b", "Sample_060b",
-#'                  "Sample_075b", "Sample_080b", "Sample_100b",
-#'                  "Sample_125b", "Sample_150b")
-#' lipid1_area_saturated <- c(5748124, 16616414, 21702718, 36191617,
-#'                            49324541, 55618266, 66947588, 74964771,
-#'                            75438063, 91770737, 94692060,
-#'                            5192648, 16594991, 32507833, 46499896,
-#'                            55388856, 62505210, 62778078, 72158161,
-#'                            78044338, 86158414)
-#' lipid2_area_linear <- c(31538, 53709, 69990, 101977, 146436, 180960,
-#'                         232881, 283780, 298289, 344519, 430432,
-#'                         25463, 63387, 90624, 131274, 138069,
-#'                         205353, 202407, 260205, 292257, 367924)
-#' lipid3_area_lod <- c(544, 397, 829, 1437, 1808, 2231,
-#'                      3343, 2915, 5268, 8031, 11045,
-#'                      500, 903, 1267, 2031, 2100,
-#'                      3563, 4500, 5300, 8500, 10430)
-#' lipid4_area_nonlinear <- c(380519, 485372, 478770, 474467, 531640, 576301,
-#'                            501068, 550201, 515110, 499543, 474745,
-#'                            197417, 322846, 478398, 423174, 418577,
-#'                            426089, 413292, 450190, 415309, 457618)
+#' dilution_percent <- c(
+#'   10, 20, 25, 40, 50, 60,
+#'   75, 80, 100, 125, 150,
+#'   10, 25, 40, 50, 60,
+#'   75, 80, 100, 125, 150
+#' )
+#' dilution_batch_name <- c(
+#'   "B1", "B1", "B1", "B1", "B1",
+#'   "B1", "B1", "B1", "B1", "B1", "B1",
+#'   "B2", "B2", "B2", "B2", "B2",
+#'   "B2", "B2", "B2", "B2", "B2"
+#' )
+#' sample_name <- c(
+#'   "Sample_010a", "Sample_020a",
+#'   "Sample_025a", "Sample_040a", "Sample_050a",
+#'   "Sample_060a", "Sample_075a", "Sample_080a",
+#'   "Sample_100a", "Sample_125a", "Sample_150a",
+#'   "Sample_010b", "Sample_025b",
+#'   "Sample_040b", "Sample_050b", "Sample_060b",
+#'   "Sample_075b", "Sample_080b", "Sample_100b",
+#'   "Sample_125b", "Sample_150b"
+#' )
+#' lipid1_area_saturated <- c(
+#'   5748124, 16616414, 21702718, 36191617,
+#'   49324541, 55618266, 66947588, 74964771,
+#'   75438063, 91770737, 94692060,
+#'   5192648, 16594991, 32507833, 46499896,
+#'   55388856, 62505210, 62778078, 72158161,
+#'   78044338, 86158414
+#' )
+#' lipid2_area_linear <- c(
+#'   31538, 53709, 69990, 101977, 146436, 180960,
+#'   232881, 283780, 298289, 344519, 430432,
+#'   25463, 63387, 90624, 131274, 138069,
+#'   205353, 202407, 260205, 292257, 367924
+#' )
+#' lipid3_area_lod <- c(
+#'   544, 397, 829, 1437, 1808, 2231,
+#'   3343, 2915, 5268, 8031, 11045,
+#'   500, 903, 1267, 2031, 2100,
+#'   3563, 4500, 5300, 8500, 10430
+#' )
+#' lipid4_area_nonlinear <- c(
+#'   380519, 485372, 478770, 474467, 531640, 576301,
+#'   501068, 550201, 515110, 499543, 474745,
+#'   197417, 322846, 478398, 423174, 418577,
+#'   426089, 413292, 450190, 415309, 457618
+#' )
 #'
-#' dilution_annot <- tibble::tibble(Sample_Name = sample_name,
-#'                                  Dilution_Batch_Name = dilution_batch_name,
-#'                                  Dilution_Percent = dilution_percent)
-#' lipid_data <- tibble::tibble(Sample_Name = sample_name,
-#'                              Lipid1 = lipid1_area_saturated,
-#'                              Lipid2 = lipid2_area_linear,
-#'                              Lipid3 = lipid3_area_lod,
-#'                              Lipid4 = lipid4_area_nonlinear)
+#' dilution_annot <- tibble::tibble(
+#'   Sample_Name = sample_name,
+#'   Dilution_Batch_Name = dilution_batch_name,
+#'   Dilution_Percent = dilution_percent
+#' )
+#' lipid_data <- tibble::tibble(
+#'   Sample_Name = sample_name,
+#'   Lipid1 = lipid1_area_saturated,
+#'   Lipid2 = lipid2_area_linear,
+#'   Lipid3 = lipid3_area_lod,
+#'   Lipid4 = lipid4_area_nonlinear
+#' )
 #'
 #'
 #' # Create dilution table
 #' dilution_table <- create_dilution_table(dilution_annot, lipid_data,
-#'                                         common_column = "Sample_Name",
-#'                                         signal_var = "Area",
-#'                                         column_group = "Transition_Name"
+#'   common_column = "Sample_Name",
+#'   signal_var = "Area",
+#'   column_group = "Transition_Name"
 #' )
 #'
 #' # Create dilution table and dilution statistical summary
 #' dilution_summary <- dilution_table %>%
-#'   summarise_dilution_table(grouping_variable = c("Transition_Name",
-#'                                                  "Dilution_Batch_Name"),
-#'                            conc_var = "Dilution_Percent",
-#'                            signal_var = "Area") %>%
+#'   summarise_dilution_table(
+#'     grouping_variable = c(
+#'       "Transition_Name",
+#'       "Dilution_Batch_Name"
+#'     ),
+#'     conc_var = "Dilution_Percent",
+#'     signal_var = "Area"
+#'   ) %>%
 #'   dplyr::arrange(.data$Transition_Name) %>%
-#'   evaluate_linearity(grouping_variable = c("Transition_Name",
-#'                                            "Dilution_Batch_Name"))
+#'   evaluate_linearity(grouping_variable = c(
+#'     "Transition_Name",
+#'     "Dilution_Batch_Name"
+#'   ))
 #'
 #'
 #' # Create a trellis table
 #' trellis_table <- add_plotly_panel(dilution_table,
-#'                                   dilution_summary = dilution_summary)
+#'   dilution_summary = dilution_summary
+#' )
 #' @rdname add_plotly_panel
 #' @export
 add_plotly_panel <- function(dilution_table, dilution_summary = NULL,
-                             grouping_variable = c("Transition_Name",
-                                                   "Dilution_Batch_Name"),
+                             grouping_variable = c(
+                               "Transition_Name",
+                               "Dilution_Batch_Name"
+                             ),
                              sample_name_var = "Sample_Name",
                              dil_batch_var = "Dilution_Batch_Name",
-                             dil_batch_col = c("#377eb8",
-                                               "#4daf4a",
-                                               "#9C27B0",
-                                               "#BCAAA4",
-                                               "#FF8A65",
-                                               "#EFBBCF"),
+                             dil_batch_col = c(
+                               "#377eb8",
+                               "#4daf4a",
+                               "#9C27B0",
+                               "#BCAAA4",
+                               "#FF8A65",
+                               "#EFBBCF"
+                             ),
                              conc_var = "Dilution_Percent",
                              conc_var_units = "%",
                              conc_var_interval = 50,
@@ -454,25 +518,30 @@ add_plotly_panel <- function(dilution_table, dilution_summary = NULL,
 
   # Check if dilution_table is valid with the relevant columns
   validate_dilution_table(dilution_table,
-                          needed_column = c(grouping_variable,
-                                            sample_name_var,
-                                            dil_batch_var,
-                                            conc_var,
-                                            signal_var)
+    needed_column = c(
+      grouping_variable,
+      sample_name_var,
+      dil_batch_var,
+      conc_var,
+      signal_var
+    )
   )
 
   # Try to create dilution summary if you do not have one.
   if (is.null(dilution_summary)) {
     dilution_summary <- dilution_table %>%
-      summarise_dilution_table(grouping_variable = grouping_variable,
-                               conc_var = conc_var,
-                               signal_var = signal_var) %>%
+      summarise_dilution_table(
+        grouping_variable = grouping_variable,
+        conc_var = conc_var,
+        signal_var = signal_var
+      ) %>%
       evaluate_linearity(grouping_variable = grouping_variable)
   }
 
   # Check if things in needed_column are in dilution_summary
   assertable::assert_colnames(dilution_summary, grouping_variable,
-                              only_colnames = FALSE, quiet = TRUE)
+    only_colnames = FALSE, quiet = TRUE
+  )
 
   # Get the dilution batch name from dilution_table
   dilution_batch_name <- dilution_table %>%
@@ -492,9 +561,9 @@ add_plotly_panel <- function(dilution_table, dilution_summary = NULL,
       dplyr::rowwise() %>%
       dplyr::mutate(title = paste0(
         dplyr::across(dplyr::all_of(grouping_variable)),
-        collapse = "_")) %>%
+        collapse = "_"
+      )) %>%
       dplyr::ungroup()
-
   } else {
     dilution_table <- dilution_table %>%
       dplyr::mutate(title = "")
@@ -503,7 +572,7 @@ add_plotly_panel <- function(dilution_table, dilution_summary = NULL,
   # Group/Nest the dilution data for each group
   # and do a dilution plot for each of them
   dilution_plots <- dilution_table %>%
-    #dplyr::mutate(Dilution_Batch_Name = .data[[dil_batch_var]]) %>%
+    # dplyr::mutate(Dilution_Batch_Name = .data[[dil_batch_var]]) %>%
     dplyr::group_by_at(dplyr::all_of(c(grouping_variable, "title"))) %>%
     dplyr::relocate(dplyr::all_of(c(grouping_variable, "title"))) %>%
     tidyr::nest() %>%
@@ -515,9 +584,7 @@ add_plotly_panel <- function(dilution_table, dilution_summary = NULL,
           dplyr::mutate(!!dil_batch_var := dilution_batch_name)
         return(df)
       }
-
-    )
-    ) %>%
+    )) %>%
     dplyr::ungroup() %>%
     dplyr::mutate(panel = trelliscopejs::map2_plot(
       .x = .data$data,
@@ -531,20 +598,19 @@ add_plotly_panel <- function(dilution_table, dilution_summary = NULL,
       conc_var_interval = conc_var_interval,
       signal_var = signal_var,
       plot_first_half_lin_reg = plot_first_half_lin_reg,
-      plot_last_half_lin_reg = plot_last_half_lin_reg)
-    )
+      plot_last_half_lin_reg = plot_last_half_lin_reg
+    ))
 
 
   # Left Join plots with grouping variable and dilution_summary
   trellis_table <- dilution_plots %>%
     dplyr::select(dplyr::all_of(c(grouping_variable))) %>%
     dplyr::bind_cols(dilution_plots %>%
-                       dplyr::select(.data[["panel"]])) %>%
+      dplyr::select(.data[["panel"]])) %>%
     dplyr::left_join(dilution_summary, by = grouping_variable) %>%
     dplyr::relocate(.data[["panel"]],
-                    .after = dplyr::last_col())
+      .after = dplyr::last_col()
+    )
 
   return(trellis_table)
-
-
 }
