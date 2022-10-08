@@ -1,7 +1,8 @@
+url: https://slinghub.github.io/DCVtestkit/
+
 template:
   params:
     bootswatch: cosmo
-
 
 reference:
   - title: Dilution Curve Validation Workflow
