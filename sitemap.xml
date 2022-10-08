@@ -1,177 +1,177 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/404.html</loc>
   </url>
   <url>
-    <loc>/CONTRIBUTING.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/CONTRIBUTING.html</loc>
   </url>
   <url>
-    <loc>/LICENSE-text.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>/LICENSE.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/LICENSE.html</loc>
   </url>
   <url>
-    <loc>/articles/ggplot-output.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/articles/ggplot-output.html</loc>
   </url>
   <url>
-    <loc>/articles/grouping.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/articles/grouping.html</loc>
   </url>
   <url>
-    <loc>/articles/index.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/articles/index.html</loc>
   </url>
   <url>
-    <loc>/articles/lineval-customization.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/articles/lineval-customization.html</loc>
   </url>
   <url>
-    <loc>/articles/plotly-output.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/articles/plotly-output.html</loc>
   </url>
   <url>
-    <loc>/articles/tidy-demo.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/articles/tidy-demo.html</loc>
   </url>
   <url>
-    <loc>/articles/trellis-output.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/articles/trellis-output.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/authors.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/index.html</loc>
   </url>
   <url>
-    <loc>/news/index.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/add_ggplot_panel.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/add_ggplot_panel.html</loc>
   </url>
   <url>
-    <loc>/reference/add_plotly_panel.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/add_plotly_panel.html</loc>
   </url>
   <url>
-    <loc>/reference/calculate_adl.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/calculate_adl.html</loc>
   </url>
   <url>
-    <loc>/reference/calculate_adl_kroll_test.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/calculate_adl_kroll_test.html</loc>
   </url>
   <url>
-    <loc>/reference/calculate_column_max_char.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/calculate_column_max_char.html</loc>
   </url>
   <url>
-    <loc>/reference/calculate_concavity.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/calculate_concavity.html</loc>
   </url>
   <url>
-    <loc>/reference/calculate_gof_linear.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/calculate_gof_linear.html</loc>
   </url>
   <url>
-    <loc>/reference/calculate_mandel.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/calculate_mandel.html</loc>
   </url>
   <url>
-    <loc>/reference/calculate_pra_linear.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/calculate_pra_linear.html</loc>
   </url>
   <url>
-    <loc>/reference/convert_to_cog.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/convert_to_cog.html</loc>
   </url>
   <url>
-    <loc>/reference/create_char_seq.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/create_char_seq.html</loc>
   </url>
   <url>
-    <loc>/reference/create_cubic_model.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/create_cubic_model.html</loc>
   </url>
   <url>
-    <loc>/reference/create_default_cog_df.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/create_default_cog_df.html</loc>
   </url>
   <url>
-    <loc>/reference/create_dilution_table.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/create_dilution_table.html</loc>
   </url>
   <url>
-    <loc>/reference/create_linear_model.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/create_linear_model.html</loc>
   </url>
   <url>
-    <loc>/reference/create_page_layout.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/create_page_layout.html</loc>
   </url>
   <url>
-    <loc>/reference/create_quad_model.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/create_quad_model.html</loc>
   </url>
   <url>
-    <loc>/reference/create_reg_col_vec.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/create_reg_col_vec.html</loc>
   </url>
   <url>
-    <loc>/reference/evaluate_linearity.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/evaluate_linearity.html</loc>
   </url>
   <url>
-    <loc>/reference/format_char_cell_colour.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/format_char_cell_colour.html</loc>
   </url>
   <url>
-    <loc>/reference/format_num_cell_colour.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/format_num_cell_colour.html</loc>
   </url>
   <url>
-    <loc>/reference/format_num_cell_style.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/format_num_cell_style.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/mark_near_zero_columns.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/mark_near_zero_columns.html</loc>
   </url>
   <url>
-    <loc>/reference/pipe.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/pipe.html</loc>
   </url>
   <url>
-    <loc>/reference/plot_curve_ggplot.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/plot_curve_ggplot.html</loc>
   </url>
   <url>
-    <loc>/reference/plot_curve_plotly.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/plot_curve_plotly.html</loc>
   </url>
   <url>
-    <loc>/reference/plot_summary_table.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/plot_summary_table.html</loc>
   </url>
   <url>
-    <loc>/reference/plot_summary_table_char.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/plot_summary_table_char.html</loc>
   </url>
   <url>
-    <loc>/reference/plot_summary_table_num.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/plot_summary_table_num.html</loc>
   </url>
   <url>
-    <loc>/reference/summarise_dilution_data.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/summarise_dilution_data.html</loc>
   </url>
   <url>
-    <loc>/reference/summarise_dilution_table.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/summarise_dilution_table.html</loc>
   </url>
   <url>
-    <loc>/reference/tidyeval.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/tidyeval.html</loc>
   </url>
   <url>
-    <loc>/reference/update_cog_auto.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/update_cog_auto.html</loc>
   </url>
   <url>
-    <loc>/reference/update_cog_manual.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/update_cog_manual.html</loc>
   </url>
   <url>
-    <loc>/reference/validate_cog_df.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/validate_cog_df.html</loc>
   </url>
   <url>
-    <loc>/reference/validate_dilution_annot.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/validate_dilution_annot.html</loc>
   </url>
   <url>
-    <loc>/reference/validate_dilution_data.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/validate_dilution_data.html</loc>
   </url>
   <url>
-    <loc>/reference/validate_dilution_table.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/validate_dilution_table.html</loc>
   </url>
   <url>
-    <loc>/reference/validate_lipid_data_wide.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/validate_lipid_data_wide.html</loc>
   </url>
   <url>
-    <loc>/reference/validate_trellis_table.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/validate_trellis_table.html</loc>
   </url>
   <url>
-    <loc>/reference/view_ggplot_pdf.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/view_ggplot_pdf.html</loc>
   </url>
   <url>
-    <loc>/reference/view_trellis_html.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/view_trellis_html.html</loc>
   </url>
   <url>
-    <loc>/reference/write_summary_excel.html</loc>
+    <loc>https://slinghub.github.io/DCVtestkit/reference/write_summary_excel.html</loc>
   </url>
 </urlset>
