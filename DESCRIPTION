@@ -24,7 +24,7 @@ Suggests:
     grid,
     vdiffr
 Language: en-GB
-URL: https://github.com/SLINGhub/DCVtestkit
+URL: https://slinghub.github.io/DCVtestkit/, https://github.com/SLINGhub/DCVtestkit
 BugReports: https://github.com/SLINGhub/DCVtestkit/issues
 Imports: 
     magrittr,
