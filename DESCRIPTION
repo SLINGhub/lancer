@@ -3,10 +3,22 @@ Package: DCVtestkit
 Title: Dilution Curve Validation Test Kit
 Version: 0.0.2.9000
 Authors@R: 
-    person(given = "Jeremy",
-           family = "Selva",
-           role = c("aut", "cre"),
-           email = "bchjjs@nus.edu.sg")
+    c(person(given = "Jeremy",
+             family = "Selva",
+             role = c("aut", "cre"),
+             email = "bchjjs@nus.edu.sg",
+             comment = c(ORCID = "0000-0002-4498-2662")),
+      person(given = "Federico",
+             family = "Torta",
+             role = c("aut"),
+             comment = c(ORCID = "0000-0001-7545-7484")),
+      person(given = "Bo",
+             family = "Burla",
+             role = c("aut"),
+             comment = c(ORCID = "0000-0002-5918-3249")),
+      person(given = "Markus",
+             family = "Wenk",
+             role = c("aut")))            
 Description: Validate if a quality control sample dilution curve is 
              linear or has signal suppression by statistical summary
              and plots.
