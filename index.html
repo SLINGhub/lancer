@@ -107,7 +107,6 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"SLINGhub/DCVtestkit"</span><span class="op">)</span></span></code></pre></div>
-<p>If this repository is private, go to this <a href="https://maurolepore.netlify.app/2017/12/06/2017-12-06-best-prectice-for-installing-packages-from-private-repos/" class="external-link">link</a> to learn how to set up your authorization token.</p>
 </div>
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
@@ -131,7 +130,7 @@
 <div class="section level2">
 <h2 id="motivation">Motivation<a class="anchor" aria-label="anchor" href="#motivation"></a>
 </h2>
-<p>The Pearson correlation coefficient has been used widely to test for linearity. However, it is insufficient as indicated in this <a href="https://www.sciencedirect.com/science/article/abs/pii/S0165993615301242" class="external-link">paper</a></p>
+<p>The Pearson correlation coefficient has been used widely to test for linearity. However, it is insufficient as indicated in <a href="https://www.sciencedirect.com/science/article/abs/pii/S0165993615301242" class="external-link">Francisco Raposo (2016)</a></p>
 <p>Consider a linear curve, saturated curve and a curve with limit of detection (LOD)</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linear_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
@@ -179,7 +178,7 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">lod_data</span><span class="op">$</span><span class="va">conc_var</span>, <span class="va">lod_data</span><span class="op">$</span><span class="va">signal_var</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.9779585</span></span></code></pre></div>
-<p>One example is the use of the Percent Residual Accuracy found in <a href="https://doi.org/10.1016/j.talanta.2018.07.046" class="external-link">Logue, B. A. and Manandhar, E.</a> which is more sensitive than Pearson correlation coefficient. Observe that the linear dilution curve gives a higher value compared to than the other two curves.</p>
+<p>One example is the use of the Percent Residual Accuracy found in <a href="https://doi.org/10.1016/j.talanta.2018.07.046" class="external-link">Logue, B. A. and Manandhar, E. (2018)</a> which is more sensitive than Pearson correlation coefficient. Observe that the linear dilution curve gives a higher value compared to than the other two curves.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">DCVtestkit</span><span class="fu">::</span><span class="fu"><a href="reference/calculate_pra_linear.html">calculate_pra_linear</a></span><span class="op">(</span></span>
 <span>  dilution_data <span class="op">=</span> <span class="va">linear_data</span>,</span>
@@ -290,19 +289,23 @@ Equation ( 6 ) is used.</p>
 <p>We first create our data set.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://slinghub.github.io/DCVtestkit/">DCVtestkit</a></span><span class="op">)</span></span>
+<span></span>
 <span><span class="co"># Data Creation</span></span>
+<span></span>
 <span><span class="va">dilution_percent</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">25</span>, <span class="fl">40</span>, <span class="fl">50</span>, <span class="fl">60</span>,</span>
 <span>  <span class="fl">75</span>, <span class="fl">80</span>, <span class="fl">100</span>, <span class="fl">125</span>, <span class="fl">150</span>,</span>
 <span>  <span class="fl">10</span>, <span class="fl">25</span>, <span class="fl">40</span>, <span class="fl">50</span>, <span class="fl">60</span>,</span>
 <span>  <span class="fl">75</span>, <span class="fl">80</span>, <span class="fl">100</span>, <span class="fl">125</span>, <span class="fl">150</span></span>
 <span><span class="op">)</span></span>
+<span></span>
 <span><span class="va">dilution_batch_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>,</span>
 <span>  <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>,</span>
 <span>  <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>,</span>
 <span>  <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span></span>
 <span><span class="op">)</span></span>
+<span></span>
 <span><span class="va">sample_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="st">"Sample_010a"</span>, <span class="st">"Sample_020a"</span>, <span class="st">"Sample_025a"</span>,</span>
 <span>  <span class="st">"Sample_040a"</span>, <span class="st">"Sample_050a"</span>, <span class="st">"Sample_060a"</span>,</span>
@@ -313,6 +316,7 @@ Equation ( 6 ) is used.</p>
 <span>  <span class="st">"Sample_075b"</span>, <span class="st">"Sample_080b"</span>, <span class="st">"Sample_100b"</span>,</span>
 <span>  <span class="st">"Sample_125b"</span>, <span class="st">"Sample_150b"</span></span>
 <span><span class="op">)</span></span>
+<span></span>
 <span><span class="va">lipid1_area_saturated</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="fl">5748124</span>, <span class="fl">16616414</span>, <span class="fl">21702718</span>, <span class="fl">36191617</span>,</span>
 <span>  <span class="fl">49324541</span>, <span class="fl">55618266</span>, <span class="fl">66947588</span>, <span class="fl">74964771</span>,</span>
@@ -321,18 +325,21 @@ Equation ( 6 ) is used.</p>
 <span>  <span class="fl">55388856</span>, <span class="fl">62505210</span>, <span class="fl">62778078</span>, <span class="fl">72158161</span>,</span>
 <span>  <span class="fl">78044338</span>, <span class="fl">86158414</span></span>
 <span><span class="op">)</span></span>
+<span></span>
 <span><span class="va">lipid2_area_linear</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="fl">31538</span>, <span class="fl">53709</span>, <span class="fl">69990</span>, <span class="fl">101977</span>, <span class="fl">146436</span>, <span class="fl">180960</span>,</span>
 <span>  <span class="fl">232881</span>, <span class="fl">283780</span>, <span class="fl">298289</span>, <span class="fl">344519</span>, <span class="fl">430432</span>,</span>
 <span>  <span class="fl">25463</span>, <span class="fl">63387</span>, <span class="fl">90624</span>, <span class="fl">131274</span>, <span class="fl">138069</span>,</span>
 <span>  <span class="fl">205353</span>, <span class="fl">202407</span>, <span class="fl">260205</span>, <span class="fl">292257</span>, <span class="fl">367924</span></span>
 <span><span class="op">)</span></span>
+<span></span>
 <span><span class="va">lipid3_area_lod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="fl">544</span>, <span class="fl">397</span>, <span class="fl">829</span>, <span class="fl">1437</span>, <span class="fl">1808</span>, <span class="fl">2231</span>,</span>
 <span>  <span class="fl">3343</span>, <span class="fl">2915</span>, <span class="fl">5268</span>, <span class="fl">8031</span>, <span class="fl">11045</span>,</span>
 <span>  <span class="fl">500</span>, <span class="fl">903</span>, <span class="fl">1267</span>, <span class="fl">2031</span>, <span class="fl">2100</span>,</span>
 <span>  <span class="fl">3563</span>, <span class="fl">4500</span>, <span class="fl">5300</span>, <span class="fl">8500</span>, <span class="fl">10430</span></span>
 <span><span class="op">)</span></span>
+<span></span>
 <span><span class="va">lipid4_area_nonlinear</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="fl">380519</span>, <span class="fl">485372</span>, <span class="fl">478770</span>, <span class="fl">474467</span>, <span class="fl">531640</span>, <span class="fl">576301</span>,</span>
 <span>  <span class="fl">501068</span>, <span class="fl">550201</span>, <span class="fl">515110</span>, <span class="fl">499543</span>, <span class="fl">474745</span>,</span>
@@ -345,6 +352,7 @@ Equation ( 6 ) is used.</p>
 <span>  Dilution_Batch_Name <span class="op">=</span> <span class="va">dilution_batch_name</span>,</span>
 <span>  Dilution_Percent <span class="op">=</span> <span class="va">dilution_percent</span></span>
 <span><span class="op">)</span></span>
+<span></span>
 <span><span class="va">lipid_data</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
 <span>  Sample_Name <span class="op">=</span> <span class="va">sample_name</span>,</span>
 <span>  Lipid1 <span class="op">=</span> <span class="va">lipid1_area_saturated</span>,</span>
