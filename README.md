@@ -534,8 +534,9 @@ view_ggplot_pdf(
 Results can also be plotted using `add_plotly_panel`. This will create a
 column called panel that contains all the `plotly` plots.
 
-To create an interactive trelliscope display as seen in
-[here](https://hafen.github.io/trelliscopejs/articles/trelliscopejs.html),
+To create an [interactive trelliscope
+display]((https://hafen.github.io/trelliscopejs/articles/trelliscopejs.html))
+as seen in [here](https://dcvtestkit-interactive-example.netlify.app),
 each columns must be converted to a cognostics class. This is done using
 the function `convert_to_cog`
 

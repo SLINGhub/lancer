@@ -20,66 +20,100 @@ Here are some examples to plot dilution data via `plotly`
 
 ```{r data set creation}
 library(DCVtestkit)
-# Data Creation
-dilution_percent <- c(10, 20, 25, 40, 50, 60,
-                        75, 80, 100, 125, 150,
-                        10, 25, 40, 50, 60,
-                        75, 80, 100, 125, 150)
-dilution_batch_name <- c("B1", "B1", "B1", "B1", "B1",
-                         "B1", "B1", "B1", "B1", "B1", "B1",
-                         "B2", "B2", "B2", "B2", "B2",
-                         "B2", "B2", "B2", "B2", "B2")
-sample_name <- c("Sample_010a", "Sample_020a",
-                 "Sample_025a", "Sample_040a", "Sample_050a",
-                 "Sample_060a", "Sample_075a", "Sample_080a",
-                 "Sample_100a", "Sample_125a", "Sample_150a",
-                 "Sample_010b", "Sample_025b",
-                 "Sample_040b", "Sample_050b", "Sample_060b",
-                 "Sample_075b", "Sample_080b", "Sample_100b",
-                 "Sample_125b", "Sample_150b")
-lipid1_area_saturated <- c(5748124, 16616414, 21702718, 36191617,
-                           49324541, 55618266, 66947588, 74964771,
-                           75438063, 91770737, 94692060,
-                           5192648, 16594991, 32507833, 46499896,
-                           55388856, 62505210, 62778078, 72158161,
-                           78044338, 86158414)
-lipid2_area_linear <- c(31538, 53709, 69990, 101977, 146436, 180960,
-                        232881, 283780, 298289, 344519, 430432,
-                        25463, 63387, 90624, 131274, 138069,
-                        205353, 202407, 260205, 292257, 367924)
-lipid3_area_lod <- c(544, 397, 829, 1437, 1808, 2231,
-                     3343, 2915, 5268, 8031, 11045,
-                     500, 903, 1267, 2031, 2100,
-                     3563, 4500, 5300, 8500, 10430)
-lipid4_area_nonlinear <- c(380519, 485372, 478770, 474467, 531640, 576301,
-                           501068, 550201, 515110, 499543, 474745,
-                           197417, 322846, 478398, 423174, 418577,
-                           426089, 413292, 450190, 415309, 457618)
-dilution_annot <- tibble::tibble(Sample_Name = sample_name,
-                                 Dilution_Batch_Name = dilution_batch_name,
-                                 Dilution_Percent = dilution_percent)
-lipid_data <- tibble::tibble(Sample_Name = sample_name,
-                             Lipid1 = lipid1_area_saturated,
-                             Lipid2 = lipid2_area_linear,
-                             Lipid3 = lipid3_area_lod,
-                             Lipid4 = lipid4_area_nonlinear)
 
-dilution_table <- create_dilution_table(dilution_annot,
-                                        lipid_data,
-                                        common_column = "Sample_Name",
-                                        signal_var = "Area",
-                                        column_group = "Transition_Name"
-                                        )
+# Data Creation
+
+dilution_percent <- c(
+  10, 20, 25, 40, 50, 60,
+  75, 80, 100, 125, 150,
+  10, 25, 40, 50, 60,
+  75, 80, 100, 125, 150
+)
+
+dilution_batch_name <- c(
+  "B1", "B1", "B1", "B1", "B1",
+  "B1", "B1", "B1", "B1", "B1", "B1",
+  "B2", "B2", "B2", "B2", "B2",
+  "B2", "B2", "B2", "B2", "B2"
+)
+
+sample_name <- c(
+  "Sample_010a", "Sample_020a",
+  "Sample_025a", "Sample_040a", "Sample_050a",
+  "Sample_060a", "Sample_075a", "Sample_080a",
+  "Sample_100a", "Sample_125a", "Sample_150a",
+  "Sample_010b", "Sample_025b",
+  "Sample_040b", "Sample_050b", "Sample_060b",
+  "Sample_075b", "Sample_080b", "Sample_100b",
+  "Sample_125b", "Sample_150b"
+)
+
+lipid1_area_saturated <- c(
+  5748124, 16616414, 21702718, 36191617,
+  49324541, 55618266, 66947588, 74964771,
+  75438063, 91770737, 94692060,
+  5192648, 16594991, 32507833, 46499896,
+  55388856, 62505210, 62778078, 72158161,
+  78044338, 86158414
+)
+
+lipid2_area_linear <- c(
+  31538, 53709, 69990, 101977, 146436, 180960,
+  232881, 283780, 298289, 344519, 430432,
+  25463, 63387, 90624, 131274, 138069,
+  205353, 202407, 260205, 292257, 367924
+)
+
+lipid3_area_lod <- c(
+  544, 397, 829, 1437, 1808, 2231,
+  3343, 2915, 5268, 8031, 11045,
+  500, 903, 1267, 2031, 2100,
+  3563, 4500, 5300, 8500, 10430
+)
+
+lipid4_area_nonlinear <- c(
+  380519, 485372, 478770, 474467, 531640, 576301,
+  501068, 550201, 515110, 499543, 474745,
+  197417, 322846, 478398, 423174, 418577,
+  426089, 413292, 450190, 415309, 457618
+)
+
+dilution_annot <- tibble::tibble(
+  Sample_Name = sample_name,
+  Dilution_Batch_Name = dilution_batch_name,
+  Dilution_Percent = dilution_percent
+)
+
+lipid_data <- tibble::tibble(
+  Sample_Name = sample_name,
+  Lipid1 = lipid1_area_saturated,
+  Lipid2 = lipid2_area_linear,
+  Lipid3 = lipid3_area_lod,
+  Lipid4 = lipid4_area_nonlinear
+)
+
+dilution_table <- create_dilution_table(
+  dilution_annot = dilution_annot,
+  lipid_data_wide = lipid_data,
+  common_column = "Sample_Name",
+  signal_var = "Area",
+  column_group = "Transition_Name"
+)
 
 dilution_classified <- dilution_table %>%
-  summarise_dilution_table(grouping_variable = c("Transition_Name",
-                                                 "Dilution_Batch_Name"),
-                           conc_var = "Dilution_Percent",
-                           signal_var = "Area"
+  summarise_dilution_table(
+    grouping_variable = c(
+      "Transition_Name",
+      "Dilution_Batch_Name"
+    ),
+    conc_var = "Dilution_Percent",
+    signal_var = "Area"
   ) %>%
   dplyr::arrange(.data$Transition_Name) %>%
-  evaluate_linearity(grouping_variable = c("Transition_Name",
-                                           "Dilution_Batch_Name"))
+  evaluate_linearity(grouping_variable = c(
+    "Transition_Name",
+    "Dilution_Batch_Name"
+  ))
 ```
 
 Here is the output of `dilution_table` and `dilution_classified` 
@@ -94,50 +128,60 @@ We then create the `plotly` plots with `dilution_table` and `dilution_classified
 ```{r create plotly table}
 # Create a trellis table
 trellis_table_orig <- add_plotly_panel(
-  dilution_table,
+  dilution_table = dilution_table,
   dilution_summary = dilution_classified,
-  grouping_variable = c("Transition_Name",
-                        "Dilution_Batch_Name"),
+  grouping_variable = c(
+    "Transition_Name",
+    "Dilution_Batch_Name"
+  ),
   sample_name_var = "Sample_Name",
   dil_batch_var = "Dilution_Batch_Name",
-  dil_batch_col = c("#377eb8",
-                    "#4daf4a"),
+  dil_batch_col = c(
+    "#377eb8",
+    "#4daf4a"
+  ),
   conc_var = "Dilution_Percent",
   conc_var_units = "%",
   conc_var_interval = 50,
   signal_var = "Area",
-  have_plot_title = TRUE)
+  have_plot_title = TRUE
+)
 
 trellis_list_orig <- trellis_table_orig$panel
-
 ```
 
 Each `plotly` plot for each group can be found in the column `panel`
 
 ```{r print plotly plot}
+
 ```
 
 To see the regression line on half the dilution points, set `plot_half_lin_reg = TRUE`
 
 ```{r create plotly table with half linear regression}
-trellis_table <- add_plotly_panel(dilution_table,
-                                  dilution_summary = dilution_classified,
-                                  grouping_variable = c("Transition_Name",
-                                                        "Dilution_Batch_Name"),
-                                  sample_name_var = "Sample_Name",
-                                  dil_batch_var = "Dilution_Batch_Name",
-                                  dil_batch_col = c("#377eb8",
-                                                    "#4daf4a"),
-                                  conc_var = "Dilution_Percent",
-                                  conc_var_units = "%",
-                                  conc_var_interval = 50,
-                                  signal_var = "Area",
-                                  have_plot_title = TRUE,
-                                  plot_first_half_lin_reg = TRUE,
-                                  plot_last_half_lin_reg = TRUE)
+trellis_table <- add_plotly_panel(
+  dilution_table = dilution_table,
+  dilution_summary = dilution_classified,
+  grouping_variable = c(
+    "Transition_Name",
+    "Dilution_Batch_Name"
+  ),
+  sample_name_var = "Sample_Name",
+  dil_batch_var = "Dilution_Batch_Name",
+  dil_batch_col = c(
+    "#377eb8",
+    "#4daf4a"
+  ),
+  conc_var = "Dilution_Percent",
+  conc_var_units = "%",
+  conc_var_interval = 50,
+  signal_var = "Area",
+  have_plot_title = TRUE,
+  plot_first_half_lin_reg = TRUE,
+  plot_last_half_lin_reg = TRUE
+)
 
 trellis_list <- trellis_table$panel
-
 ```
 
 ```{r print plotly plot with half linear regression}
@@ -148,24 +192,29 @@ Units of `conc_var` and `conc_var_interval` can be customised to suit the range 
 You can also change the colours for your dilution batch from `dil_batch_col`
 
 ```{r create plotly table with conc customisation}
-trellis_table <- add_plotly_panel(dilution_table,
-                                  dilution_summary = dilution_classified,
-                                  grouping_variable = c("Transition_Name",
-                                                        "Dilution_Batch_Name"),
-                                  sample_name_var = "Sample_Name",
-                                  dil_batch_var = "Dilution_Batch_Name",
-                                  dil_batch_col = c("#377eb8",
-                                                    "#4daf4a"),
-                                  conc_var = "Dilution_Percent",
-                                  conc_var_units = "mol",
-                                  conc_var_interval = 20,
-                                  signal_var = "Area",
-                                  have_plot_title = TRUE,
-                                  plot_first_half_lin_reg = TRUE,
-                                  plot_last_half_lin_reg = TRUE)
+trellis_table <- add_plotly_panel(
+  dilution_table = dilution_table,
+  dilution_summary = dilution_classified,
+  grouping_variable = c(
+    "Transition_Name",
+    "Dilution_Batch_Name"
+  ),
+  sample_name_var = "Sample_Name",
+  dil_batch_var = "Dilution_Batch_Name",
+  dil_batch_col = c(
+    "#377eb8",
+    "#4daf4a"
+  ),
+  conc_var = "Dilution_Percent",
+  conc_var_units = "mol",
+  conc_var_interval = 20,
+  signal_var = "Area",
+  have_plot_title = TRUE,
+  plot_first_half_lin_reg = TRUE,
+  plot_last_half_lin_reg = TRUE
+)
 
 trellis_list <- trellis_table$panel
-
 ```
 
 ```{r print plotly table with conc customisation}
@@ -181,16 +230,19 @@ transition_name <- c("Lipid1", "Lipid2", "Lipid3", "Lipid4")
 transition_class <- c("Class1", "Class1", "Class2", "Class2")
 transition_species <- c("SpeciesA", "SpeciesA", "SpeciesB", "SpeciesB")
 
-transition_annot <- tibble::tibble(Transition_Name = transition_name,
-                                   Transition_Class = transition_class,
-                                   Transition_Species = transition_species
-                                   )
+transition_annot <- tibble::tibble(
+  Transition_Name = transition_name,
+  Transition_Class = transition_class,
+  Transition_Species = transition_species
+)
 
 
 col_name_vec <- c("Transition_Name", "Transition_Class", "Transition_Species")
-desc_vec <- c("Names of Transitions",
-              "Classes of Transitions",
-              "Species of Transitions")
+desc_vec <- c(
+  "Names of Transitions",
+  "Classes of Transitions",
+  "Species of Transitions"
+)
 
 type_vec <- c("factor", "factor", "factor")
 
@@ -201,26 +253,34 @@ cog_df <- data.frame(
 )
 
 
-trellis_table_orig_converted <- trellis_table_orig  %>%
+trellis_table_orig_converted <- trellis_table_orig %>%
   dplyr::left_join(transition_annot, by = "Transition_Name") %>%
-  convert_to_cog(cog_df = cog_df,
-                 grouping_variable = c(col_name_vec,
-                                       "Dilution_Batch_Name"),
-                 panel_variable = "panel",
-                 col_name_vec = "col_name_vec",
-                 desc_vec = "desc_vec",
-                 type_vec = "type_vec")
+  convert_to_cog(
+    cog_df = cog_df,
+    grouping_variable = c(
+      col_name_vec,
+      "Dilution_Batch_Name"
+    ),
+    panel_variable = "panel",
+    col_name_vec = "col_name_vec",
+    desc_vec = "desc_vec",
+    type_vec = "type_vec"
+  )
 ```
 
 The list of plotly can be output as follows by calling this command
 in the R console:
 
 ```{r create trellis page, eval = FALSE}
-view_trellis_html(trellis_table_orig_converted,
-                  grouping_variable = c(col_name_vec,
-                                       "Dilution_Batch_Name"),
-                  trellis_report_name = "Dilution_Plot",
-                  trellis_report_folder = "Dilution_Plot_Folder")
+view_trellis_html(
+  trellis_table = trellis_table_orig_converted,
+  grouping_variable = c(
+    col_name_vec,
+    "Dilution_Batch_Name"
+  ),
+  trellis_report_name = "Dilution_Plot",
+  trellis_report_folder = "Dilution_Plot_Folder"
+)
 ```
 
 ![](vignettes-RstudioCommand.png)

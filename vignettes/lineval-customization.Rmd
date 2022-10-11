@@ -31,25 +31,27 @@ pra <- c(65.8, 90.2, 72.9, -233)
 mandel_pval <- c(0.00000029, 0.290, 0.000000032, 0.0363)
 concavity <- c(-4134, -3.35, 0.394, -19.9)
 
-dilution_summary <- tibble::tibble(Transition_Name = transition_name,
-                                   Corrcoef = corrcoef,
-                                   Pra = pra,
-                                   Mandel_Pval = mandel_pval,
-                                   Concavity = concavity
-                                   )
+dilution_summary <- tibble::tibble(
+  Transition_Name = transition_name,
+  Corrcoef = corrcoef,
+  Pra = pra,
+  Mandel_Pval = mandel_pval,
+  Concavity = concavity
+)
 ```
 
 ```{r different column names}
 
-dilution_classified <- evaluate_linearity(dilution_summary,
-                                          grouping_variable = c(
-                                            "Transition_Name"
-                                          ),
-                                          corrcoef_column = "Corrcoef",
-                                          pra_column = "Pra",
-                                          mandel_p_val_column = "Mandel_Pval",
-                                          concavity_column = "Concavity")
-
+dilution_classified <- evaluate_linearity(
+  dilution_summary = dilution_summary,
+  grouping_variable = c(
+    "Transition_Name"
+  ),
+  corrcoef_column = "Corrcoef",
+  pra_column = "Pra",
+  mandel_p_val_column = "Mandel_Pval",
+  concavity_column = "Concavity"
+)
 ```
 
 ```{r print evaluation with different column names}
@@ -64,17 +66,19 @@ respectively.
 
 ```{r different threshold}
 
-dilution_classified <- evaluate_linearity(dilution_summary,
-                                          grouping_variable = c(
-                                            "Transition_Name"
-                                            ),
-                                          corrcoef_column = "Corrcoef",
-                                          corrcoef_min_threshold = 0.7,
-                                          pra_column = "Pra",
-                                          pra_min_threshold = 70,
-                                          mandel_p_val_column = "Mandel_Pval",
-                                          mandel_p_val_threshold = 0.01,
-                                          concavity_column = "Concavity")
+dilution_classified <- evaluate_linearity(
+  dilution_summary = dilution_summary,
+  grouping_variable = c(
+    "Transition_Name"
+  ),
+  corrcoef_column = "Corrcoef",
+  corrcoef_min_threshold = 0.7,
+  pra_column = "Pra",
+  pra_min_threshold = 70,
+  mandel_p_val_column = "Mandel_Pval",
+  mandel_p_val_threshold = 0.01,
+  concavity_column = "Concavity"
+)
 ```
 
 ```{r print evaluation with different threshold}
@@ -86,18 +90,19 @@ column to be Correlation Coefficient, Percent Residual Accuracy and Mandel's Fit
 as well as its threshold value. The sheet name can also be changed.
 
 ```{r customise print to excel, eval = FALSE}
-write_summary_excel(dilution_classified,
-                    file_name = "dilution_summary.xlsx",
-                    sheet_name = "Dilution Summary",
-                    corrcoef_column = "Corrcoef",
-                    corrcoef_min_threshold = 0.7,
-                    pra_column = "Pra",
-                    pra_min_threshold = 70,
-                    mandel_p_val_column = "Mandel_Pval",
-                    mandel_p_val_threshold = 0.01,
-                    workflow1_column = "wf1_group",
-                    workflow2_column = "wf2_group",
-                    pass_criteria_words = c("Good Linearity")
+write_summary_excel(
+  dilution_summary = dilution_classified,
+  file_name = "dilution_summary.xlsx",
+  sheet_name = "Dilution Summary",
+  corrcoef_column = "Corrcoef",
+  corrcoef_min_threshold = 0.7,
+  pra_column = "Pra",
+  pra_min_threshold = 70,
+  mandel_p_val_column = "Mandel_Pval",
+  mandel_p_val_threshold = 0.01,
+  workflow1_column = "wf1_group",
+  workflow2_column = "wf2_group",
+  pass_criteria_words = c("Good Linearity")
 )
 ```
 
