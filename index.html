@@ -135,75 +135,99 @@
 <p>Consider a linear curve, saturated curve and a curve with limit of detection (LOD)</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">linear_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  conc_var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">25</span>, <span class="fl">40</span>, <span class="fl">50</span>, <span class="fl">60</span>,</span>
-<span>               <span class="fl">75</span>, <span class="fl">80</span>, <span class="fl">100</span>, <span class="fl">125</span>, <span class="fl">150</span><span class="op">)</span>,</span>
-<span>  signal_var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">25463</span>, <span class="fl">63387</span>, <span class="fl">90624</span>, <span class="fl">131274</span>, <span class="fl">138069</span>,</span>
-<span>                 <span class="fl">205353</span>, <span class="fl">202407</span>, <span class="fl">260205</span>, <span class="fl">292257</span>, <span class="fl">367924</span><span class="op">)</span></span>
+<span>  conc_var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="fl">10</span>, <span class="fl">25</span>, <span class="fl">40</span>, <span class="fl">50</span>, <span class="fl">60</span>,</span>
+<span>    <span class="fl">75</span>, <span class="fl">80</span>, <span class="fl">100</span>, <span class="fl">125</span>, <span class="fl">150</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  signal_var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="fl">25463</span>, <span class="fl">63387</span>, <span class="fl">90624</span>, <span class="fl">131274</span>, <span class="fl">138069</span>,</span>
+<span>    <span class="fl">205353</span>, <span class="fl">202407</span>, <span class="fl">260205</span>, <span class="fl">292257</span>, <span class="fl">367924</span></span>
+<span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">saturated_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  conc_var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">25</span>, <span class="fl">40</span>, <span class="fl">50</span>, <span class="fl">60</span>,</span>
-<span>               <span class="fl">75</span>, <span class="fl">80</span>, <span class="fl">100</span>, <span class="fl">125</span>, <span class="fl">150</span><span class="op">)</span>,</span>
-<span>  signal_var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5192648</span>, <span class="fl">16594991</span>, <span class="fl">32507833</span>, <span class="fl">46499896</span>,</span>
-<span>                 <span class="fl">55388856</span>, <span class="fl">62505210</span>, <span class="fl">62778078</span>, <span class="fl">72158161</span>,</span>
-<span>                 <span class="fl">78044338</span>, <span class="fl">86158414</span><span class="op">)</span></span>
+<span>  conc_var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="fl">10</span>, <span class="fl">25</span>, <span class="fl">40</span>, <span class="fl">50</span>, <span class="fl">60</span>,</span>
+<span>    <span class="fl">75</span>, <span class="fl">80</span>, <span class="fl">100</span>, <span class="fl">125</span>, <span class="fl">150</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  signal_var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="fl">5192648</span>, <span class="fl">16594991</span>, <span class="fl">32507833</span>, <span class="fl">46499896</span>,</span>
+<span>    <span class="fl">55388856</span>, <span class="fl">62505210</span>, <span class="fl">62778078</span>, <span class="fl">72158161</span>,</span>
+<span>    <span class="fl">78044338</span>, <span class="fl">86158414</span></span>
+<span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">lod_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  conc_var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">25</span>, <span class="fl">40</span>, <span class="fl">50</span>, <span class="fl">60</span>,</span>
-<span>               <span class="fl">75</span>, <span class="fl">80</span>, <span class="fl">100</span>, <span class="fl">125</span>, <span class="fl">150</span><span class="op">)</span>,</span>
-<span>  signal_var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">500</span>, <span class="fl">903</span>, <span class="fl">1267</span>, <span class="fl">2031</span>, <span class="fl">2100</span>,</span>
-<span>                 <span class="fl">3563</span>, <span class="fl">4500</span>, <span class="fl">5300</span>, <span class="fl">8500</span>, <span class="fl">10430</span><span class="op">)</span></span>
+<span>  conc_var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="fl">10</span>, <span class="fl">25</span>, <span class="fl">40</span>, <span class="fl">50</span>, <span class="fl">60</span>,</span>
+<span>    <span class="fl">75</span>, <span class="fl">80</span>, <span class="fl">100</span>, <span class="fl">125</span>, <span class="fl">150</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  signal_var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="fl">500</span>, <span class="fl">903</span>, <span class="fl">1267</span>, <span class="fl">2031</span>, <span class="fl">2100</span>,</span>
+<span>    <span class="fl">3563</span>, <span class="fl">4500</span>, <span class="fl">5300</span>, <span class="fl">8500</span>, <span class="fl">10430</span></span>
+<span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-ViewMotivationData1-1.png" width="100%"></p>
 <p><img src="reference/figures/README-ViewMotivationData2-1.png" width="100%"></p>
 <p>The corresponding Pearson correlation coefficient are really high (&gt;0.9) even though the curves are non-linear. There is a need to explore better ways to categorise these two curves.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">linear_data</span><span class="op">$</span><span class="va">conc_var</span>,<span class="va">linear_data</span><span class="op">$</span><span class="va">signal_var</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">linear_data</span><span class="op">$</span><span class="va">conc_var</span>, <span class="va">linear_data</span><span class="op">$</span><span class="va">signal_var</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.9948151</span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">saturated_data</span><span class="op">$</span><span class="va">conc_var</span>,<span class="va">saturated_data</span><span class="op">$</span><span class="va">signal_var</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">saturated_data</span><span class="op">$</span><span class="va">conc_var</span>, <span class="va">saturated_data</span><span class="op">$</span><span class="va">signal_var</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.9500072</span></span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">lod_data</span><span class="op">$</span><span class="va">conc_var</span>,<span class="va">lod_data</span><span class="op">$</span><span class="va">signal_var</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">lod_data</span><span class="op">$</span><span class="va">conc_var</span>, <span class="va">lod_data</span><span class="op">$</span><span class="va">signal_var</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0.9779585</span></span></code></pre></div>
 <p>One example is the use of the Percent Residual Accuracy found in <a href="https://doi.org/10.1016/j.talanta.2018.07.046" class="external-link">Logue, B. A. and Manandhar, E.</a> which is more sensitive than Pearson correlation coefficient. Observe that the linear dilution curve gives a higher value compared to than the other two curves.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">DCVtestkit</span><span class="fu">::</span><span class="fu"><a href="reference/calculate_pra_linear.html">calculate_pra_linear</a></span><span class="op">(</span>dilution_data <span class="op">=</span> <span class="va">linear_data</span>,</span>
-<span>                                 conc_var <span class="op">=</span> <span class="st">"conc_var"</span>,</span>
-<span>                                 signal_var <span class="op">=</span> <span class="st">"signal_var"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu">DCVtestkit</span><span class="fu">::</span><span class="fu"><a href="reference/calculate_pra_linear.html">calculate_pra_linear</a></span><span class="op">(</span></span>
+<span>  dilution_data <span class="op">=</span> <span class="va">linear_data</span>,</span>
+<span>  conc_var <span class="op">=</span> <span class="st">"conc_var"</span>,</span>
+<span>  signal_var <span class="op">=</span> <span class="st">"signal_var"</span></span>
+<span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 94.32046</span></span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">DCVtestkit</span><span class="fu">::</span><span class="fu"><a href="reference/calculate_pra_linear.html">calculate_pra_linear</a></span><span class="op">(</span>dilution_data <span class="op">=</span> <span class="va">saturated_data</span>,</span>
-<span>                                 conc_var <span class="op">=</span> <span class="st">"conc_var"</span>,</span>
-<span>                                 signal_var <span class="op">=</span> <span class="st">"signal_var"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu">DCVtestkit</span><span class="fu">::</span><span class="fu"><a href="reference/calculate_pra_linear.html">calculate_pra_linear</a></span><span class="op">(</span></span>
+<span>  dilution_data <span class="op">=</span> <span class="va">saturated_data</span>,</span>
+<span>  conc_var <span class="op">=</span> <span class="st">"conc_var"</span>,</span>
+<span>  signal_var <span class="op">=</span> <span class="st">"signal_var"</span></span>
+<span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 62.30351</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">DCVtestkit</span><span class="fu">::</span><span class="fu"><a href="reference/calculate_pra_linear.html">calculate_pra_linear</a></span><span class="op">(</span>dilution_data <span class="op">=</span> <span class="va">lod_data</span>,</span>
-<span>                                 conc_var <span class="op">=</span> <span class="st">"conc_var"</span>,</span>
-<span>                                 signal_var <span class="op">=</span> <span class="st">"signal_var"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu">DCVtestkit</span><span class="fu">::</span><span class="fu"><a href="reference/calculate_pra_linear.html">calculate_pra_linear</a></span><span class="op">(</span></span>
+<span>  dilution_data <span class="op">=</span> <span class="va">lod_data</span>,</span>
+<span>  conc_var <span class="op">=</span> <span class="st">"conc_var"</span>,</span>
+<span>  signal_var <span class="op">=</span> <span class="st">"signal_var"</span></span>
+<span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 74.69452</span></span></code></pre></div>
 <p>Another example is the use of the Mandel’s Fitting Test. Observe that the two non-linear dilution curves give a very low p value.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">DCVtestkit</span><span class="fu">::</span><span class="fu"><a href="reference/calculate_mandel.html">calculate_mandel</a></span><span class="op">(</span>dilution_data <span class="op">=</span> <span class="va">linear_data</span>,</span>
-<span>                             conc_var <span class="op">=</span> <span class="st">"conc_var"</span>,</span>
-<span>                             signal_var <span class="op">=</span> <span class="st">"signal_var"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu">DCVtestkit</span><span class="fu">::</span><span class="fu"><a href="reference/calculate_mandel.html">calculate_mandel</a></span><span class="op">(</span></span>
+<span>  dilution_data <span class="op">=</span> <span class="va">linear_data</span>,</span>
+<span>  conc_var <span class="op">=</span> <span class="st">"conc_var"</span>,</span>
+<span>  signal_var <span class="op">=</span> <span class="st">"signal_var"</span></span>
+<span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 1 × 2</span></span>
 <span><span class="co">#&gt;   mandel_stats mandel_p_val</span></span>
 <span><span class="co">#&gt;          &lt;dbl&gt;        &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1        0.868        0.382</span></span></code></pre></div>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">DCVtestkit</span><span class="fu">::</span><span class="fu"><a href="reference/calculate_mandel.html">calculate_mandel</a></span><span class="op">(</span>dilution_data <span class="op">=</span> <span class="va">saturated_data</span>,</span>
-<span>                             conc_var <span class="op">=</span> <span class="st">"conc_var"</span>,</span>
-<span>                             signal_var <span class="op">=</span> <span class="st">"signal_var"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu">DCVtestkit</span><span class="fu">::</span><span class="fu"><a href="reference/calculate_mandel.html">calculate_mandel</a></span><span class="op">(</span></span>
+<span>  dilution_data <span class="op">=</span> <span class="va">saturated_data</span>,</span>
+<span>  conc_var <span class="op">=</span> <span class="st">"conc_var"</span>,</span>
+<span>  signal_var <span class="op">=</span> <span class="st">"signal_var"</span></span>
+<span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 1 × 2</span></span>
 <span><span class="co">#&gt;   mandel_stats mandel_p_val</span></span>
 <span><span class="co">#&gt;          &lt;dbl&gt;        &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1         52.9     0.000166</span></span></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">DCVtestkit</span><span class="fu">::</span><span class="fu"><a href="reference/calculate_mandel.html">calculate_mandel</a></span><span class="op">(</span>dilution_data <span class="op">=</span> <span class="va">lod_data</span>,</span>
-<span>                             conc_var <span class="op">=</span> <span class="st">"conc_var"</span>,</span>
-<span>                             signal_var <span class="op">=</span> <span class="st">"signal_var"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu">DCVtestkit</span><span class="fu">::</span><span class="fu"><a href="reference/calculate_mandel.html">calculate_mandel</a></span><span class="op">(</span></span>
+<span>  dilution_data <span class="op">=</span> <span class="va">lod_data</span>,</span>
+<span>  conc_var <span class="op">=</span> <span class="st">"conc_var"</span>,</span>
+<span>  signal_var <span class="op">=</span> <span class="st">"signal_var"</span></span>
+<span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 1 × 2</span></span>
 <span><span class="co">#&gt;   mandel_stats mandel_p_val</span></span>
 <span><span class="co">#&gt;          &lt;dbl&gt;        &lt;dbl&gt;</span></span>
@@ -267,49 +291,67 @@ Equation ( 6 ) is used.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://slinghub.github.io/DCVtestkit/">DCVtestkit</a></span><span class="op">)</span></span>
 <span><span class="co"># Data Creation</span></span>
-<span><span class="va">dilution_percent</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">25</span>, <span class="fl">40</span>, <span class="fl">50</span>, <span class="fl">60</span>,</span>
-<span>                      <span class="fl">75</span>, <span class="fl">80</span>, <span class="fl">100</span>, <span class="fl">125</span>, <span class="fl">150</span>,</span>
-<span>                      <span class="fl">10</span>, <span class="fl">25</span>, <span class="fl">40</span>, <span class="fl">50</span>, <span class="fl">60</span>,</span>
-<span>                      <span class="fl">75</span>, <span class="fl">80</span>, <span class="fl">100</span>, <span class="fl">125</span>, <span class="fl">150</span><span class="op">)</span></span>
-<span><span class="va">dilution_batch_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>,</span>
-<span>                         <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>,</span>
-<span>                         <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>,</span>
-<span>                         <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span><span class="op">)</span></span>
-<span><span class="va">sample_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sample_010a"</span>, <span class="st">"Sample_020a"</span>, <span class="st">"Sample_025a"</span>,</span>
-<span>                 <span class="st">"Sample_040a"</span>, <span class="st">"Sample_050a"</span>, <span class="st">"Sample_060a"</span>,</span>
-<span>                 <span class="st">"Sample_075a"</span>, <span class="st">"Sample_080a"</span>, <span class="st">"Sample_100a"</span>,</span>
-<span>                 <span class="st">"Sample_125a"</span>, <span class="st">"Sample_150a"</span>,</span>
-<span>                 <span class="st">"Sample_010b"</span>, <span class="st">"Sample_025b"</span>,</span>
-<span>                 <span class="st">"Sample_040b"</span>, <span class="st">"Sample_050b"</span>, <span class="st">"Sample_060b"</span>,</span>
-<span>                 <span class="st">"Sample_075b"</span>, <span class="st">"Sample_080b"</span>, <span class="st">"Sample_100b"</span>,</span>
-<span>                 <span class="st">"Sample_125b"</span>, <span class="st">"Sample_150b"</span><span class="op">)</span></span>
-<span><span class="va">lipid1_area_saturated</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5748124</span>, <span class="fl">16616414</span>, <span class="fl">21702718</span>, <span class="fl">36191617</span>,</span>
-<span>                           <span class="fl">49324541</span>, <span class="fl">55618266</span>, <span class="fl">66947588</span>, <span class="fl">74964771</span>,</span>
-<span>                           <span class="fl">75438063</span>, <span class="fl">91770737</span>, <span class="fl">94692060</span>,</span>
-<span>                           <span class="fl">5192648</span>, <span class="fl">16594991</span>, <span class="fl">32507833</span>, <span class="fl">46499896</span>,</span>
-<span>                           <span class="fl">55388856</span>, <span class="fl">62505210</span>, <span class="fl">62778078</span>, <span class="fl">72158161</span>,</span>
-<span>                           <span class="fl">78044338</span>, <span class="fl">86158414</span><span class="op">)</span></span>
-<span><span class="va">lipid2_area_linear</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">31538</span>, <span class="fl">53709</span>, <span class="fl">69990</span>, <span class="fl">101977</span>, <span class="fl">146436</span>, <span class="fl">180960</span>,</span>
-<span>                        <span class="fl">232881</span>, <span class="fl">283780</span>, <span class="fl">298289</span>, <span class="fl">344519</span>, <span class="fl">430432</span>,</span>
-<span>                        <span class="fl">25463</span>, <span class="fl">63387</span>, <span class="fl">90624</span>, <span class="fl">131274</span>, <span class="fl">138069</span>,</span>
-<span>                        <span class="fl">205353</span>, <span class="fl">202407</span>, <span class="fl">260205</span>, <span class="fl">292257</span>, <span class="fl">367924</span><span class="op">)</span></span>
-<span><span class="va">lipid3_area_lod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">544</span>, <span class="fl">397</span>, <span class="fl">829</span>, <span class="fl">1437</span>, <span class="fl">1808</span>, <span class="fl">2231</span>,</span>
-<span>                     <span class="fl">3343</span>, <span class="fl">2915</span>, <span class="fl">5268</span>, <span class="fl">8031</span>, <span class="fl">11045</span>,</span>
-<span>                     <span class="fl">500</span>, <span class="fl">903</span>, <span class="fl">1267</span>, <span class="fl">2031</span>, <span class="fl">2100</span>,</span>
-<span>                     <span class="fl">3563</span>, <span class="fl">4500</span>, <span class="fl">5300</span>, <span class="fl">8500</span>, <span class="fl">10430</span><span class="op">)</span></span>
-<span><span class="va">lipid4_area_nonlinear</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">380519</span>, <span class="fl">485372</span>, <span class="fl">478770</span>, <span class="fl">474467</span>, <span class="fl">531640</span>, <span class="fl">576301</span>,</span>
-<span>                           <span class="fl">501068</span>, <span class="fl">550201</span>, <span class="fl">515110</span>, <span class="fl">499543</span>, <span class="fl">474745</span>,</span>
-<span>                           <span class="fl">197417</span>, <span class="fl">322846</span>, <span class="fl">478398</span>, <span class="fl">423174</span>, <span class="fl">418577</span>,</span>
-<span>                           <span class="fl">426089</span>, <span class="fl">413292</span>, <span class="fl">450190</span>, <span class="fl">415309</span>, <span class="fl">457618</span><span class="op">)</span></span>
+<span><span class="va">dilution_percent</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">25</span>, <span class="fl">40</span>, <span class="fl">50</span>, <span class="fl">60</span>,</span>
+<span>  <span class="fl">75</span>, <span class="fl">80</span>, <span class="fl">100</span>, <span class="fl">125</span>, <span class="fl">150</span>,</span>
+<span>  <span class="fl">10</span>, <span class="fl">25</span>, <span class="fl">40</span>, <span class="fl">50</span>, <span class="fl">60</span>,</span>
+<span>  <span class="fl">75</span>, <span class="fl">80</span>, <span class="fl">100</span>, <span class="fl">125</span>, <span class="fl">150</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">dilution_batch_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>,</span>
+<span>  <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>,</span>
+<span>  <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>,</span>
+<span>  <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">sample_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="st">"Sample_010a"</span>, <span class="st">"Sample_020a"</span>, <span class="st">"Sample_025a"</span>,</span>
+<span>  <span class="st">"Sample_040a"</span>, <span class="st">"Sample_050a"</span>, <span class="st">"Sample_060a"</span>,</span>
+<span>  <span class="st">"Sample_075a"</span>, <span class="st">"Sample_080a"</span>, <span class="st">"Sample_100a"</span>,</span>
+<span>  <span class="st">"Sample_125a"</span>, <span class="st">"Sample_150a"</span>,</span>
+<span>  <span class="st">"Sample_010b"</span>, <span class="st">"Sample_025b"</span>,</span>
+<span>  <span class="st">"Sample_040b"</span>, <span class="st">"Sample_050b"</span>, <span class="st">"Sample_060b"</span>,</span>
+<span>  <span class="st">"Sample_075b"</span>, <span class="st">"Sample_080b"</span>, <span class="st">"Sample_100b"</span>,</span>
+<span>  <span class="st">"Sample_125b"</span>, <span class="st">"Sample_150b"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">lipid1_area_saturated</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="fl">5748124</span>, <span class="fl">16616414</span>, <span class="fl">21702718</span>, <span class="fl">36191617</span>,</span>
+<span>  <span class="fl">49324541</span>, <span class="fl">55618266</span>, <span class="fl">66947588</span>, <span class="fl">74964771</span>,</span>
+<span>  <span class="fl">75438063</span>, <span class="fl">91770737</span>, <span class="fl">94692060</span>,</span>
+<span>  <span class="fl">5192648</span>, <span class="fl">16594991</span>, <span class="fl">32507833</span>, <span class="fl">46499896</span>,</span>
+<span>  <span class="fl">55388856</span>, <span class="fl">62505210</span>, <span class="fl">62778078</span>, <span class="fl">72158161</span>,</span>
+<span>  <span class="fl">78044338</span>, <span class="fl">86158414</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">lipid2_area_linear</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="fl">31538</span>, <span class="fl">53709</span>, <span class="fl">69990</span>, <span class="fl">101977</span>, <span class="fl">146436</span>, <span class="fl">180960</span>,</span>
+<span>  <span class="fl">232881</span>, <span class="fl">283780</span>, <span class="fl">298289</span>, <span class="fl">344519</span>, <span class="fl">430432</span>,</span>
+<span>  <span class="fl">25463</span>, <span class="fl">63387</span>, <span class="fl">90624</span>, <span class="fl">131274</span>, <span class="fl">138069</span>,</span>
+<span>  <span class="fl">205353</span>, <span class="fl">202407</span>, <span class="fl">260205</span>, <span class="fl">292257</span>, <span class="fl">367924</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">lipid3_area_lod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="fl">544</span>, <span class="fl">397</span>, <span class="fl">829</span>, <span class="fl">1437</span>, <span class="fl">1808</span>, <span class="fl">2231</span>,</span>
+<span>  <span class="fl">3343</span>, <span class="fl">2915</span>, <span class="fl">5268</span>, <span class="fl">8031</span>, <span class="fl">11045</span>,</span>
+<span>  <span class="fl">500</span>, <span class="fl">903</span>, <span class="fl">1267</span>, <span class="fl">2031</span>, <span class="fl">2100</span>,</span>
+<span>  <span class="fl">3563</span>, <span class="fl">4500</span>, <span class="fl">5300</span>, <span class="fl">8500</span>, <span class="fl">10430</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">lipid4_area_nonlinear</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="fl">380519</span>, <span class="fl">485372</span>, <span class="fl">478770</span>, <span class="fl">474467</span>, <span class="fl">531640</span>, <span class="fl">576301</span>,</span>
+<span>  <span class="fl">501068</span>, <span class="fl">550201</span>, <span class="fl">515110</span>, <span class="fl">499543</span>, <span class="fl">474745</span>,</span>
+<span>  <span class="fl">197417</span>, <span class="fl">322846</span>, <span class="fl">478398</span>, <span class="fl">423174</span>, <span class="fl">418577</span>,</span>
+<span>  <span class="fl">426089</span>, <span class="fl">413292</span>, <span class="fl">450190</span>, <span class="fl">415309</span>, <span class="fl">457618</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">dilution_annot</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>Sample_Name <span class="op">=</span> <span class="va">sample_name</span>,</span>
-<span>                                 Dilution_Batch_Name <span class="op">=</span> <span class="va">dilution_batch_name</span>,</span>
-<span>                                 Dilution_Percent <span class="op">=</span> <span class="va">dilution_percent</span><span class="op">)</span></span>
-<span><span class="va">lipid_data</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>Sample_Name <span class="op">=</span> <span class="va">sample_name</span>,</span>
-<span>                             Lipid1 <span class="op">=</span> <span class="va">lipid1_area_saturated</span>,</span>
-<span>                             Lipid2 <span class="op">=</span> <span class="va">lipid2_area_linear</span>,</span>
-<span>                             Lipid3 <span class="op">=</span> <span class="va">lipid3_area_lod</span>,</span>
-<span>                             Lipid4 <span class="op">=</span> <span class="va">lipid4_area_nonlinear</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">dilution_annot</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>  Sample_Name <span class="op">=</span> <span class="va">sample_name</span>,</span>
+<span>  Dilution_Batch_Name <span class="op">=</span> <span class="va">dilution_batch_name</span>,</span>
+<span>  Dilution_Percent <span class="op">=</span> <span class="va">dilution_percent</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">lipid_data</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>  Sample_Name <span class="op">=</span> <span class="va">sample_name</span>,</span>
+<span>  Lipid1 <span class="op">=</span> <span class="va">lipid1_area_saturated</span>,</span>
+<span>  Lipid2 <span class="op">=</span> <span class="va">lipid2_area_linear</span>,</span>
+<span>  Lipid3 <span class="op">=</span> <span class="va">lipid3_area_lod</span>,</span>
+<span>  Lipid4 <span class="op">=</span> <span class="va">lipid4_area_nonlinear</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>The <code>dilution_annot</code> should look like this.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">dilution_annot</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
@@ -347,11 +389,13 @@ Equation ( 6 ) is used.</p>
 <p>Merge the data together using <code>create_dilution_table</code></p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create dilution table</span></span>
-<span><span class="va">dilution_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/create_dilution_table.html">create_dilution_table</a></span><span class="op">(</span><span class="va">dilution_annot</span>, <span class="va">lipid_data</span>,</span>
-<span>                                        common_column <span class="op">=</span> <span class="st">"Sample_Name"</span>,</span>
-<span>                                        signal_var <span class="op">=</span> <span class="st">"Area"</span>,</span>
-<span>                                        column_group <span class="op">=</span> <span class="st">"Transition_Name"</span></span>
-<span>                                        <span class="op">)</span></span></code></pre></div>
+<span><span class="va">dilution_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/create_dilution_table.html">create_dilution_table</a></span><span class="op">(</span></span>
+<span>  dilution_annot <span class="op">=</span> <span class="va">dilution_annot</span>, </span>
+<span>  lipid_data_wide <span class="op">=</span> <span class="va">lipid_data</span>,</span>
+<span>  common_column <span class="op">=</span> <span class="st">"Sample_Name"</span>,</span>
+<span>  signal_var <span class="op">=</span> <span class="st">"Area"</span>,</span>
+<span>  column_group <span class="op">=</span> <span class="st">"Transition_Name"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">dilution_table</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 84 × 5</span></span>
@@ -371,11 +415,15 @@ Equation ( 6 ) is used.</p>
 <p>Summarise each dilution curve for each transition and batch with <code>summarise_dilution_table</code></p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create dilution statistical summary</span></span>
-<span><span class="va">dilution_summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/summarise_dilution_table.html">summarise_dilution_table</a></span><span class="op">(</span><span class="va">dilution_table</span>,</span>
-<span>                                             grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Transition_Name"</span>,</span>
-<span>                                                                    <span class="st">"Dilution_Batch_Name"</span><span class="op">)</span>,</span>
-<span>                                             conc_var <span class="op">=</span> <span class="st">"Dilution_Percent"</span>,</span>
-<span>                                             signal_var <span class="op">=</span> <span class="st">"Area"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">dilution_summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/summarise_dilution_table.html">summarise_dilution_table</a></span><span class="op">(</span></span>
+<span>  dilution_table <span class="op">=</span> <span class="va">dilution_table</span>,</span>
+<span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"Transition_Name"</span>,</span>
+<span>    <span class="st">"Dilution_Batch_Name"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  conc_var <span class="op">=</span> <span class="st">"Dilution_Percent"</span>,</span>
+<span>  signal_var <span class="op">=</span> <span class="st">"Area"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">dilution_summary</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 8 × 9</span></span>
@@ -401,9 +449,13 @@ Equation ( 6 ) is used.</p>
 <span><span class="co">#&gt; 8        5.39    0.0533          -73.1   -22.9</span></span></code></pre></div>
 <p>Classify each dilution curve according to Workflow 1 and Workflow 2.<br><code>wf1_group1</code> gives the results of Workflow 1<br><code>wf2_group2</code> gives the results of Workflow 2</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dilution_classified</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/evaluate_linearity.html">evaluate_linearity</a></span><span class="op">(</span><span class="va">dilution_summary</span>,</span>
-<span>                                          grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Transition_Name"</span>,</span>
-<span>                                                                <span class="st">"Dilution_Batch_Name"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">dilution_classified</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/evaluate_linearity.html">evaluate_linearity</a></span><span class="op">(</span></span>
+<span>  dilution_summary <span class="op">=</span> <span class="va">dilution_summary</span>,</span>
+<span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"Transition_Name"</span>,</span>
+<span>    <span class="st">"Dilution_Batch_Name"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">dilution_classified</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 8 × 11</span></span>
@@ -433,27 +485,39 @@ Equation ( 6 ) is used.</p>
 </h2>
 <p>Results can be exported to Excel via <code>write_summary_excel</code></p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/write_summary_excel.html">write_summary_excel</a></span><span class="op">(</span><span class="va">dilution_classified</span>, file_name <span class="op">=</span> <span class="st">"dilution_summary.xlsx"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/write_summary_excel.html">write_summary_excel</a></span><span class="op">(</span></span>
+<span>  dilution_summary <span class="op">=</span> <span class="va">dilution_classified</span>, </span>
+<span>  file_name <span class="op">=</span> <span class="st">"dilution_summary.xlsx"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="reference/figures/README-ExcelResults.png" alt=""><p class="caption">Excel Report</p>
 </div>
 <p>Results can be plotted using <code>add_ggplot_panel</code>. This will create a column called panel that contains all the <code>ggplot</code> plots</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ggplot_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/add_ggplot_panel.html">add_ggplot_panel</a></span><span class="op">(</span><span class="va">dilution_table</span>,</span>
-<span>                                 dilution_summary <span class="op">=</span> <span class="va">dilution_classified</span>,</span>
-<span>                                 grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Transition_Name"</span>,</span>
-<span>                                                      <span class="st">"Dilution_Batch_Name"</span><span class="op">)</span>,</span>
-<span>                                 conc_var <span class="op">=</span> <span class="st">"Dilution_Percent"</span>,</span>
-<span>                                 signal_var <span class="op">=</span> <span class="st">"Area"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">ggplot_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/add_ggplot_panel.html">add_ggplot_panel</a></span><span class="op">(</span></span>
+<span>  dilution_table <span class="op">=</span> <span class="va">dilution_table</span>,</span>
+<span>  dilution_summary <span class="op">=</span> <span class="va">dilution_classified</span>,</span>
+<span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"Transition_Name"</span>,</span>
+<span>    <span class="st">"Dilution_Batch_Name"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  dil_batch_var <span class="op">=</span> <span class="st">"Dilution_Batch_Name"</span>,</span>
+<span>  dil_batch_col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#377eb8"</span>, <span class="st">"#4daf4a"</span><span class="op">)</span>,</span>
+<span>  conc_var <span class="op">=</span> <span class="st">"Dilution_Percent"</span>,</span>
+<span>  conc_var_units <span class="op">=</span> <span class="st">"%"</span>,</span>
+<span>  conc_var_interval <span class="op">=</span> <span class="fl">50</span>,</span>
+<span>  signal_var <span class="op">=</span> <span class="st">"Area"</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Get the list of ggplot list for each group</span></span>
 <span><span class="va">ggplot_list</span> <span class="op">&lt;-</span> <span class="va">ggplot_table</span><span class="op">$</span><span class="va">panel</span></span></code></pre></div>
 <p>Use <code>view_ggplot_pdf</code> to export the plots in a pdf file</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/view_ggplot_pdf.html">view_ggplot_pdf</a></span><span class="op">(</span><span class="va">ggplot_list</span>,</span>
-<span>                filename <span class="op">=</span> <span class="st">"dilution_plot.pdf"</span>,</span>
-<span>                ncol_per_page <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>                nrow_per_page <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/view_ggplot_pdf.html">view_ggplot_pdf</a></span><span class="op">(</span></span>
+<span>  ggplot_list <span class="op">=</span> <span class="va">ggplot_list</span>,</span>
+<span>  filename <span class="op">=</span> <span class="st">"dilution_plot.pdf"</span>,</span>
+<span>  ncol_per_page <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  nrow_per_page <span class="op">=</span> <span class="fl">2</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="reference/figures/README-PDFResults1.png" alt=""><p class="caption">README-PDF Results1</p>
 </div>
@@ -464,33 +528,46 @@ Equation ( 6 ) is used.</p>
 <p>To create an interactive trelliscope display as seen in <a href="https://hafen.github.io/trelliscopejs/articles/trelliscopejs.html" class="external-link">here</a>, each columns must be converted to a cognostics class. This is done using the function <code>convert_to_cog</code></p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create a trellis table</span></span>
-<span><span class="va">trellis_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/add_plotly_panel.html">add_plotly_panel</a></span><span class="op">(</span><span class="va">dilution_table</span>,</span>
-<span>                                  dilution_summary <span class="op">=</span> <span class="va">dilution_classified</span>,</span>
-<span>                                  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Transition_Name"</span>,</span>
-<span>                                                        <span class="st">"Dilution_Batch_Name"</span><span class="op">)</span>,</span>
-<span>                                  sample_name_var <span class="op">=</span> <span class="st">"Sample_Name"</span>,</span>
-<span>                                  dil_batch_var <span class="op">=</span> <span class="st">"Dilution_Batch_Name"</span>,</span>
-<span>                                  dil_batch_col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#377eb8"</span>,</span>
-<span>                                                    <span class="st">"#4daf4a"</span><span class="op">)</span>,</span>
-<span>                                  conc_var <span class="op">=</span> <span class="st">"Dilution_Percent"</span>,</span>
-<span>                                  conc_var_units <span class="op">=</span> <span class="st">"%"</span>,</span>
-<span>                                  conc_var_interval <span class="op">=</span> <span class="fl">50</span>,</span>
-<span>                                  signal_var <span class="op">=</span> <span class="st">"Area"</span>,</span>
-<span>                                  have_plot_title <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="reference/convert_to_cog.html">convert_to_cog</a></span><span class="op">(</span>grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Transition_Name"</span>,</span>
-<span>                                       <span class="st">"Dilution_Batch_Name"</span><span class="op">)</span>,</span>
-<span>                 panel_variable <span class="op">=</span> <span class="st">"panel"</span>,</span>
-<span>                 col_name_vec <span class="op">=</span> <span class="st">"col_name_vec"</span>,</span>
-<span>                 desc_vec <span class="op">=</span> <span class="st">"desc_vec"</span>,</span>
-<span>                 type_vec <span class="op">=</span> <span class="st">"type_vec"</span></span>
+<span><span class="va">trellis_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/add_plotly_panel.html">add_plotly_panel</a></span><span class="op">(</span></span>
+<span>  dilution_table <span class="op">=</span> <span class="va">dilution_table</span>,</span>
+<span>  dilution_summary <span class="op">=</span> <span class="va">dilution_classified</span>,</span>
+<span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"Transition_Name"</span>,</span>
+<span>    <span class="st">"Dilution_Batch_Name"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  sample_name_var <span class="op">=</span> <span class="st">"Sample_Name"</span>,</span>
+<span>  dil_batch_var <span class="op">=</span> <span class="st">"Dilution_Batch_Name"</span>,</span>
+<span>  dil_batch_col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"#377eb8"</span>,</span>
+<span>    <span class="st">"#4daf4a"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  conc_var <span class="op">=</span> <span class="st">"Dilution_Percent"</span>,</span>
+<span>  conc_var_units <span class="op">=</span> <span class="st">"%"</span>,</span>
+<span>  conc_var_interval <span class="op">=</span> <span class="fl">50</span>,</span>
+<span>  signal_var <span class="op">=</span> <span class="st">"Area"</span>,</span>
+<span>  have_plot_title <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="reference/convert_to_cog.html">convert_to_cog</a></span><span class="op">(</span></span>
+<span>    grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>      <span class="st">"Transition_Name"</span>,</span>
+<span>      <span class="st">"Dilution_Batch_Name"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    panel_variable <span class="op">=</span> <span class="st">"panel"</span>,</span>
+<span>    col_name_vec <span class="op">=</span> <span class="st">"col_name_vec"</span>,</span>
+<span>    desc_vec <span class="op">=</span> <span class="st">"desc_vec"</span>,</span>
+<span>    type_vec <span class="op">=</span> <span class="st">"type_vec"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p>Use <code>view_trellis_html</code> on the R console to output the interactive trelliscope display</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/view_trellis_html.html">view_trellis_html</a></span><span class="op">(</span><span class="va">trellis_table</span>,</span>
-<span>                  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Transition_Name"</span>,</span>
-<span>                                        <span class="st">"Dilution_Batch_Name"</span><span class="op">)</span>,</span>
-<span>                  trellis_report_name <span class="op">=</span> <span class="st">"Dilution_Plot"</span>,</span>
-<span>                  trellis_report_folder <span class="op">=</span> <span class="st">"Dilution_Plot_Folder"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/view_trellis_html.html">view_trellis_html</a></span><span class="op">(</span></span>
+<span>  trellis_table <span class="op">=</span> <span class="va">trellis_table</span>,</span>
+<span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"Transition_Name"</span>,</span>
+<span>    <span class="st">"Dilution_Batch_Name"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  trellis_report_name <span class="op">=</span> <span class="st">"Dilution_Plot"</span>,</span>
+<span>  trellis_report_folder <span class="op">=</span> <span class="st">"Dilution_Plot_Folder"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="reference/figures/README-Trellis.gif" alt=""><p class="caption">README-Trellis</p>
 </div>
