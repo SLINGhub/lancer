@@ -2,13 +2,14 @@ pandoc: 2.14.2
 pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
-  ggplot-output: ggplot-output.html
+  ggplot-output-1: ggplot-output-1.html
+  ggplot-output-2: ggplot-output-2.html
   grouping: grouping.html
   lineval-customization: lineval-customization.html
   plotly-output: plotly-output.html
   tidy-demo: tidy-demo.html
   trellis-output: trellis-output.html
-last_built: 2022-10-11T09:08Z
+last_built: 2022-10-11T11:46Z
 urls:
   reference: https://slinghub.github.io/DCVtestkit/reference
   article: https://slinghub.github.io/DCVtestkit/articles

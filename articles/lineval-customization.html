@@ -50,7 +50,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/ggplot-output.html">Plots in ggplot2</a>
+      <a href="../articles/ggplot-output-1.html">Plots in ggplot2 Part 1</a>
+    </li>
+    <li>
+      <a href="../articles/ggplot-output-2.html">Plots in ggplot2 Part 2</a>
     </li>
     <li>
       <a href="../articles/grouping.html">Grouping Variables in Dilution Table</a>
@@ -114,22 +117,25 @@
 <span><span class="va">mandel_pval</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.00000029</span>, <span class="fl">0.290</span>, <span class="fl">0.000000032</span>, <span class="fl">0.0363</span><span class="op">)</span></span>
 <span><span class="va">concavity</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4134</span>, <span class="op">-</span><span class="fl">3.35</span>, <span class="fl">0.394</span>, <span class="op">-</span><span class="fl">19.9</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">dilution_summary</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>Transition_Name <span class="op">=</span> <span class="va">transition_name</span>,</span>
-<span>                                   Corrcoef <span class="op">=</span> <span class="va">corrcoef</span>,</span>
-<span>                                   Pra <span class="op">=</span> <span class="va">pra</span>,</span>
-<span>                                   Mandel_Pval <span class="op">=</span> <span class="va">mandel_pval</span>,</span>
-<span>                                   Concavity <span class="op">=</span> <span class="va">concavity</span></span>
-<span>                                   <span class="op">)</span></span></code></pre></div>
+<span><span class="va">dilution_summary</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span>  Transition_Name <span class="op">=</span> <span class="va">transition_name</span>,</span>
+<span>  Corrcoef <span class="op">=</span> <span class="va">corrcoef</span>,</span>
+<span>  Pra <span class="op">=</span> <span class="va">pra</span>,</span>
+<span>  Mandel_Pval <span class="op">=</span> <span class="va">mandel_pval</span>,</span>
+<span>  Concavity <span class="op">=</span> <span class="va">concavity</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="va">dilution_classified</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/evaluate_linearity.html">evaluate_linearity</a></span><span class="op">(</span><span class="va">dilution_summary</span>,</span>
-<span>                                          grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>                                            <span class="st">"Transition_Name"</span></span>
-<span>                                          <span class="op">)</span>,</span>
-<span>                                          corrcoef_column <span class="op">=</span> <span class="st">"Corrcoef"</span>,</span>
-<span>                                          pra_column <span class="op">=</span> <span class="st">"Pra"</span>,</span>
-<span>                                          mandel_p_val_column <span class="op">=</span> <span class="st">"Mandel_Pval"</span>,</span>
-<span>                                          concavity_column <span class="op">=</span> <span class="st">"Concavity"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">dilution_classified</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/evaluate_linearity.html">evaluate_linearity</a></span><span class="op">(</span></span>
+<span>  dilution_summary <span class="op">=</span> <span class="va">dilution_summary</span>,</span>
+<span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"Transition_Name"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  corrcoef_column <span class="op">=</span> <span class="st">"Corrcoef"</span>,</span>
+<span>  pra_column <span class="op">=</span> <span class="st">"Pra"</span>,</span>
+<span>  mandel_p_val_column <span class="op">=</span> <span class="st">"Mandel_Pval"</span>,</span>
+<span>  concavity_column <span class="op">=</span> <span class="st">"Concavity"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">dilution_classified</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 7</span></span></span>
@@ -148,17 +154,19 @@
 <p>One can change the threshold of the Correlation Coefficient (0.8), Percent Residual Accuracy (80) and Mandel’s Fitting Test p value (0.05) using <code>corrcoef_min_threshold</code>, <code>pra_min_threshold</code> and <code>mandel_p_val_threshold</code> respectively.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="va">dilution_classified</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/evaluate_linearity.html">evaluate_linearity</a></span><span class="op">(</span><span class="va">dilution_summary</span>,</span>
-<span>                                          grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>                                            <span class="st">"Transition_Name"</span></span>
-<span>                                            <span class="op">)</span>,</span>
-<span>                                          corrcoef_column <span class="op">=</span> <span class="st">"Corrcoef"</span>,</span>
-<span>                                          corrcoef_min_threshold <span class="op">=</span> <span class="fl">0.7</span>,</span>
-<span>                                          pra_column <span class="op">=</span> <span class="st">"Pra"</span>,</span>
-<span>                                          pra_min_threshold <span class="op">=</span> <span class="fl">70</span>,</span>
-<span>                                          mandel_p_val_column <span class="op">=</span> <span class="st">"Mandel_Pval"</span>,</span>
-<span>                                          mandel_p_val_threshold <span class="op">=</span> <span class="fl">0.01</span>,</span>
-<span>                                          concavity_column <span class="op">=</span> <span class="st">"Concavity"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">dilution_classified</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/evaluate_linearity.html">evaluate_linearity</a></span><span class="op">(</span></span>
+<span>  dilution_summary <span class="op">=</span> <span class="va">dilution_summary</span>,</span>
+<span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"Transition_Name"</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  corrcoef_column <span class="op">=</span> <span class="st">"Corrcoef"</span>,</span>
+<span>  corrcoef_min_threshold <span class="op">=</span> <span class="fl">0.7</span>,</span>
+<span>  pra_column <span class="op">=</span> <span class="st">"Pra"</span>,</span>
+<span>  pra_min_threshold <span class="op">=</span> <span class="fl">70</span>,</span>
+<span>  mandel_p_val_column <span class="op">=</span> <span class="st">"Mandel_Pval"</span>,</span>
+<span>  mandel_p_val_threshold <span class="op">=</span> <span class="fl">0.01</span>,</span>
+<span>  concavity_column <span class="op">=</span> <span class="st">"Concavity"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">dilution_classified</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 7</span></span></span>
@@ -176,18 +184,19 @@
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>   -<span style="color: #BB0000;">19.9</span></span></span></code></pre></div>
 <p>Likewise for the excel output using the function <code>write_summary_excel</code>, we can choose which column to be Correlation Coefficient, Percent Residual Accuracy and Mandel’s Fitting Test p value, as well as its threshold value. The sheet name can also be changed.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/write_summary_excel.html">write_summary_excel</a></span><span class="op">(</span><span class="va">dilution_classified</span>,</span>
-<span>                    file_name <span class="op">=</span> <span class="st">"dilution_summary.xlsx"</span>,</span>
-<span>                    sheet_name <span class="op">=</span> <span class="st">"Dilution Summary"</span>,</span>
-<span>                    corrcoef_column <span class="op">=</span> <span class="st">"Corrcoef"</span>,</span>
-<span>                    corrcoef_min_threshold <span class="op">=</span> <span class="fl">0.7</span>,</span>
-<span>                    pra_column <span class="op">=</span> <span class="st">"Pra"</span>,</span>
-<span>                    pra_min_threshold <span class="op">=</span> <span class="fl">70</span>,</span>
-<span>                    mandel_p_val_column <span class="op">=</span> <span class="st">"Mandel_Pval"</span>,</span>
-<span>                    mandel_p_val_threshold <span class="op">=</span> <span class="fl">0.01</span>,</span>
-<span>                    workflow1_column <span class="op">=</span> <span class="st">"wf1_group"</span>,</span>
-<span>                    workflow2_column <span class="op">=</span> <span class="st">"wf2_group"</span>,</span>
-<span>                    pass_criteria_words <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Good Linearity"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/write_summary_excel.html">write_summary_excel</a></span><span class="op">(</span></span>
+<span>  dilution_summary <span class="op">=</span> <span class="va">dilution_classified</span>,</span>
+<span>  file_name <span class="op">=</span> <span class="st">"dilution_summary.xlsx"</span>,</span>
+<span>  sheet_name <span class="op">=</span> <span class="st">"Dilution Summary"</span>,</span>
+<span>  corrcoef_column <span class="op">=</span> <span class="st">"Corrcoef"</span>,</span>
+<span>  corrcoef_min_threshold <span class="op">=</span> <span class="fl">0.7</span>,</span>
+<span>  pra_column <span class="op">=</span> <span class="st">"Pra"</span>,</span>
+<span>  pra_min_threshold <span class="op">=</span> <span class="fl">70</span>,</span>
+<span>  mandel_p_val_column <span class="op">=</span> <span class="st">"Mandel_Pval"</span>,</span>
+<span>  mandel_p_val_threshold <span class="op">=</span> <span class="fl">0.01</span>,</span>
+<span>  workflow1_column <span class="op">=</span> <span class="st">"wf1_group"</span>,</span>
+<span>  workflow2_column <span class="op">=</span> <span class="st">"wf2_group"</span>,</span>
+<span>  pass_criteria_words <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Good Linearity"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p><img src="vignettes-ExcelResultsCustom.png"></p>
   </div>
