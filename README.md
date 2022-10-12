@@ -28,6 +28,13 @@ You can install the development version from
 devtools::install_github("SLINGhub/DCVtestkit")
 ```
 
+If you want to use a proper release version, referenced by a Git tag
+(example: 0.0.2) install the package as follows:
+
+``` r
+devtools::install_github("SLINGhub/DCVtestkit", ref = "0.0.2")
+```
+
 ## Overview
 
 An overview of the workflow is as follows

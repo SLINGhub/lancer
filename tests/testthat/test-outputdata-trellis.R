@@ -56,6 +56,7 @@ test_that("Able to plot dilution data with
     Dilution_Batch_Name = dilution_batch_name,
     Dilution_Percent = dilution_percent
   )
+
   lipid_data <- tibble::tibble(
     Sample_Name = sample_name,
     Lipid1 = lipid1_area_saturated,
@@ -116,9 +117,16 @@ test_that("Able to plot dilution data with
 
   # Create a plotly trellis table with dil_batch_var
   # not as a grouping variable
+
+  dilution_table_filtered <- dilution_table %>%
+    dplyr::filter(.data[["Dilution_Batch_Name"]] == "B2")
+
+  dilution_summary_filtered <- dilution_summary %>%
+    dplyr::filter(.data[["Dilution_Batch_Name"]] == "B2")
+
   plotly_no_dil_batch_var <- add_plotly_panel(
-    dilution_table,
-    dilution_summary = dilution_summary,
+    dilution_table = dilution_table_filtered,
+    dilution_summary = dilution_summary_filtered,
     grouping_variable = c(
       "Transition_Name"
     ),
@@ -236,6 +244,22 @@ test_that("Able to plot dilution data with
       panel_variable = "paneldiff"
     )
 
+  # Check if convert_to_cog and view_trellis_html works
+  # if we have only one grouping variable
+  view_trellis_html(plotly_no_dil_batch_var,
+                    trellis_report_name = "Dilution_Plot_One_Group",
+                    trellis_report_folder = "Dilution_Plot",
+                    grouping_variable = c("Transition_Name")
+  )
+
+  # Check if convert_to_cog and view_trellis_html works
+  # if we add additional labels
+  view_trellis_html(plotly_no_dil_batch_var,
+                    trellis_report_name = "Dilution_Plot_Additional_Group",
+                    trellis_report_folder = "Dilution_Plot",
+                    grouping_variable = c("Transition_Name"),
+                    trellis_additional_labels = c("Dilution_Batch_Name")
+  )
 
   unlink("Dilution_Plot", recursive = TRUE)
 })
