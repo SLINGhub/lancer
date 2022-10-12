@@ -867,7 +867,6 @@ add_ggplot_panel <- function(dilution_table, dilution_summary = NULL,
   # Will not work if dil_batch_var is also a grouping_variable
 
   dilution_table <- dilution_table %>%
-    # dplyr::mutate(Dilution_Batch_Name = .data[[dil_batch_var]]) %>%
     dplyr::group_by_at(dplyr::all_of(grouping_variable)) %>%
     dplyr::relocate(dplyr::all_of(grouping_variable)) %>%
     tidyr::nest()

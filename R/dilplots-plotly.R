@@ -569,22 +569,33 @@ add_plotly_panel <- function(dilution_table, dilution_summary = NULL,
       dplyr::mutate(title = "")
   }
 
+  # Add dil_batch_var in the nested data
+  # Will not work if dil_batch_var is also a grouping_variable
+
+  dilution_table <- dilution_table %>%
+    dplyr::group_by_at(dplyr::all_of(c(grouping_variable, "title"))) %>%
+    dplyr::relocate(dplyr::all_of(c(grouping_variable, "title"))) %>%
+    tidyr::nest()
+
+  # If this is the case, we need to make a copy
+  # of the variable inside the nested data
+
+  if (dil_batch_var %in% grouping_variable) {
+    dilution_table <- dilution_table %>%
+      dplyr::mutate(data = purrr::map2(
+        .x = .data$data,
+        .y = .data[[dil_batch_var]],
+        .f = function(df, dilution_batch_name) {
+          df <- df %>%
+            dplyr::mutate(!!dil_batch_var := dilution_batch_name)
+          return(df)
+        }
+      ))
+  }
+
   # Group/Nest the dilution data for each group
   # and do a dilution plot for each of them
   dilution_plots <- dilution_table %>%
-    # dplyr::mutate(Dilution_Batch_Name = .data[[dil_batch_var]]) %>%
-    dplyr::group_by_at(dplyr::all_of(c(grouping_variable, "title"))) %>%
-    dplyr::relocate(dplyr::all_of(c(grouping_variable, "title"))) %>%
-    tidyr::nest() %>%
-    dplyr::mutate(data = purrr::map2(
-      .x = .data$data,
-      .y = .data[[dil_batch_var]],
-      .f = function(df, dilution_batch_name) {
-        df <- df %>%
-          dplyr::mutate(!!dil_batch_var := dilution_batch_name)
-        return(df)
-      }
-    )) %>%
     dplyr::ungroup() %>%
     dplyr::mutate(panel = trelliscopejs::map2_plot(
       .x = .data$data,
