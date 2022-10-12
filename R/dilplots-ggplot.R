@@ -863,24 +863,32 @@ add_ggplot_panel <- function(dilution_table, dilution_summary = NULL,
       dplyr::mutate(summary = NA)
   }
 
-  # Add a dummy "Dilution Batch Name", to be used for plotting later
-  # Does not work if we have a column with that name...
-  # Nest the data to be used for plotting
+  # Add dil_batch_var in the nested data
+  # Will not work if dil_batch_var is also a grouping_variable
 
   dilution_table <- dilution_table %>%
     # dplyr::mutate(Dilution_Batch_Name = .data[[dil_batch_var]]) %>%
     dplyr::group_by_at(dplyr::all_of(grouping_variable)) %>%
     dplyr::relocate(dplyr::all_of(grouping_variable)) %>%
-    tidyr::nest() %>%
-    dplyr::mutate(data = purrr::map2(
-      .x = .data$data,
-      .y = .data[[dil_batch_var]],
-      .f = function(df, dilution_batch_name) {
-        df <- df %>%
-          dplyr::mutate(!!dil_batch_var := dilution_batch_name)
-        return(df)
-      }
-    )) %>%
+    tidyr::nest()
+
+  # If this is the case, we need to make a copy
+  # of the variable inside the nested data
+
+  if (dil_batch_var %in% grouping_variable) {
+    dilution_table <- dilution_table %>%
+      dplyr::mutate(data = purrr::map2(
+        .x = .data$data,
+        .y = .data[[dil_batch_var]],
+        .f = function(df, dilution_batch_name) {
+          df <- df %>%
+            dplyr::mutate(!!dil_batch_var := dilution_batch_name)
+          return(df)
+        }
+      ))
+  }
+
+  dilution_table <- dilution_table %>%
     dplyr::ungroup() %>%
     dplyr::left_join(nested_dilution_summary, by = grouping_variable)
 
