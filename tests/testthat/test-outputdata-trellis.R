@@ -88,11 +88,16 @@ test_that("Able to plot dilution data with
       "Dilution_Batch_Name"
     ))
 
-
-  # Create a plotly trellis table
+  # Create a plotly trellis table with dil_batch_var
+  # as a grouping variable
   plotly_trellis_table <- add_plotly_panel(
     dilution_table,
-    dilution_summary = dilution_summary
+    dilution_summary = dilution_summary,
+    grouping_variable = c(
+      "Transition_Name",
+      "Dilution_Batch_Name"
+    ),
+    dil_batch_var = "Dilution_Batch_Name"
   ) %>%
     convert_to_cog(
       cog_df = NULL,
@@ -106,9 +111,37 @@ test_that("Able to plot dilution data with
       type_vec = "type_vec"
     )
 
-
   # Check if trellis_table is valid
   testthat::expect_silent(validate_trellis_table(plotly_trellis_table))
+
+  # Create a plotly trellis table with dil_batch_var
+  # not as a grouping variable
+  plotly_no_dil_batch_var <- add_plotly_panel(
+    dilution_table,
+    dilution_summary = dilution_summary,
+    grouping_variable = c(
+      "Transition_Name"
+    ),
+    dil_batch_var = "Dilution_Batch_Name"
+  ) %>%
+    convert_to_cog(
+      cog_df = NULL,
+      grouping_variable = c(
+        "Transition_Name"
+      ),
+      panel_variable = "panel",
+      col_name_vec = "col_name_vec",
+      desc_vec = "desc_vec",
+      type_vec = "type_vec"
+    )
+
+  # Check if trellis_table is valid
+  testthat::expect_silent(
+    validate_trellis_table(
+      trellis_table = plotly_no_dil_batch_var,
+      grouping_variable = c(
+        "Transition_Name")
+      ))
 
   # Create a trellis table without dilution summary
   plotly_trellis_table_auto <- add_plotly_panel(dilution_table) %>%
