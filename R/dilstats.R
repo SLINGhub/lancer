@@ -551,11 +551,18 @@ calculate_gof_linear <- function(dilution_data, conc_var, signal_var) {
   }
 
   # Get the correlation results
-  cor_result <- broom::tidy(stats::cor.test(dilution_data[[signal_var]],
-    dilution_data[[conc_var]],
+  # cor_result <- broom::tidy(stats::cor.test(dilution_data[[signal_var]],
+  #   dilution_data[[conc_var]],
+  #   method = "pearson"
+  # ))
+  # r_corr <- round(cor_result$estimate, digits = 6)
+  # names(r_corr) <- NULL
+  cor_result <- stats::cor(
+    x = dilution_data[[signal_var]],
+    y = dilution_data[[conc_var]],
     method = "pearson"
-  ))
-  r_corr <- round(cor_result$estimate, digits = 6)
+  )
+  r_corr <- round(cor_result, digits = 6)
 
   # Create the linear model on dilution data
   linear_model <- create_linear_model(dilution_data, conc_var, signal_var)

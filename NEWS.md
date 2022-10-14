@@ -2,6 +2,8 @@
 
 ## TODO
 
+* Fix issue that `r_corr` from `calculate_gof_linear` gives a named numeric vector.
+
 # DCVtestkit 0.0.3
 
 * Add the hex sticker logo for this package.
