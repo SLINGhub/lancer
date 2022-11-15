@@ -104,7 +104,7 @@ transition_annot <- tibble::tibble(
 ```{r dilution table}
 # Create dilution table and dilution statistical summary
 dilution_summary <- create_dilution_table(
-  dilution_annot = dilution_annot, 
+  dilution_annot = dilution_annot,
   lipid_data_wide = lipid_data,
   common_column = "Sample_Name",
   signal_var = "Area",
@@ -132,6 +132,6 @@ print(dilution_summary, width = 100)
 Results can be exported to Excel via `write_summary_excel`
 
 ```{r print to excel, eval = FALSE}
-write_summary_excel(dilution_summary = dilution_summary, 
+write_summary_excel(dilution_summary = dilution_summary,
                     file_name = "dilution_summary.xlsx")
 ```

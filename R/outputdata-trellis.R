@@ -257,7 +257,7 @@ view_trellis_html <- function(trellis_table,
   # If we only have one label to display
   # Set it as NULL as it will automatically
   # appeared in state
-  if(length(trellis_labels) == 1) {
+  if (length(trellis_labels) == 1) {
     trellis_labels <- NULL
   }
 

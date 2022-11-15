@@ -96,7 +96,7 @@ Order of the `Dilution_Batch_Name` and `Transition_Name` grouping variables is m
 ```{r dilution table}
 # Create dilution table and dilution statistical summary
 dilution_summary <- create_dilution_table(
-  dilution_annot = dilution_annot, 
+  dilution_annot = dilution_annot,
   lipid_data_wide = lipid_data,
   common_column = "Sample_Name",
   signal_var = "Area",

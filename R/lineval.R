@@ -104,14 +104,9 @@ evaluate_linearity <- function(dilution_summary,
 
     # Rearrange the column based on the first evaluation
     dilution_summary <- dilution_summary %>%
-      # dplyr::relocate(
-      #   dplyr::any_of(grouping_variable),
-      #   .data[["wf1_group"]], .data[[corrcoef_column]],
-      #   .data[[pra_column]]
-      # )
       dplyr::relocate(
         dplyr::any_of(
-          c(grouping_variable,"wf1_group",
+          c(grouping_variable, "wf1_group",
             corrcoef_column, pra_column)
         )
       )
@@ -140,15 +135,9 @@ evaluate_linearity <- function(dilution_summary,
 
   # Rearrange the column based on the first evaluation
   dilution_summary <- dilution_summary %>%
-    # dplyr::relocate(
-    #   dplyr::any_of(grouping_variable),
-    #   .data[["wf1_group"]], .data[["wf2_group"]],
-    #   .data[[corrcoef_column]], .data[[pra_column]],
-    #   .data[[mandel_p_val_column]], .data[[concavity_column]]
-    # )
     dplyr::relocate(
       dplyr::any_of(
-        c(grouping_variable,"wf1_group", "wf2_group",
+        c(grouping_variable, "wf1_group", "wf2_group",
           corrcoef_column, pra_column,
           mandel_p_val_column, concavity_column)
       )

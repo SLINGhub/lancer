@@ -94,7 +94,7 @@ lipid_data <- tibble::tibble(
 )
 
 dilution_table <- create_dilution_table(
-  dilution_annot = dilution_annot, 
+  dilution_annot = dilution_annot,
   lipid_data_wide = lipid_data,
   common_column = "Sample_Name",
   signal_var = "Area",
