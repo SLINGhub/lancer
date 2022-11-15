@@ -938,9 +938,10 @@ add_ggplot_panel <- function(dilution_table, dilution_summary = NULL,
   ggplot_table <- dilution_plots %>%
     dplyr::select(dplyr::all_of(c(grouping_variable))) %>%
     dplyr::bind_cols(dilution_plots %>%
-      dplyr::select(.data[["panel"]])) %>%
+      dplyr::select(dplyr::any_of("panel"))) %>%
     dplyr::left_join(dilution_summary, by = grouping_variable) %>%
-    dplyr::relocate(.data[["panel"]],
+    dplyr::relocate(
+      dplyr::any_of("panel"),
       .after = dplyr::last_col()
     )
 
