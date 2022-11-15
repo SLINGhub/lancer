@@ -332,7 +332,9 @@ summarise_dilution_table <- function(dilution_table,
   # Group/Nest the dilution data for each group
   # and do a dilution summary for each of them
   dilution_summary <- dilution_table %>%
-    dplyr::group_by_at(dplyr::all_of(grouping_variable)) %>%
+    dplyr::group_by_at(
+      grouping_variable
+      ) %>%
     dplyr::relocate(dplyr::all_of(grouping_variable)) %>%
     tidyr::nest() %>%
     dplyr::ungroup() %>%
@@ -341,8 +343,12 @@ summarise_dilution_table <- function(dilution_table,
       conc_var = conc_var,
       signal_var = signal_var
     )) %>%
-    tidyr::unnest(.data$dil_summary) %>%
-    dplyr::select(!c(.data$data))
+    tidyr::unnest(c(
+      dplyr::any_of("dil_summary")
+      )) %>%
+    dplyr::select(!c(
+      dplyr::any_of("data")
+      ))
 
   return(dilution_summary)
 }
