@@ -194,7 +194,7 @@ workflow</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create dilution table and dilution statistical summary</span></span>
 <span><span class="va">dilution_summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_dilution_table.html">create_dilution_table</a></span><span class="op">(</span></span>
-<span>  dilution_annot <span class="op">=</span> <span class="va">dilution_annot</span>, </span>
+<span>  dilution_annot <span class="op">=</span> <span class="va">dilution_annot</span>,</span>
 <span>  lipid_data_wide <span class="op">=</span> <span class="va">lipid_data</span>,</span>
 <span>  common_column <span class="op">=</span> <span class="st">"Sample_Name"</span>,</span>
 <span>  signal_var <span class="op">=</span> <span class="st">"Area"</span>,</span>
@@ -241,7 +241,7 @@ workflow</p>
 <p>Results can be exported to Excel via
 <code>write_summary_excel</code></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/write_summary_excel.html">write_summary_excel</a></span><span class="op">(</span>dilution_summary <span class="op">=</span> <span class="va">dilution_summary</span>, </span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/write_summary_excel.html">write_summary_excel</a></span><span class="op">(</span>dilution_summary <span class="op">=</span> <span class="va">dilution_summary</span>,</span>
 <span>                    file_name <span class="op">=</span> <span class="st">"dilution_summary.xlsx"</span><span class="op">)</span></span></code></pre></div>
   </div>
 
