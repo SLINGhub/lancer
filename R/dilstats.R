@@ -219,7 +219,7 @@ calculate_adl_kroll_test <- function(dilution_data, conc_var, signal_var) {
 
   # Drop rows whose value of signal_var is NA
   dilution_data <- dilution_data %>%
-    tidyr::drop_na(.data[[signal_var]])
+    tidyr::drop_na(dplyr::all_of(signal_var))
 
   # Return NA for too little points
   # Horizontal, Vertical line or single point
@@ -394,7 +394,7 @@ calculate_adl <- function(dilution_data, conc_var, signal_var) {
 
   # Drop rows whose value of signal_var is NA
   dilution_data <- dilution_data %>%
-    tidyr::drop_na(.data[[signal_var]])
+    tidyr::drop_na(dplyr::all_of(signal_var))
 
   # Return NA for too little points
   # Horizontal, Vertical line or single point
@@ -476,7 +476,7 @@ calculate_concavity <- function(dilution_data, conc_var, signal_var) {
 
   # Drop rows whose value of signal_var is NA
   dilution_data <- dilution_data %>%
-    tidyr::drop_na(.data[[signal_var]])
+    tidyr::drop_na(dplyr::all_of(signal_var))
 
   # Return NA for too little points
   # Horizontal, Vertical line or single point
@@ -536,7 +536,7 @@ calculate_gof_linear <- function(dilution_data, conc_var, signal_var) {
 
   # Drop rows whose value of signal_var is NA
   dilution_data <- dilution_data %>%
-    tidyr::drop_na(.data[[signal_var]])
+    tidyr::drop_na(dplyr::all_of(signal_var))
 
   # Return NA for too little points
   # Horizontal, Vertical line or single point
@@ -618,7 +618,7 @@ calculate_mandel <- function(dilution_data, conc_var, signal_var) {
 
   # Drop rows whose value of signal_var is NA
   dilution_data <- dilution_data %>%
-    tidyr::drop_na(.data[[signal_var]])
+    tidyr::drop_na(dplyr::all_of(signal_var))
 
   # Return NA for too little points
   # Horizontal, Vertical line or single point
@@ -692,7 +692,7 @@ calculate_pra_linear <- function(dilution_data, conc_var, signal_var) {
   # Drop rows whose value of signal_var is NA
   # Drop rows whose value of conc_var is 0 or less
   dilution_data <- dilution_data %>%
-    tidyr::drop_na(.data[[signal_var]]) %>%
+    tidyr::drop_na(dplyr::all_of(signal_var)) %>%
     dplyr::filter(.data[[conc_var]] > 0)
 
   # Return NA for too little points
