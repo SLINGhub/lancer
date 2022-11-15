@@ -859,7 +859,9 @@ add_ggplot_panel <- function(dilution_table, dilution_summary = NULL,
       ) %>%
       tidyr::nest() %>%
       dplyr::ungroup() %>%
-      dplyr::rename(summary = .data$data)
+      dplyr::rename(
+        summary = dplyr::any_of("data")
+      )
   } else {
     nested_dilution_summary <- dilution_summary %>%
       dplyr::select(dplyr::all_of(grouping_variable)) %>%
