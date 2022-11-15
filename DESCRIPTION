@@ -1,7 +1,7 @@
 Config/testthat/edition: 3
 Package: DCVtestkit
 Title: Dilution Curve Validation Test Kit
-Version: 0.0.3.9000
+Version: 0.0.4.9000
 Authors@R: 
     c(person(given = "Jeremy",
              family = "Selva",
