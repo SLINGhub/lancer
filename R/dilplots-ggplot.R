@@ -371,7 +371,8 @@ plot_curve_ggplot <- function(dilution_data,
   conc_vector <- dilution_data[[conc_var]]
 
   # Drop values that are NA in signal_var
-  dilution_data <- tidyr::drop_na(dilution_data, .data[[signal_var]])
+  dilution_data <- dilution_data %>%
+    tidyr::drop_na(dplyr::all_of(signal_var))
 
   # Named vector to represent the colours of the regression lines
   reg_col_vec <- NA

@@ -93,7 +93,7 @@ plot_curve_plotly <- function(dilution_data,
 
   # Drop rows whose value of signal_var is NA
   dilution_data <- dilution_data %>%
-    tidyr::drop_na(.data[[signal_var]])
+    tidyr::drop_na(dplyr::all_of(signal_var))
 
   # For the hover text
   text_input <- glue::glue(
