@@ -1,8 +1,13 @@
-# DCVtestkit 0.0.3.9000 (development version)
+# DCVtestkit 0.0.4.9000 (development version)
 
 ## TODO
 
+* Change the R package name.
+
+# DCVtestkit 0.0.4
+
 * Fix issue that `r_corr` from `calculate_gof_linear` gives a named numeric vector.
+* Change code to suit the changes highlighted in [tidyselect 1.2.0](https://www.tidyverse.org/blog/2022/10/tidyselect-1-2-0/) .
 
 # DCVtestkit 0.0.3
 
