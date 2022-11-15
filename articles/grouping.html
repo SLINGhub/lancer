@@ -106,7 +106,8 @@
 
     
     
-<p>Here is an example when the Dilution Batch and Transitions (Lipids) are not sorted in alphabetical order.</p>
+<p>Here is an example when the Dilution Batch and Transitions (Lipids)
+are not sorted in alphabetical order.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://slinghub.github.io/DCVtestkit/">DCVtestkit</a></span><span class="op">)</span></span>
 <span></span>
@@ -180,7 +181,10 @@
 <span>  Lipid2 <span class="op">=</span> <span class="va">lipid2_area_lod</span>,</span>
 <span>  Lipid1 <span class="op">=</span> <span class="va">lipid1_area_nonlinear</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>Order of the <code>Dilution_Batch_Name</code> and <code>Transition_Name</code> grouping variables is maintained when <code>summarise_dilution_table</code> is used. No sorting is involved.</p>
+<p>Order of the <code>Dilution_Batch_Name</code> and
+<code>Transition_Name</code> grouping variables is maintained when
+<code>summarise_dilution_table</code> is used. No sorting is
+involved.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create dilution table and dilution statistical summary</span></span>
 <span><span class="va">dilution_summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/create_dilution_table.html">create_dilution_table</a></span><span class="op">(</span></span>
@@ -221,7 +225,8 @@
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>         1.10 0.308              90.0    -<span style="color: #BB0000;">3.39</span> </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">7</span>        82.2  0.000<span style="text-decoration: underline;">000</span>063<span style="text-decoration: underline;">7</span>       72.4     0.401</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">8</span>         6.77 0.018<span style="text-decoration: underline;">6</span>           -<span style="color: #BB0000;">172.</span>    -<span style="color: #BB0000;">22.6</span></span></span></code></pre></div>
-<p><code>grouping variable</code> in <code>evaluate_linearity</code> only put these variables to the front</p>
+<p><code>grouping variable</code> in <code>evaluate_linearity</code>
+only put these variables to the front</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dilution_classified</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/evaluate_linearity.html">evaluate_linearity</a></span><span class="op">(</span></span>
 <span>  dilution_summary <span class="op">=</span> <span class="va">dilution_summary</span>,</span>

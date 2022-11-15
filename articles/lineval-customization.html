@@ -106,8 +106,15 @@
 
     
     
-<p>By default the function <code>evaluate_linearity</code> will look for column names <code>r_corr</code>, <code>pra_linear</code>, <code>mandel_p_val</code> and <code>concavity_column</code> that represent the Correlation Coefficient, Percent Residual Accuracy and Mandel’s Fitting Test p value respectively.</p>
-<p>It is possible to change the column names representing the three parameters to suit your own dataset using <code>corrcoef_column</code>, <code>pra_column</code>, <code>mandel_p_val_column</code> and <code>concavity_column</code></p>
+<p>By default the function <code>evaluate_linearity</code> will look for
+column names <code>r_corr</code>, <code>pra_linear</code>,
+<code>mandel_p_val</code> and <code>concavity_column</code> that
+represent the Correlation Coefficient, Percent Residual Accuracy and
+Mandel’s Fitting Test p value respectively.</p>
+<p>It is possible to change the column names representing the three
+parameters to suit your own dataset using <code>corrcoef_column</code>,
+<code>pra_column</code>, <code>mandel_p_val_column</code> and
+<code>concavity_column</code></p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://slinghub.github.io/DCVtestkit/">DCVtestkit</a></span><span class="op">)</span></span>
 <span></span>
@@ -151,7 +158,11 @@
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>    -<span style="color: #BB0000;">3.35</span> </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     0.394</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>   -<span style="color: #BB0000;">19.9</span></span></span></code></pre></div>
-<p>One can change the threshold of the Correlation Coefficient (0.8), Percent Residual Accuracy (80) and Mandel’s Fitting Test p value (0.05) using <code>corrcoef_min_threshold</code>, <code>pra_min_threshold</code> and <code>mandel_p_val_threshold</code> respectively.</p>
+<p>One can change the threshold of the Correlation Coefficient (0.8),
+Percent Residual Accuracy (80) and Mandel’s Fitting Test p value (0.05)
+using <code>corrcoef_min_threshold</code>,
+<code>pra_min_threshold</code> and <code>mandel_p_val_threshold</code>
+respectively.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">dilution_classified</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/evaluate_linearity.html">evaluate_linearity</a></span><span class="op">(</span></span>
@@ -182,7 +193,11 @@
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>    -<span style="color: #BB0000;">3.35</span> </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     0.394</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>   -<span style="color: #BB0000;">19.9</span></span></span></code></pre></div>
-<p>Likewise for the excel output using the function <code>write_summary_excel</code>, we can choose which column to be Correlation Coefficient, Percent Residual Accuracy and Mandel’s Fitting Test p value, as well as its threshold value. The sheet name can also be changed.</p>
+<p>Likewise for the excel output using the function
+<code>write_summary_excel</code>, we can choose which column to be
+Correlation Coefficient, Percent Residual Accuracy and Mandel’s Fitting
+Test p value, as well as its threshold value. The sheet name can also be
+changed.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/write_summary_excel.html">write_summary_excel</a></span><span class="op">(</span></span>
 <span>  dilution_summary <span class="op">=</span> <span class="va">dilution_classified</span>,</span>

@@ -106,7 +106,8 @@
 
     
     
-<p>Here are some examples to plot dilution data via <code>ggplot2</code></p>
+<p>Here are some examples to plot dilution data via
+<code>ggplot2</code></p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://slinghub.github.io/DCVtestkit/">DCVtestkit</a></span><span class="op">)</span></span>
 <span></span>
@@ -203,7 +204,8 @@
 <span>    <span class="st">"Transition_Name"</span>,</span>
 <span>    <span class="st">"Dilution_Batch_Name"</span></span>
 <span>  <span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>Here is the output of <code>dilution_table</code> and <code>dilution_classified</code></p>
+<p>Here is the output of <code>dilution_table</code> and
+<code>dilution_classified</code></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dilution_table</span><span class="op">)</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
@@ -233,7 +235,8 @@
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>       94.3   0.382         -<span style="color: #BB0000;">1.94</span>      0.990         0.988        0.868</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>       71.2   0.000<span style="text-decoration: underline;">006</span>78     0.468     0.930         0.922      106.   </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>       74.7   0.002<span style="text-decoration: underline;">56</span>        0.321     0.956         0.951       20.9</span></span></code></pre></div>
-<p>To see the regression line on half the dilution points, set <code>plot_first_half_lin_reg = TRUE</code></p>
+<p>To see the regression line on half the dilution points, set
+<code>plot_first_half_lin_reg = TRUE</code></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ggplot_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_ggplot_panel.html">add_ggplot_panel</a></span><span class="op">(</span></span>
 <span>  dilution_table <span class="op">=</span> <span class="va">dilution_table</span>,</span>
@@ -258,7 +261,10 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ggplot_list</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <p><img src="ggplot-output-2_files/figure-html/print%20ggplot%20plot%20with%20half%20linear%20regression-1.png" width="700"></p>
-<p>Units of <code>conc_var</code> and <code>conc_var_interval</code> can be customised to suit the range of <code>conc_var</code> You can also change the colours for your dilution batch from <code>dil_batch_col</code></p>
+<p>Units of <code>conc_var</code> and <code>conc_var_interval</code> can
+be customised to suit the range of <code>conc_var</code> You can also
+change the colours for your dilution batch from
+<code>dil_batch_col</code></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ggplot_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_ggplot_panel.html">add_ggplot_panel</a></span><span class="op">(</span></span>
 <span>  dilution_table <span class="op">=</span> <span class="va">dilution_table</span>,</span>
@@ -286,7 +292,8 @@
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ggplot_list</span><span class="op">[[</span><span class="fl">8</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <p><img src="ggplot-output-2_files/figure-html/print%20ggplot%20plot%20with%20conc%20customisation-2.png" width="700"></p>
-<p>The list of ggplots can be output in pdf. You may have to adjust the width and height accordingly.</p>
+<p>The list of ggplots can be output in pdf. You may have to adjust the
+width and height accordingly.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/view_ggplot_pdf.html">view_ggplot_pdf</a></span><span class="op">(</span></span>
 <span>  ggplot_list <span class="op">=</span> <span class="va">ggplot_list_orig</span>,</span>

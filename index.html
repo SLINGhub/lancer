@@ -102,6 +102,7 @@
 </h1></div>
 <p><img src="reference/figures/README-logo.png" align="right" height="200"></p>
 <!-- badges: start -->
+
 <p>R package used to validate if a quality control sample dilution curve is linear or has signal suppression by statistical analysis and plots.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -276,9 +277,11 @@ Equation ( 6 ) is used.</p>
 <p>Workflow 2 involves using <em>R</em>, <em>P<strong>R</strong>A</em> and Mandel’s Fitting Test to categorise the dilution curves.</p>
 <ul>
 <li>If <em>R</em> &lt; 0.8, classify as poor linearity.</li>
-<li>If <em>R</em> ≥ 0.8, <em>P<strong>R</strong>A</em> &lt; 80, fit the quadratic model and use Mandel’s Fitting Test to see if the quadratic model is a better fit ( p value  &lt; 0.05 ).<ul>
+<li>If <em>R</em> ≥ 0.8, <em>P<strong>R</strong>A</em> &lt; 80, fit the quadratic model and use Mandel’s Fitting Test to see if the quadratic model is a better fit ( p value  &lt; 0.05 ).
+<ul>
 <li>If not better, classify as poor linearity</li>
-<li>If better, check concavity of the quadratic model<ul>
+<li>If better, check concavity of the quadratic model
+<ul>
 <li>If concavity is negative, classify as saturation</li>
 <li>If concavity is positive, classify as limit of detection (LOD)</li>
 </ul>
