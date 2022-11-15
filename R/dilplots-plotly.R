@@ -573,7 +573,9 @@ add_plotly_panel <- function(dilution_table, dilution_summary = NULL,
   # Will not work if dil_batch_var is also a grouping_variable
 
   dilution_table <- dilution_table %>%
-    dplyr::group_by_at(dplyr::all_of(c(grouping_variable, "title"))) %>%
+    dplyr::group_by_at(
+      c(grouping_variable, "title")
+    ) %>%
     dplyr::relocate(dplyr::all_of(c(grouping_variable, "title"))) %>%
     tidyr::nest()
 
