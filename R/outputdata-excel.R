@@ -131,8 +131,8 @@ mark_near_zero_columns <- function(dilution_summary,
   # Collect the minimum value
   # If it is small enough, change the class to scientific
   near_zero_columns <- dilution_summary %>%
-    dplyr::mutate_at(dplyr::all_of(remaining_cols), abs) %>%
-    dplyr::summarise_at(dplyr::all_of(remaining_cols), min, na.rm = TRUE) %>%
+    dplyr::mutate_at(remaining_cols, abs) %>%
+    dplyr::summarise_at(remaining_cols, min, na.rm = TRUE) %>%
     tidyr::pivot_longer(
       cols = dplyr::everything(),
       names_to = "summary_stats",
