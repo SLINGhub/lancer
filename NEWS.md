@@ -1,4 +1,4 @@
-# lancer 0.0.6.9000 (development version)
+# lancer 0.0.5.9000 (development version)
 
 ## TODO
 
