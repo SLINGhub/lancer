@@ -8,6 +8,7 @@
 
 * Fix issue that `r_corr` from `calculate_gof_linear` gives a named numeric vector.
 * Change code to suit the changes highlighted in [tidyselect 1.2.0](https://www.tidyverse.org/blog/2022/10/tidyselect-1-2-0/) .
+* Use `actions/checkout@v3` and `actions/cache@v3` in `R-CMD-check.yaml` file 
 
 # DCVtestkit 0.0.3
 

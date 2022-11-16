@@ -69,8 +69,6 @@ jobs:
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("rcmdcheck")
           remotes::install_cran("testthat")
-          # For MacOS to work
-          # remotes::install_cran("pillar")
         shell: Rscript {0}
 
       - name: Session info
