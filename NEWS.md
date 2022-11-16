@@ -1,8 +1,11 @@
-# lancer 0.0.4.9000 (development version)
+# lancer 0.0.6.9000 (development version)
 
 ## TODO
 
+# lancer 0.0.5
+
 * Change the R package name to lancer.
+* Use `actions/checkout@v3` in the other GitHub Actions files.
 
 # lancer 0.0.4
 

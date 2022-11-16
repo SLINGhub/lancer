@@ -33,12 +33,6 @@ If you want to use a proper release version, referenced by a Git tag
 devtools::install_github("SLINGhub/lancer", ref = "0.0.5")
 ```
 
-## Overview
-
-An overview of the workflow is as follows
-
-![README-Workflow](man/figures/README-Workflow.png)
-
 ## Meta
 
 - We welcome contributions from general questions to bug reports. Check
@@ -56,6 +50,23 @@ An overview of the workflow is as follows
   file](https://github.com/SLINGhub/lancer/blob/main/NEWS.md) to see
   what is being worked on as well as update to changes between back to
   back versions.
+- Images used for hex logos are taken from the following sources:
+  - [Black Knight by
+    J4p4n](https://www.1001freedownloads.com/free-clipart/black-knight)
+    in [1001FreeDownloads](https://www.1001freedownloads.com/) released
+    under CC0. [![License:
+    CC0-1.0](https://licensebuttons.net/l/zero/1.0/80x15.png)](http://creativecommons.org/publicdomain/zero/1.0/)
+  - [Mountain
+    Range](https://publicdomainvectors.org/en/free-clipart/Mountain-range-clip-art/88586.html)
+    in [publicdomainvectors.org](https://publicdomainvectors.org/)
+    released under CC0. [![License:
+    CC0-1.0](https://licensebuttons.net/l/zero/1.0/80x15.png)](http://creativecommons.org/publicdomain/zero/1.0/)
+
+## Overview
+
+An overview of the workflow is as follows
+
+![README-Workflow](man/figures/README-Workflow.png)
 
 ## Motivation
 

@@ -5,7 +5,7 @@ template:
     bootswatch: cosmo
 
 reference:
-  - title: Dilution Curve Validation Workflow
+  - title: lancer
     desc: >
       Functions used for tidy workflow
     contents:
