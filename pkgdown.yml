@@ -9,8 +9,8 @@ articles:
   plotly-output: plotly-output.html
   tidy-demo: tidy-demo.html
   trellis-output: trellis-output.html
-last_built: 2022-11-16T04:33Z
+last_built: 2022-11-16T06:50Z
 urls:
-  reference: https://slinghub.github.io/DCVtestkit/reference
-  article: https://slinghub.github.io/DCVtestkit/articles
+  reference: https://slinghub.github.io/lancer/reference
+  article: https://slinghub.github.io/lancer/articles
 

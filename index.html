@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dilution Curve Validation Test Kit • DCVtestkit</title>
+<title>Dilution Curve Validation Test Kit • lancer</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
@@ -34,7 +34,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">DCVtestkit</a>
+        <a class="navbar-link" href="index.html">lancer</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.4.9000</span>
       </span>
     </div>
@@ -80,7 +80,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/SLINGhub/DCVtestkit/" class="external-link">
+  <a href="https://github.com/SLINGhub/lancer/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -98,22 +98,21 @@
       </header><div class="row">
   <div class="contents col-md-9">
 <div class="section level1">
-<div class="page-header"><h1 id="dcvtestkit-dilution-curve-validation-test-kit">DCVtestkit (Dilution Curve Validation Test Kit)<a class="anchor" aria-label="anchor" href="#dcvtestkit-dilution-curve-validation-test-kit"></a>
+<div class="page-header"><h1 id="lancer-">lancer <img src="reference/figures/README-logo.png" align="right" width="20%" height="20%"><a class="anchor" aria-label="anchor" href="#lancer-"></a>
 </h1></div>
-<p><img src="reference/figures/README-logo.png" align="right" height="200"></p>
 <!-- badges: start -->
 
-<p>R package used to validate if a quality control sample dilution curve is linear or has signal suppression by statistical analysis and plots.</p>
+<p>R package used to validate if a curve is linear or has signal suppression by statistical analysis and plots.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <p>You can install the development version from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"SLINGhub/DCVtestkit"</span><span class="op">)</span></span></code></pre></div>
-<p>If you want to use a proper release version, referenced by a Git tag (example: 0.0.2) install the package as follows:</p>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"SLINGhub/lancer"</span><span class="op">)</span></span></code></pre></div>
+<p>If you want to use a proper release version, referenced by a Git tag (example: 0.0.5) install the package as follows:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"SLINGhub/DCVtestkit"</span>, ref <span class="op">=</span> <span class="st">"0.0.2"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"SLINGhub/lancer"</span>, ref <span class="op">=</span> <span class="st">"0.0.5"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
@@ -128,10 +127,10 @@
 </h2>
 <ul>
 <li>We welcome contributions from general questions to bug reports. Check out the <a href="CONTRIBUTING.html">contributions</a> guidelines. Please note that this project is released with a <a href="https://www.contributor-covenant.org/version/2/0/code_of_conduct/" class="external-link">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</li>
-<li>License: <a href="https://github.com/SLINGhub/DCVtestkit/blob/main/LICENSE.md" class="external-link">MIT</a>
+<li>License: <a href="https://github.com/SLINGhub/lancer/blob/main/LICENSE.md" class="external-link">MIT</a>
 </li>
-<li>Think <code>DCVtestkit</code> is useful? Let others discover it, by telling them in person, via Twitter <a href="https://twitter.com/LOGIN" class="external-link"><img src="https://img.shields.io/twitter/url/http/shields.io.svg?style=social" alt="Tweet"></a> or a blog post.</li>
-<li>Refer to the <a href="https://github.com/SLINGhub/DCVtestkit/blob/main/NEWS.md" class="external-link">NEWS.md file</a> to see what is being worked on as well as update to changes between back to back versions.</li>
+<li>Think <code>lancer</code> is useful? Let others discover it, by telling them in person, via Twitter <a href="https://twitter.com/LOGIN" class="external-link"><img src="https://img.shields.io/twitter/url/http/shields.io.svg?style=social" alt="Tweet"></a> or a blog post.</li>
+<li>Refer to the <a href="https://github.com/SLINGhub/lancer/blob/main/NEWS.md" class="external-link">NEWS.md file</a> to see what is being worked on as well as update to changes between back to back versions.</li>
 </ul>
 </div>
 <div class="section level2">
@@ -187,21 +186,21 @@
 <span><span class="co">#&gt; [1] 0.9779585</span></span></code></pre></div>
 <p>One example is the use of the Percent Residual Accuracy found in <a href="https://doi.org/10.1016/j.talanta.2018.07.046" class="external-link">Logue, B. A. and Manandhar, E. (2018)</a> which is more sensitive than Pearson correlation coefficient. Observe that the linear dilution curve gives a higher value compared to than the other two curves.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">DCVtestkit</span><span class="fu">::</span><span class="fu"><a href="reference/calculate_pra_linear.html">calculate_pra_linear</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="reference/calculate_pra_linear.html">calculate_pra_linear</a></span><span class="op">(</span></span>
 <span>  dilution_data <span class="op">=</span> <span class="va">linear_data</span>,</span>
 <span>  conc_var <span class="op">=</span> <span class="st">"conc_var"</span>,</span>
 <span>  signal_var <span class="op">=</span> <span class="st">"signal_var"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 94.32046</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">DCVtestkit</span><span class="fu">::</span><span class="fu"><a href="reference/calculate_pra_linear.html">calculate_pra_linear</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="reference/calculate_pra_linear.html">calculate_pra_linear</a></span><span class="op">(</span></span>
 <span>  dilution_data <span class="op">=</span> <span class="va">saturated_data</span>,</span>
 <span>  conc_var <span class="op">=</span> <span class="st">"conc_var"</span>,</span>
 <span>  signal_var <span class="op">=</span> <span class="st">"signal_var"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 62.30351</span></span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">DCVtestkit</span><span class="fu">::</span><span class="fu"><a href="reference/calculate_pra_linear.html">calculate_pra_linear</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="reference/calculate_pra_linear.html">calculate_pra_linear</a></span><span class="op">(</span></span>
 <span>  dilution_data <span class="op">=</span> <span class="va">lod_data</span>,</span>
 <span>  conc_var <span class="op">=</span> <span class="st">"conc_var"</span>,</span>
 <span>  signal_var <span class="op">=</span> <span class="st">"signal_var"</span></span>
@@ -209,7 +208,7 @@
 <span><span class="co">#&gt; [1] 74.69452</span></span></code></pre></div>
 <p>Another example is the use of the Mandel’s Fitting Test. Observe that the two non-linear dilution curves give a very low p value.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">DCVtestkit</span><span class="fu">::</span><span class="fu"><a href="reference/calculate_mandel.html">calculate_mandel</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="reference/calculate_mandel.html">calculate_mandel</a></span><span class="op">(</span></span>
 <span>  dilution_data <span class="op">=</span> <span class="va">linear_data</span>,</span>
 <span>  conc_var <span class="op">=</span> <span class="st">"conc_var"</span>,</span>
 <span>  signal_var <span class="op">=</span> <span class="st">"signal_var"</span></span>
@@ -219,7 +218,7 @@
 <span><span class="co">#&gt;          &lt;dbl&gt;        &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1        0.868        0.382</span></span></code></pre></div>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">DCVtestkit</span><span class="fu">::</span><span class="fu"><a href="reference/calculate_mandel.html">calculate_mandel</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="reference/calculate_mandel.html">calculate_mandel</a></span><span class="op">(</span></span>
 <span>  dilution_data <span class="op">=</span> <span class="va">saturated_data</span>,</span>
 <span>  conc_var <span class="op">=</span> <span class="st">"conc_var"</span>,</span>
 <span>  signal_var <span class="op">=</span> <span class="st">"signal_var"</span></span>
@@ -229,7 +228,7 @@
 <span><span class="co">#&gt;          &lt;dbl&gt;        &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1         52.9     0.000166</span></span></code></pre></div>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">DCVtestkit</span><span class="fu">::</span><span class="fu"><a href="reference/calculate_mandel.html">calculate_mandel</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="reference/calculate_mandel.html">calculate_mandel</a></span><span class="op">(</span></span>
 <span>  dilution_data <span class="op">=</span> <span class="va">lod_data</span>,</span>
 <span>  conc_var <span class="op">=</span> <span class="st">"conc_var"</span>,</span>
 <span>  signal_var <span class="op">=</span> <span class="st">"signal_var"</span></span>
@@ -244,16 +243,16 @@
 </h2>
 <p>We try to categorise dilution curves based on the results of three parameters.</p>
 <ul>
-<li>Pearson Correlation Coefficient ( <em>R</em> )</li>
-<li>Percent Residual Accuracy ( <em>P<strong>R</strong>A</em> )</li>
+<li>Pearson Correlation Coefficient ( <span class="math inline"><em>R</em></span> )</li>
+<li>Percent Residual Accuracy ( <span class="math inline"><em>P</em><em>R</em><em>A</em></span> )</li>
 <li>Mandel’s Fitting Test</li>
 </ul>
-<p>Pearson Correlation Coefficient ( <em>R</em> ) can be found in Van Loco, J., Elskens, M., Croux, C. <em>et al.</em>, Linearity of calibration curves: use and misuse of the correlation coefficient. <em>Accreditation and Quality Assurance</em> <strong>7</strong>, 281-285 (2002). <a href="https://doi.org/10.1007/s00769-002-0487-6" class="external-link">10.1007/s00769-002-0487-6</a>.<br>
-Equation ( 1 ) is used.</p>
+<p>Pearson Correlation Coefficient ( <span class="math inline"><em>R</em></span> ) can be found in Van Loco, J., Elskens, M., Croux, C. <em>et al.</em>, Linearity of calibration curves: use and misuse of the correlation coefficient. <em>Accreditation and Quality Assurance</em> <strong>7</strong>, 281-285 (2002). <a href="https://doi.org/10.1007/s00769-002-0487-6" class="external-link">10.1007/s00769-002-0487-6</a>.<br>
+Equation ( <span class="math inline">1</span> ) is used.</p>
 <p>Mandel’s Fitting Test can be found in Andrade, J. M. and Gómez-Carracedo, M. P., Notes on the use of Mandel’s test to check for nonlinearity in laboratory calibrations. <em>Analytical Methods</em> <strong>5</strong>, 1145-1149 (2013). <a href="https://dx.doi.org/10.1039/C2AY26400E" class="external-link">10.1039/C2AY26400E</a>.<br>
-Equation ( 5 ) is used.</p>
-<p>Percent Residual Accuracy ( <em>P<strong>R</strong>A</em> ) can be found in Logue, B. A. and Manandhar, E., Percent residual accuracy for quantifying goodness-of-fit of linear calibration curves. <em>Talanta</em> <strong>189</strong>, 527-533 (2018). <a href="https://doi.org/10.1016/j.talanta.2018.07.046" class="external-link">10.1016/j.talanta.2018.07.046</a>.<br>
-Equation ( 6 ) is used.</p>
+Equation ( <span class="math inline">5</span> ) is used.</p>
+<p>Percent Residual Accuracy ( <span class="math inline"><em>P</em><em>R</em><em>A</em></span> ) can be found in Logue, B. A. and Manandhar, E., Percent residual accuracy for quantifying goodness-of-fit of linear calibration curves. <em>Talanta</em> <strong>189</strong>, 527-533 (2018). <a href="https://doi.org/10.1016/j.talanta.2018.07.046" class="external-link">10.1016/j.talanta.2018.07.046</a>.<br>
+Equation ( <span class="math inline">6</span> ) is used.</p>
 </div>
 <div class="section level2">
 <h2 id="workflow-proposed">Workflow Proposed<a class="anchor" aria-label="anchor" href="#workflow-proposed"></a>
@@ -262,22 +261,22 @@ Equation ( 6 ) is used.</p>
 <div class="section level3">
 <h3 id="workflow-1">Workflow 1<a class="anchor" aria-label="anchor" href="#workflow-1"></a>
 </h3>
-<p>Workflow 1 involves using <em>R</em> and <em>P<strong>R</strong>A</em> to categorise the dilution curves.</p>
+<p>Workflow 1 involves using <span class="math inline"><em>R</em></span> and <span class="math inline"><em>P</em><em>R</em><em>A</em></span> to categorise the dilution curves.</p>
 <ul>
-<li>If <em>R</em> &lt; 0.8, classify as poor linearity.<br>
+<li>If <span class="math inline"><em>R</em> &lt; 0.8</span>, classify as poor linearity.<br>
 </li>
-<li>If <em>R</em> ≥ 0.8, <em>P<strong>R</strong>A</em> &lt; 80, classify as poor linearity.<br>
+<li>If <span class="math inline"><em>R</em> ≥ 0.8</span>, <span class="math inline"><em>P</em><em>R</em><em>A</em> &lt; 80</span>, classify as poor linearity.<br>
 </li>
-<li>If <em>R</em> ≥ 0.8, <em>P<strong>R</strong>A</em> ≥ 80, classify as good linearity.</li>
+<li>If <span class="math inline"><em>R</em> ≥ 0.8</span>, <span class="math inline"><em>P</em><em>R</em><em>A</em> ≥ 80</span>, classify as good linearity.</li>
 </ul>
 </div>
 <div class="section level3">
 <h3 id="workflow-2">Workflow 2<a class="anchor" aria-label="anchor" href="#workflow-2"></a>
 </h3>
-<p>Workflow 2 involves using <em>R</em>, <em>P<strong>R</strong>A</em> and Mandel’s Fitting Test to categorise the dilution curves.</p>
+<p>Workflow 2 involves using <span class="math inline"><em>R</em></span>, <span class="math inline"><em>P</em><em>R</em><em>A</em></span> and Mandel’s Fitting Test to categorise the dilution curves.</p>
 <ul>
-<li>If <em>R</em> &lt; 0.8, classify as poor linearity.</li>
-<li>If <em>R</em> ≥ 0.8, <em>P<strong>R</strong>A</em> &lt; 80, fit the quadratic model and use Mandel’s Fitting Test to see if the quadratic model is a better fit ( p value  &lt; 0.05 ).
+<li>If <span class="math inline"><em>R</em> &lt; 0.8</span>, classify as poor linearity.</li>
+<li>If <span class="math inline"><em>R</em> ≥ 0.8</span>, <span class="math inline"><em>P</em><em>R</em><em>A</em> &lt; 80</span>, fit the quadratic model and use Mandel’s Fitting Test to see if the quadratic model is a better fit ( p value <span class="math inline"> &lt; 0.05</span> ).
 <ul>
 <li>If not better, classify as poor linearity</li>
 <li>If better, check concavity of the quadratic model
@@ -288,7 +287,7 @@ Equation ( 6 ) is used.</p>
 </li>
 </ul>
 </li>
-<li>If <em>R</em> ≥ 0.8, <em>P<strong>R</strong>A</em> ≥ 80, classify as good linearity</li>
+<li>If <span class="math inline"><em>R</em> ≥ 0.8</span>, <span class="math inline"><em>P</em><em>R</em><em>A</em> ≥ 80</span>, classify as good linearity</li>
 </ul>
 </div>
 </div>
@@ -297,7 +296,7 @@ Equation ( 6 ) is used.</p>
 </h2>
 <p>We first create our data set.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://slinghub.github.io/DCVtestkit/">DCVtestkit</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://slinghub.github.io/lancer/">lancer</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Data Creation</span></span>
 <span></span>
@@ -406,7 +405,7 @@ Equation ( 6 ) is used.</p>
 <p>Merge the data together using <code>create_dilution_table</code></p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create dilution table</span></span>
-<span><span class="va">dilution_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/create_dilution_table.html">create_dilution_table</a></span><span class="op">(</span></span>
+<span><span class="va">dilution_table</span> <span class="op">&lt;-</span> <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="reference/create_dilution_table.html">create_dilution_table</a></span><span class="op">(</span></span>
 <span>  dilution_annot <span class="op">=</span> <span class="va">dilution_annot</span>, </span>
 <span>  lipid_data_wide <span class="op">=</span> <span class="va">lipid_data</span>,</span>
 <span>  common_column <span class="op">=</span> <span class="st">"Sample_Name"</span>,</span>
@@ -432,7 +431,7 @@ Equation ( 6 ) is used.</p>
 <p>Summarise each dilution curve for each transition and batch with <code>summarise_dilution_table</code></p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create dilution statistical summary</span></span>
-<span><span class="va">dilution_summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/summarise_dilution_table.html">summarise_dilution_table</a></span><span class="op">(</span></span>
+<span><span class="va">dilution_summary</span> <span class="op">&lt;-</span> <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="reference/summarise_dilution_table.html">summarise_dilution_table</a></span><span class="op">(</span></span>
 <span>  dilution_table <span class="op">=</span> <span class="va">dilution_table</span>,</span>
 <span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>    <span class="st">"Transition_Name"</span>,</span>
@@ -466,7 +465,7 @@ Equation ( 6 ) is used.</p>
 <span><span class="co">#&gt; 8        5.39    0.0533          -73.1   -22.9</span></span></code></pre></div>
 <p>Classify each dilution curve according to Workflow 1 and Workflow 2.<br><code>wf1_group1</code> gives the results of Workflow 1<br><code>wf2_group2</code> gives the results of Workflow 2</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dilution_classified</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/evaluate_linearity.html">evaluate_linearity</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">dilution_classified</span> <span class="op">&lt;-</span> <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="reference/evaluate_linearity.html">evaluate_linearity</a></span><span class="op">(</span></span>
 <span>  dilution_summary <span class="op">=</span> <span class="va">dilution_summary</span>,</span>
 <span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>    <span class="st">"Transition_Name"</span>,</span>
@@ -502,7 +501,7 @@ Equation ( 6 ) is used.</p>
 </h2>
 <p>Results can be exported to Excel via <code>write_summary_excel</code></p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/write_summary_excel.html">write_summary_excel</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="reference/write_summary_excel.html">write_summary_excel</a></span><span class="op">(</span></span>
 <span>  dilution_summary <span class="op">=</span> <span class="va">dilution_classified</span>, </span>
 <span>  file_name <span class="op">=</span> <span class="st">"dilution_summary.xlsx"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
@@ -510,7 +509,7 @@ Equation ( 6 ) is used.</p>
 </div>
 <p>Results can be plotted using <code>add_ggplot_panel</code>. This will create a column called panel that contains all the <code>ggplot</code> plots</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ggplot_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/add_ggplot_panel.html">add_ggplot_panel</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">ggplot_table</span> <span class="op">&lt;-</span> <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="reference/add_ggplot_panel.html">add_ggplot_panel</a></span><span class="op">(</span></span>
 <span>  dilution_table <span class="op">=</span> <span class="va">dilution_table</span>,</span>
 <span>  dilution_summary <span class="op">=</span> <span class="va">dilution_classified</span>,</span>
 <span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
@@ -529,7 +528,7 @@ Equation ( 6 ) is used.</p>
 <span><span class="va">ggplot_list</span> <span class="op">&lt;-</span> <span class="va">ggplot_table</span><span class="op">$</span><span class="va">panel</span></span></code></pre></div>
 <p>Use <code>view_ggplot_pdf</code> to export the plots in a pdf file</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/view_ggplot_pdf.html">view_ggplot_pdf</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="reference/view_ggplot_pdf.html">view_ggplot_pdf</a></span><span class="op">(</span></span>
 <span>  ggplot_list <span class="op">=</span> <span class="va">ggplot_list</span>,</span>
 <span>  filename <span class="op">=</span> <span class="st">"dilution_plot.pdf"</span>,</span>
 <span>  ncol_per_page <span class="op">=</span> <span class="fl">2</span>,</span>
@@ -545,7 +544,7 @@ Equation ( 6 ) is used.</p>
 <p>To create an <a href="https://hafen.github.io/trelliscopejs/articles/trelliscopejs.html" class="external-link">interactive trelliscope display</a> as seen in <a href="https://dcvtestkit-interactive-example.netlify.app" class="external-link">here</a>, each columns must be converted to a cognostics class. This is done using the function <code>convert_to_cog</code></p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create a trellis table</span></span>
-<span><span class="va">trellis_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/add_plotly_panel.html">add_plotly_panel</a></span><span class="op">(</span></span>
+<span><span class="va">trellis_table</span> <span class="op">&lt;-</span> <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="reference/add_plotly_panel.html">add_plotly_panel</a></span><span class="op">(</span></span>
 <span>  dilution_table <span class="op">=</span> <span class="va">dilution_table</span>,</span>
 <span>  dilution_summary <span class="op">=</span> <span class="va">dilution_classified</span>,</span>
 <span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
@@ -564,11 +563,10 @@ Equation ( 6 ) is used.</p>
 <span>  signal_var <span class="op">=</span> <span class="st">"Area"</span>,</span>
 <span>  have_plot_title <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="reference/convert_to_cog.html">convert_to_cog</a></span><span class="op">(</span></span>
+<span>  <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="reference/convert_to_cog.html">convert_to_cog</a></span><span class="op">(</span></span>
 <span>    grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>      <span class="st">"Transition_Name"</span>,</span>
-<span>      <span class="st">"Dilution_Batch_Name"</span></span>
-<span>    <span class="op">)</span>,</span>
+<span>      <span class="st">"Dilution_Batch_Name"</span><span class="op">)</span>, </span>
 <span>    panel_variable <span class="op">=</span> <span class="st">"panel"</span>,</span>
 <span>    col_name_vec <span class="op">=</span> <span class="st">"col_name_vec"</span>,</span>
 <span>    desc_vec <span class="op">=</span> <span class="st">"desc_vec"</span>,</span>
@@ -576,7 +574,7 @@ Equation ( 6 ) is used.</p>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p>Use <code>view_trellis_html</code> on the R console to output the interactive trelliscope display</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/view_trellis_html.html">view_trellis_html</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="reference/view_trellis_html.html">view_trellis_html</a></span><span class="op">(</span></span>
 <span>  trellis_table <span class="op">=</span> <span class="va">trellis_table</span>,</span>
 <span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>    <span class="st">"Transition_Name"</span>,</span>
@@ -596,8 +594,8 @@ Equation ( 6 ) is used.</p>
     <div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/SLINGhub/DCVtestkit/" class="external-link">Browse source code</a></li>
-<li><a href="https://github.com/SLINGhub/DCVtestkit/issues" class="external-link">Report a bug</a></li>
+<li><a href="https://github.com/SLINGhub/lancer/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/SLINGhub/lancer/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
@@ -619,7 +617,7 @@ Equation ( 6 ) is used.</p>
 <div class="citation">
 <h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li><a href="authors.html#citation">Citing DCVtestkit</a></li>
+<li><a href="authors.html#citation">Citing lancer</a></li>
 </ul>
 </div>
 
@@ -636,9 +634,9 @@ Equation ( 6 ) is used.</p>
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/SLINGhub/DCVtestkit/actions" class="external-link"><img src="https://github.com/SLINGhub/DCVtestkit/workflows/R-CMD-check/badge.svg" alt="R-Command-check"></a></li>
-<li><a href="https://codecov.io/gh/SLINGhub/DCVtestkit" class="external-link"><img src="https://codecov.io/gh/SLINGhub/DCVtestkit/branch/main/graph/badge.svg?token=RNlP8VlaL2" alt="Codecov test coverage"></a></li>
-<li><a href="https://github.com/SLINGhub/DCVtestkit/blob/main/LICENSE.md" class="external-link"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a></li>
+<li><a href="https://github.com/SLINGhub/lancer/actions" class="external-link"><img src="https://github.com/SLINGhub/lancer/workflows/R-CMD-check/badge.svg" alt="R-Command-check"></a></li>
+<li><a href="https://codecov.io/gh/SLINGhub/lancer" class="external-link"><img src="https://codecov.io/gh/SLINGhub/lancer/branch/main/graph/badge.svg?token=RNlP8VlaL2" alt="Codecov test coverage"></a></li>
+<li><a href="https://github.com/SLINGhub/lancer/blob/main/LICENSE.md" class="external-link"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a></li>
 <li><a href="https://github.com/JauntyJJS" class="external-link"><img src="https://img.shields.io/badge/Maintainer-JauntyJJS-blue.svg" alt="Maintainer: JauntyJJS"></a></li>
 </ul>
 </div>
