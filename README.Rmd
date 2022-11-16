@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 library(lancer)
 ```
 
-# lancer <img src="man/figures/README-logo.png" align="right" width="20%" height="20%" />
+# `lancer` <img src="man/figures/README-logo.png" align="right" width="20%" height="20%" />
 
 <!-- badges: start -->
 [![R-Command-check](https://github.com/SLINGhub/lancer/workflows/R-CMD-check/badge.svg)](https://github.com/SLINGhub/lancer/actions)

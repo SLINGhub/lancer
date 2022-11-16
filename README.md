@@ -1,6 +1,6 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# lancer <img src="man/figures/README-logo.png" align="right" width="20%" height="20%" />
+# `lancer` <img src="man/figures/README-logo.png" align="right" width="20%" height="20%" />
 
 <!-- badges: start -->
 
