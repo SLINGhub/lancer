@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 The same workflow in README can be rewritten as a Tidyverse workflow
 
 ```{r data set creation}
-library(DCVtestkit)
+library(lancer)
 
 # Data Creation
 

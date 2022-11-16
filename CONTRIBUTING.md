@@ -1,8 +1,8 @@
-# Contributing to `DCVtestkit`
+# Contributing to `lancer`
 
-First of all, thanks for considering contributing to `DCVtestkit` 😄! We hope that you have found the tool useful in your work 😀 and we apologise for any mishaps 😣 along the way.
+First of all, thanks for considering contributing to `lancer` 😄! We hope that you have found the tool useful in your work 😀 and we apologise for any mishaps 😣 along the way.
 
-`DCVtestkit` is an open source project, maintained by people who care.
+`lancer` is an open source project, maintained by people who care.
 
 ## Acknowledgements 😌
 
@@ -10,7 +10,7 @@ This contributing file is based on a [template](https://gist.github.com/peterdes
 
 ## Versioning 🔢
 
-Refer to the [NEWS.md file](https://github.com/SLINGhub/DCVtestkit/blob/main/NEWS.md) to see what is being worked on as well as update to changes between back to back versions.
+Refer to the [NEWS.md file](https://github.com/SLINGhub/lancer/blob/main/NEWS.md) to see what is being worked on as well as update to changes between back to back versions.
 
 Software version numbers indicate following: `MAJOR.MINOR.PATCH.DEVELOPMENT`. 
 
@@ -34,13 +34,13 @@ Noticed a typo on the website? Think a function could use a better example? Good
 ### Function documentation
 Functions are described as comments near their code and translated to documentation using `roxygen2`. If you want to improve a function description:
 
-1. Go to `R/` directory in the [code repository](https://github.com/SLINGhub/DCVtestkit/blob/main/R).
+1. Go to `R/` directory in the [code repository](https://github.com/SLINGhub/lancer/blob/main/R).
 2. Look for the file with the name of the function.
 3. [Propose a file change](https://docs.github.com/en/repositories/working-with-files/managing-files/editing-files) to update the function documentation in the roxygen comments (starting with `#'`).
 
 ## Contribute code 📝
 
-Care to fix bugs 🐛 or implement new functionality for `DCVtestkit`? Great👏! Thank you for volunteering your time to help out. Have a look at the [issue list](https://github.com/SLINGhub/DCVtestkit/issues) and leave a comment on the things you want to work on. See also the development guidelines below.
+Care to fix bugs 🐛 or implement new functionality for `lancer`? Great👏! Thank you for volunteering your time to help out. Have a look at the [issue list](https://github.com/SLINGhub/lancer/issues) and leave a comment on the things you want to work on. See also the development guidelines below.
 
 ## Development guidelines 👨‍💻
 
@@ -60,7 +60,7 @@ With the efforts made by the [R for Data Science Online Learning Community](http
 
 We try to follow the [GitHub flow](https://guides.github.com/introduction/flow/) for development.
 
-1. Fork [this repo](https://github.com/SLINGhub/DCVtestkit) and clone it to your computer. To learn more about this process, see [this guide](https://guides.github.com/activities/forking/).
+1. Fork [this repo](https://github.com/SLINGhub/lancer) and clone it to your computer. To learn more about this process, see [this guide](https://guides.github.com/activities/forking/).
 2. If you have forked and cloned the project before and it has been a while since you worked on it, [pull changes from the original repo](https://help.github.com/articles/merging-an-upstream-repository-into-your-fork/) to your clone by using `git pull upstream main`.
 3. Open the RStudio project file (`.Rproj`).
 4. Make your changes:

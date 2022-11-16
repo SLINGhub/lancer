@@ -1,6 +1,6 @@
 ^renv$
 ^renv\.lock$
-^DCVtestkit\.Rproj$
+^lancer\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
 ^README\.Rmd$

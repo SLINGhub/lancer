@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 Here is an example when the Dilution Batch and Transitions (Lipids) are not sorted in alphabetical order.
 
 ```{r data set creation}
-library(DCVtestkit)
+library(lancer)
 
 # Data Creation
 

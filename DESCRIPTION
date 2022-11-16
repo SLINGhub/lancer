@@ -1,5 +1,5 @@
 Config/testthat/edition: 3
-Package: DCVtestkit
+Package: lancer
 Title: Dilution Curve Validation Test Kit
 Version: 0.0.4.9000
 Authors@R: 
@@ -36,8 +36,8 @@ Suggests:
     grid,
     vdiffr
 Language: en-GB
-URL: https://slinghub.github.io/DCVtestkit/, https://github.com/SLINGhub/DCVtestkit
-BugReports: https://github.com/SLINGhub/DCVtestkit/issues
+URL: https://slinghub.github.io/lancer/, https://github.com/SLINGhub/lancer
+BugReports: https://github.com/SLINGhub/lancer/issues
 Imports: 
     magrittr,
     broom,

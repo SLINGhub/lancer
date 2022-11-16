@@ -1,22 +1,20 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# DCVtestkit (Dilution Curve Validation Test Kit)
-
-<img src="man/figures/README-logo.png" align="right" height="200" />
+# lancer <img src="man/figures/README-logo.png" align="right" width="20%" height="20%" />
 
 <!-- badges: start -->
 
-[![R-Command-check](https://github.com/SLINGhub/DCVtestkit/workflows/R-CMD-check/badge.svg)](https://github.com/SLINGhub/DCVtestkit/actions)
+[![R-Command-check](https://github.com/SLINGhub/lancer/workflows/R-CMD-check/badge.svg)](https://github.com/SLINGhub/lancer/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/SLINGhub/DCVtestkit/branch/main/graph/badge.svg?token=RNlP8VlaL2)](https://codecov.io/gh/SLINGhub/DCVtestkit)
+coverage](https://codecov.io/gh/SLINGhub/lancer/branch/main/graph/badge.svg?token=RNlP8VlaL2)](https://codecov.io/gh/SLINGhub/lancer)
 [![License:
-MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/SLINGhub/DCVtestkit/blob/main/LICENSE.md)
+MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/SLINGhub/lancer/blob/main/LICENSE.md)
 [![Maintainer:
 JauntyJJS](https://img.shields.io/badge/Maintainer-JauntyJJS-blue.svg)](https://github.com/JauntyJJS)
 <!-- badges: end -->
 
-R package used to validate if a quality control sample dilution curve is
-linear or has signal suppression by statistical analysis and plots.
+R package used to validate if a curve is linear or has signal
+suppression by statistical analysis and plots.
 
 ## Installation
 
@@ -25,14 +23,14 @@ You can install the development version from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("SLINGhub/DCVtestkit")
+devtools::install_github("SLINGhub/lancer")
 ```
 
 If you want to use a proper release version, referenced by a Git tag
-(example: 0.0.2) install the package as follows:
+(example: 0.0.5) install the package as follows:
 
 ``` r
-devtools::install_github("SLINGhub/DCVtestkit", ref = "0.0.2")
+devtools::install_github("SLINGhub/lancer", ref = "0.0.5")
 ```
 
 ## Overview
@@ -43,21 +41,21 @@ An overview of the workflow is as follows
 
 ## Meta
 
--   We welcome contributions from general questions to bug reports.
-    Check out the [contributions](CONTRIBUTING.md) guidelines. Please
-    note that this project is released with a [Contributor Code of
-    Conduct](https://www.contributor-covenant.org/version/2/0/code_of_conduct/).
-    By participating in this project you agree to abide by its terms.
--   License:
-    [MIT](https://github.com/SLINGhub/DCVtestkit/blob/main/LICENSE.md)
--   Think `DCVtestkit` is useful? Let others discover it, by telling
-    them in person, via Twitter
-    [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/LOGIN)
-    or a blog post.
--   Refer to the [NEWS.md
-    file](https://github.com/SLINGhub/DCVtestkit/blob/main/NEWS.md) to
-    see what is being worked on as well as update to changes between
-    back to back versions.
+- We welcome contributions from general questions to bug reports. Check
+  out the [contributions](CONTRIBUTING.md) guidelines. Please note that
+  this project is released with a [Contributor Code of
+  Conduct](https://www.contributor-covenant.org/version/2/0/code_of_conduct/).
+  By participating in this project you agree to abide by its terms.
+- License:
+  [MIT](https://github.com/SLINGhub/lancer/blob/main/LICENSE.md)
+- Think `lancer` is useful? Let others discover it, by telling them in
+  person, via Twitter
+  [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/LOGIN)
+  or a blog post.
+- Refer to the [NEWS.md
+  file](https://github.com/SLINGhub/lancer/blob/main/NEWS.md) to see
+  what is being worked on as well as update to changes between back to
+  back versions.
 
 ## Motivation
 
@@ -135,7 +133,7 @@ dilution curve gives a higher value compared to than the other two
 curves.
 
 ``` r
-DCVtestkit::calculate_pra_linear(
+lancer::calculate_pra_linear(
   dilution_data = linear_data,
   conc_var = "conc_var",
   signal_var = "signal_var"
@@ -144,7 +142,7 @@ DCVtestkit::calculate_pra_linear(
 ```
 
 ``` r
-DCVtestkit::calculate_pra_linear(
+lancer::calculate_pra_linear(
   dilution_data = saturated_data,
   conc_var = "conc_var",
   signal_var = "signal_var"
@@ -153,7 +151,7 @@ DCVtestkit::calculate_pra_linear(
 ```
 
 ``` r
-DCVtestkit::calculate_pra_linear(
+lancer::calculate_pra_linear(
   dilution_data = lod_data,
   conc_var = "conc_var",
   signal_var = "signal_var"
@@ -165,7 +163,7 @@ Another example is the use of the Mandel’s Fitting Test. Observe that
 the two non-linear dilution curves give a very low p value.
 
 ``` r
-DCVtestkit::calculate_mandel(
+lancer::calculate_mandel(
   dilution_data = linear_data,
   conc_var = "conc_var",
   signal_var = "signal_var"
@@ -177,7 +175,7 @@ DCVtestkit::calculate_mandel(
 ```
 
 ``` r
-DCVtestkit::calculate_mandel(
+lancer::calculate_mandel(
   dilution_data = saturated_data,
   conc_var = "conc_var",
   signal_var = "signal_var"
@@ -189,7 +187,7 @@ DCVtestkit::calculate_mandel(
 ```
 
 ``` r
-DCVtestkit::calculate_mandel(
+lancer::calculate_mandel(
   dilution_data = lod_data,
   conc_var = "conc_var",
   signal_var = "signal_var"
@@ -205,29 +203,29 @@ DCVtestkit::calculate_mandel(
 We try to categorise dilution curves based on the results of three
 parameters.
 
--   Pearson Correlation Coefficient ( *R* )
--   Percent Residual Accuracy ( *P**R**A* )
--   Mandel’s Fitting Test
+- Pearson Correlation Coefficient ( $R$ )
+- Percent Residual Accuracy ( $PRA$ )
+- Mandel’s Fitting Test
 
-Pearson Correlation Coefficient ( *R* ) can be found in Van Loco, J.,
+Pearson Correlation Coefficient ( $R$ ) can be found in Van Loco, J.,
 Elskens, M., Croux, C. *et al.*, Linearity of calibration curves: use
 and misuse of the correlation coefficient. *Accreditation and Quality
 Assurance* **7**, 281-285 (2002).
 [10.1007/s00769-002-0487-6](https://doi.org/10.1007/s00769-002-0487-6).  
-Equation ( 1 ) is used.
+Equation ( $1$ ) is used.
 
 Mandel’s Fitting Test can be found in Andrade, J. M. and
 Gómez-Carracedo, M. P., Notes on the use of Mandel’s test to check for
 nonlinearity in laboratory calibrations. *Analytical Methods* **5**,
 1145-1149 (2013).
 [10.1039/C2AY26400E](https://dx.doi.org/10.1039/C2AY26400E).  
-Equation ( 5 ) is used.
+Equation ( $5$ ) is used.
 
-Percent Residual Accuracy ( *P**R**A* ) can be found in Logue, B. A. and
+Percent Residual Accuracy ( $PRA$ ) can be found in Logue, B. A. and
 Manandhar, E., Percent residual accuracy for quantifying goodness-of-fit
 of linear calibration curves. *Talanta* **189**, 527-533 (2018).
 [10.1016/j.talanta.2018.07.046](https://doi.org/10.1016/j.talanta.2018.07.046).  
-Equation ( 6 ) is used.
+Equation ( $6$ ) is used.
 
 ## Workflow Proposed
 
@@ -235,35 +233,34 @@ Two methods are proposed to categorise the dilution curves.
 
 ### Workflow 1
 
-Workflow 1 involves using *R* and *P**R**A* to categorise the dilution
+Workflow 1 involves using $R$ and $PRA$ to categorise the dilution
 curves.
 
--   If *R* \< 0.8, classify as poor linearity.  
--   If *R* ≥ 0.8, *P**R**A* \< 80, classify as poor linearity.  
--   If *R* ≥ 0.8, *P**R**A* ≥ 80, classify as good linearity.
+- If $R < 0.8$, classify as poor linearity.  
+- If $R \ge{0.8}$, $PRA < 80$, classify as poor linearity.  
+- If $R \ge{0.8}$, $PRA \ge 80$, classify as good linearity.
 
 ### Workflow 2
 
-Workflow 2 involves using *R*, *P**R**A* and Mandel’s Fitting Test to
+Workflow 2 involves using $R$, $PRA$ and Mandel’s Fitting Test to
 categorise the dilution curves.
 
--   If *R* \< 0.8, classify as poor linearity.
--   If *R* ≥ 0.8, *P**R**A* \< 80, fit the quadratic model and use
-    Mandel’s Fitting Test to see if the quadratic model is a better fit
-    ( p value  \< 0.05 ).
-    -   If not better, classify as poor linearity
-    -   If better, check concavity of the quadratic model
-        -   If concavity is negative, classify as saturation
-        -   If concavity is positive, classify as limit of detection
-            (LOD)
--   If *R* ≥ 0.8, *P**R**A* ≥ 80, classify as good linearity
+- If $R < 0.8$, classify as poor linearity.
+- If $R \ge{0.8}$, $PRA < 80$, fit the quadratic model and use Mandel’s
+  Fitting Test to see if the quadratic model is a better fit ( p value
+  $< 0.05$ ).
+  - If not better, classify as poor linearity
+  - If better, check concavity of the quadratic model
+    - If concavity is negative, classify as saturation
+    - If concavity is positive, classify as limit of detection (LOD)
+- If $R \ge{0.8}$, $PRA \ge 80$, classify as good linearity
 
 ## Usage
 
 We first create our data set.
 
 ``` r
-library(DCVtestkit)
+library(lancer)
 
 # Data Creation
 
@@ -381,7 +378,7 @@ Merge the data together using `create_dilution_table`
 
 ``` r
 # Create dilution table
-dilution_table <- create_dilution_table(
+dilution_table <- lancer::create_dilution_table(
   dilution_annot = dilution_annot, 
   lipid_data_wide = lipid_data,
   common_column = "Sample_Name",
@@ -413,7 +410,7 @@ Summarise each dilution curve for each transition and batch with
 
 ``` r
 # Create dilution statistical summary
-dilution_summary <- summarise_dilution_table(
+dilution_summary <- lancer::summarise_dilution_table(
   dilution_table = dilution_table,
   grouping_variable = c(
     "Transition_Name",
@@ -454,7 +451,7 @@ Classify each dilution curve according to Workflow 1 and Workflow 2.
 `wf2_group2` gives the results of Workflow 2
 
 ``` r
-dilution_classified <- evaluate_linearity(
+dilution_classified <- lancer::evaluate_linearity(
   dilution_summary = dilution_summary,
   grouping_variable = c(
     "Transition_Name",
@@ -493,7 +490,7 @@ print(dilution_classified, width = 100)
 Results can be exported to Excel via `write_summary_excel`
 
 ``` r
-write_summary_excel(
+lancer::write_summary_excel(
   dilution_summary = dilution_classified, 
   file_name = "dilution_summary.xlsx")
 ```
@@ -504,7 +501,7 @@ Results can be plotted using `add_ggplot_panel`. This will create a
 column called panel that contains all the `ggplot` plots
 
 ``` r
-ggplot_table <- add_ggplot_panel(
+ggplot_table <- lancer::add_ggplot_panel(
   dilution_table = dilution_table,
   dilution_summary = dilution_classified,
   grouping_variable = c(
@@ -526,7 +523,7 @@ ggplot_list <- ggplot_table$panel
 Use `view_ggplot_pdf` to export the plots in a pdf file
 
 ``` r
-view_ggplot_pdf(
+lancer::view_ggplot_pdf(
   ggplot_list = ggplot_list,
   filename = "dilution_plot.pdf",
   ncol_per_page = 2,
@@ -549,7 +546,7 @@ the function `convert_to_cog`
 
 ``` r
 # Create a trellis table
-trellis_table <- add_plotly_panel(
+trellis_table <- lancer::add_plotly_panel(
   dilution_table = dilution_table,
   dilution_summary = dilution_classified,
   grouping_variable = c(
@@ -568,11 +565,10 @@ trellis_table <- add_plotly_panel(
   signal_var = "Area",
   have_plot_title = FALSE
 ) %>%
-  convert_to_cog(
+  lancer::convert_to_cog(
     grouping_variable = c(
       "Transition_Name",
-      "Dilution_Batch_Name"
-    ),
+      "Dilution_Batch_Name"), 
     panel_variable = "panel",
     col_name_vec = "col_name_vec",
     desc_vec = "desc_vec",
@@ -584,7 +580,7 @@ Use `view_trellis_html` on the R console to output the interactive
 trelliscope display
 
 ``` r
-view_trellis_html(
+lancer::view_trellis_html(
   trellis_table = trellis_table,
   grouping_variable = c(
     "Transition_Name",

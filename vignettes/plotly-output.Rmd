@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 Here are some examples to plot dilution data via `plotly`
 
 ```{r data set creation}
-library(DCVtestkit)
+library(lancer)
 
 # Data Creation
 

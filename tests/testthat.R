@@ -1,4 +1,4 @@
 library(testthat)
-library(DCVtestkit)
+library(lancer)
 
-test_check("DCVtestkit")
+test_check("lancer")
