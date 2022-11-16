@@ -551,9 +551,9 @@ column called panel that contains all the `plotly` plots.
 
 To create an [interactive trelliscope
 display](https://hafen.github.io/trelliscopejs/articles/trelliscopejs.html)
-as seen in [here](https://dcvtestkit-interactive-example.netlify.app),
-each columns must be converted to a cognostics class. This is done using
-the function `convert_to_cog`
+as seen in [here](https://lancer-interactive-example.netlify.app), each
+columns must be converted to a cognostics class. This is done using the
+function `convert_to_cog`
 
 ``` r
 # Create a trellis table
