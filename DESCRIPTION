@@ -18,7 +18,8 @@ Authors@R:
              comment = c(ORCID = "0000-0002-5918-3249")),
       person(given = "Markus",
              family = "Wenk",
-             role = c("aut")))            
+             role = c("aut"),
+             comment = c(ORCID = "0000-0001-5447-7881")))            
 Description: Validate if a quality control sample dilution curve is 
              linear or has signal suppression by statistical summary
              and plots.
