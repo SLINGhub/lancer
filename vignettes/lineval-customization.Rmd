@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 By default the function `evaluate_linearity` will look for column names
 `r_corr`, `pra_linear`, `mandel_p_val` and `concavity_column` that represent 
 the Correlation Coefficient, Percent Residual Accuracy and Mandel's Fitting Test 
-p value respectively.
+$p$ value respectively.
 
 It is possible to change the column names representing the three parameters
 to suit your own dataset using `corrcoef_column`, `pra_column`, `mandel_p_val_column` and `concavity_column`
@@ -59,7 +59,7 @@ print(dilution_classified, width = 100)
 ```
 
 One can change the threshold of the Correlation Coefficient (0.8), 
-Percent Residual Accuracy (80) and Mandel's Fitting Test p value (0.05) using
+Percent Residual Accuracy (80) and Mandel's Fitting Test $p$ value (0.05) using
 `corrcoef_min_threshold`, `pra_min_threshold` and `mandel_p_val_threshold` 
 respectively.
 
@@ -86,7 +86,7 @@ print(dilution_classified, width = 100)
 ```
 
 Likewise for the excel output using the function `write_summary_excel`, we can choose which
-column to be Correlation Coefficient, Percent Residual Accuracy and Mandel's Fitting Test p value, 
+column to be Correlation Coefficient, Percent Residual Accuracy and Mandel's Fitting Test $p$ value, 
 as well as its threshold value. The sheet name can also be changed.
 
 ```{r customise print to excel, eval = FALSE}
@@ -106,4 +106,11 @@ write_summary_excel(
 )
 ```
 
-![](vignettes-ExcelResultsCustom.png)
+```{r Excel Report, echo = FALSE}
+#| fig.alt = "Dilution statistics
+#|  summary reported in Excel using lancer.
+#|  The column names, sheet name and 
+#|  threshold are customised."
+ 
+knitr::include_graphics("vignettes-ExcelResultsCustom.png")
+```

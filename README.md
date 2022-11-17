@@ -2,7 +2,7 @@
 
 <a name="top"></a>
 
-# `lancer`: Linearity Assessment <a href="https://slinghub.github.io/lancer/"><img src="man/figures/README-logo.png" align="right" width="25%" height="25%" /></a> <br>and Curve Explorer
+# `lancer`: Linearity Assessment <img src="man/figures/README-logo.png" alt="Hex logo of R package lancer. Logo is a picture of a lancer under a saturated curve exploring the mountains." align="right" width="25%" height="25%" /> <br>and Curve Explorer
 
 <!-- badges: start -->
 
@@ -81,9 +81,10 @@ devtools::install_github("SLINGhub/lancer", ref = "0.0.5")
 
 ## Overview
 
-An overview of the workflow is as follows
+Using dilution data as a running example, an overview of the workflow is
+as follows
 
-![README-Workflow](man/figures/README-Workflow.png)
+<img src="man/figures/README-Workflow.png" alt="Overview of lancer workflow. Input Transition Signal Data and Dilution Annotation are first merged to a Dilution Table. Next, Dilution Statistics Summary are then calculated. Finally, results are exported as Excel, pdf file or html folder." width="100%" />
 
 <a href="#top">Back to top</a>
 
@@ -132,9 +133,9 @@ lod_data <- data.frame(
 )
 ```
 
-<img src="man/figures/README-ViewMotivationData1-1.png" width="100%" />
+<img src="man/figures/README-ViewMotivationData1-1.png" alt="A linear curve." width="100%" />
 
-<img src="man/figures/README-ViewMotivationData2-1.png" width="100%" />
+<img src="man/figures/README-ViewMotivationData2-1.png" alt="Left figure is a saturation curve (plateaus at high concentration). Right figure is a curve with limit of detection (plateaus at low concentration)." width="100%" />
 
 The corresponding Pearson correlation coefficient are really high
 (\>0.9) even though the curves are non-linear. There is a need to
@@ -533,7 +534,7 @@ lancer::write_summary_excel(
   file_name = "dilution_summary.xlsx")
 ```
 
-![Excel Report](man/figures/README-ExcelResults.png)
+<img src="man/figures/README-ExcelResults.png" alt="Dilution statistics summary reported in Excel using lancer." width="100%" />
 
 Results can be plotted using `add_ggplot_panel`. This will create a
 column called panel that contains all the `ggplot` plots
@@ -569,9 +570,9 @@ lancer::view_ggplot_pdf(
 )
 ```
 
-![README-PDF Results1](man/figures/README-PDFResults1.png)
+<img src="man/figures/README-PDFResults1.png" alt="Dilution batch one's statistics summary and plots reported in pdf using lancer." width="100%" />
 
-![README-PDF Results2](man/figures/README-PDFResults2.png)
+<img src="man/figures/README-PDFResults2.png" alt="Dilution batch two's statistics summary and plots reported in pdf using lancer." width="100%" />
 
 Results can also be plotted using `add_plotly_panel`. This will create a
 column called panel that contains all the `plotly` plots.
@@ -629,6 +630,6 @@ lancer::view_trellis_html(
 )
 ```
 
-![README-Trellis](man/figures/README-Trellis.gif)
+<img src="man/figures/README-Trellis.gif" alt="The user first shows the working directory D:/lancer. Next, the user copy and paste the code to the R Studio console and press Enter. An interactive trelliscope output is created at the working directory D:/lancer." width="100%" />
 
 <a href="#top">Back to top</a>

@@ -6,6 +6,7 @@
 
 * Change the R package name to lancer.
 * Use `actions/checkout@v3` in the other GitHub Actions files.
+* Add alternate text to the documentation.
 
 # lancer 0.0.4
 

@@ -147,6 +147,11 @@ ggplot_list <- ggplot_table$panel
 ```
 
 ```{r print ggplot plot with half linear regression}
+#| fig.alt = "A ggplot of the Lipid1_B1's dilution curve
+#|  and dilution statistics. A linear regression line
+#|  which fits the first half of the dilution points
+#|  is added.
+#|  This is the first row of the column panel."
 ggplot_list[[1]]
 ```
 
@@ -176,8 +181,19 @@ ggplot_table <- add_ggplot_panel(
 ggplot_list <- ggplot_table$panel
 ```
 
-```{r print ggplot plot with conc customisation}
+```{r print ggplot plot with conc customisation 1}
+#| fig.alt = "A ggplot of the Lipid4_B2's dilution curve
+#|  and dilution statistics. The dilution points colour,
+#|  concentration interval and units are customised.
+#|  This is the second row of the column panel."
 ggplot_list[[2]]
+```
+
+```{r print ggplot plot with conc customisation 2}
+#| fig.alt = "A ggplot of the Lipid4_B2's dilution curve
+#|  and dilution statistics. The dilution points colour,
+#|  concentration interval and units are customised.
+#|  This is the eighth row of the column panel."
 ggplot_list[[8]]
 ```
 
@@ -193,10 +209,18 @@ view_ggplot_pdf(
 )
 ```
 
-Page 1
+```{r PDF Results 1, echo = FALSE}
+#| fig.alt = "Dilution batch one's statistics
+#|  summary and plots reported in pdf using lancer.
+#|  Pdf page width and height are customised."
+ 
+knitr::include_graphics("vignettes-pdfoutput1.png")
+```
 
-![](vignettes-pdfoutput1.png)
-
-Page 2
-
-![](vignettes-pdfoutput2.png)
+```{r PDF Results 2, echo = FALSE}
+#| fig.alt = "Dilution batch two's statistics
+#|  summary and plots reported in pdf using lancer.
+#|  Pdf page width and height are customised."
+ 
+knitr::include_graphics("vignettes-pdfoutput2.png")
+```

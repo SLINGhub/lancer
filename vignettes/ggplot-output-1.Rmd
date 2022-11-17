@@ -148,8 +148,17 @@ ggplot_list_orig <- ggplot_table_orig$panel
 
 Each `ggplot` plot for each group can be found in the column `panel`
 
-```{r print ggplot plot}
+```{r print ggplot plot 1}
+#| fig.alt = "A ggplot of the Lipid1_B1's dilution curve
+#|  and dilution statistics. This is the first row of
+#|  the column panel."
 ggplot_list_orig[[1]]
+```
+
+```{r print ggplot plot 2}
+#| fig.alt = "A ggplot of the Lipid3_B2's dilution curve
+#|  and dilution statistics. This is the seventh row of
+#|  the column panel."
 ggplot_list_orig[[7]]
 ```
 
@@ -178,6 +187,9 @@ ggplot_list <- ggplot_table$panel
 ```
 
 ```{r print ggplot plot without the summary table}
+#| fig.alt = "A ggplot of the Lipid1_B1's dilution curve
+#|  without dilution statistics. This is the first row of
+#|  the column panel."
 ggplot_list[[1]]
 ```
 
