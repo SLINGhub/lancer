@@ -20,8 +20,8 @@ Authors@R:
              family = "Wenk",
              role = c("aut"),
              comment = c(ORCID = "0000-0001-5447-7881")))            
-Description: Validate if a quality control sample dilution curve is 
-             linear or has signal suppression by statistical summary
+Description: Validate if a curve is linear or has signal 
+             suppression by statistical analysis
              and plots.
 License: MIT + file LICENSE
 Encoding: UTF-8
