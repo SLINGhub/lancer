@@ -76,16 +76,27 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9"><div class="section level1">
+  <main id="main" class="col-md-9"><p><a name="top"></a></p>
+<div class="section level1">
 <div class="page-header"><h1 id="lancer-linearity-assessment---and-curve-explorer">
 <code>lancer</code>: Linearity Assessment <a href="https://slinghub.github.io/lancer/"><img src="reference/figures/README-logo.png" align="right" width="25%" height="25%"></a> <br>and Curve Explorer<a class="anchor" aria-label="anchor" href="#lancer-linearity-assessment---and-curve-explorer"></a>
 </h1></div>
 <!-- badges: start -->
 
-<div class="section level2">
-<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
-</h2>
 <p>R package used to validate if a curve is linear or has signal suppression by statistical analysis and plots.</p>
+<div class="section level2">
+<h2 id="table-of-content">Table of Content<a class="anchor" aria-label="anchor" href="#table-of-content"></a>
+</h2>
+<ul>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#meta">Meta</a></li>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#motivation">Motivation</a></li>
+<li><a href="#how-it-works">How It Works</a></li>
+<li><a href="#workflow-proposed">Workflow Proposed</a></li>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#output-results">Output Results</a></li>
+</ul>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -97,6 +108,7 @@
 <p>If you want to use a proper release version, referenced by a Git tag (example: 0.0.5) install the package as follows:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"SLINGhub/lancer"</span>, ref <span class="op">=</span> <span class="st">"0.0.5"</span><span class="op">)</span></span></code></pre></div>
+<p><a href="#top">Back to top</a></p>
 </div>
 <div class="section level2">
 <h2 id="meta">Meta<a class="anchor" aria-label="anchor" href="#meta"></a>
@@ -118,6 +130,7 @@
 </ul>
 </li>
 </ul>
+<p><a href="#top">Back to top</a></p>
 </div>
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
@@ -126,6 +139,7 @@
 <div class="figure">
 <img src="reference/figures/README-Workflow.png" alt=""><p class="caption">README-Workflow</p>
 </div>
+<p><a href="#top">Back to top</a></p>
 </div>
 <div class="section level2">
 <h2 id="motivation">Motivation<a class="anchor" aria-label="anchor" href="#motivation"></a>
@@ -231,9 +245,10 @@
 <span><span class="co">#&gt;   mandel_stats mandel_p_val</span></span>
 <span><span class="co">#&gt;          &lt;dbl&gt;        &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1         20.9      0.00256</span></span></code></pre></div>
+<p><a href="#top">Back to top</a></p>
 </div>
 <div class="section level2">
-<h2 id="how-it-works">How it works<a class="anchor" aria-label="anchor" href="#how-it-works"></a>
+<h2 id="how-it-works">How It Works<a class="anchor" aria-label="anchor" href="#how-it-works"></a>
 </h2>
 <p>We try to categorise dilution curves based on the results of three parameters.</p>
 <ul>
@@ -247,6 +262,7 @@ Equation ( <span class="math inline">1</span> ) is used.</p>
 Equation ( <span class="math inline">5</span> ) is used.</p>
 <p>Percent Residual Accuracy ( <span class="math inline"><em>P</em><em>R</em><em>A</em></span> ) can be found in Logue, B. A. and Manandhar, E., Percent residual accuracy for quantifying goodness-of-fit of linear calibration curves. <em>Talanta</em> <strong>189</strong>, 527-533 (2018). <a href="https://doi.org/10.1016/j.talanta.2018.07.046" class="external-link">10.1016/j.talanta.2018.07.046</a>.<br>
 Equation ( <span class="math inline">6</span> ) is used.</p>
+<p><a href="#top">Back to top</a></p>
 </div>
 <div class="section level2">
 <h2 id="workflow-proposed">Workflow Proposed<a class="anchor" aria-label="anchor" href="#workflow-proposed"></a>
@@ -283,6 +299,7 @@ Equation ( <span class="math inline">6</span> ) is used.</p>
 </li>
 <li>If <span class="math inline"><em>R</em> ≥ 0.8</span>, <span class="math inline"><em>P</em><em>R</em><em>A</em> ≥ 80</span>, classify as good linearity</li>
 </ul>
+<p><a href="#top">Back to top</a></p>
 </div>
 </div>
 <div class="section level2">
@@ -489,6 +506,7 @@ Equation ( <span class="math inline">6</span> ) is used.</p>
 <span><span class="co">#&gt; 6       94.3   0.382         -1.94     0.990        0.988          0.868</span></span>
 <span><span class="co">#&gt; 7       74.7   0.00256        0.321    0.956        0.951         20.9  </span></span>
 <span><span class="co">#&gt; 8      -73.1   0.0533       -22.9      0.370        0.291          5.39</span></span></code></pre></div>
+<p><a href="#top">Back to top</a></p>
 </div>
 <div class="section level2">
 <h2 id="output-results">Output Results<a class="anchor" aria-label="anchor" href="#output-results"></a>
@@ -580,8 +598,10 @@ Equation ( <span class="math inline">6</span> ) is used.</p>
 <div class="figure">
 <img src="reference/figures/README-Trellis.gif" alt=""><p class="caption">README-Trellis</p>
 </div>
+<p><a href="#top">Back to top</a></p>
 </div>
 </div>
+
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
