@@ -79,7 +79,7 @@
   <main id="main" class="col-md-9"><p><a name="top"></a></p>
 <div class="section level1">
 <div class="page-header"><h1 id="lancer-linearity-assessment---and-curve-explorer">
-<code>lancer</code>: Linearity Assessment <a href="https://slinghub.github.io/lancer/"><img src="reference/figures/README-logo.png" align="right" width="25%" height="25%"></a> <br>and Curve Explorer<a class="anchor" aria-label="anchor" href="#lancer-linearity-assessment---and-curve-explorer"></a>
+<code>lancer</code>: Linearity Assessment <img src="reference/figures/README-logo.png" alt="Hex logo of R package lancer. Logo is a picture of a lancer under a saturated curve exploring the mountains." align="right" width="25%" height="25%"><br>and Curve Explorer<a class="anchor" aria-label="anchor" href="#lancer-linearity-assessment---and-curve-explorer"></a>
 </h1></div>
 <!-- badges: start -->
 
@@ -135,10 +135,8 @@
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>An overview of the workflow is as follows</p>
-<div class="figure">
-<img src="reference/figures/README-Workflow.png" alt=""><p class="caption">README-Workflow</p>
-</div>
+<p>Using dilution data as a running example, an overview of the workflow is as follows</p>
+<p><img src="reference/figures/README-Workflow.png" alt="Overview of lancer workflow. Input Transition Signal Data and Dilution Annotation are first merged to a Dilution Table. Next, Dilution Statistics Summary are then calculated. Finally, results are exported as Excel, pdf file or html folder." width="100%"></p>
 <p><a href="#top">Back to top</a></p>
 </div>
 <div class="section level2">
@@ -180,8 +178,8 @@
 <span>    <span class="fl">3563</span>, <span class="fl">4500</span>, <span class="fl">5300</span>, <span class="fl">8500</span>, <span class="fl">10430</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/README-ViewMotivationData1-1.png" width="100%"></p>
-<p><img src="reference/figures/README-ViewMotivationData2-1.png" width="100%"></p>
+<p><img src="reference/figures/README-ViewMotivationData1-1.png" alt="A linear curve." width="100%"></p>
+<p><img src="reference/figures/README-ViewMotivationData2-1.png" alt="Left figure is a saturation curve (plateaus at high concentration). Right figure is a curve with limit of detection (plateaus at low concentration)." width="100%"></p>
 <p>The corresponding Pearson correlation coefficient are really high (&gt;0.9) even though the curves are non-linear. There is a need to explore better ways to categorise these two curves.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">linear_data</span><span class="op">$</span><span class="va">conc_var</span>, <span class="va">linear_data</span><span class="op">$</span><span class="va">signal_var</span><span class="op">)</span></span>
@@ -516,9 +514,7 @@ Equation ( <span class="math inline">6</span> ) is used.</p>
 <code class="sourceCode R"><span><span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="reference/write_summary_excel.html">write_summary_excel</a></span><span class="op">(</span></span>
 <span>  dilution_summary <span class="op">=</span> <span class="va">dilution_classified</span>, </span>
 <span>  file_name <span class="op">=</span> <span class="st">"dilution_summary.xlsx"</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="reference/figures/README-ExcelResults.png" alt=""><p class="caption">Excel Report</p>
-</div>
+<p><img src="reference/figures/README-ExcelResults.png" alt="Dilution statistics summary reported in Excel using lancer." width="100%"></p>
 <p>Results can be plotted using <code>add_ggplot_panel</code>. This will create a column called panel that contains all the <code>ggplot</code> plots</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ggplot_table</span> <span class="op">&lt;-</span> <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="reference/add_ggplot_panel.html">add_ggplot_panel</a></span><span class="op">(</span></span>
@@ -546,12 +542,8 @@ Equation ( <span class="math inline">6</span> ) is used.</p>
 <span>  ncol_per_page <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  nrow_per_page <span class="op">=</span> <span class="fl">2</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="reference/figures/README-PDFResults1.png" alt=""><p class="caption">README-PDF Results1</p>
-</div>
-<div class="figure">
-<img src="reference/figures/README-PDFResults2.png" alt=""><p class="caption">README-PDF Results2</p>
-</div>
+<p><img src="reference/figures/README-PDFResults1.png" alt="Dilution batch one's statistics summary and plots reported in pdf using lancer." width="100%"></p>
+<p><img src="reference/figures/README-PDFResults2.png" alt="Dilution batch two's statistics summary and plots reported in pdf using lancer." width="100%"></p>
 <p>Results can also be plotted using <code>add_plotly_panel</code>. This will create a column called panel that contains all the <code>plotly</code> plots.</p>
 <p>To create an <a href="https://hafen.github.io/trelliscopejs/articles/trelliscopejs.html" class="external-link">interactive trelliscope display</a> as seen in <a href="https://lancer-interactive-example.netlify.app" class="external-link">here</a>, each columns must be converted to a cognostics class. This is done using the function <code>convert_to_cog</code></p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
@@ -595,9 +587,7 @@ Equation ( <span class="math inline">6</span> ) is used.</p>
 <span>  trellis_report_name <span class="op">=</span> <span class="st">"Dilution_Plot"</span>,</span>
 <span>  trellis_report_folder <span class="op">=</span> <span class="st">"Dilution_Plot_Folder"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="reference/figures/README-Trellis.gif" alt=""><p class="caption">README-Trellis</p>
-</div>
+<p><img src="reference/figures/README-Trellis.gif" alt="The user first shows the working directory D:/lancer. Next, the user copy and paste the code to the R Studio console and press Enter. An interactive trelliscope output is created at the working directory D:/lancer." width="100%"></p>
 <p><a href="#top">Back to top</a></p>
 </div>
 </div>
