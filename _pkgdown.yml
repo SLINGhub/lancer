@@ -2,7 +2,7 @@ url: https://slinghub.github.io/lancer/
 
 template:
   bootstrap: 5
-  bootswatch: cosmo
+  bootswatch: flatly
 
 reference:
   - title: General Workflow

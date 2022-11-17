@@ -16,6 +16,8 @@ knitr::opts_chunk$set(
 library(lancer)
 ```
 
+<a name="top"></a>
+
 # `lancer`: Linearity Assessment <a href="https://slinghub.github.io/lancer/"><img src="man/figures/README-logo.png" align="right" width="25%" height="25%" /></a> <br>and Curve Explorer
 
 <!-- badges: start -->
@@ -25,9 +27,18 @@ library(lancer)
 [![Maintainer: JauntyJJS](https://img.shields.io/badge/Maintainer-JauntyJJS-blue.svg)](https://github.com/JauntyJJS)
 <!-- badges: end -->
 
-## Introduction
+R package used to validate if a curve is linear or has signal suppression by statistical analysis and plots. 
 
-R package used to validate if a curve is linear or has signal suppression by statistical analysis and plots.
+## Table of Content
+
+- [Installation]
+- [Meta]
+- [Overview]
+- [Motivation]
+- [How It Works]
+- [Workflow Proposed]
+- [Usage]
+- [Output Results]
 
 ## Installation
 
@@ -44,6 +55,8 @@ If you want to use a proper release version, referenced by a Git tag (example: 0
 devtools::install_github("SLINGhub/lancer", ref = "0.0.5")
 ```
 
+<a href="#top">Back to top</a>
+
 ## Meta
 
 * We welcome contributions from general questions to bug reports. Check out the [contributions](CONTRIBUTING.md) guidelines. Please note that this project is released with a [Contributor Code of Conduct](https://www.contributor-covenant.org/version/2/0/code_of_conduct/). By participating in this project you agree to abide by its terms.
@@ -54,12 +67,15 @@ devtools::install_github("SLINGhub/lancer", ref = "0.0.5")
     - [Black Knight by J4p4n](https://www.1001freedownloads.com/free-clipart/black-knight) in [1001FreeDownloads](https://www.1001freedownloads.com/) released under CC0. [![License: CC0-1.0](https://licensebuttons.net/l/zero/1.0/80x15.png)](http://creativecommons.org/publicdomain/zero/1.0/)
     - [Mountain Range](https://publicdomainvectors.org/en/free-clipart/Mountain-range-clip-art/88586.html) in [publicdomainvectors.org](https://publicdomainvectors.org/) released under CC0. [![License: CC0-1.0](https://licensebuttons.net/l/zero/1.0/80x15.png)](http://creativecommons.org/publicdomain/zero/1.0/)
 
+<a href="#top">Back to top</a>
 
 ## Overview
 
 An overview of the workflow is as follows
 
 ![README-Workflow](man/figures/README-Workflow.png)
+
+<a href="#top">Back to top</a>
 
 ## Motivation
 
@@ -409,7 +425,9 @@ lancer::calculate_mandel(
 )
 ```
 
-## How it works
+<a href="#top">Back to top</a>
+
+## How It Works
 
 We try to categorise dilution curves based on the results of three parameters.  
 
@@ -432,6 +450,8 @@ Percent Residual Accuracy ( $PRA$ ) can be found in Logue, B. A. and Manandhar, 
 Percent residual accuracy for quantifying goodness-of-fit of linear calibration curves. 
 *Talanta* **189**, 527-533 (2018). [10.1016/j.talanta.2018.07.046](https://doi.org/10.1016/j.talanta.2018.07.046).  
 Equation ( $6$ ) is used.
+
+<a href="#top">Back to top</a>
 
 ## Workflow Proposed
 
@@ -456,6 +476,8 @@ Workflow 2 involves using $R$, $PRA$ and Mandel's Fitting Test to categorise the
          - If concavity is negative, classify as saturation
          - If concavity is positive, classify as limit of detection (LOD)
  * If $R \ge{0.8}$, $PRA \ge 80$, classify as good linearity
+
+<a href="#top">Back to top</a>
 
 ## Usage
 
@@ -603,6 +625,8 @@ dilution_classified <- lancer::evaluate_linearity(
 print(dilution_classified, width = 100)
 ```
 
+<a href="#top">Back to top</a>
+
 ## Output Results
 
 Results can be exported to Excel via `write_summary_excel`
@@ -703,3 +727,5 @@ lancer::view_trellis_html(
 ```
 
 ![README-Trellis](man/figures/README-Trellis.gif)
+
+<a href="#top">Back to top</a>

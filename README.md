@@ -1,5 +1,7 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+<a name="top"></a>
+
 # `lancer`: Linearity Assessment <a href="https://slinghub.github.io/lancer/"><img src="man/figures/README-logo.png" align="right" width="25%" height="25%" /></a> <br>and Curve Explorer
 
 <!-- badges: start -->
@@ -13,10 +15,19 @@ MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/SL
 JauntyJJS](https://img.shields.io/badge/Maintainer-JauntyJJS-blue.svg)](https://github.com/JauntyJJS)
 <!-- badges: end -->
 
-## Introduction
-
 R package used to validate if a curve is linear or has signal
 suppression by statistical analysis and plots.
+
+## Table of Content
+
+- [Installation](#installation)
+- [Meta](#meta)
+- [Overview](#overview)
+- [Motivation](#motivation)
+- [How It Works](#how-it-works)
+- [Workflow Proposed](#workflow-proposed)
+- [Usage](#usage)
+- [Output Results](#output-results)
 
 ## Installation
 
@@ -34,6 +45,8 @@ If you want to use a proper release version, referenced by a Git tag
 ``` r
 devtools::install_github("SLINGhub/lancer", ref = "0.0.5")
 ```
+
+<a href="#top">Back to top</a>
 
 ## Meta
 
@@ -64,11 +77,15 @@ devtools::install_github("SLINGhub/lancer", ref = "0.0.5")
     released under CC0. [![License:
     CC0-1.0](https://licensebuttons.net/l/zero/1.0/80x15.png)](http://creativecommons.org/publicdomain/zero/1.0/)
 
+<a href="#top">Back to top</a>
+
 ## Overview
 
 An overview of the workflow is as follows
 
 ![README-Workflow](man/figures/README-Workflow.png)
+
+<a href="#top">Back to top</a>
 
 ## Motivation
 
@@ -211,7 +228,9 @@ lancer::calculate_mandel(
 #> 1         20.9      0.00256
 ```
 
-## How it works
+<a href="#top">Back to top</a>
+
+## How It Works
 
 We try to categorise dilution curves based on the results of three
 parameters.
@@ -240,6 +259,8 @@ of linear calibration curves. *Talanta* **189**, 527-533 (2018).
 [10.1016/j.talanta.2018.07.046](https://doi.org/10.1016/j.talanta.2018.07.046).  
 Equation ( $6$ ) is used.
 
+<a href="#top">Back to top</a>
+
 ## Workflow Proposed
 
 Two methods are proposed to categorise the dilution curves.
@@ -267,6 +288,8 @@ categorise the dilution curves.
     - If concavity is negative, classify as saturation
     - If concavity is positive, classify as limit of detection (LOD)
 - If $R \ge{0.8}$, $PRA \ge 80$, classify as good linearity
+
+<a href="#top">Back to top</a>
 
 ## Usage
 
@@ -498,6 +521,8 @@ print(dilution_classified, width = 100)
 #> 8      -73.1   0.0533       -22.9      0.370        0.291          5.39
 ```
 
+<a href="#top">Back to top</a>
+
 ## Output Results
 
 Results can be exported to Excel via `write_summary_excel`
@@ -605,3 +630,5 @@ lancer::view_trellis_html(
 ```
 
 ![README-Trellis](man/figures/README-Trellis.gif)
+
+<a href="#top">Back to top</a>
