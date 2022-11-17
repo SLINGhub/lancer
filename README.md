@@ -1,6 +1,6 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# `lancer` <img src="man/figures/README-logo.png" align="right" width="20%" height="20%" />
+# `lancer`: Linearity Assessment <a href="https://slinghub.github.io/lancer/"><img src="man/figures/README-logo.png" align="right" width="25%" height="25%" /></a> <br>and Curve Explorer
 
 <!-- badges: start -->
 
@@ -12,6 +12,8 @@ MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/SL
 [![Maintainer:
 JauntyJJS](https://img.shields.io/badge/Maintainer-JauntyJJS-blue.svg)](https://github.com/JauntyJJS)
 <!-- badges: end -->
+
+## Introduction
 
 R package used to validate if a curve is linear or has signal
 suppression by statistical analysis and plots.

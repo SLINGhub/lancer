@@ -1,11 +1,11 @@
 url: https://slinghub.github.io/lancer/
 
 template:
-  params:
-    bootswatch: cosmo
+  bootstrap: 5
+  bootswatch: cosmo
 
 reference:
-  - title: lancer
+  - title: General Workflow
     desc: >
       Functions used for tidy workflow
     contents:
