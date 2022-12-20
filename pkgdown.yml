@@ -1,5 +1,5 @@
 pandoc: 2.19.2
-pkgdown: 2.0.6
+pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   ggplot-output-1: ggplot-output-1.html
@@ -9,7 +9,7 @@ articles:
   plotly-output: plotly-output.html
   tidy-demo: tidy-demo.html
   trellis-output: trellis-output.html
-last_built: 2022-11-17T08:27Z
+last_built: 2022-12-20T08:23Z
 urls:
   reference: https://slinghub.github.io/lancer/reference
   article: https://slinghub.github.io/lancer/articles
