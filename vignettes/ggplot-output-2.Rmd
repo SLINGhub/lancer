@@ -214,7 +214,7 @@ lancer::view_ggplot_pdf(
 #| fig.alt = "Dilution batch one's statistics
 #|  summary and plots reported in pdf using lancer.
 #|  Pdf page width and height are customised."
- 
+
 knitr::include_graphics("vignettes-pdfoutput1.png")
 ```
 
@@ -222,6 +222,6 @@ knitr::include_graphics("vignettes-pdfoutput1.png")
 #| fig.alt = "Dilution batch two's statistics
 #|  summary and plots reported in pdf using lancer.
 #|  Pdf page width and height are customised."
- 
+
 knitr::include_graphics("vignettes-pdfoutput2.png")
 ```

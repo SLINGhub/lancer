@@ -262,7 +262,7 @@ lancer::view_trellis_html(
 ```{r Rstudio Command, echo = FALSE}
 #| fig.alt = "Code copied to the R Studio
 #|  console."
- 
+
 knitr::include_graphics("vignettes-RstudioCommand.png")
 ```
 
@@ -271,7 +271,7 @@ This will create a folder called “Dilution_Plot_Folder” as defined by `trell
 ```{r Output Folder, echo = FALSE}
 #| fig.alt = "Folder named Dilution_Plot_Folder
 #|  is created when code is successfully executed."
- 
+
 knitr::include_graphics("vignettes-OutputFolder.png")
 ```
 
@@ -281,7 +281,7 @@ You may view the plots by clicking on "index.html"
 #| fig.alt = "An interactive
 #|  trelliscope output created when the
 #|  index.html file is clicked."
- 
+
 knitr::include_graphics("vignettes-htmlplotly.png")
 ```
 

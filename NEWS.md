@@ -1,6 +1,10 @@
-# lancer 0.0.5.9000 (development version)
+# lancer 0.0.6.9000 (development version)
 
 ## TODO
+
+* Change `lancer` functions that has `dilution` to `curve`
+
+# lancer 0.0.6
 
 * Change characterisation of LOD curves from LOD to Noise Regime.
 * Change characterisation of Saturation curves from Saturation to Saturation Regime.
