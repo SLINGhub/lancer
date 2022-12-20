@@ -95,14 +95,14 @@ Order of the `Dilution_Batch_Name` and `Transition_Name` grouping variables is m
 
 ```{r dilution table}
 # Create dilution table and dilution statistical summary
-dilution_summary <- create_dilution_table(
+dilution_summary <- lancer::create_dilution_table(
   dilution_annot = dilution_annot,
   lipid_data_wide = lipid_data,
   common_column = "Sample_Name",
   signal_var = "Area",
   column_group = "Transition_Name"
 ) %>%
-  summarise_dilution_table(
+  lancer::summarise_dilution_table(
     grouping_variable = c(
       "Dilution_Batch_Name",
       "Transition_Name"
@@ -119,7 +119,7 @@ print(dilution_summary, width = 100)
 `grouping variable` in `evaluate_linearity` only put these variables to the front
 
 ```{r dilution evaluation}
-dilution_classified <- evaluate_linearity(
+dilution_classified <- lancer::evaluate_linearity(
   dilution_summary = dilution_summary,
   grouping_variable = c(
     "Dilution_Batch_Name",

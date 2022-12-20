@@ -286,8 +286,8 @@ categorise the dilution curves.
   $< 0.05$ ).
   - If not better, classify as poor linearity
   - If better, check concavity of the quadratic model
-    - If concavity is negative, classify as saturation
-    - If concavity is positive, classify as limit of detection (LOD)
+    - If concavity is negative, classify as saturation regime
+    - If concavity is positive, classify as noise regime
 - If $R \ge{0.8}$, $PRA \ge 80$, classify as good linearity
 
 <a href="#top">Back to top</a>

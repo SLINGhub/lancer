@@ -103,14 +103,14 @@ transition_annot <- tibble::tibble(
 
 ```{r dilution table}
 # Create dilution table and dilution statistical summary
-dilution_summary <- create_dilution_table(
+dilution_summary <- lancer::create_dilution_table(
   dilution_annot = dilution_annot,
   lipid_data_wide = lipid_data,
   common_column = "Sample_Name",
   signal_var = "Area",
   column_group = "Transition_Name"
 ) %>%
-  summarise_dilution_table(
+  lancer::summarise_dilution_table(
     grouping_variable = c(
       "Transition_Name",
       "Dilution_Batch_Name"
@@ -118,7 +118,7 @@ dilution_summary <- create_dilution_table(
     conc_var = "Dilution_Percent",
     signal_var = "Area"
   ) %>%
-  evaluate_linearity(grouping_variable = c(
+  lancer::evaluate_linearity(grouping_variable = c(
     "Transition_Name",
     "Dilution_Batch_Name"
   )) %>%
@@ -132,6 +132,7 @@ print(dilution_summary, width = 100)
 Results can be exported to Excel via `write_summary_excel`
 
 ```{r print to excel, eval = FALSE}
-write_summary_excel(dilution_summary = dilution_summary,
-                    file_name = "dilution_summary.xlsx")
+lancer::write_summary_excel(
+  dilution_summary = dilution_summary,
+  file_name = "dilution_summary.xlsx")
 ```

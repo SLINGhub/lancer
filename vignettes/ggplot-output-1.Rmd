@@ -90,7 +90,7 @@ lipid_data <- tibble::tibble(
   Lipid4 = lipid4_area_nonlinear
 )
 
-dilution_table <- create_dilution_table(
+dilution_table <- lancer::create_dilution_table(
   dilution_annot = dilution_annot,
   lipid_data_wide = lipid_data,
   common_column = "Sample_Name",
@@ -99,7 +99,7 @@ dilution_table <- create_dilution_table(
 )
 
 dilution_classified <- dilution_table %>%
-  summarise_dilution_table(
+  lancer::summarise_dilution_table(
     grouping_variable = c(
       "Transition_Name",
       "Dilution_Batch_Name"
@@ -108,9 +108,10 @@ dilution_classified <- dilution_table %>%
     signal_var = "Area"
   ) %>%
   dplyr::arrange(.data$Transition_Name) %>%
-  evaluate_linearity(grouping_variable = c(
-    "Transition_Name",
-    "Dilution_Batch_Name"
+  lancer::evaluate_linearity(
+    grouping_variable = c(
+      "Transition_Name",
+      "Dilution_Batch_Name"
   ))
 ```
 
@@ -124,7 +125,7 @@ print(head(dilution_classified), width = 100)
 We then create the `ggplot` plots with `dilution_table` and `dilution_classified`
 
 ```{r create ggplot table}
-ggplot_table_orig <- add_ggplot_panel(
+ggplot_table_orig <- lancer::add_ggplot_panel(
   dilution_table = dilution_table,
   dilution_summary = dilution_classified,
   grouping_variable = c(
@@ -165,7 +166,7 @@ ggplot_list_orig[[7]]
 To only plot the dilution curve without the summary table, set `plot_summary_table = FALSE`. You may not need to have any input for `dilution_summary`
 
 ```{r create ggplot table without the summary table}
-ggplot_table <- add_ggplot_panel(
+ggplot_table <- lancer::add_ggplot_panel(
   dilution_table = dilution_table,
   grouping_variable = c(
     "Transition_Name",

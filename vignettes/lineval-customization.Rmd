@@ -42,7 +42,7 @@ dilution_summary <- tibble::tibble(
 
 ```{r different column names}
 
-dilution_classified <- evaluate_linearity(
+dilution_classified <- lancer::evaluate_linearity(
   dilution_summary = dilution_summary,
   grouping_variable = c(
     "Transition_Name"
@@ -66,7 +66,7 @@ respectively.
 
 ```{r different threshold}
 
-dilution_classified <- evaluate_linearity(
+dilution_classified <- lancer::evaluate_linearity(
   dilution_summary = dilution_summary,
   grouping_variable = c(
     "Transition_Name"
@@ -90,7 +90,7 @@ column to be Correlation Coefficient, Percent Residual Accuracy and Mandel's Fit
 as well as its threshold value. The sheet name can also be changed.
 
 ```{r customise print to excel, eval = FALSE}
-write_summary_excel(
+lancer::write_summary_excel(
   dilution_summary = dilution_classified,
   file_name = "dilution_summary.xlsx",
   sheet_name = "Dilution Summary",

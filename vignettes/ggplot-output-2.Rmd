@@ -90,7 +90,7 @@ lipid_data <- tibble::tibble(
   Lipid4 = lipid4_area_nonlinear
 )
 
-dilution_table <- create_dilution_table(
+dilution_table <- lancer::create_dilution_table(
   dilution_annot = dilution_annot,
   lipid_data_wide = lipid_data,
   common_column = "Sample_Name",
@@ -99,7 +99,7 @@ dilution_table <- create_dilution_table(
 )
 
 dilution_classified <- dilution_table %>%
-  summarise_dilution_table(
+  lancer::summarise_dilution_table(
     grouping_variable = c(
       "Transition_Name",
       "Dilution_Batch_Name"
@@ -108,9 +108,10 @@ dilution_classified <- dilution_table %>%
     signal_var = "Area"
   ) %>%
   dplyr::arrange(.data$Transition_Name) %>%
-  evaluate_linearity(grouping_variable = c(
-    "Transition_Name",
-    "Dilution_Batch_Name"
+  lancer::evaluate_linearity(
+    grouping_variable = c(
+      "Transition_Name",
+      "Dilution_Batch_Name"
   ))
 ```
 
@@ -124,7 +125,7 @@ print(head(dilution_classified), width = 100)
 To see the regression line on half the dilution points, set `plot_first_half_lin_reg = TRUE`
 
 ```{r create ggplot table with half linear regression}
-ggplot_table <- add_ggplot_panel(
+ggplot_table <- lancer::add_ggplot_panel(
   dilution_table = dilution_table,
   dilution_summary = dilution_classified,
   grouping_variable = c(
@@ -159,7 +160,7 @@ Units of `conc_var` and `conc_var_interval` can be customised to suit the range 
 You can also change the colours for your dilution batch from `dil_batch_col` 
 
 ```{r create ggplot table with conc customisation}
-ggplot_table <- add_ggplot_panel(
+ggplot_table <- lancer::add_ggplot_panel(
   dilution_table = dilution_table,
   dilution_summary = dilution_classified,
   grouping_variable = c(
@@ -200,8 +201,8 @@ ggplot_list[[8]]
 The list of ggplots can be output in pdf. You may have to adjust the width and height accordingly.
 
 ```{r create pdf page, eval = FALSE}
-view_ggplot_pdf(
-  ggplot_list = ggplot_list_orig,
+lancer::view_ggplot_pdf(
+  ggplot_list = ggplot_list,
   filename = "dilution_plot.pdf",
   ncol_per_page = 2,
   nrow_per_page = 2,

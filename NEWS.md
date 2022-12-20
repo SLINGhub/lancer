@@ -2,6 +2,9 @@
 
 ## TODO
 
+* Change characterisation of LOD curves from LOD to Noise Regime.
+* Change characterisation of Saturation curves from Saturation to Saturation Regime.
+
 # lancer 0.0.5
 
 * Change the R package name to lancer.

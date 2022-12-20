@@ -122,12 +122,12 @@ evaluate_linearity <- function(dilution_summary,
               .data[[corrcoef_column]] >= corrcoef_min_threshold &
               .data[[mandel_p_val_column]] <
                 mandel_p_val_threshold &
-              .data[[concavity_column]] >= 0 ~ "LOD",
+              .data[[concavity_column]] >= 0 ~ "Noise Regime",
             .data[["wf1_group"]] == "Poor Linearity" &
               .data[[corrcoef_column]] >= corrcoef_min_threshold &
               .data[[mandel_p_val_column]] <
                 mandel_p_val_threshold &
-              .data[[concavity_column]] < 0 ~ "Saturation",
+              .data[[concavity_column]] < 0 ~ "Saturation Regime",
             TRUE ~ wf1_group
           )
       )
