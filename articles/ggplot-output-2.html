@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">lancer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.6.9000</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -148,13 +148,13 @@
 <span>  <span class="fl">426089</span>, <span class="fl">413292</span>, <span class="fl">450190</span>, <span class="fl">415309</span>, <span class="fl">457618</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">dilution_annot</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span><span class="va">curve_annot</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
 <span>  Sample_Name <span class="op">=</span> <span class="va">sample_name</span>,</span>
 <span>  Dilution_Batch_Name <span class="op">=</span> <span class="va">dilution_batch_name</span>,</span>
 <span>  Dilution_Percent <span class="op">=</span> <span class="va">dilution_percent</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">lipid_data</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span><span class="va">curve_data</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
 <span>  Sample_Name <span class="op">=</span> <span class="va">sample_name</span>,</span>
 <span>  Lipid1 <span class="op">=</span> <span class="va">lipid1_area_saturated</span>,</span>
 <span>  Lipid2 <span class="op">=</span> <span class="va">lipid2_area_linear</span>,</span>
@@ -162,15 +162,15 @@
 <span>  Lipid4 <span class="op">=</span> <span class="va">lipid4_area_nonlinear</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">dilution_table</span> <span class="op">&lt;-</span> <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="../reference/create_dilution_table.html">create_dilution_table</a></span><span class="op">(</span></span>
-<span>  dilution_annot <span class="op">=</span> <span class="va">dilution_annot</span>,</span>
-<span>  lipid_data_wide <span class="op">=</span> <span class="va">lipid_data</span>,</span>
+<span><span class="va">curve_table</span> <span class="op">&lt;-</span> <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="../reference/create_curve_table.html">create_curve_table</a></span><span class="op">(</span></span>
+<span>  curve_annot <span class="op">=</span> <span class="va">curve_annot</span>,</span>
+<span>  curve_data_wide <span class="op">=</span> <span class="va">curve_data</span>,</span>
 <span>  common_column <span class="op">=</span> <span class="st">"Sample_Name"</span>,</span>
 <span>  signal_var <span class="op">=</span> <span class="st">"Area"</span>,</span>
 <span>  column_group <span class="op">=</span> <span class="st">"Transition_Name"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">dilution_classified</span> <span class="op">&lt;-</span> <span class="va">dilution_table</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="va">dilution_classified</span> <span class="op">&lt;-</span> <span class="va">curve_table</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="../reference/summarise_dilution_table.html">summarise_dilution_table</a></span><span class="op">(</span></span>
 <span>    grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>      <span class="st">"Transition_Name"</span>,</span>
@@ -185,10 +185,10 @@
 <span>      <span class="st">"Transition_Name"</span>,</span>
 <span>      <span class="st">"Dilution_Batch_Name"</span></span>
 <span>  <span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>Here is the output of <code>dilution_table</code> and
+<p>Here is the output of <code>curve_table</code> and
 <code>dilution_classified</code></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">dilution_table</span><span class="op">)</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">curve_table</span><span class="op">)</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
 <span><span class="co">#&gt;   Sample_Name Dilution_Batch_Name Dilution_Percent Transition_Name     Area</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -220,7 +220,7 @@
 <code>plot_first_half_lin_reg = TRUE</code></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ggplot_table</span> <span class="op">&lt;-</span> <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="../reference/add_ggplot_panel.html">add_ggplot_panel</a></span><span class="op">(</span></span>
-<span>  dilution_table <span class="op">=</span> <span class="va">dilution_table</span>,</span>
+<span>  dilution_table <span class="op">=</span> <span class="va">curve_table</span>,</span>
 <span>  dilution_summary <span class="op">=</span> <span class="va">dilution_classified</span>,</span>
 <span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>    <span class="st">"Transition_Name"</span>,</span>
@@ -248,7 +248,7 @@ change the colours for your dilution batch from
 <code>dil_batch_col</code></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ggplot_table</span> <span class="op">&lt;-</span> <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="../reference/add_ggplot_panel.html">add_ggplot_panel</a></span><span class="op">(</span></span>
-<span>  dilution_table <span class="op">=</span> <span class="va">dilution_table</span>,</span>
+<span>  dilution_table <span class="op">=</span> <span class="va">curve_table</span>,</span>
 <span>  dilution_summary <span class="op">=</span> <span class="va">dilution_classified</span>,</span>
 <span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>    <span class="st">"Transition_Name"</span>,</span>

@@ -82,6 +82,9 @@
     <loc>https://slinghub.github.io/lancer/reference/create_cubic_model.html</loc>
   </url>
   <url>
+    <loc>https://slinghub.github.io/lancer/reference/create_curve_table.html</loc>
+  </url>
+  <url>
     <loc>https://slinghub.github.io/lancer/reference/create_default_cog_df.html</loc>
   </url>
   <url>
@@ -152,6 +155,18 @@
   </url>
   <url>
     <loc>https://slinghub.github.io/lancer/reference/validate_cog_df.html</loc>
+  </url>
+  <url>
+    <loc>https://slinghub.github.io/lancer/reference/validate_curve_annot.html</loc>
+  </url>
+  <url>
+    <loc>https://slinghub.github.io/lancer/reference/validate_curve_data.html</loc>
+  </url>
+  <url>
+    <loc>https://slinghub.github.io/lancer/reference/validate_curve_data_wide.html</loc>
+  </url>
+  <url>
+    <loc>https://slinghub.github.io/lancer/reference/validate_curve_table.html</loc>
   </url>
   <url>
     <loc>https://slinghub.github.io/lancer/reference/validate_dilution_annot.html</loc>
