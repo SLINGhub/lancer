@@ -105,7 +105,7 @@ parameters to suit your own dataset using <code>corrcoef_column</code>,
 <span><span class="va">mandel_pval</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.00000029</span>, <span class="fl">0.290</span>, <span class="fl">0.000000032</span>, <span class="fl">0.0363</span><span class="op">)</span></span>
 <span><span class="va">concavity</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4134</span>, <span class="op">-</span><span class="fl">3.35</span>, <span class="fl">0.394</span>, <span class="op">-</span><span class="fl">19.9</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">dilution_summary</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span><span class="va">curve_summary</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
 <span>  Transition_Name <span class="op">=</span> <span class="va">transition_name</span>,</span>
 <span>  Corrcoef <span class="op">=</span> <span class="va">corrcoef</span>,</span>
 <span>  Pra <span class="op">=</span> <span class="va">pra</span>,</span>
@@ -114,8 +114,8 @@ parameters to suit your own dataset using <code>corrcoef_column</code>,
 <span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="va">dilution_classified</span> <span class="op">&lt;-</span> <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="../reference/evaluate_linearity.html">evaluate_linearity</a></span><span class="op">(</span></span>
-<span>  dilution_summary <span class="op">=</span> <span class="va">dilution_summary</span>,</span>
+<span><span class="va">curve_classified</span> <span class="op">&lt;-</span> <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="../reference/evaluate_linearity.html">evaluate_linearity</a></span><span class="op">(</span></span>
+<span>  dilution_summary <span class="op">=</span> <span class="va">curve_summary</span>,</span>
 <span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>    <span class="st">"Transition_Name"</span></span>
 <span>  <span class="op">)</span>,</span>
@@ -125,7 +125,7 @@ parameters to suit your own dataset using <code>corrcoef_column</code>,
 <span>  concavity_column <span class="op">=</span> <span class="st">"Concavity"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">dilution_classified</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">curve_classified</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 7</span></span></span>
 <span><span class="co">#&gt;   Transition_Name wf1_group      wf2_group         Corrcoef    Pra Mandel_Pval</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -145,8 +145,8 @@ Percent Residual Accuracy (80) and Mandel’s Fitting Test <span class="math inl
 <code>mandel_p_val_threshold</code> respectively.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="va">dilution_classified</span> <span class="op">&lt;-</span> <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="../reference/evaluate_linearity.html">evaluate_linearity</a></span><span class="op">(</span></span>
-<span>  dilution_summary <span class="op">=</span> <span class="va">dilution_summary</span>,</span>
+<span><span class="va">curve_classified</span> <span class="op">&lt;-</span> <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="../reference/evaluate_linearity.html">evaluate_linearity</a></span><span class="op">(</span></span>
+<span>  dilution_summary <span class="op">=</span> <span class="va">curve_summary</span>,</span>
 <span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>    <span class="st">"Transition_Name"</span></span>
 <span>  <span class="op">)</span>,</span>
@@ -159,7 +159,7 @@ Percent Residual Accuracy (80) and Mandel’s Fitting Test <span class="math inl
 <span>  concavity_column <span class="op">=</span> <span class="st">"Concavity"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">dilution_classified</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">curve_classified</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 7</span></span></span>
 <span><span class="co">#&gt;   Transition_Name wf1_group      wf2_group         Corrcoef    Pra Mandel_Pval</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -180,7 +180,7 @@ Test <span class="math inline">\(p\)</span> value, as well as its
 threshold value. The sheet name can also be changed.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="../reference/write_summary_excel.html">write_summary_excel</a></span><span class="op">(</span></span>
-<span>  dilution_summary <span class="op">=</span> <span class="va">dilution_classified</span>,</span>
+<span>  dilution_summary <span class="op">=</span> <span class="va">curve_classified</span>,</span>
 <span>  file_name <span class="op">=</span> <span class="st">"dilution_summary.xlsx"</span>,</span>
 <span>  sheet_name <span class="op">=</span> <span class="st">"Dilution Summary"</span>,</span>
 <span>  corrcoef_column <span class="op">=</span> <span class="st">"Corrcoef"</span>,</span>

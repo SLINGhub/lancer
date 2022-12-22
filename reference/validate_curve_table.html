@@ -102,26 +102,31 @@ Default: c("Transition_Name", "Dilution_Batch_Name",
 <span class="r-in"><span>  <span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">40</span>, <span class="fl">60</span>, <span class="fl">80</span>, <span class="fl">100</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">40</span>, <span class="fl">60</span>, <span class="fl">80</span>, <span class="fl">100</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">dilution_batch_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>,</span></span>
 <span class="r-in"><span>  <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">lipid1_area</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fl">22561</span>, <span class="fl">31178</span>, <span class="fl">39981</span>, <span class="fl">48390</span>, <span class="fl">52171</span>, <span class="fl">53410</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">32561</span>, <span class="fl">41178</span>, <span class="fl">49981</span>, <span class="fl">58390</span>, <span class="fl">62171</span>, <span class="fl">63410</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">transition_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="st">"Lipid1"</span>, <span class="st">"Lipid1"</span>, <span class="st">"Lipid1"</span>,</span></span>
 <span class="r-in"><span>  <span class="st">"Lipid1"</span>, <span class="st">"Lipid1"</span>, <span class="st">"Lipid1"</span>,</span></span>
 <span class="r-in"><span>  <span class="st">"Lipid1"</span>, <span class="st">"Lipid1"</span>, <span class="st">"Lipid1"</span>,</span></span>
 <span class="r-in"><span>  <span class="st">"Lipid1"</span>, <span class="st">"Lipid1"</span>, <span class="st">"Lipid1"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">curve_table</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  Transition_Name <span class="op">=</span> <span class="va">transition_name</span>,</span></span>
 <span class="r-in"><span>  Dilution_Batch_Name <span class="op">=</span> <span class="va">dilution_batch_name</span>,</span></span>
 <span class="r-in"><span>  Area <span class="op">=</span> <span class="va">lipid1_area</span>,</span></span>
 <span class="r-in"><span>  Dilution_Percent <span class="op">=</span> <span class="va">dilution_percent</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">validate_curve_table</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  curve_table <span class="op">=</span> <span class="va">curve_table</span>,</span></span>
 <span class="r-in"><span>  needed_column <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>

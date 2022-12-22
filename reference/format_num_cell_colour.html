@@ -89,7 +89,7 @@ based on if a given word on a given numeric column from <code>dilution summary</
 
 <dt>dilution_summary</dt>
 <dd><p>The summary table generated
-by function <code><a href="summarise_dilution_table.html">summarise_dilution_table()</a></code> and/or <code><a href="evaluate_linearity.html">evaluate_linearity()</a></code></p></dd>
+by function <code><a href="summarise_curve_table.html">summarise_curve_table()</a></code> and/or <code><a href="evaluate_linearity.html">evaluate_linearity()</a></code></p></dd>
 
 
 <dt>conditional_column</dt>
@@ -120,34 +120,40 @@ Default: TRUE</p></dd>
 <span class="r-in"><span>  <span class="fl">0.951956</span>, <span class="fl">0.948683</span>, <span class="fl">0.978057</span>, <span class="fl">0.976462</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">0.970618</span>, <span class="fl">0.969348</span>, <span class="fl">0.343838</span>, <span class="fl">0.383552</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">pra_linear</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fl">65.78711</span>, <span class="fl">64.58687</span>, <span class="fl">90.21257</span>, <span class="fl">89.95473</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">72.91220</span>, <span class="fl">72.36528</span>, <span class="op">-</span><span class="fl">233.05949</span>, <span class="op">-</span><span class="fl">172.13659</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">mandel_p_val</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fl">2.899006e-07</span>, <span class="fl">7.922290e-07</span>, <span class="fl">2.903365e-01</span>, <span class="fl">3.082930e-01</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">3.195779e-08</span>, <span class="fl">6.366588e-08</span>, <span class="fl">3.634004e-02</span>, <span class="fl">1.864090e-02</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">concavity</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="op">-</span><span class="fl">4133.501328</span>, <span class="op">-</span><span class="fl">4146.745747</span>, <span class="op">-</span><span class="fl">3.350942</span>, <span class="op">-</span><span class="fl">3.393617</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">0.3942824</span>, <span class="fl">0.4012963</span>, <span class="op">-</span><span class="fl">19.9469621</span>, <span class="op">-</span><span class="fl">22.6144875</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">dilution_summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">curve_summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  r_corr <span class="op">=</span> <span class="va">r_corr</span>, pra_linear <span class="op">=</span> <span class="va">pra_linear</span>,</span></span>
 <span class="r-in"><span>  mandel_p_val <span class="op">=</span> <span class="va">mandel_p_val</span>,</span></span>
 <span class="r-in"><span>  concavity <span class="op">=</span> <span class="va">concavity</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">dilution_summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="mark_near_zero_columns.html">mark_near_zero_columns</a></span><span class="op">(</span><span class="va">dilution_summary</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">curve_summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="mark_near_zero_columns.html">mark_near_zero_columns</a></span><span class="op">(</span><span class="va">curve_summary</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Create a new workbook</span></span></span>
 <span class="r-in"><span><span class="va">my_workbook</span> <span class="op">&lt;-</span> <span class="fu">openxlsx</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/openxlsx/man/createWorkbook.html" class="external-link">createWorkbook</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Create a new worksheet</span></span></span>
-<span class="r-in"><span><span class="fu">openxlsx</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/openxlsx/man/addWorksheet.html" class="external-link">addWorksheet</a></span><span class="op">(</span>wb <span class="op">=</span> <span class="va">my_workbook</span>, sheetName <span class="op">=</span> <span class="st">"Dilution Summary"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">openxlsx</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/openxlsx/man/addWorksheet.html" class="external-link">addWorksheet</a></span><span class="op">(</span>wb <span class="op">=</span> <span class="va">my_workbook</span>, sheetName <span class="op">=</span> <span class="st">"Curve Summary"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Write to worksheet as an Excel Table</span></span></span>
 <span class="r-in"><span><span class="fu">openxlsx</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/openxlsx/man/writeDataTable.html" class="external-link">writeDataTable</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  wb <span class="op">=</span> <span class="va">my_workbook</span>, sheet <span class="op">=</span> <span class="st">"Dilution Summary"</span>,</span></span>
-<span class="r-in"><span>  x <span class="op">=</span> <span class="va">dilution_summary</span>,</span></span>
+<span class="r-in"><span>  wb <span class="op">=</span> <span class="va">my_workbook</span>, sheet <span class="op">=</span> <span class="st">"Curve Summary"</span>,</span></span>
+<span class="r-in"><span>  x <span class="op">=</span> <span class="va">curve_summary</span>,</span></span>
 <span class="r-in"><span>  withFilter <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>  bandedRows <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
@@ -155,12 +161,13 @@ Default: TRUE</p></dd>
 <span class="r-in"><span><span class="co"># Conditional formatting can only be done</span></span></span>
 <span class="r-in"><span><span class="co"># after data is written to excel sheet</span></span></span>
 <span class="r-in"><span><span class="fu">format_num_cell_colour</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  workbook <span class="op">=</span> <span class="va">my_workbook</span>, sheet <span class="op">=</span> <span class="st">"Dilution Summary"</span>,</span></span>
-<span class="r-in"><span>  dilution_summary <span class="op">=</span> <span class="va">dilution_summary</span>,</span></span>
+<span class="r-in"><span>  workbook <span class="op">=</span> <span class="va">my_workbook</span>, sheet <span class="op">=</span> <span class="st">"Curve Summary"</span>,</span></span>
+<span class="r-in"><span>  dilution_summary <span class="op">=</span> <span class="va">curve_summary</span>,</span></span>
 <span class="r-in"><span>  conditional_column <span class="op">=</span> <span class="st">"r_corr"</span>,</span></span>
 <span class="r-in"><span>  threshold_value <span class="op">=</span> <span class="st">"0.8"</span>,</span></span>
 <span class="r-in"><span>  pass_criteria <span class="op">=</span> <span class="st">"above"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

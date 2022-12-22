@@ -82,7 +82,7 @@ the cognostics parameters given by <code>cog_df</code>. We assume
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>dilution_summary</dt>
 <dd><p>The summary data frame or tibble generated
-by function <code><a href="summarise_dilution_table.html">summarise_dilution_table()</a></code> and/or
+by function <code><a href="summarise_curve_table.html">summarise_curve_table()</a></code> and/or
 <code><a href="evaluate_linearity.html">evaluate_linearity()</a></code>.</p></dd>
 
 
@@ -126,18 +126,22 @@ to type cog as defined in <code><a href="https://rdrr.io/pkg/trelliscopejs/man/c
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">dilution_percent</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Data Creation</span></span></span>
+<span class="r-in"><span><span class="va">dilution_percent</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">25</span>, <span class="fl">40</span>, <span class="fl">50</span>, <span class="fl">60</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">75</span>, <span class="fl">80</span>, <span class="fl">100</span>, <span class="fl">125</span>, <span class="fl">150</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">10</span>, <span class="fl">25</span>, <span class="fl">40</span>, <span class="fl">50</span>, <span class="fl">60</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">75</span>, <span class="fl">80</span>, <span class="fl">100</span>, <span class="fl">125</span>, <span class="fl">150</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">dilution_batch_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>,</span></span>
 <span class="r-in"><span>  <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>,</span></span>
 <span class="r-in"><span>  <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>,</span></span>
 <span class="r-in"><span>  <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">sample_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="st">"Sample_010a"</span>, <span class="st">"Sample_020a"</span>,</span></span>
 <span class="r-in"><span>  <span class="st">"Sample_025a"</span>, <span class="st">"Sample_040a"</span>, <span class="st">"Sample_050a"</span>,</span></span>
@@ -148,6 +152,7 @@ to type cog as defined in <code><a href="https://rdrr.io/pkg/trelliscopejs/man/c
 <span class="r-in"><span>  <span class="st">"Sample_075b"</span>, <span class="st">"Sample_080b"</span>, <span class="st">"Sample_100b"</span>,</span></span>
 <span class="r-in"><span>  <span class="st">"Sample_125b"</span>, <span class="st">"Sample_150b"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">lipid1_area_saturated</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fl">5748124</span>, <span class="fl">16616414</span>, <span class="fl">21702718</span>, <span class="fl">36191617</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">49324541</span>, <span class="fl">55618266</span>, <span class="fl">66947588</span>, <span class="fl">74964771</span>,</span></span>
@@ -156,18 +161,21 @@ to type cog as defined in <code><a href="https://rdrr.io/pkg/trelliscopejs/man/c
 <span class="r-in"><span>  <span class="fl">55388856</span>, <span class="fl">62505210</span>, <span class="fl">62778078</span>, <span class="fl">72158161</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">78044338</span>, <span class="fl">86158414</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">lipid2_area_linear</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fl">31538</span>, <span class="fl">53709</span>, <span class="fl">69990</span>, <span class="fl">101977</span>, <span class="fl">146436</span>, <span class="fl">180960</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">232881</span>, <span class="fl">283780</span>, <span class="fl">298289</span>, <span class="fl">344519</span>, <span class="fl">430432</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">25463</span>, <span class="fl">63387</span>, <span class="fl">90624</span>, <span class="fl">131274</span>, <span class="fl">138069</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">205353</span>, <span class="fl">202407</span>, <span class="fl">260205</span>, <span class="fl">292257</span>, <span class="fl">367924</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">lipid3_area_lod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fl">544</span>, <span class="fl">397</span>, <span class="fl">829</span>, <span class="fl">1437</span>, <span class="fl">1808</span>, <span class="fl">2231</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">3343</span>, <span class="fl">2915</span>, <span class="fl">5268</span>, <span class="fl">8031</span>, <span class="fl">11045</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">500</span>, <span class="fl">903</span>, <span class="fl">1267</span>, <span class="fl">2031</span>, <span class="fl">2100</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">3563</span>, <span class="fl">4500</span>, <span class="fl">5300</span>, <span class="fl">8500</span>, <span class="fl">10430</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">lipid4_area_nonlinear</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fl">380519</span>, <span class="fl">485372</span>, <span class="fl">478770</span>, <span class="fl">474467</span>, <span class="fl">531640</span>, <span class="fl">576301</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">501068</span>, <span class="fl">550201</span>, <span class="fl">515110</span>, <span class="fl">499543</span>, <span class="fl">474745</span>,</span></span>
@@ -180,6 +188,7 @@ to type cog as defined in <code><a href="https://rdrr.io/pkg/trelliscopejs/man/c
 <span class="r-in"><span>  Dilution_Batch_Name <span class="op">=</span> <span class="va">dilution_batch_name</span>,</span></span>
 <span class="r-in"><span>  Dilution_Percent <span class="op">=</span> <span class="va">dilution_percent</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">curve_data</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  Sample_Name <span class="op">=</span> <span class="va">sample_name</span>,</span></span>
 <span class="r-in"><span>  Lipid1 <span class="op">=</span> <span class="va">lipid1_area_saturated</span>,</span></span>
@@ -187,7 +196,6 @@ to type cog as defined in <code><a href="https://rdrr.io/pkg/trelliscopejs/man/c
 <span class="r-in"><span>  Lipid3 <span class="op">=</span> <span class="va">lipid3_area_lod</span>,</span></span>
 <span class="r-in"><span>  Lipid4 <span class="op">=</span> <span class="va">lipid4_area_nonlinear</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Create dilution table</span></span></span>
 <span class="r-in"><span><span class="va">curve_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="create_curve_table.html">create_curve_table</a></span><span class="op">(</span></span></span>
@@ -199,8 +207,8 @@ to type cog as defined in <code><a href="https://rdrr.io/pkg/trelliscopejs/man/c
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Create dilution statistical summary</span></span></span>
-<span class="r-in"><span><span class="va">dilution_summary</span> <span class="op">&lt;-</span> <span class="va">curve_table</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="summarise_dilution_table.html">summarise_dilution_table</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">curve_summary</span> <span class="op">&lt;-</span> <span class="va">curve_table</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="summarise_curve_table.html">summarise_curve_table</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>      <span class="st">"Transition_Name"</span>,</span></span>
 <span class="r-in"><span>      <span class="st">"Dilution_Batch_Name"</span></span></span>
@@ -227,14 +235,15 @@ to type cog as defined in <code><a href="https://rdrr.io/pkg/trelliscopejs/man/c
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">type_vec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"factor"</span>, <span class="st">"factor"</span>, <span class="st">"factor"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cog_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  col_name_vec <span class="op">=</span> <span class="va">col_name_vec</span>,</span></span>
 <span class="r-in"><span>  desc_vec <span class="op">=</span> <span class="va">desc_vec</span>,</span></span>
 <span class="r-in"><span>  type_vec <span class="op">=</span> <span class="va">type_vec</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">updated_summary</span> <span class="op">&lt;-</span> <span class="fu">update_cog_manual</span><span class="op">(</span><span class="va">dilution_summary</span>, <span class="va">cog_df</span>,</span></span>
+<span class="r-in"><span><span class="va">updated_summary</span> <span class="op">&lt;-</span> <span class="fu">update_cog_manual</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">curve_summary</span>,</span></span>
+<span class="r-in"><span>  <span class="va">cog_df</span>,</span></span>
 <span class="r-in"><span>  col_name_vec <span class="op">=</span> <span class="st">"col_name_vec"</span>,</span></span>
 <span class="r-in"><span>  desc_vec <span class="op">=</span> <span class="st">"desc_vec"</span>,</span></span>
 <span class="r-in"><span>  type_vec <span class="op">=</span> <span class="st">"type_vec"</span></span></span>
@@ -242,7 +251,7 @@ to type cog as defined in <code><a href="https://rdrr.io/pkg/trelliscopejs/man/c
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Observe that the first two columns has been converted</span></span></span>
 <span class="r-in"><span><span class="co"># to class cognostics</span></span></span>
-<span class="r-in"><span><span class="va">dilution_summary</span></span></span>
+<span class="r-in"><span><span class="va">curve_summary</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 8 × 11</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Transition_N…¹ Dilut…² wf1_g…³ wf2_g…⁴ r_corr pra_l…⁵ mande…⁶ concav…⁷ r2_li…⁸</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
@@ -257,6 +266,7 @@ to type cog as defined in <code><a href="https://rdrr.io/pkg/trelliscopejs/man/c
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 2 more variables: r2_adj_linear &lt;dbl&gt;, mandel_stats &lt;dbl&gt;, and</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   abbreviated variable names ¹​Transition_Name, ²​Dilution_Batch_Name,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ³​wf1_group, ⁴​wf2_group, ⁵​pra_linear, ⁶​mandel_p_val, ⁷​concavity, ⁸​r2_linear</span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">updated_summary</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 8 × 11</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Transition_N…¹ Dilut…² wf1_g…³ wf2_g…⁴ r_corr pra_l…⁵ mande…⁶ concav…⁷ r2_li…⁸</span>
@@ -272,6 +282,7 @@ to type cog as defined in <code><a href="https://rdrr.io/pkg/trelliscopejs/man/c
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 2 more variables: r2_adj_linear &lt;dbl&gt;, mandel_stats &lt;dbl&gt;, and</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   abbreviated variable names ¹​Transition_Name, ²​Dilution_Batch_Name,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ³​wf1_group, ⁴​wf2_group, ⁵​pra_linear, ⁶​mandel_p_val, ⁷​concavity, ⁸​r2_linear</span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

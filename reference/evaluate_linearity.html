@@ -149,21 +149,36 @@ curves will be moved to the front allow with <code>wf1_group</code> and
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">r_corr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.951956</span>, <span class="fl">0.948683</span>, <span class="fl">0.978057</span>, <span class="fl">0.976462</span>, <span class="fl">0.970618</span>, <span class="fl">0.969348</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">pra_linear</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">65.78711</span>, <span class="fl">64.58687</span>, <span class="fl">90.21257</span>, <span class="fl">89.95473</span>, <span class="fl">72.91220</span>, <span class="fl">72.36528</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">mandel_p_val</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fl">2.899006e-07</span>, <span class="fl">7.922290e-07</span>, <span class="fl">2.903365e-01</span>, <span class="fl">3.082930e-01</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">3.195779e-08</span>, <span class="fl">6.366588e-08</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">concavity</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="op">-</span><span class="fl">4133.501328</span>, <span class="op">-</span><span class="fl">4146.745747</span>, <span class="op">-</span><span class="fl">3.350942</span>, <span class="op">-</span><span class="fl">3.393617</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">0.3942824</span>, <span class="fl">0.4012963</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">dilution_summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">curve_summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  r_corr <span class="op">=</span> <span class="va">r_corr</span>, pra_linear <span class="op">=</span> <span class="va">pra_linear</span>,</span></span>
 <span class="r-in"><span>  mandel_p_val <span class="op">=</span> <span class="va">mandel_p_val</span>,</span></span>
 <span class="r-in"><span>  concavity <span class="op">=</span> <span class="va">concavity</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">dilution_summary</span> <span class="op">&lt;-</span> <span class="fu">evaluate_linearity</span><span class="op">(</span><span class="va">dilution_summary</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">curve_summary</span> <span class="op">&lt;-</span> <span class="fu">evaluate_linearity</span><span class="op">(</span><span class="va">curve_summary</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">curve_summary</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        wf1_group         wf2_group   r_corr pra_linear mandel_p_val     concavity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 Poor Linearity Saturation Regime 0.951956   65.78711 2.899006e-07 -4133.5013280</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 Poor Linearity Saturation Regime 0.948683   64.58687 7.922290e-07 -4146.7457470</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 Good Linearity    Good Linearity 0.978057   90.21257 2.903365e-01    -3.3509420</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 Good Linearity    Good Linearity 0.976462   89.95473 3.082930e-01    -3.3936170</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 Poor Linearity      Noise Regime 0.970618   72.91220 3.195779e-08     0.3942824</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 Poor Linearity      Noise Regime 0.969348   72.36528 6.366588e-08     0.4012963</span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

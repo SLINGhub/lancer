@@ -97,17 +97,22 @@ if the number of dilution points is less than or equal to three</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">dilution_percent</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">40</span>, <span class="fl">60</span>, <span class="fl">80</span>, <span class="fl">100</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">area</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">22561</span>, <span class="fl">31178</span>, <span class="fl">39981</span>, <span class="fl">48390</span>, <span class="fl">52171</span>, <span class="fl">53410</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">dilution_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>Dilution_Percent <span class="op">=</span> <span class="va">dilution_percent</span>, Area <span class="op">=</span> <span class="va">area</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">dil_linear_gof</span> <span class="op">&lt;-</span> <span class="fu">calculate_gof_linear</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">dilution_data</span>,</span></span>
 <span class="r-in"><span>  <span class="st">"Dilution_Percent"</span>, <span class="st">"Area"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">dil_linear_gof</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   r_corr r2_linear r2_adj_linear</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  0.956     0.913         0.892</span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

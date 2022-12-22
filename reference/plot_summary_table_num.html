@@ -89,12 +89,18 @@ in <code>dilution_summary_grp</code>, NULL will be returned</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">wf1_group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Poor Linearity"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">wf2_group</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Saturation"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">r_corr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.951956</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">pra_linear</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">65.78711</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">mandel_p_val</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2.899006e-07</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">concavity</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4133.501328</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">dilution_summary_grp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">curve_summary_grp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  wf1_group <span class="op">=</span> <span class="va">wf1_group</span>,</span></span>
 <span class="r-in"><span>  wf2_group <span class="op">=</span> <span class="va">wf2_group</span>,</span></span>
 <span class="r-in"><span>  r_corr <span class="op">=</span> <span class="va">r_corr</span>,</span></span>
@@ -102,15 +108,20 @@ in <code>dilution_summary_grp</code>, NULL will be returned</p>
 <span class="r-in"><span>  mandel_p_val <span class="op">=</span> <span class="va">mandel_p_val</span>,</span></span>
 <span class="r-in"><span>  concavity <span class="op">=</span> <span class="va">concavity</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">table</span> <span class="op">&lt;-</span> <span class="fu">plot_summary_table_num</span><span class="op">(</span><span class="va">dilution_summary_grp</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">table</span> <span class="op">&lt;-</span> <span class="fu">plot_summary_table_num</span><span class="op">(</span><span class="va">curve_summary_grp</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">grid</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grid/grid.draw.html" class="external-link">grid.draw</a></span><span class="op">(</span><span class="va">table</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot_summary_table_num-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># No numeric column case</span></span></span>
-<span class="r-in"><span><span class="va">dilution_summary_grp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>wf2_group <span class="op">=</span> <span class="va">wf2_group</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">table</span> <span class="op">&lt;-</span> <span class="fu">plot_summary_table_num</span><span class="op">(</span><span class="va">dilution_summary_grp</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">curve_summary_grp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>wf2_group <span class="op">=</span> <span class="va">wf2_group</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">table</span> <span class="op">&lt;-</span> <span class="fu">plot_summary_table_num</span><span class="op">(</span><span class="va">curve_summary_grp</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">table</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

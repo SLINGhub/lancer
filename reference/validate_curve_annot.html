@@ -95,25 +95,30 @@ Default: c("Sample_Name")</p></dd>
 <span class="r-in"><span>  <span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">40</span>, <span class="fl">60</span>, <span class="fl">80</span>, <span class="fl">100</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">40</span>, <span class="fl">60</span>, <span class="fl">80</span>, <span class="fl">100</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">dilution_batch_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>,</span></span>
 <span class="r-in"><span>  <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">sample_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="st">"Sample_010a"</span>, <span class="st">"Sample_020a"</span>, <span class="st">"Sample_040a"</span>,</span></span>
 <span class="r-in"><span>  <span class="st">"Sample_060a"</span>, <span class="st">"Sample_080a"</span>, <span class="st">"Sample_100a"</span>,</span></span>
 <span class="r-in"><span>  <span class="st">"Sample_010b"</span>, <span class="st">"Sample_020b"</span>, <span class="st">"Sample_040b"</span>,</span></span>
 <span class="r-in"><span>  <span class="st">"Sample_060b"</span>, <span class="st">"Sample_080b"</span>, <span class="st">"Sample_100b"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">curve_annot</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  Sample_Name <span class="op">=</span> <span class="va">sample_name</span>,</span></span>
 <span class="r-in"><span>  Dilution_Batch_Name <span class="op">=</span> <span class="va">dilution_batch_name</span>,</span></span>
 <span class="r-in"><span>  Dilution_Percent <span class="op">=</span> <span class="va">dilution_percent</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">validate_curve_annot</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  curve_annot <span class="op">=</span> <span class="va">curve_annot</span>,</span></span>
 <span class="r-in"><span>  needed_column <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Sample_Name"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

@@ -364,22 +364,22 @@ Equation ( <span class="math inline">6</span> ) is used.</p>
 <span>  <span class="fl">426089</span>, <span class="fl">413292</span>, <span class="fl">450190</span>, <span class="fl">415309</span>, <span class="fl">457618</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">dilution_annot</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span><span class="va">curve_annot</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
 <span>  Sample_Name <span class="op">=</span> <span class="va">sample_name</span>,</span>
 <span>  Dilution_Batch_Name <span class="op">=</span> <span class="va">dilution_batch_name</span>,</span>
 <span>  Dilution_Percent <span class="op">=</span> <span class="va">dilution_percent</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">lipid_data</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span><span class="va">curve_data</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
 <span>  Sample_Name <span class="op">=</span> <span class="va">sample_name</span>,</span>
 <span>  Lipid1 <span class="op">=</span> <span class="va">lipid1_area_saturated</span>,</span>
 <span>  Lipid2 <span class="op">=</span> <span class="va">lipid2_area_linear</span>,</span>
 <span>  Lipid3 <span class="op">=</span> <span class="va">lipid3_area_lod</span>,</span>
 <span>  Lipid4 <span class="op">=</span> <span class="va">lipid4_area_nonlinear</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>The <code>dilution_annot</code> should look like this.</p>
+<p>The <code>curve_annot</code> should look like this.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">dilution_annot</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">curve_annot</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 21 × 3</span></span>
 <span><span class="co">#&gt;    Sample_Name Dilution_Batch_Name Dilution_Percent</span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;                          &lt;dbl&gt;</span></span>
@@ -394,9 +394,9 @@ Equation ( <span class="math inline">6</span> ) is used.</p>
 <span><span class="co">#&gt;  9 Sample_100a B1                               100</span></span>
 <span><span class="co">#&gt; 10 Sample_125a B1                               125</span></span>
 <span><span class="co">#&gt; # … with 11 more rows</span></span></code></pre></div>
-<p>The <code>lipid_data</code> should look like this.</p>
+<p>The <code>curve_data</code> should look like this.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">lipid_data</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">curve_data</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 21 × 5</span></span>
 <span><span class="co">#&gt;    Sample_Name   Lipid1 Lipid2 Lipid3 Lipid4</span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;          &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;</span></span>
@@ -411,18 +411,18 @@ Equation ( <span class="math inline">6</span> ) is used.</p>
 <span><span class="co">#&gt;  9 Sample_100a 75438063 298289   5268 515110</span></span>
 <span><span class="co">#&gt; 10 Sample_125a 91770737 344519   8031 499543</span></span>
 <span><span class="co">#&gt; # … with 11 more rows</span></span></code></pre></div>
-<p>Merge the data together using <code>create_dilution_table</code></p>
+<p>Merge the data together using <code>create_curve_table</code></p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Create dilution table</span></span>
-<span><span class="va">dilution_table</span> <span class="op">&lt;-</span> <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="reference/create_dilution_table.html">create_dilution_table</a></span><span class="op">(</span></span>
-<span>  dilution_annot <span class="op">=</span> <span class="va">dilution_annot</span>, </span>
-<span>  lipid_data_wide <span class="op">=</span> <span class="va">lipid_data</span>,</span>
+<code class="sourceCode R"><span><span class="co"># Create curve table</span></span>
+<span><span class="va">curve_table</span> <span class="op">&lt;-</span> <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="reference/create_curve_table.html">create_curve_table</a></span><span class="op">(</span></span>
+<span>  curve_annot <span class="op">=</span> <span class="va">curve_annot</span>, </span>
+<span>  curve_data_wide <span class="op">=</span> <span class="va">curve_data</span>,</span>
 <span>  common_column <span class="op">=</span> <span class="st">"Sample_Name"</span>,</span>
 <span>  signal_var <span class="op">=</span> <span class="st">"Area"</span>,</span>
 <span>  column_group <span class="op">=</span> <span class="st">"Transition_Name"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">dilution_table</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">curve_table</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 84 × 5</span></span>
 <span><span class="co">#&gt;    Sample_Name Dilution_Batch_Name Dilution_Percent Transition_Name     Area</span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;                          &lt;dbl&gt; &lt;chr&gt;              &lt;dbl&gt;</span></span>
@@ -437,11 +437,11 @@ Equation ( <span class="math inline">6</span> ) is used.</p>
 <span><span class="co">#&gt;  9 Sample_025a B1                                25 Lipid1          21702718</span></span>
 <span><span class="co">#&gt; 10 Sample_025a B1                                25 Lipid2             69990</span></span>
 <span><span class="co">#&gt; # … with 74 more rows</span></span></code></pre></div>
-<p>Summarise each dilution curve for each transition and batch with <code>summarise_dilution_table</code></p>
+<p>Summarise each curve for each lipid and batch with <code>summarise_curve_table</code></p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create dilution statistical summary</span></span>
-<span><span class="va">dilution_summary</span> <span class="op">&lt;-</span> <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="reference/summarise_dilution_table.html">summarise_dilution_table</a></span><span class="op">(</span></span>
-<span>  dilution_table <span class="op">=</span> <span class="va">dilution_table</span>,</span>
+<span><span class="va">curve_summary</span> <span class="op">&lt;-</span> <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="reference/summarise_curve_table.html">summarise_curve_table</a></span><span class="op">(</span></span>
+<span>  curve_table <span class="op">=</span> <span class="va">curve_table</span>,</span>
 <span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>    <span class="st">"Transition_Name"</span>,</span>
 <span>    <span class="st">"Dilution_Batch_Name"</span></span>
@@ -450,7 +450,7 @@ Equation ( <span class="math inline">6</span> ) is used.</p>
 <span>  signal_var <span class="op">=</span> <span class="st">"Area"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">dilution_summary</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">curve_summary</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 8 × 9</span></span>
 <span><span class="co">#&gt;   Transition_Name Dilution_Batch_Name r_corr r2_linear r2_adj_linear</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;           &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;</span></span>
@@ -472,28 +472,28 @@ Equation ( <span class="math inline">6</span> ) is used.</p>
 <span><span class="co">#&gt; 6        0.868   0.382            94.3    -1.94 </span></span>
 <span><span class="co">#&gt; 7       20.9     0.00256          74.7     0.321</span></span>
 <span><span class="co">#&gt; 8        5.39    0.0533          -73.1   -22.9</span></span></code></pre></div>
-<p>Classify each dilution curve according to Workflow 1 and Workflow 2.<br><code>wf1_group1</code> gives the results of Workflow 1<br><code>wf2_group2</code> gives the results of Workflow 2</p>
+<p>Classify each curve according to Workflow 1 and Workflow 2.<br><code>wf1_group1</code> gives the results of Workflow 1<br><code>wf2_group2</code> gives the results of Workflow 2</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dilution_classified</span> <span class="op">&lt;-</span> <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="reference/evaluate_linearity.html">evaluate_linearity</a></span><span class="op">(</span></span>
-<span>  dilution_summary <span class="op">=</span> <span class="va">dilution_summary</span>,</span>
+<code class="sourceCode R"><span><span class="va">curve_classified</span> <span class="op">&lt;-</span> <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="reference/evaluate_linearity.html">evaluate_linearity</a></span><span class="op">(</span></span>
+<span>  dilution_summary <span class="op">=</span> <span class="va">curve_summary</span>,</span>
 <span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>    <span class="st">"Transition_Name"</span>,</span>
 <span>    <span class="st">"Dilution_Batch_Name"</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">dilution_classified</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">curve_classified</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 8 × 11</span></span>
-<span><span class="co">#&gt;   Transition_Name Dilution_Batch_Name wf1_group      wf2_group      r_corr</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;           &lt;chr&gt;               &lt;chr&gt;          &lt;chr&gt;           &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 Lipid1          B1                  Poor Linearity Saturation      0.963</span></span>
-<span><span class="co">#&gt; 2 Lipid2          B1                  Good Linearity Good Linearity  0.990</span></span>
-<span><span class="co">#&gt; 3 Lipid3          B1                  Poor Linearity LOD             0.964</span></span>
-<span><span class="co">#&gt; 4 Lipid4          B1                  Poor Linearity Poor Linearity  0.311</span></span>
-<span><span class="co">#&gt; 5 Lipid1          B2                  Poor Linearity Saturation      0.950</span></span>
-<span><span class="co">#&gt; 6 Lipid2          B2                  Good Linearity Good Linearity  0.995</span></span>
-<span><span class="co">#&gt; 7 Lipid3          B2                  Poor Linearity LOD             0.978</span></span>
-<span><span class="co">#&gt; 8 Lipid4          B2                  Poor Linearity Poor Linearity  0.608</span></span>
+<span><span class="co">#&gt;   Transition_Name Dilution_Batch_Name wf1_group      wf2_group         r_corr</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;           &lt;chr&gt;               &lt;chr&gt;          &lt;chr&gt;              &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 Lipid1          B1                  Poor Linearity Saturation Regime  0.963</span></span>
+<span><span class="co">#&gt; 2 Lipid2          B1                  Good Linearity Good Linearity     0.990</span></span>
+<span><span class="co">#&gt; 3 Lipid3          B1                  Poor Linearity Noise Regime       0.964</span></span>
+<span><span class="co">#&gt; 4 Lipid4          B1                  Poor Linearity Poor Linearity     0.311</span></span>
+<span><span class="co">#&gt; 5 Lipid1          B2                  Poor Linearity Saturation Regime  0.950</span></span>
+<span><span class="co">#&gt; 6 Lipid2          B2                  Good Linearity Good Linearity     0.995</span></span>
+<span><span class="co">#&gt; 7 Lipid3          B2                  Poor Linearity Noise Regime       0.978</span></span>
+<span><span class="co">#&gt; 8 Lipid4          B2                  Poor Linearity Poor Linearity     0.608</span></span>
 <span><span class="co">#&gt;   pra_linear mandel_p_val concavity r2_linear r2_adj_linear mandel_stats</span></span>
 <span><span class="co">#&gt;        &lt;dbl&gt;        &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;        &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1       70.5   0.0000297  -4174.       0.928        0.920         71.2  </span></span>
@@ -512,14 +512,14 @@ Equation ( <span class="math inline">6</span> ) is used.</p>
 <p>Results can be exported to Excel via <code>write_summary_excel</code></p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="reference/write_summary_excel.html">write_summary_excel</a></span><span class="op">(</span></span>
-<span>  dilution_summary <span class="op">=</span> <span class="va">dilution_classified</span>, </span>
+<span>  dilution_summary <span class="op">=</span> <span class="va">curve_classified</span>, </span>
 <span>  file_name <span class="op">=</span> <span class="st">"dilution_summary.xlsx"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-ExcelResults.png" alt="Dilution statistics summary reported in Excel using lancer." width="100%"></p>
 <p>Results can be plotted using <code>add_ggplot_panel</code>. This will create a column called panel that contains all the <code>ggplot</code> plots</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ggplot_table</span> <span class="op">&lt;-</span> <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="reference/add_ggplot_panel.html">add_ggplot_panel</a></span><span class="op">(</span></span>
-<span>  dilution_table <span class="op">=</span> <span class="va">dilution_table</span>,</span>
-<span>  dilution_summary <span class="op">=</span> <span class="va">dilution_classified</span>,</span>
+<span>  dilution_table <span class="op">=</span> <span class="va">curve_table</span>,</span>
+<span>  dilution_summary <span class="op">=</span> <span class="va">curve_classified</span>,</span>
 <span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>    <span class="st">"Transition_Name"</span>,</span>
 <span>    <span class="st">"Dilution_Batch_Name"</span></span>
@@ -549,8 +549,8 @@ Equation ( <span class="math inline">6</span> ) is used.</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create a trellis table</span></span>
 <span><span class="va">trellis_table</span> <span class="op">&lt;-</span> <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="reference/add_plotly_panel.html">add_plotly_panel</a></span><span class="op">(</span></span>
-<span>  dilution_table <span class="op">=</span> <span class="va">dilution_table</span>,</span>
-<span>  dilution_summary <span class="op">=</span> <span class="va">dilution_classified</span>,</span>
+<span>  dilution_table <span class="op">=</span> <span class="va">curve_table</span>,</span>
+<span>  dilution_summary <span class="op">=</span> <span class="va">curve_classified</span>,</span>
 <span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>    <span class="st">"Transition_Name"</span>,</span>
 <span>    <span class="st">"Dilution_Batch_Name"</span></span>

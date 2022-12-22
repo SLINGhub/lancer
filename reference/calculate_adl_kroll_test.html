@@ -155,11 +155,13 @@ Linearity in Assay Validation
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Data from Kroll's 2000 paper</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Data from Kroll's 2000 paper</span></span></span>
 <span class="r-in"><span><span class="va">solution_number</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">4</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">5</span>, <span class="fl">5</span>, <span class="fl">6</span>, <span class="fl">6</span>, <span class="fl">7</span>, <span class="fl">7</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fl">352</span>, <span class="fl">348</span>, <span class="fl">1009</span>, <span class="fl">991</span>, <span class="fl">1603</span>, <span class="fl">1584</span>, <span class="fl">3100</span>, <span class="fl">3200</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">4482</span>, <span class="fl">4390</span>, <span class="fl">5101</span>, <span class="fl">5046</span>, <span class="fl">5669</span>, <span class="fl">5516</span></span></span>
@@ -175,6 +177,7 @@ Linearity in Assay Validation
 <span class="r-in"><span>  <span class="st">"Solution_Number"</span>,</span></span>
 <span class="r-in"><span>  <span class="st">"Result"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">adl_result</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   adl_kroll precision_on_percent_scale uncorre…¹ corre…² uncor…³ corre…⁴ best_…⁵</span>
@@ -183,6 +186,7 @@ Linearity in Assay Validation
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with abbreviated variable names ¹​uncorrected_critical_value,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ²​corrected_critical_value, ³​uncorrected_kroll_results,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ⁴​corrected_kroll_results, ⁵​best_model</span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
