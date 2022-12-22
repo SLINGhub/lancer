@@ -29,7 +29,7 @@ Default: 'Area'}
 }
 \value{
 A dilution summary table output from the function
-\code{\link[=summarise_dilution_data]{summarise_dilution_data()}} for each group
+\code{\link[=summarise_curve_data]{summarise_curve_data()}} for each group
 }
 \description{
 Get the summary statistics of each group from
@@ -39,7 +39,7 @@ the dilution table
 The function first perform \code{tidyr::nest} on \code{dilution_table}
 based on the \code{grouping_variable} to organise the dilution curve data
 for each group. Next for each group, the function
-\code{\link[=summarise_dilution_data]{summarise_dilution_data()}} is used to get the summary statistics.
+\code{\link[=summarise_curve_data]{summarise_curve_data()}} is used to get the summary statistics.
 }
 \examples{
 # Data Creation

@@ -18,7 +18,7 @@ evaluate_linearity(
 }
 \arguments{
 \item{dilution_summary}{A data frame or tibble output from
-the function \code{\link[=summarise_dilution_data]{summarise_dilution_data()}}}
+the function \code{\link[=summarise_curve_data]{summarise_curve_data()}}}
 
 \item{grouping_variable}{A character vector of
 column names in \code{dilution_summary}to indicate which columns should be placed

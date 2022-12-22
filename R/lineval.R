@@ -3,7 +3,7 @@
 #' on dilution summary statistics
 #'
 #' @param dilution_summary A data frame or tibble output from
-#' the function [summarise_dilution_data()]
+#' the function [summarise_curve_data()]
 #' @param grouping_variable A character vector of
 #' column names in `dilution_summary`to indicate which columns should be placed
 #' first before the evaluation results. Default: c()

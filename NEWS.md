@@ -11,6 +11,7 @@
 * `validate_dilution_data` changed to `validate_curve_data`.
 * `validate_lipid_data_wide` changed to `validate_curve_data_wide`.
 * `create_dilution_table` changed to `create_curve_table`.
+* `summarise_dilution_data` changed to `summarise_curve_data`.
 
 # lancer 0.0.6
 

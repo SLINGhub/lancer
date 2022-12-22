@@ -784,11 +784,35 @@ validate_curve_data <- function(curve_data,
 
 #' @title Summarise Dilution Curve Data For One Group
 #' @description Get the summary statistics of the dilution data
+#' `r lifecycle::badge("deprecated")`
+#'
+#' `summarise_dilution_data` was renamed to
+#' `summarise_curve_data`.
+#' @keywords internal
+#' @export
+summarise_dilution_data <- function(dilution_data,
+                                    conc_var,
+                                    signal_var,
+                                    details = FALSE) {
+
+  lifecycle::deprecate_warn(when = "0.0.6.9000",
+                            what = "summarise_dilution_data()",
+                            with = "summarise_curve_data()")
+
+  summarise_curve_data(curve_data = dilution_data,
+                       conc_var = conc_var,
+                       signal_var = signal_var,
+                       details = details)
+
+}
+
+#' @title Summarise Curve Data For One Group
+#' @description Get the summary statistics of the curve data
 #' for one group or batch
-#' @param dilution_data A data frame or tibble containing dilution data
-#' @param conc_var Column name in `dilution_data` to indicate concentration
-#' @param signal_var Column name in `dilution_data` to indicate signal
-#' @param details If set to `TRUE`, will include more columns in the dilution
+#' @param curve_data A data frame or tibble containing curve data
+#' @param conc_var Column name in `curve_data` to indicate concentration
+#' @param signal_var Column name in `curve_data` to indicate signal
+#' @param details If set to `TRUE`, will include more columns in the curve
 #' summary but there are mainly for development and testing.
 #' @return A tibble containing the Goodness of Fit measures of the linear model
 #' The Goodness of Fit measures are the Pearson correlation coefficient (R),
@@ -796,38 +820,41 @@ validate_curve_data <- function(curve_data,
 #' p value, Mandel test statistics and p value, Percent Residual Accuracy and
 #' Concavity.
 #' @details The function will return a tibble with NA values
-#' if the number of dilution points is less than or equal to three
+#' if the number of curve points is less than or equal to three
 #' dilution_percent <- c(10, 20, 40, 60, 80, 100)
 #' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
-#' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-#' dilution_summary <- summarise_dilution_data(dilution_data,
-#'                                             "Dilution_Percent", "Area")
-#' print(dilution_summary, width = 100)
-#' @rdname summarise_dilution_data
+#' curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+#' curve_summary <- summarise_curve_data(curve_data,
+#'                                       "Dilution_Percent",
+#'                                       "Area")
+#' print(curve_summary, width = 100)
+#' @rdname summarise_curve_data
 #' @export
-summarise_dilution_data <- function(dilution_data, conc_var, signal_var,
-                                    details = FALSE) {
+summarise_curve_data <- function(curve_data,
+                                 conc_var,
+                                 signal_var,
+                                 details = FALSE) {
 
-  mandel_result <- calculate_mandel(dilution_data, conc_var, signal_var)
+  mandel_result <- calculate_mandel(curve_data, conc_var, signal_var)
   dil_linear_gof <- calculate_gof_linear(
-    dilution_data,
+    curve_data,
     conc_var, signal_var
   )
 
   if (isTRUE(details)) {
     one_value_tibble <- tibble::tibble(
-      pra_linear = calculate_pra_linear(dilution_data, conc_var, signal_var),
-      concavity = calculate_concavity(dilution_data, conc_var, signal_var),
-      adl_value = calculate_adl(dilution_data, conc_var, signal_var)
+      pra_linear = calculate_pra_linear(curve_data, conc_var, signal_var),
+      concavity = calculate_concavity(curve_data, conc_var, signal_var),
+      adl_value = calculate_adl(curve_data, conc_var, signal_var)
     )
 
     kroll_tibble <- calculate_adl_kroll_test(
-      dilution_data,
+      curve_data,
       conc_var,
       signal_var
     )
 
-    dilution_summary <- dil_linear_gof %>%
+    curve_summary <- dil_linear_gof %>%
       dplyr::bind_cols(
         mandel_result,
         one_value_tibble,
@@ -835,16 +862,16 @@ summarise_dilution_data <- function(dilution_data, conc_var, signal_var,
       )
   } else {
     one_value_tibble <- tibble::tibble(
-      pra_linear = calculate_pra_linear(dilution_data, conc_var, signal_var),
-      concavity = calculate_concavity(dilution_data, conc_var, signal_var)
+      pra_linear = calculate_pra_linear(curve_data, conc_var, signal_var),
+      concavity = calculate_concavity(curve_data, conc_var, signal_var)
     )
 
-    dilution_summary <- dil_linear_gof %>%
+    curve_summary <- dil_linear_gof %>%
       dplyr::bind_cols(
         mandel_result,
         one_value_tibble
       )
   }
 
-  return(dilution_summary)
+  return(curve_summary)
 }

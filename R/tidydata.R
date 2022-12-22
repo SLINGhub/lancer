@@ -343,11 +343,11 @@ create_curve_table <- function(curve_annot, curve_data_wide,
 #' column names in `dilution_table`to indicate how each dilution curve
 #' should be grouped by.
 #' @return A dilution summary table output from the function
-#' [summarise_dilution_data()] for each group
+#' [summarise_curve_data()] for each group
 #' @details The function first perform `tidyr::nest` on `dilution_table`
 #' based on the `grouping_variable` to organise the dilution curve data
 #' for each group. Next for each group, the function
-#' [summarise_dilution_data()] is used to get the summary statistics.
+#' [summarise_curve_data()] is used to get the summary statistics.
 #' @examples
 #' # Data Creation
 #' dilution_percent <- c(
@@ -432,7 +432,7 @@ summarise_dilution_table <- function(dilution_table,
     tidyr::nest() %>%
     dplyr::ungroup() %>%
     dplyr::mutate(dil_summary = purrr::map(.data$data,
-      summarise_dilution_data,
+      summarise_curve_data,
       conc_var = conc_var,
       signal_var = signal_var
     )) %>%

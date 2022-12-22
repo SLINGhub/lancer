@@ -6,34 +6,11 @@
 \usage{
 summarise_dilution_data(dilution_data, conc_var, signal_var, details = FALSE)
 }
-\arguments{
-\item{dilution_data}{A data frame or tibble containing dilution data}
-
-\item{conc_var}{Column name in \code{dilution_data} to indicate concentration}
-
-\item{signal_var}{Column name in \code{dilution_data} to indicate signal}
-
-\item{details}{If set to \code{TRUE}, will include more columns in the dilution
-summary but there are mainly for development and testing.}
-}
-\value{
-A tibble containing the Goodness of Fit measures of the linear model
-The Goodness of Fit measures are the Pearson correlation coefficient (R),
-R^2, adjusted R^2, Bayesian Information Criterion (BIC), Pearson correlation
-p value, Mandel test statistics and p value, Percent Residual Accuracy and
-Concavity.
-}
 \description{
 Get the summary statistics of the dilution data
-for one group or batch
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+\code{summarise_dilution_data} was renamed to
+\code{summarise_curve_data}.
 }
-\details{
-The function will return a tibble with NA values
-if the number of dilution points is less than or equal to three
-dilution_percent <- c(10, 20, 40, 60, 80, 100)
-area <- c(22561, 31178, 39981, 48390, 52171, 53410)
-dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-dilution_summary <- summarise_dilution_data(dilution_data,
-"Dilution_Percent", "Area")
-print(dilution_summary, width = 100)
-}
+\keyword{internal}
