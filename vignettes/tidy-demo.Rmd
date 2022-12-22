@@ -103,14 +103,14 @@ transition_annot <- tibble::tibble(
 
 ```{r curve table}
 # Create curve table and dilution statistical summary
-dilution_summary <- lancer::create_curve_table(
+curve_summary <- lancer::create_curve_table(
   curve_annot = curve_annot,
   curve_data_wide = curve_data,
   common_column = "Sample_Name",
   signal_var = "Area",
   column_group = "Transition_Name"
 ) %>%
-  lancer::summarise_dilution_table(
+  lancer::summarise_curve_table(
     grouping_variable = c(
       "Transition_Name",
       "Dilution_Batch_Name"
@@ -125,14 +125,14 @@ dilution_summary <- lancer::create_curve_table(
   dplyr::left_join(transition_annot, by = "Transition_Name")
 ```
 
-```{r print dilution summary}
-print(dilution_summary, width = 100)
+```{r print curve summary}
+print(curve_summary, width = 100)
 ```
 
 Results can be exported to Excel via `write_summary_excel`
 
 ```{r print to excel, eval = FALSE}
 lancer::write_summary_excel(
-  dilution_summary = dilution_summary,
+  dilution_summary = curve_summary,
   file_name = "dilution_summary.xlsx")
 ```

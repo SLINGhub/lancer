@@ -18,7 +18,6 @@
 #' the total number of columns will be the number of plots
 #' it needs to produce
 #' @examples
-#'
 #' create_page_layout(
 #'   number_of_plots = 4,
 #'   ncol = 2,
@@ -68,27 +67,33 @@ create_page_layout <- function(number_of_plots,
 #'   "Sample_010b", "Sample_020b", "Sample_040b",
 #'   "Sample_060b", "Sample_080b", "Sample_100b"
 #' )
+#'
 #' lipid1_area <- c(
 #'   22561, 31178, 39981, 48390, 52171, 53410,
 #'   32561, 41178, 49981, 58390, 62171, 63410
 #' )
+#'
 #' lipid2_area <- c(
 #'   2299075, 4136350, 7020062, 8922063, 9288742, 11365710,
 #'   2300075, 4137350, 7021062, 8923063, 9289742, 11366710
 #' )
+#'
 #' curve_data <- tibble::tibble(
 #'   Sample_Name = sample_name,
 #'   Lipid1 = lipid1_area,
 #'   Lipid2 = lipid2_area
 #' )
+#'
 #' dilution_percent <- c(
 #'   10, 20, 40, 60, 80, 100,
 #'   10, 20, 40, 60, 80, 100
 #' )
+#'
 #' dilution_batch_name <- c(
 #'   "B1", "B1", "B1", "B1", "B1", "B1",
 #'   "B2", "B2", "B2", "B2", "B2", "B2"
 #' )
+#'
 #' curve_annot <- tibble::tibble(
 #'   Sample_Name = sample_name,
 #'   Dilution_Batch_Name = dilution_batch_name,
@@ -112,6 +117,7 @@ create_page_layout <- function(number_of_plots,
 #'
 #' # Create a pdf report, set testing = FALSE to output results
 #' pdf_page_list <- view_ggplot_pdf(ggplot_list, testing = TRUE)
+#'
 #' @rdname view_ggplot_pdf
 #' @export
 view_ggplot_pdf <- function(ggplot_list,

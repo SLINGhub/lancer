@@ -11,12 +11,12 @@ test_that("Test Linear Evaluation", {
     -4133.501328, -4146.745747, -3.350942, -3.393617,
     0.3942824, 0.4012963
   )
-  dilution_summary <- data.frame(
+
+  curve_summary <- data.frame(
     r_corr = r_corr, pra_linear = pra_linear,
     mandel_p_val = mandel_p_val,
-    concavity = concavity
-  )
-  dilution_summary <- dilution_summary %>% evaluate_linearity()
+    concavity = concavity) %>%
+    evaluate_linearity()
 
   first_group_fail <- data.frame(
     r_cor = r_corr, pra_linear = pra_linear,

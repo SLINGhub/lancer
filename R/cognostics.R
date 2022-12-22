@@ -98,7 +98,7 @@ create_default_cog_df <- function() {
 #' the cognostics parameters given by `cog_df`. We assume
 #' `cog_df` is created manually
 #' @param dilution_summary The summary data frame or tibble generated
-#' by function [summarise_dilution_table()] and/or
+#' by function [summarise_curve_table()] and/or
 #' [evaluate_linearity()].
 #' @param cog_df  A data frame or tibble output
 #' from the function [create_default_cog_df()] or created manually
@@ -117,19 +117,22 @@ create_default_cog_df <- function() {
 #' More details in `trelliscopejs::cog` can be found in
 #' <https://rdrr.io/cran/trelliscopejs/man/cog.html>
 #' @examples
-# ` # Data Creation
+#'
+#' # Data Creation
 #' dilution_percent <- c(
 #'   10, 20, 25, 40, 50, 60,
 #'   75, 80, 100, 125, 150,
 #'   10, 25, 40, 50, 60,
 #'   75, 80, 100, 125, 150
 #' )
+#'
 #' dilution_batch_name <- c(
 #'   "B1", "B1", "B1", "B1", "B1",
 #'   "B1", "B1", "B1", "B1", "B1", "B1",
 #'   "B2", "B2", "B2", "B2", "B2",
 #'   "B2", "B2", "B2", "B2", "B2"
 #' )
+#'
 #' sample_name <- c(
 #'   "Sample_010a", "Sample_020a",
 #'   "Sample_025a", "Sample_040a", "Sample_050a",
@@ -140,6 +143,7 @@ create_default_cog_df <- function() {
 #'   "Sample_075b", "Sample_080b", "Sample_100b",
 #'   "Sample_125b", "Sample_150b"
 #' )
+#'
 #' lipid1_area_saturated <- c(
 #'   5748124, 16616414, 21702718, 36191617,
 #'   49324541, 55618266, 66947588, 74964771,
@@ -148,18 +152,21 @@ create_default_cog_df <- function() {
 #'   55388856, 62505210, 62778078, 72158161,
 #'   78044338, 86158414
 #' )
+#'
 #' lipid2_area_linear <- c(
 #'   31538, 53709, 69990, 101977, 146436, 180960,
 #'   232881, 283780, 298289, 344519, 430432,
 #'   25463, 63387, 90624, 131274, 138069,
 #'   205353, 202407, 260205, 292257, 367924
 #' )
+#'
 #' lipid3_area_lod <- c(
 #'   544, 397, 829, 1437, 1808, 2231,
 #'   3343, 2915, 5268, 8031, 11045,
 #'   500, 903, 1267, 2031, 2100,
 #'   3563, 4500, 5300, 8500, 10430
 #' )
+#'
 #' lipid4_area_nonlinear <- c(
 #'   380519, 485372, 478770, 474467, 531640, 576301,
 #'   501068, 550201, 515110, 499543, 474745,
@@ -172,6 +179,7 @@ create_default_cog_df <- function() {
 #'   Dilution_Batch_Name = dilution_batch_name,
 #'   Dilution_Percent = dilution_percent
 #' )
+#'
 #' curve_data <- tibble::tibble(
 #'   Sample_Name = sample_name,
 #'   Lipid1 = lipid1_area_saturated,
@@ -179,7 +187,6 @@ create_default_cog_df <- function() {
 #'   Lipid3 = lipid3_area_lod,
 #'   Lipid4 = lipid4_area_nonlinear
 #' )
-#'
 #'
 #' # Create dilution table
 #' curve_table <- create_curve_table(
@@ -191,8 +198,8 @@ create_default_cog_df <- function() {
 #' )
 #'
 #' # Create dilution statistical summary
-#' dilution_summary <- curve_table %>%
-#'   summarise_dilution_table(
+#' curve_summary <- curve_table %>%
+#'   summarise_curve_table(
 #'     grouping_variable = c(
 #'       "Transition_Name",
 #'       "Dilution_Batch_Name"
@@ -219,14 +226,15 @@ create_default_cog_df <- function() {
 #'
 #' type_vec <- c("factor", "factor", "factor")
 #'
-#'
 #' cog_df <- data.frame(
 #'   col_name_vec = col_name_vec,
 #'   desc_vec = desc_vec,
 #'   type_vec = type_vec
 #' )
 #'
-#' updated_summary <- update_cog_manual(dilution_summary, cog_df,
+#' updated_summary <- update_cog_manual(
+#'   curve_summary,
+#'   cog_df,
 #'   col_name_vec = "col_name_vec",
 #'   desc_vec = "desc_vec",
 #'   type_vec = "type_vec"
@@ -234,8 +242,10 @@ create_default_cog_df <- function() {
 #'
 #' # Observe that the first two columns has been converted
 #' # to class cognostics
-#' dilution_summary
+#' curve_summary
+#'
 #' updated_summary
+#'
 #' @rdname update_cog_manual
 #' @export
 update_cog_manual <- function(dilution_summary, cog_df,
@@ -282,7 +292,7 @@ update_cog_manual <- function(dilution_summary, cog_df,
 #' @description Update cognostics on the dilution summary based on
 #' the cognostics data frame given by the function `create_default_cog_df`.
 #' @param dilution_summary The summary table generated
-#' by function [summarise_dilution_table()] and/or
+#' by function [summarise_curve_table()] and/or
 #' [evaluate_linearity()]
 #' @return `dilution_summary` with some columns converted
 #' to type cog as defined in `trelliscopejs::cog`
@@ -290,19 +300,22 @@ update_cog_manual <- function(dilution_summary, cog_df,
 #' More details in `trelliscopejs::cog` can be found in
 #' <https://rdrr.io/cran/trelliscopejs/man/cog.html>
 #' @examples
-# ` # Data Creation
+#'
+#' # Data Creation
 #' dilution_percent <- c(
 #'   10, 20, 25, 40, 50, 60,
 #'   75, 80, 100, 125, 150,
 #'   10, 25, 40, 50, 60,
 #'   75, 80, 100, 125, 150
 #' )
+#'
 #' dilution_batch_name <- c(
 #'   "B1", "B1", "B1", "B1", "B1",
 #'   "B1", "B1", "B1", "B1", "B1", "B1",
 #'   "B2", "B2", "B2", "B2", "B2",
 #'   "B2", "B2", "B2", "B2", "B2"
 #' )
+#'
 #' sample_name <- c(
 #'   "Sample_010a", "Sample_020a",
 #'   "Sample_025a", "Sample_040a", "Sample_050a",
@@ -313,6 +326,7 @@ update_cog_manual <- function(dilution_summary, cog_df,
 #'   "Sample_075b", "Sample_080b", "Sample_100b",
 #'   "Sample_125b", "Sample_150b"
 #' )
+#'
 #' lipid1_area_saturated <- c(
 #'   5748124, 16616414, 21702718, 36191617,
 #'   49324541, 55618266, 66947588, 74964771,
@@ -321,18 +335,21 @@ update_cog_manual <- function(dilution_summary, cog_df,
 #'   55388856, 62505210, 62778078, 72158161,
 #'   78044338, 86158414
 #' )
+#'
 #' lipid2_area_linear <- c(
 #'   31538, 53709, 69990, 101977, 146436, 180960,
 #'   232881, 283780, 298289, 344519, 430432,
 #'   25463, 63387, 90624, 131274, 138069,
 #'   205353, 202407, 260205, 292257, 367924
 #' )
+#'
 #' lipid3_area_lod <- c(
 #'   544, 397, 829, 1437, 1808, 2231,
 #'   3343, 2915, 5268, 8031, 11045,
 #'   500, 903, 1267, 2031, 2100,
 #'   3563, 4500, 5300, 8500, 10430
 #' )
+#'
 #' lipid4_area_nonlinear <- c(
 #'   380519, 485372, 478770, 474467, 531640, 576301,
 #'   501068, 550201, 515110, 499543, 474745,
@@ -345,6 +362,7 @@ update_cog_manual <- function(dilution_summary, cog_df,
 #'   Dilution_Batch_Name = dilution_batch_name,
 #'   Dilution_Percent = dilution_percent
 #' )
+#'
 #' curve_data <- tibble::tibble(
 #'   Sample_Name = sample_name,
 #'   Lipid1 = lipid1_area_saturated,
@@ -353,8 +371,7 @@ update_cog_manual <- function(dilution_summary, cog_df,
 #'   Lipid4 = lipid4_area_nonlinear
 #' )
 #'
-#'
-#' # Create dilution table
+#' # Create curve table
 #' curve_table <- create_curve_table(
 #'   curve_annot = curve_annot,
 #'   curve_data_wide = curve_data,
@@ -363,9 +380,9 @@ update_cog_manual <- function(dilution_summary, cog_df,
 #'   column_group = "Transition_Name"
 #' )
 #'
-#' # Create dilution statistical summary
-#' dilution_summary <- curve_table %>%
-#'   summarise_dilution_table(
+#' # Create curve statistical summary
+#' curve_summary <- curve_table %>%
+#'   summarise_curve_table(
 #'     grouping_variable = c(
 #'       "Transition_Name",
 #'       "Dilution_Batch_Name"
@@ -379,12 +396,14 @@ update_cog_manual <- function(dilution_summary, cog_df,
 #'     "Dilution_Batch_Name"
 #'   ))
 #'
-#' updated_summary <- update_cog_auto(dilution_summary)
+#' updated_summary <- update_cog_auto(curve_summary)
 #'
 #' # Observe that the columns has been converted
 #' # to class cognostics
-#' dilution_summary
+#' curve_summary
+#'
 #' updated_summary
+#'
 #' @rdname update_cog_auto
 #' @export
 update_cog_auto <- function(dilution_summary) {
@@ -406,7 +425,7 @@ update_cog_auto <- function(dilution_summary) {
 #' @description Convert columns in `dilution_summary` to
 #' `trelliscopejs` cognostics for the `Trelliscope` display
 #' @param dilution_summary The summary table generated
-#' by function [summarise_dilution_table()] and/or
+#' by function [summarise_curve_table()] and/or
 #' [evaluate_linearity()]
 #' but it can also be any generic data frame or tibble
 #' @param cog_df A data frame or tibble that contains cognostics information
@@ -435,19 +454,22 @@ update_cog_auto <- function(dilution_summary) {
 #' other columns in `dilution_summary` converted to cognostics
 #' to be used in the in the `trelliscopejs` report.
 #' @examples
-# ` # Data Creation
+#'
+#' # Data Creation
 #' dilution_percent <- c(
 #'   10, 20, 25, 40, 50, 60,
 #'   75, 80, 100, 125, 150,
 #'   10, 25, 40, 50, 60,
 #'   75, 80, 100, 125, 150
 #' )
+#'
 #' dilution_batch_name <- c(
 #'   "B1", "B1", "B1", "B1", "B1",
 #'   "B1", "B1", "B1", "B1", "B1", "B1",
 #'   "B2", "B2", "B2", "B2", "B2",
 #'   "B2", "B2", "B2", "B2", "B2"
 #' )
+#'
 #' sample_name <- c(
 #'   "Sample_010a", "Sample_020a",
 #'   "Sample_025a", "Sample_040a", "Sample_050a",
@@ -458,6 +480,7 @@ update_cog_auto <- function(dilution_summary) {
 #'   "Sample_075b", "Sample_080b", "Sample_100b",
 #'   "Sample_125b", "Sample_150b"
 #' )
+#'
 #' lipid1_area_saturated <- c(
 #'   5748124, 16616414, 21702718, 36191617,
 #'   49324541, 55618266, 66947588, 74964771,
@@ -466,18 +489,21 @@ update_cog_auto <- function(dilution_summary) {
 #'   55388856, 62505210, 62778078, 72158161,
 #'   78044338, 86158414
 #' )
+#'
 #' lipid2_area_linear <- c(
 #'   31538, 53709, 69990, 101977, 146436, 180960,
 #'   232881, 283780, 298289, 344519, 430432,
 #'   25463, 63387, 90624, 131274, 138069,
 #'   205353, 202407, 260205, 292257, 367924
 #' )
+#'
 #' lipid3_area_lod <- c(
 #'   544, 397, 829, 1437, 1808, 2231,
 #'   3343, 2915, 5268, 8031, 11045,
 #'   500, 903, 1267, 2031, 2100,
 #'   3563, 4500, 5300, 8500, 10430
 #' )
+#'
 #' lipid4_area_nonlinear <- c(
 #'   380519, 485372, 478770, 474467, 531640, 576301,
 #'   501068, 550201, 515110, 499543, 474745,
@@ -490,6 +516,7 @@ update_cog_auto <- function(dilution_summary) {
 #'   Dilution_Batch_Name = dilution_batch_name,
 #'   Dilution_Percent = dilution_percent
 #' )
+#'
 #' curve_data <- tibble::tibble(
 #'   Sample_Name = sample_name,
 #'   Lipid1 = lipid1_area_saturated,
@@ -498,8 +525,7 @@ update_cog_auto <- function(dilution_summary) {
 #'   Lipid4 = lipid4_area_nonlinear
 #' )
 #'
-#'
-#' # Create dilution table
+#' # Create curve table
 #' curve_table <- create_curve_table(
 #'   curve_annot = curve_annot,
 #'   curve_data_wide = curve_data,
@@ -508,9 +534,9 @@ update_cog_auto <- function(dilution_summary) {
 #'   column_group = "Transition_Name"
 #' )
 #'
-#' # Create dilution statistical summary
-#' dilution_summary <- curve_table %>%
-#'   summarise_dilution_table(
+#' # Create curve statistical summary
+#' curve_summary <- curve_table %>%
+#'   summarise_curve_table(
 #'     grouping_variable = c(
 #'       "Transition_Name",
 #'       "Dilution_Batch_Name"
@@ -524,12 +550,14 @@ update_cog_auto <- function(dilution_summary) {
 #'     "Dilution_Batch_Name"
 #'   ))
 #'
-#' updated_summary <- convert_to_cog(dilution_summary)
+#' updated_summary <- convert_to_cog(curve_summary)
 #'
 #' # Observe that the columns has been converted
 #' # to class cognostics
-#' dilution_summary
+#' curve_summary
+#'
 #' updated_summary
+#'
 #' @rdname convert_to_cog
 #' @export
 convert_to_cog <- function(dilution_summary, cog_df = NULL,

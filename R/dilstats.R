@@ -7,14 +7,19 @@
 #' `signal_var ~ conc_var` from data `diltuion_data`
 #' @examples
 #' dilution_percent <- c(10, 20, 40, 60, 80, 100)
+#'
 #' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+#'
 #' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+#'
 #' linear_model <- create_linear_model(
 #'   dilution_data,
 #'   "Dilution_Percent",
 #'   "Area"
 #' )
+#'
 #' linear_model
+#'
 #' @rdname create_linear_model
 #' @export
 create_linear_model <- function(dilution_data, conc_var, signal_var) {
@@ -43,14 +48,19 @@ create_linear_model <- function(dilution_data, conc_var, signal_var) {
 #' from data `diltuion_data`
 #' @examples
 #' dilution_percent <- c(10, 20, 40, 60, 80, 100)
+#'
 #' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+#'
 #' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+#'
 #' quad_model <- create_quad_model(
 #'   dilution_data,
 #'   "Dilution_Percent",
 #'   "Area"
 #' )
+#'
 #' quad_model
+#'
 #' @rdname create_quad_model
 #' @export
 create_quad_model <- function(dilution_data, conc_var, signal_var) {
@@ -85,14 +95,19 @@ create_quad_model <- function(dilution_data, conc_var, signal_var) {
 #' from data `diltuion_data`
 #' @examples
 #' dilution_percent <- c(10, 20, 40, 60, 80, 100)
+#'
 #' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+#'
 #' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+#'
 #' cubic_model <- create_cubic_model(
 #'   dilution_data,
 #'   "Dilution_Percent",
 #'   "Area"
 #' )
+#'
 #' cubic_model
+#'
 #' @rdname create_cubic_model
 #' @export
 create_cubic_model <- function(dilution_data, conc_var, signal_var) {
@@ -169,11 +184,13 @@ create_cubic_model <- function(dilution_data, conc_var, signal_var) {
 #' @details The function will return NA if the number of dilution points
 #' is less than or equal to three.
 #' @examples
+#'
 #' # Data from Kroll's 2000 paper
 #' solution_number <- c(
 #'   1, 1, 2, 2, 3, 3, 4, 4,
 #'   5, 5, 6, 6, 7, 7
 #' )
+#'
 #' result <- c(
 #'   352, 348, 1009, 991, 1603, 1584, 3100, 3200,
 #'   4482, 4390, 5101, 5046, 5669, 5516
@@ -189,7 +206,9 @@ create_cubic_model <- function(dilution_data, conc_var, signal_var) {
 #'   "Solution_Number",
 #'   "Result"
 #' )
+#'
 #' adl_result
+#'
 #' @rdname calculate_adl_kroll_test
 #' @export
 #' @references
@@ -368,13 +387,18 @@ calculate_adl_kroll_test <- function(dilution_data, conc_var, signal_var) {
 #' is less than or equal to three
 #' @examples
 #' dilution_percent <- c(10, 20, 40, 60, 80, 100)
+#'
 #' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+#'
 #' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+#'
 #' adl_value <- calculate_adl(
 #'   dilution_data,
 #'   "Dilution_Percent", "Area"
 #' )
+#'
 #' adl_value
+#'
 #' @rdname calculate_adl
 #' @export
 #' @references
@@ -458,13 +482,18 @@ calculate_adl <- function(dilution_data, conc_var, signal_var) {
 #' is less than or equal to three
 #' @examples
 #' dilution_percent <- c(10, 20, 40, 60, 80, 100)
+#'
 #' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+#'
 #' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+#'
 #' concavity_value <- calculate_concavity(
 #'   dilution_data,
 #'   "Dilution_Percent", "Area"
 #' )
+#'
 #' concavity_value
+#'
 #' @rdname calculate_concavity
 #' @export
 calculate_concavity <- function(dilution_data, conc_var, signal_var) {
@@ -514,13 +543,18 @@ calculate_concavity <- function(dilution_data, conc_var, signal_var) {
 #' if the number of dilution points is less than or equal to three
 #' @examples
 #' dilution_percent <- c(10, 20, 40, 60, 80, 100)
+#'
 #' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+#'
 #' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+#'
 #' dil_linear_gof <- calculate_gof_linear(
 #'   dilution_data,
 #'   "Dilution_Percent", "Area"
 #' )
+#'
 #' dil_linear_gof
+#'
 #' @rdname calculate_gof_linear
 #' @export
 calculate_gof_linear <- function(dilution_data, conc_var, signal_var) {
@@ -594,10 +628,15 @@ calculate_gof_linear <- function(dilution_data, conc_var, signal_var) {
 #' if the number of dilution points is less than or equal to three.
 #' @examples
 #' dilution_percent <- c(10, 20, 40, 60, 80, 100)
+#'
 #' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+#'
 #' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+#'
 #' mandel_result <- calculate_mandel(dilution_data, "Dilution_Percent", "Area")
+#'
 #' mandel_result
+#'
 #' @rdname calculate_mandel
 #' @export
 calculate_mandel <- function(dilution_data, conc_var, signal_var) {
@@ -670,10 +709,15 @@ calculate_mandel <- function(dilution_data, conc_var, signal_var) {
 #' is less than or equal to three
 #' @examples
 #' dilution_percent <- c(10, 20, 40, 60, 80, 100)
+#'
 #' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+#'
 #' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+#'
 #' pra_value <- calculate_pra_linear(dilution_data, "Dilution_Percent", "Area")
+#'
 #' pra_value
+#'
 #' @rdname calculate_pra_linear
 #' @export
 calculate_pra_linear <- function(dilution_data, conc_var, signal_var) {
@@ -760,13 +804,17 @@ validate_dilution_data <- function(dilution_data,
 #' @return An error if the column name is not found in the `curve_data`
 #' @examples
 #' dilution_percent <- c(10, 20, 40, 60, 80, 100)
+#'
 #' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+#'
 #' curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+#'
 #' validate_curve_data(
 #'   curve_data = curve_data,
 #'   conc_var = "Dilution_Percent",
 #'   signal_var = "Area"
 #' )
+#'
 #' @rdname validate_curve_data
 #' @export
 validate_curve_data <- function(curve_data,
@@ -821,13 +869,18 @@ summarise_dilution_data <- function(dilution_data,
 #' Concavity.
 #' @details The function will return a tibble with NA values
 #' if the number of curve points is less than or equal to three
+#' @examples
 #' dilution_percent <- c(10, 20, 40, 60, 80, 100)
+#'
 #' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+#'
 #' curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+#'
 #' curve_summary <- summarise_curve_data(curve_data,
 #'                                       "Dilution_Percent",
 #'                                       "Area")
 #' print(curve_summary, width = 100)
+#'
 #' @rdname summarise_curve_data
 #' @export
 summarise_curve_data <- function(curve_data,

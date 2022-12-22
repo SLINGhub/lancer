@@ -3,7 +3,7 @@
 #' characters for each column in the input data frame
 #' or tibble, including the column name.
 #' @param dilution_summary The summary table generated
-#' by function [summarise_dilution_table()] and/or
+#' by function [summarise_curve_table()] and/or
 #' [evaluate_linearity()]
 #' but it can also be any generic data frame or tibble
 #' @return A numeric vector each value indicated the
@@ -14,25 +14,32 @@
 #'   0.951956, 0.948683, 0.978057, 0.976462,
 #'   0.970618, 0.969348, 0.343838, 0.383552
 #' )
+#'
 #' pra_linear <- c(
 #'   65.78711, 64.58687, 90.21257, 89.95473,
 #'   72.91220, 72.36528, -233.05949, -172.13659
 #' )
+#'
 #' mandel_p_val <- c(
 #'   2.899006e-07, 7.922290e-07, 2.903365e-01, 3.082930e-01,
 #'   3.195779e-08, 6.366588e-08, 3.634004e-02, 1.864090e-02
 #' )
+#'
 #' concavity <- c(
 #'   -4133.501328, -4146.745747, -3.350942, -3.393617,
 #'   0.3942824, 0.4012963, -19.9469621, -22.6144875
 #' )
-#' dilution_summary <- data.frame(
+#'
+#' curve_summary <- data.frame(
 #'   r_corr = r_corr, pra_linear = pra_linear,
 #'   mandel_p_val = mandel_p_val,
 #'   concavity = concavity
 #' )
-#' column_max_char <- calculate_column_max_char(dilution_summary)
+#'
+#' column_max_char <- calculate_column_max_char(curve_summary)
+#'
 #' column_max_char
+#'
 #' @rdname calculate_column_max_char
 #' @export
 calculate_column_max_char <- function(dilution_summary) {
@@ -71,12 +78,11 @@ calculate_column_max_char <- function(dilution_summary) {
   return(column_max_char_vector)
 }
 
-
 #' @title Mark Near Zero Columns
 #' @description Mark numeric columns with near zero values from a dataset
 #' by changing the class from `numeric` to `scientific`
 #' @param dilution_summary The summary table generated
-#' by function [summarise_dilution_table()] and/or
+#' by function [summarise_curve_table()] and/or
 #' [evaluate_linearity()]
 #' @param threshold_value A small cut off value such that any
 #' numeric column with a number smaller than this value
@@ -92,24 +98,32 @@ calculate_column_max_char <- function(dilution_summary) {
 #'   0.951956, 0.948683, 0.978057, 0.976462,
 #'   0.970618, 0.969348, 0.343838, 0.383552
 #' )
+#'
 #' pra_linear <- c(
 #'   65.78711, 64.58687, 90.21257, 89.95473,
 #'   72.91220, 72.36528, -233.05949, -172.13659
 #' )
+#'
 #' mandel_p_val <- c(
 #'   2.899006e-07, 7.922290e-07, 2.903365e-01, 3.082930e-01,
 #'   3.195779e-08, 6.366588e-08, 3.634004e-02, 1.864090e-02
 #' )
+#'
 #' concavity <- c(
 #'   -4133.501328, -4146.745747, -3.350942, -3.393617,
 #'   0.3942824, 0.4012963, -19.9469621, -22.6144875
 #' )
-#' dilution_summary <- data.frame(
+#'
+#' curve_summary <- data.frame(
 #'   r_corr = r_corr, pra_linear = pra_linear,
 #'   mandel_p_val = mandel_p_val,
 #'   concavity = concavity
 #' )
-#' dilution_summary <- mark_near_zero_columns(dilution_summary)
+#'
+#' curve_summary <- mark_near_zero_columns(curve_summary)
+#'
+#' print(curve_summary, width = 100)
+#'
 #' @rdname mark_near_zero_columns
 #' @export
 mark_near_zero_columns <- function(dilution_summary,
@@ -155,7 +169,7 @@ mark_near_zero_columns <- function(dilution_summary,
 #' places. If it is `scientific`, numeric format is scientific of the
 #' form 0.00E+00.
 #' @param dilution_summary The summary table generated
-#' by function [summarise_dilution_table()] and/or
+#' by function [summarise_curve_table()] and/or
 #' [evaluate_linearity()]
 #' but it can also be any generic data frame or tibble
 #' @param workbook A workbook object from `openxlsx`
@@ -165,31 +179,39 @@ mark_near_zero_columns <- function(dilution_summary,
 #'   0.951956, 0.948683, 0.978057, 0.976462,
 #'   0.970618, 0.969348, 0.343838, 0.383552
 #' )
+#'
 #' pra_linear <- c(
 #'   65.78711, 64.58687, 90.21257, 89.95473,
 #'   72.91220, 72.36528, -233.05949, -172.13659
 #' )
+#'
 #' mandel_p_val <- c(
 #'   2.899006e-07, 7.922290e-07, 2.903365e-01, 3.082930e-01,
 #'   3.195779e-08, 6.366588e-08, 3.634004e-02, 1.864090e-02
 #' )
+#'
 #' concavity <- c(
 #'   -4133.501328, -4146.745747, -3.350942, -3.393617,
 #'   0.3942824, 0.4012963, -19.9469621, -22.6144875
 #' )
-#' dilution_summary <- data.frame(
+#'
+#' curve_summary <- data.frame(
 #'   r_corr = r_corr, pra_linear = pra_linear,
 #'   mandel_p_val = mandel_p_val,
 #'   concavity = concavity
 #' )
-#' dilution_summary <- mark_near_zero_columns(dilution_summary)
+#'
+#' curve_summary <- mark_near_zero_columns(curve_summary)
+#'
 #' # Create a new workbook
 #' my_workbook <- openxlsx::createWorkbook()
+#'
 #' # Create a new worksheet
-#' openxlsx::addWorksheet(wb = my_workbook, sheetName = "Dilution Summary")
-#' format_num_cell_style(dilution_summary,
-#'   workbook = my_workbook, sheet = "Dilution Summary"
+#' openxlsx::addWorksheet(wb = my_workbook, sheetName = "Curve Summary")
+#' format_num_cell_style(curve_summary,
+#'   workbook = my_workbook, sheet = "Curve Summary"
 #' )
+#'
 #' @rdname format_num_cell_style
 #' @export
 format_num_cell_style <- function(dilution_summary, workbook, sheet) {
@@ -219,8 +241,6 @@ format_num_cell_style <- function(dilution_summary, workbook, sheet) {
   }
 }
 
-
-
 #' @title Format Character Cell Colour
 #' @description Perform cell conditional formatting of two colours
 #' based on if a given word on a given character column from `dilution summary`
@@ -228,7 +248,7 @@ format_num_cell_style <- function(dilution_summary, workbook, sheet) {
 #' @param sheet The name of the sheet to apply the conditional
 #' formatting on `workbook`
 #' @param dilution_summary The summary table generated
-#' by function [summarise_dilution_table()] and/or [evaluate_linearity()]
+#' by function [summarise_curve_table()] and/or [evaluate_linearity()]
 #' @param conditional_column A string to indicate which column
 #' in `dilution_summary` to use
 #' @param pass_criteria_words A character vector to highlight
@@ -239,34 +259,40 @@ format_num_cell_style <- function(dilution_summary, workbook, sheet) {
 #'   0.951956, 0.948683, 0.978057, 0.976462,
 #'   0.970618, 0.969348, 0.343838, 0.383552
 #' )
+#'
 #' pra_linear <- c(
 #'   65.78711, 64.58687, 90.21257, 89.95473,
 #'   72.91220, 72.36528, -233.05949, -172.13659
 #' )
+#'
 #' mandel_p_val <- c(
 #'   2.899006e-07, 7.922290e-07, 2.903365e-01, 3.082930e-01,
 #'   3.195779e-08, 6.366588e-08, 3.634004e-02, 1.864090e-02
 #' )
+#'
 #' concavity <- c(
 #'   -4133.501328, -4146.745747, -3.350942, -3.393617,
 #'   0.3942824, 0.4012963, -19.9469621, -22.6144875
 #' )
-#' dilution_summary <- data.frame(
+#'
+#' curve_summary <- data.frame(
 #'   r_corr = r_corr, pra_linear = pra_linear,
 #'   mandel_p_val = mandel_p_val,
 #'   concavity = concavity
 #' )
-#' dilution_summary <- mark_near_zero_columns(dilution_summary)
+#'
+#' curve_summary <- mark_near_zero_columns(curve_summary)
+#'
 #' # Create a new workbook
 #' my_workbook <- openxlsx::createWorkbook()
 #'
 #' # Create a new worksheet
-#' openxlsx::addWorksheet(wb = my_workbook, sheetName = "Dilution Summary")
+#' openxlsx::addWorksheet(wb = my_workbook, sheetName = "Curve Summary")
 #'
 #' # Write to worksheet as an Excel Table
 #' openxlsx::writeDataTable(
-#'   wb = my_workbook, sheet = "Dilution Summary",
-#'   x = dilution_summary,
+#'   wb = my_workbook, sheet = "Curve Summary",
+#'   x = curve_summary,
 #'   withFilter = TRUE,
 #'   bandedRows = FALSE
 #' )
@@ -274,11 +300,12 @@ format_num_cell_style <- function(dilution_summary, workbook, sheet) {
 #' # Conditional formatting can only be done
 #' # after data is written to excel sheet
 #' format_char_cell_colour(
-#'   workbook = my_workbook, sheet = "Dilution Summary",
-#'   dilution_summary = dilution_summary,
+#'   workbook = my_workbook, sheet = "Curve Summary",
+#'   dilution_summary = curve_summary,
 #'   conditional_column = "wf1_group",
 #'   pass_criteria_words = c("Good Linearity")
 #' )
+#'
 #' @rdname format_char_cell_colour
 #' @export
 format_char_cell_colour <- function(workbook, sheet,
@@ -313,7 +340,7 @@ format_char_cell_colour <- function(workbook, sheet,
 #' @param workbook A workbook object from `openxlsx`
 #' @param sheet The name of the sheet to apply the numeric style on `workbook`
 #' @param dilution_summary The summary table generated
-#' by function [summarise_dilution_table()] and/or [evaluate_linearity()]
+#' by function [summarise_curve_table()] and/or [evaluate_linearity()]
 #' @param conditional_column A character vector to
 #' indicate which column in `dilution_summary` to use
 #' @param threshold_value The threshold value to indicate a pass or fail
@@ -328,34 +355,40 @@ format_char_cell_colour <- function(workbook, sheet,
 #'   0.951956, 0.948683, 0.978057, 0.976462,
 #'   0.970618, 0.969348, 0.343838, 0.383552
 #' )
+#'
 #' pra_linear <- c(
 #'   65.78711, 64.58687, 90.21257, 89.95473,
 #'   72.91220, 72.36528, -233.05949, -172.13659
 #' )
+#'
 #' mandel_p_val <- c(
 #'   2.899006e-07, 7.922290e-07, 2.903365e-01, 3.082930e-01,
 #'   3.195779e-08, 6.366588e-08, 3.634004e-02, 1.864090e-02
 #' )
+#'
 #' concavity <- c(
 #'   -4133.501328, -4146.745747, -3.350942, -3.393617,
 #'   0.3942824, 0.4012963, -19.9469621, -22.6144875
 #' )
-#' dilution_summary <- data.frame(
+#'
+#' curve_summary <- data.frame(
 #'   r_corr = r_corr, pra_linear = pra_linear,
 #'   mandel_p_val = mandel_p_val,
 #'   concavity = concavity
 #' )
-#' dilution_summary <- mark_near_zero_columns(dilution_summary)
+#'
+#' curve_summary <- mark_near_zero_columns(curve_summary)
+#'
 #' # Create a new workbook
 #' my_workbook <- openxlsx::createWorkbook()
 #'
 #' # Create a new worksheet
-#' openxlsx::addWorksheet(wb = my_workbook, sheetName = "Dilution Summary")
+#' openxlsx::addWorksheet(wb = my_workbook, sheetName = "Curve Summary")
 #'
 #' # Write to worksheet as an Excel Table
 #' openxlsx::writeDataTable(
-#'   wb = my_workbook, sheet = "Dilution Summary",
-#'   x = dilution_summary,
+#'   wb = my_workbook, sheet = "Curve Summary",
+#'   x = curve_summary,
 #'   withFilter = TRUE,
 #'   bandedRows = FALSE
 #' )
@@ -363,12 +396,13 @@ format_char_cell_colour <- function(workbook, sheet,
 #' # Conditional formatting can only be done
 #' # after data is written to excel sheet
 #' format_num_cell_colour(
-#'   workbook = my_workbook, sheet = "Dilution Summary",
-#'   dilution_summary = dilution_summary,
+#'   workbook = my_workbook, sheet = "Curve Summary",
+#'   dilution_summary = curve_summary,
 #'   conditional_column = "r_corr",
 #'   threshold_value = "0.8",
 #'   pass_criteria = "above"
 #' )
+#'
 #' @rdname format_num_cell_colour
 #' @export
 format_num_cell_colour <- function(workbook, sheet,
@@ -416,7 +450,7 @@ format_num_cell_colour <- function(workbook, sheet,
 #' @title Write Dilution Summary To Excel
 #' @description Write dilution summary table to an excel sheet
 #' @param dilution_summary The summary table generated
-#' by function [summarise_dilution_table()] and/or [evaluate_linearity()]
+#' by function [summarise_curve_table()] and/or [evaluate_linearity()]
 #' @param file_name Name of the excel file
 #' @param sheet_name Sheet name to output the results
 #' in Excel, Default: 'Dilution Summary'
@@ -456,39 +490,47 @@ format_num_cell_colour <- function(workbook, sheet,
 #'   "Lipid1", "Lipid1", "Lipid1", "Lipid1",
 #'   "Lipid2", "Lipid2", "Lipid2", "Lipid2"
 #' )
+#'
 #' dilution_batch_name <- c(
 #'   "B1", "B1", "B1", "B1",
 #'   "B2", "B2", "B2", "B2"
 #' )
+#'
 #' wf1_group <- c(
 #'   "Poor Linearity", "Good Linearity",
 #'   "Poor Linearity", "Poor Linearity",
 #'   "Poor Linearity", "Good Linearity",
 #'   "Poor Linearity", "Poor Linearity"
 #' )
+#'
 #' wf2_group <- c(
 #'   "Saturation", "Good Linearity",
 #'   "LOD", "Poor Linearity",
 #'   "Saturation", "Good Linearity",
 #'   "LOD", "Poor Linearity"
 #' )
+#'
 #' r_corr <- c(
 #'   0.951956, 0.948683, 0.978057, 0.976462,
 #'   0.970618, 0.969348, 0.343838, 0.383552
 #' )
+#'
 #' pra_linear <- c(
 #'   65.78711, 64.58687, 90.21257, 89.95473,
 #'   72.91220, 72.36528, -233.05949, -172.13659
 #' )
+#'
 #' mandel_p_val <- c(
 #'   2.899006e-07, 7.922290e-07, 2.903365e-01, 3.082930e-01,
 #'   3.195779e-08, 6.366588e-08, 3.634004e-02, 1.864090e-02
 #' )
+#'
 #' concavity <- c(
 #'   -4133.501328, -4146.745747, -3.350942, -3.393617,
 #'   0.3942824, 0.4012963, -19.9469621, -22.6144875
 #' )
-#' dilution_summary <- data.frame(
+#'
+#' curve_summary <- data.frame(
 #'   Transition_Name = transition_name,
 #'   Dilution_Batch_Name = dilution_batch_name,
 #'   wf1_group = wf1_group, wf2_group = wf2_group,
@@ -496,11 +538,13 @@ format_num_cell_colour <- function(workbook, sheet,
 #'   mandel_p_val = mandel_p_val,
 #'   concavity = concavity
 #' )
+#'
 #' # Create an excel report, set testing = FALSE to output results
-#' write_summary_excel(dilution_summary,
+#' write_summary_excel(curve_summary,
 #'   file_name = "dilution_summary.xlsx",
 #'   testing = TRUE
 #' )
+#'
 #' @rdname write_summary_excel
 #' @export
 write_summary_excel <- function(dilution_summary, file_name,

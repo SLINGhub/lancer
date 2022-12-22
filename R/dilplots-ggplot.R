@@ -10,12 +10,18 @@
 #' columns in `dilution_summary_grp`, NULL will be returned
 #' @examples
 #' wf1_group <- c("Poor Linearity")
+#'
 #' wf2_group <- c("Saturation")
+#'
 #' r_corr <- c(0.951956)
+#'
 #' pra_linear <- c(65.78711)
+#'
 #' mandel_p_val <- c(2.899006e-07)
+#'
 #' concavity <- c(-4133.501328)
-#' dilution_summary_grp <- data.frame(
+#'
+#' curve_summary_grp <- data.frame(
 #'   wf1_group = wf1_group,
 #'   wf2_group = wf2_group,
 #'   r_corr = r_corr,
@@ -23,13 +29,18 @@
 #'   mandel_p_val = mandel_p_val,
 #'   concavity = concavity
 #' )
-#' table <- plot_summary_table_char(dilution_summary_grp)
+#'
+#' table <- plot_summary_table_char(curve_summary_grp)
+#'
 #' grid::grid.draw(table)
 #'
 #' # No character/factor/logical column case
-#' dilution_summary_grp <- data.frame(r_corr = r_corr)
-#' table <- plot_summary_table_char(dilution_summary_grp)
+#' curve_summary_grp <- data.frame(r_corr = r_corr)
+#'
+#' table <- plot_summary_table_char(curve_summary_grp)
+#'
 #' table
+#'
 #' @rdname plot_summary_table_char
 #' @export
 plot_summary_table_char <- function(dilution_summary_grp) {
@@ -68,12 +79,18 @@ plot_summary_table_char <- function(dilution_summary_grp) {
 #' in `dilution_summary_grp`, NULL will be returned
 #' @examples
 #' wf1_group <- c("Poor Linearity")
+#'
 #' wf2_group <- c("Saturation")
+#'
 #' r_corr <- c(0.951956)
+#'
 #' pra_linear <- c(65.78711)
+#'
 #' mandel_p_val <- c(2.899006e-07)
+#'
 #' concavity <- c(-4133.501328)
-#' dilution_summary_grp <- data.frame(
+#'
+#' curve_summary_grp <- data.frame(
 #'   wf1_group = wf1_group,
 #'   wf2_group = wf2_group,
 #'   r_corr = r_corr,
@@ -81,13 +98,18 @@ plot_summary_table_char <- function(dilution_summary_grp) {
 #'   mandel_p_val = mandel_p_val,
 #'   concavity = concavity
 #' )
-#' table <- plot_summary_table_num(dilution_summary_grp)
+#'
+#' table <- plot_summary_table_num(curve_summary_grp)
+#'
 #' grid::grid.draw(table)
 #'
 #' # No numeric column case
-#' dilution_summary_grp <- data.frame(wf2_group = wf2_group)
-#' table <- plot_summary_table_num(dilution_summary_grp)
+#' curve_summary_grp <- data.frame(wf2_group = wf2_group)
+#'
+#' table <- plot_summary_table_num(curve_summary_grp)
+#'
 #' table
+#'
 #' @rdname plot_summary_table_num
 #' @export
 plot_summary_table_num <- function(dilution_summary_grp) {
@@ -128,12 +150,18 @@ plot_summary_table_num <- function(dilution_summary_grp) {
 #' [plot_summary_table_char()] and [plot_summary_table_num()]
 #' @examples
 #' wf1_group <- c("Poor Linearity")
+#'
 #' wf2_group <- c("Saturation")
+#'
 #' r_corr <- c(0.951956)
+#'
 #' pra_linear <- c(65.78711)
+#'
 #' mandel_p_val <- c(2.899006e-07)
+#'
 #' concavity <- c(-4133.501328)
-#' dilution_summary_grp <- data.frame(
+#'
+#' curve_summary_grp <- data.frame(
 #'   wf1_group = wf1_group,
 #'   wf2_group = wf2_group,
 #'   r_corr = r_corr,
@@ -141,13 +169,18 @@ plot_summary_table_num <- function(dilution_summary_grp) {
 #'   mandel_p_val = mandel_p_val,
 #'   concavity = concavity
 #' )
-#' table <- plot_summary_table(dilution_summary_grp)
+#'
+#' table <- plot_summary_table(curve_summary_grp)
+#'
 #' grid::grid.draw(table)
 #'
 #' # No column case
-#' dilution_summary_grp <- data.frame()
-#' table <- plot_summary_table(dilution_summary_grp)
+#' curve_summary_grp <- data.frame()
+#'
+#' table <- plot_summary_table(curve_summary_grp)
+#'
 #' table
+#'
 #' @rdname plot_summary_table
 #' @export
 plot_summary_table <- function(dilution_summary_grp) {
@@ -229,7 +262,6 @@ create_reg_col_vec <- function(plot_first_half_lin_reg = FALSE,
   return(reg_col_vec)
 }
 
-
 #' @title Plot Dilution Curve Using `ggplot2`
 #' @description Plot dilution curve using `ggplot2`
 #' @param dilution_data A data frame or tibble containing dilution data
@@ -263,26 +295,31 @@ create_reg_col_vec <- function(plot_first_half_lin_reg = FALSE,
 #' batch per transition
 #' @rdname plot_curve_ggplot
 #' @examples
+#'
 #' # Data Creation
 #' dilution_percent <- c(
 #'   10, 20, 25, 40, 50, 60,
 #'   75, 80, 100, 125, 150
 #' )
+#'
 #' sample_name <- c(
 #'   "Sample_010a", "Sample_020a",
 #'   "Sample_025a", "Sample_040a", "Sample_050a",
 #'   "Sample_060a", "Sample_075a", "Sample_080a",
 #'   "Sample_100a", "Sample_125a", "Sample_150a"
 #' )
+#'
 #' dilution_batch_name <- c(
 #'   "B1", "B1", "B1", "B1", "B1",
 #'   "B1", "B1", "B1", "B1", "B1", "B1"
 #' )
+#'
 #' transition_name <- c(
 #'   "Lipid1", "Lipid1", "Lipid1", "Lipid1",
 #'   "Lipid1", "Lipid1", "Lipid1", "Lipid1",
 #'   "Lipid1", "Lipid1", "Lipid1"
 #' )
+#'
 #' lipid1_area_saturated <- c(
 #'   5748124, 16616414, 21702718, 36191617,
 #'   49324541, 55618266, 66947588, 74964771,
@@ -310,10 +347,9 @@ create_reg_col_vec <- function(plot_first_half_lin_reg = FALSE,
 #' pal <- dil_batch_col %>%
 #'   stats::setNames(dilution_batch_name)
 #'
-#'
 #' # Create dilution statistical summary
 #' dilution_summary_grp <- dilution_data %>%
-#'   summarise_dilution_table(
+#'   summarise_curve_table(
 #'     grouping_variable = grouping_variable,
 #'     conc_var = "Dilution_Percent",
 #'     signal_var = "Area"
@@ -333,7 +369,9 @@ create_reg_col_vec <- function(plot_first_half_lin_reg = FALSE,
 #'   conc_var_interval = 50,
 #'   signal_var = "Area"
 #' )
+#'
 #' p
+#'
 #' @export
 plot_curve_ggplot <- function(dilution_data,
                               dilution_summary_grp,
@@ -636,7 +674,6 @@ plot_curve_ggplot <- function(dilution_data,
   return(p)
 }
 
-
 #' @title Add A `ggplot` Panel Column
 #' @description Create a column which contains a list of `ggplot`
 #' suited for a pdf report
@@ -646,11 +683,11 @@ plot_curve_ggplot <- function(dilution_data,
 #' lipid/transition name, the concentration and signal. Other columns may be
 #' present if it is used to group the dilution curve together
 #' @param dilution_summary The summary table generated
-#' by function [summarise_dilution_table()] and/or
+#' by function [summarise_curve_table()] and/or
 #' [evaluate_linearity()] but it can also be any generic
 #' data frame or tibble.
 #' If there is no input given in this, the program will create one using
-#' the function [summarise_dilution_table()] and [evaluate_linearity()]
+#' the function [summarise_curve_table()] and [evaluate_linearity()]
 #' with `grouping_variable`, `conc_var` and `signal_var` as inputs
 #' Default: NULL
 #' @param grouping_variable A character vector of
@@ -690,6 +727,7 @@ plot_curve_ggplot <- function(dilution_data,
 #' pdf report.
 #' @rdname add_ggplot_panel
 #' @examples
+#'
 #' # Data Creation
 #' dilution_percent <- c(
 #'   10, 20, 25, 40, 50, 60,
@@ -697,12 +735,14 @@ plot_curve_ggplot <- function(dilution_data,
 #'   10, 25, 40, 50, 60,
 #'   75, 80, 100, 125, 150
 #' )
+#'
 #' dilution_batch_name <- c(
 #'   "B1", "B1", "B1", "B1", "B1",
 #'   "B1", "B1", "B1", "B1", "B1", "B1",
 #'   "B2", "B2", "B2", "B2", "B2",
 #'   "B2", "B2", "B2", "B2", "B2"
 #' )
+#'
 #' sample_name <- c(
 #'   "Sample_010a", "Sample_020a",
 #'   "Sample_025a", "Sample_040a", "Sample_050a",
@@ -713,6 +753,7 @@ plot_curve_ggplot <- function(dilution_data,
 #'   "Sample_075b", "Sample_080b", "Sample_100b",
 #'   "Sample_125b", "Sample_150b"
 #' )
+#'
 #' lipid1_area_saturated <- c(
 #'   5748124, 16616414, 21702718, 36191617,
 #'   49324541, 55618266, 66947588, 74964771,
@@ -721,18 +762,21 @@ plot_curve_ggplot <- function(dilution_data,
 #'   55388856, 62505210, 62778078, 72158161,
 #'   78044338, 86158414
 #' )
+#'
 #' lipid2_area_linear <- c(
 #'   31538, 53709, 69990, 101977, 146436, 180960,
 #'   232881, 283780, 298289, 344519, 430432,
 #'   25463, 63387, 90624, 131274, 138069,
 #'   205353, 202407, 260205, 292257, 367924
 #' )
+#'
 #' lipid3_area_lod <- c(
 #'   544, 397, 829, 1437, 1808, 2231,
 #'   3343, 2915, 5268, 8031, 11045,
 #'   500, 903, 1267, 2031, 2100,
 #'   3563, 4500, 5300, 8500, 10430
 #' )
+#'
 #' lipid4_area_nonlinear <- c(
 #'   380519, 485372, 478770, 474467, 531640, 576301,
 #'   501068, 550201, 515110, 499543, 474745,
@@ -745,6 +789,7 @@ plot_curve_ggplot <- function(dilution_data,
 #'   Dilution_Batch_Name = dilution_batch_name,
 #'   Dilution_Percent = dilution_percent
 #' )
+#'
 #' curve_data <- tibble::tibble(
 #'   Sample_Name = sample_name,
 #'   Lipid1 = lipid1_area_saturated,
@@ -753,8 +798,7 @@ plot_curve_ggplot <- function(dilution_data,
 #'   Lipid4 = lipid4_area_nonlinear
 #' )
 #'
-#'
-#' # Create dilution table
+#' # Create curve table
 #' curve_table <- create_curve_table(
 #'   curve_annot = curve_annot,
 #'   curve_data_wide = curve_data,
@@ -763,9 +807,9 @@ plot_curve_ggplot <- function(dilution_data,
 #'   column_group = "Transition_Name"
 #' )
 #'
-#' # Create dilution statistical summary
-#' dilution_summary <- curve_table %>%
-#'   summarise_dilution_table(
+#' # Create curve statistical summary
+#' curve_summary <- curve_table %>%
+#'   summarise_curve_table(
 #'     grouping_variable = c(
 #'       "Transition_Name",
 #'       "Dilution_Batch_Name"
@@ -779,16 +823,19 @@ plot_curve_ggplot <- function(dilution_data,
 #'     "Dilution_Batch_Name"
 #'   ))
 #'
-#'
 #' # Create a ggplot table
-#' ggplot_table <- add_ggplot_panel(curve_table,
-#'   dilution_summary = dilution_summary
+#' ggplot_table <- add_ggplot_panel(
+#'   curve_table,
+#'   dilution_summary = curve_summary
 #' )
 #' ggplot_list <- ggplot_table$panel
 #'
 #' ggplot_list[[1]]
+#'
 #' ggplot_list[[2]]
+#'
 #' ggplot_list[[3]]
+#'
 #' @export
 add_ggplot_panel <- function(dilution_table, dilution_summary = NULL,
                              grouping_variable = c(
@@ -827,7 +874,7 @@ add_ggplot_panel <- function(dilution_table, dilution_summary = NULL,
   # Try to create dilution summary if you do not have one.
   if (is.null(dilution_summary)) {
     dilution_summary <- dilution_table %>%
-      summarise_dilution_table(
+      summarise_curve_table(
         grouping_variable = grouping_variable,
         conc_var = conc_var,
         signal_var = signal_var

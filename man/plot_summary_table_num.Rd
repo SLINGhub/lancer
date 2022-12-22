@@ -22,12 +22,18 @@ or batch
 }
 \examples{
 wf1_group <- c("Poor Linearity")
+
 wf2_group <- c("Saturation")
+
 r_corr <- c(0.951956)
+
 pra_linear <- c(65.78711)
+
 mandel_p_val <- c(2.899006e-07)
+
 concavity <- c(-4133.501328)
-dilution_summary_grp <- data.frame(
+
+curve_summary_grp <- data.frame(
   wf1_group = wf1_group,
   wf2_group = wf2_group,
   r_corr = r_corr,
@@ -35,11 +41,16 @@ dilution_summary_grp <- data.frame(
   mandel_p_val = mandel_p_val,
   concavity = concavity
 )
-table <- plot_summary_table_num(dilution_summary_grp)
+
+table <- plot_summary_table_num(curve_summary_grp)
+
 grid::grid.draw(table)
 
 # No numeric column case
-dilution_summary_grp <- data.frame(wf2_group = wf2_group)
-table <- plot_summary_table_num(dilution_summary_grp)
+curve_summary_grp <- data.frame(wf2_group = wf2_group)
+
+table <- plot_summary_table_num(curve_summary_grp)
+
 table
+
 }

@@ -356,13 +356,13 @@ lipid4_area_nonlinear <- c(
   426089, 413292, 450190, 415309, 457618
 )
 
-dilution_annot <- tibble::tibble(
+curve_annot <- tibble::tibble(
   Sample_Name = sample_name,
   Dilution_Batch_Name = dilution_batch_name,
   Dilution_Percent = dilution_percent
 )
 
-lipid_data <- tibble::tibble(
+curve_data <- tibble::tibble(
   Sample_Name = sample_name,
   Lipid1 = lipid1_area_saturated,
   Lipid2 = lipid2_area_linear,
@@ -371,10 +371,10 @@ lipid_data <- tibble::tibble(
 )
 ```
 
-The `dilution_annot` should look like this.
+The `curve_annot` should look like this.
 
 ``` r
-print(dilution_annot, width = 100)
+print(curve_annot, width = 100)
 #> # A tibble: 21 × 3
 #>    Sample_Name Dilution_Batch_Name Dilution_Percent
 #>    <chr>       <chr>                          <dbl>
@@ -391,10 +391,10 @@ print(dilution_annot, width = 100)
 #> # … with 11 more rows
 ```
 
-The `lipid_data` should look like this.
+The `curve_data` should look like this.
 
 ``` r
-print(lipid_data, width = 100)
+print(curve_data, width = 100)
 #> # A tibble: 21 × 5
 #>    Sample_Name   Lipid1 Lipid2 Lipid3 Lipid4
 #>    <chr>          <dbl>  <dbl>  <dbl>  <dbl>
@@ -411,13 +411,13 @@ print(lipid_data, width = 100)
 #> # … with 11 more rows
 ```
 
-Merge the data together using `create_dilution_table`
+Merge the data together using `create_curve_table`
 
 ``` r
-# Create dilution table
-dilution_table <- lancer::create_dilution_table(
-  dilution_annot = dilution_annot, 
-  lipid_data_wide = lipid_data,
+# Create curve table
+curve_table <- lancer::create_curve_table(
+  curve_annot = curve_annot, 
+  curve_data_wide = curve_data,
   common_column = "Sample_Name",
   signal_var = "Area",
   column_group = "Transition_Name"
@@ -425,7 +425,7 @@ dilution_table <- lancer::create_dilution_table(
 ```
 
 ``` r
-print(dilution_table, width = 100)
+print(curve_table, width = 100)
 #> # A tibble: 84 × 5
 #>    Sample_Name Dilution_Batch_Name Dilution_Percent Transition_Name     Area
 #>    <chr>       <chr>                          <dbl> <chr>              <dbl>
@@ -442,13 +442,13 @@ print(dilution_table, width = 100)
 #> # … with 74 more rows
 ```
 
-Summarise each dilution curve for each transition and batch with
-`summarise_dilution_table`
+Summarise each curve for each lipid and batch with
+`summarise_curve_table`
 
 ``` r
 # Create dilution statistical summary
-dilution_summary <- lancer::summarise_dilution_table(
-  dilution_table = dilution_table,
+curve_summary <- lancer::summarise_curve_table(
+  curve_table = curve_table,
   grouping_variable = c(
     "Transition_Name",
     "Dilution_Batch_Name"
@@ -459,7 +459,7 @@ dilution_summary <- lancer::summarise_dilution_table(
 ```
 
 ``` r
-print(dilution_summary, width = 100)
+print(curve_summary, width = 100)
 #> # A tibble: 8 × 9
 #>   Transition_Name Dilution_Batch_Name r_corr r2_linear r2_adj_linear
 #>   <chr>           <chr>                <dbl>     <dbl>         <dbl>
@@ -483,13 +483,13 @@ print(dilution_summary, width = 100)
 #> 8        5.39    0.0533          -73.1   -22.9
 ```
 
-Classify each dilution curve according to Workflow 1 and Workflow 2.  
+Classify each curve according to Workflow 1 and Workflow 2.  
 `wf1_group1` gives the results of Workflow 1  
 `wf2_group2` gives the results of Workflow 2
 
 ``` r
-dilution_classified <- lancer::evaluate_linearity(
-  dilution_summary = dilution_summary,
+curve_classified <- lancer::evaluate_linearity(
+  dilution_summary = curve_summary,
   grouping_variable = c(
     "Transition_Name",
     "Dilution_Batch_Name"
@@ -498,18 +498,18 @@ dilution_classified <- lancer::evaluate_linearity(
 ```
 
 ``` r
-print(dilution_classified, width = 100)
+print(curve_classified, width = 100)
 #> # A tibble: 8 × 11
-#>   Transition_Name Dilution_Batch_Name wf1_group      wf2_group      r_corr
-#>   <chr>           <chr>               <chr>          <chr>           <dbl>
-#> 1 Lipid1          B1                  Poor Linearity Saturation      0.963
-#> 2 Lipid2          B1                  Good Linearity Good Linearity  0.990
-#> 3 Lipid3          B1                  Poor Linearity LOD             0.964
-#> 4 Lipid4          B1                  Poor Linearity Poor Linearity  0.311
-#> 5 Lipid1          B2                  Poor Linearity Saturation      0.950
-#> 6 Lipid2          B2                  Good Linearity Good Linearity  0.995
-#> 7 Lipid3          B2                  Poor Linearity LOD             0.978
-#> 8 Lipid4          B2                  Poor Linearity Poor Linearity  0.608
+#>   Transition_Name Dilution_Batch_Name wf1_group      wf2_group         r_corr
+#>   <chr>           <chr>               <chr>          <chr>              <dbl>
+#> 1 Lipid1          B1                  Poor Linearity Saturation Regime  0.963
+#> 2 Lipid2          B1                  Good Linearity Good Linearity     0.990
+#> 3 Lipid3          B1                  Poor Linearity Noise Regime       0.964
+#> 4 Lipid4          B1                  Poor Linearity Poor Linearity     0.311
+#> 5 Lipid1          B2                  Poor Linearity Saturation Regime  0.950
+#> 6 Lipid2          B2                  Good Linearity Good Linearity     0.995
+#> 7 Lipid3          B2                  Poor Linearity Noise Regime       0.978
+#> 8 Lipid4          B2                  Poor Linearity Poor Linearity     0.608
 #>   pra_linear mandel_p_val concavity r2_linear r2_adj_linear mandel_stats
 #>        <dbl>        <dbl>     <dbl>     <dbl>         <dbl>        <dbl>
 #> 1       70.5   0.0000297  -4174.       0.928        0.920         71.2  
@@ -530,7 +530,7 @@ Results can be exported to Excel via `write_summary_excel`
 
 ``` r
 lancer::write_summary_excel(
-  dilution_summary = dilution_classified, 
+  dilution_summary = curve_classified, 
   file_name = "dilution_summary.xlsx")
 ```
 
@@ -541,8 +541,8 @@ column called panel that contains all the `ggplot` plots
 
 ``` r
 ggplot_table <- lancer::add_ggplot_panel(
-  dilution_table = dilution_table,
-  dilution_summary = dilution_classified,
+  dilution_table = curve_table,
+  dilution_summary = curve_classified,
   grouping_variable = c(
     "Transition_Name",
     "Dilution_Batch_Name"
@@ -586,8 +586,8 @@ function `convert_to_cog`
 ``` r
 # Create a trellis table
 trellis_table <- lancer::add_plotly_panel(
-  dilution_table = dilution_table,
-  dilution_summary = dilution_classified,
+  dilution_table = curve_table,
+  dilution_summary = curve_classified,
   grouping_variable = c(
     "Transition_Name",
     "Dilution_Batch_Name"

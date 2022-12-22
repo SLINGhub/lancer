@@ -98,8 +98,8 @@ curve_table <- lancer::create_curve_table(
   column_group = "Transition_Name"
 )
 
-dilution_classified <- curve_table %>%
-  lancer::summarise_dilution_table(
+curve_classified <- curve_table %>%
+  lancer::summarise_curve_table(
     grouping_variable = c(
       "Transition_Name",
       "Dilution_Batch_Name"
@@ -115,19 +115,19 @@ dilution_classified <- curve_table %>%
   ))
 ```
 
-Here is the output of `curve_table` and `dilution_classified` 
+Here is the output of `curve_table` and `curve_classified` 
 
 ```{r print curve data}
 print(head(curve_table), width = 100)
-print(head(dilution_classified), width = 100)
+print(head(curve_classified), width = 100)
 ```
 
-To see the regression line on half the dilution points, set `plot_first_half_lin_reg = TRUE`
+To see the regression line on half the curve points, set `plot_first_half_lin_reg = TRUE`
 
 ```{r create ggplot table with half linear regression}
 ggplot_table <- lancer::add_ggplot_panel(
   dilution_table = curve_table,
-  dilution_summary = dilution_classified,
+  dilution_summary = curve_classified,
   grouping_variable = c(
     "Transition_Name",
     "Dilution_Batch_Name"
@@ -162,7 +162,7 @@ You can also change the colours for your dilution batch from `dil_batch_col`
 ```{r create ggplot table with conc customisation}
 ggplot_table <- lancer::add_ggplot_panel(
   dilution_table = curve_table,
-  dilution_summary = dilution_classified,
+  dilution_summary = curve_classified,
   grouping_variable = c(
     "Transition_Name",
     "Dilution_Batch_Name"

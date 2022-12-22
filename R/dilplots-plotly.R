@@ -23,21 +23,25 @@
 #' @return Output `plotly` dilution plot data of one dilution batch
 #' per transition
 #' @examples
+#'
 #' # Data Creation
 #' dilution_percent <- c(
 #'   10, 20, 25, 40, 50, 60,
 #'   75, 80, 100, 125, 150
 #' )
+#'
 #' sample_name <- c(
 #'   "Sample_010a", "Sample_020a",
 #'   "Sample_025a", "Sample_040a", "Sample_050a",
 #'   "Sample_060a", "Sample_075a", "Sample_080a",
 #'   "Sample_100a", "Sample_125a", "Sample_150a"
 #' )
+#'
 #' dilution_batch_name <- c(
 #'   "B1", "B1", "B1", "B1", "B1",
 #'   "B1", "B1", "B1", "B1", "B1", "B1"
 #' )
+#'
 #' lipid1_area_saturated <- c(
 #'   5748124, 16616414, 21702718, 36191617,
 #'   49324541, 55618266, 66947588, 74964771,
@@ -50,6 +54,7 @@
 #'   Area = lipid1_area_saturated,
 #'   Dilution_Batch_Name = dilution_batch_name
 #' )
+#'
 #' # Get the dilution batch name from dilution_table
 #' dilution_batch_name <- dilution_batch_name %>%
 #'   unique() %>%
@@ -72,6 +77,9 @@
 #'   conc_var_interval = 50,
 #'   signal_var = "Area"
 #' )
+#'
+#' p
+#'
 #' @rdname plot_curve_plotly
 #' @export
 plot_curve_plotly <- function(dilution_data,
@@ -354,7 +362,7 @@ plot_curve_plotly <- function(dilution_data,
 #' lipid/transition name, the concentration and signal. Other columns may be
 #' present if it is used to group the dilution curve together
 #' @param dilution_summary The summary table generated
-#' by function [summarise_dilution_table()] and/or
+#' by function [summarise_curve_table()] and/or
 #' [evaluate_linearity()]
 #' but it can also be any generic data frame or tibble
 #' Default: NULL
@@ -397,6 +405,7 @@ plot_curve_plotly <- function(dilution_data,
 #' This column is used to create the plot figure in the
 #' `trelliscopejs` visualisation.
 #' @examples
+#'
 #' # Data Creation
 #' dilution_percent <- c(
 #'   10, 20, 25, 40, 50, 60,
@@ -404,12 +413,14 @@ plot_curve_plotly <- function(dilution_data,
 #'   10, 25, 40, 50, 60,
 #'   75, 80, 100, 125, 150
 #' )
+#'
 #' dilution_batch_name <- c(
 #'   "B1", "B1", "B1", "B1", "B1",
 #'   "B1", "B1", "B1", "B1", "B1", "B1",
 #'   "B2", "B2", "B2", "B2", "B2",
 #'   "B2", "B2", "B2", "B2", "B2"
 #' )
+#'
 #' sample_name <- c(
 #'   "Sample_010a", "Sample_020a",
 #'   "Sample_025a", "Sample_040a", "Sample_050a",
@@ -420,6 +431,7 @@ plot_curve_plotly <- function(dilution_data,
 #'   "Sample_075b", "Sample_080b", "Sample_100b",
 #'   "Sample_125b", "Sample_150b"
 #' )
+#'
 #' lipid1_area_saturated <- c(
 #'   5748124, 16616414, 21702718, 36191617,
 #'   49324541, 55618266, 66947588, 74964771,
@@ -428,18 +440,21 @@ plot_curve_plotly <- function(dilution_data,
 #'   55388856, 62505210, 62778078, 72158161,
 #'   78044338, 86158414
 #' )
+#'
 #' lipid2_area_linear <- c(
 #'   31538, 53709, 69990, 101977, 146436, 180960,
 #'   232881, 283780, 298289, 344519, 430432,
 #'   25463, 63387, 90624, 131274, 138069,
 #'   205353, 202407, 260205, 292257, 367924
 #' )
+#'
 #' lipid3_area_lod <- c(
 #'   544, 397, 829, 1437, 1808, 2231,
 #'   3343, 2915, 5268, 8031, 11045,
 #'   500, 903, 1267, 2031, 2100,
 #'   3563, 4500, 5300, 8500, 10430
 #' )
+#'
 #' lipid4_area_nonlinear <- c(
 #'   380519, 485372, 478770, 474467, 531640, 576301,
 #'   501068, 550201, 515110, 499543, 474745,
@@ -452,6 +467,7 @@ plot_curve_plotly <- function(dilution_data,
 #'   Dilution_Batch_Name = dilution_batch_name,
 #'   Dilution_Percent = dilution_percent
 #' )
+#'
 #' curve_data <- tibble::tibble(
 #'   Sample_Name = sample_name,
 #'   Lipid1 = lipid1_area_saturated,
@@ -460,8 +476,7 @@ plot_curve_plotly <- function(dilution_data,
 #'   Lipid4 = lipid4_area_nonlinear
 #' )
 #'
-#'
-#' # Create dilution table
+#' # Create curve table
 #' curve_table <- create_curve_table(
 #'   curve_annot = curve_annot,
 #'   curve_data_wide = curve_data,
@@ -470,9 +485,9 @@ plot_curve_plotly <- function(dilution_data,
 #'   column_group = "Transition_Name"
 #' )
 #'
-#' # Create dilution table and dilution statistical summary
-#' dilution_summary <- curve_table %>%
-#'   summarise_dilution_table(
+#' # Create curve statistical summary
+#' curve_summary <- curve_table %>%
+#'   summarise_curve_table(
 #'     grouping_variable = c(
 #'       "Transition_Name",
 #'       "Dilution_Batch_Name"
@@ -486,11 +501,20 @@ plot_curve_plotly <- function(dilution_data,
 #'     "Dilution_Batch_Name"
 #'   ))
 #'
-#'
 #' # Create a trellis table
-#' trellis_table <- add_plotly_panel(curve_table,
-#'   dilution_summary = dilution_summary
+#' trellis_table <- add_plotly_panel(
+#'   curve_table,
+#'   dilution_summary = curve_summary
 #' )
+#'
+#' plotly_list <- trellis_table$panel
+#'
+#' plotly_list[[1]]
+#'
+#' plotly_list[[2]]
+#'
+#' plotly_list[[3]]
+#'
 #' @rdname add_plotly_panel
 #' @export
 add_plotly_panel <- function(dilution_table, dilution_summary = NULL,
@@ -533,7 +557,7 @@ add_plotly_panel <- function(dilution_table, dilution_summary = NULL,
   # Try to create dilution summary if you do not have one.
   if (is.null(dilution_summary)) {
     dilution_summary <- dilution_table %>%
-      summarise_dilution_table(
+      summarise_curve_table(
         grouping_variable = grouping_variable,
         conc_var = conc_var,
         signal_var = signal_var

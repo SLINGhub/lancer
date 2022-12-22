@@ -21,11 +21,15 @@ Validate Curve Data
 }
 \examples{
 dilution_percent <- c(10, 20, 40, 60, 80, 100)
+
 area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+
 curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+
 validate_curve_data(
   curve_data = curve_data,
   conc_var = "Dilution_Percent",
   signal_var = "Area"
 )
+
 }

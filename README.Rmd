@@ -591,8 +591,8 @@ Merge the data together using `create_curve_table`
 ```{r curve table}
 # Create curve table
 curve_table <- lancer::create_curve_table(
-  curve_annot = dilution_annot, 
-  curve_data_wide = lipid_data,
+  curve_annot = curve_annot, 
+  curve_data_wide = curve_data,
   common_column = "Sample_Name",
   signal_var = "Area",
   column_group = "Transition_Name"
@@ -603,12 +603,12 @@ curve_table <- lancer::create_curve_table(
 print(curve_table, width = 100)
 ```
 
-Summarise each curve for each lipid and batch with `summarise_dilution_table`
+Summarise each curve for each lipid and batch with `summarise_curve_table`
 
-```{r dilution summary}
+```{r curve summary}
 # Create dilution statistical summary
-dilution_summary <- lancer::summarise_dilution_table(
-  dilution_table = dilution_table,
+curve_summary <- lancer::summarise_curve_table(
+  curve_table = curve_table,
   grouping_variable = c(
     "Transition_Name",
     "Dilution_Batch_Name"
@@ -618,17 +618,17 @@ dilution_summary <- lancer::summarise_dilution_table(
 )
 ```
 
-```{r print dilution summary}
-print(dilution_summary, width = 100)
+```{r print curve summary}
+print(curve_summary, width = 100)
 ```
 
-Classify each dilution curve according to Workflow 1 and Workflow 2.  
+Classify each curve according to Workflow 1 and Workflow 2.  
 `wf1_group1` gives the results of Workflow 1  
 `wf2_group2` gives the results of Workflow 2   
 
-```{r dilution evaluation}
-dilution_classified <- lancer::evaluate_linearity(
-  dilution_summary = dilution_summary,
+```{r curve evaluation}
+curve_classified <- lancer::evaluate_linearity(
+  dilution_summary = curve_summary,
   grouping_variable = c(
     "Transition_Name",
     "Dilution_Batch_Name"
@@ -636,8 +636,8 @@ dilution_classified <- lancer::evaluate_linearity(
 )
 ```
 
-```{r print dilution evaluation}
-print(dilution_classified, width = 100)
+```{r print curve evaluation}
+print(curve_classified, width = 100)
 ```
 
 <a href="#top">Back to top</a>
@@ -648,7 +648,7 @@ Results can be exported to Excel via `write_summary_excel`
 
 ```{r print to excel, eval = FALSE}
 lancer::write_summary_excel(
-  dilution_summary = dilution_classified, 
+  dilution_summary = curve_classified, 
   file_name = "dilution_summary.xlsx")
 ```
 
@@ -664,7 +664,7 @@ Results can be plotted using `add_ggplot_panel`. This will create a column calle
 ```{r plot the curves}
 ggplot_table <- lancer::add_ggplot_panel(
   dilution_table = curve_table,
-  dilution_summary = dilution_classified,
+  dilution_summary = curve_classified,
   grouping_variable = c(
     "Transition_Name",
     "Dilution_Batch_Name"
@@ -714,7 +714,7 @@ To create an [interactive trelliscope display](https://hafen.github.io/trellisco
 # Create a trellis table
 trellis_table <- lancer::add_plotly_panel(
   dilution_table = curve_table,
-  dilution_summary = dilution_classified,
+  dilution_summary = curve_classified,
   grouping_variable = c(
     "Transition_Name",
     "Dilution_Batch_Name"

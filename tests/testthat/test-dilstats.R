@@ -2,56 +2,56 @@ test_that("calculate pra of linear model", {
   # Zero point will not be used to calculate the pra_value
   dilution_percent <- c(0, 10, 8, 13, 9, 11, 14, 6, 4, 12, 7, 5)
   area <- c(0, 5.23, 4.23, 6.35, 4.75, 5.65, 6.62, 3.03, 1.62, 6.03, 3.65, 2.35)
-  dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-  pra_value <- calculate_pra_linear(dilution_data, "Dilution_Percent", "Area")
+  curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+  pra_value <- calculate_pra_linear(curve_data, "Dilution_Percent", "Area")
   testthat::expect_equal(94.80, unname(pra_value), tolerance = 0.01)
 
   dilution_percent <- c(10, 8, 13, 9, 11, 14, 6, 4, 12, 7, 5)
   area <- c(5.23, 4.23, 6.35, 4.75, 5.65, 6.62, 3.03, 1.62, 6.03, 3.65, 2.35)
-  dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-  pra_value <- calculate_pra_linear(dilution_data, "Dilution_Percent", "Area")
+  curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+  pra_value <- calculate_pra_linear(curve_data, "Dilution_Percent", "Area")
   testthat::expect_equal(94.80, unname(pra_value), tolerance = 0.01)
 
   # Handle the case of a straight horizontal line input. Give NA
   dilution_percent <- c(0, 10, 8, 13)
   area <- c(2, 2, 2, 2)
-  dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-  pra_value <- calculate_pra_linear(dilution_data, "Dilution_Percent", "Area")
+  curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+  pra_value <- calculate_pra_linear(curve_data, "Dilution_Percent", "Area")
   testthat::expect_equal(NA, unname(pra_value))
 
   # Handle the case of a straight vertical line input. Give NA
   dilution_percent <- c(10, 10, 10, 10)
   area <- c(0, 5.23, 4.23, 6.35)
-  dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-  pra_value <- calculate_pra_linear(dilution_data, "Dilution_Percent", "Area")
+  curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+  pra_value <- calculate_pra_linear(curve_data, "Dilution_Percent", "Area")
   testthat::expect_equal(NA, unname(pra_value))
 
   # Too little valid point (<= 3) will give an NA
   dilution_percent <- c(0, 10, 8, 13)
   area <- c(0, 5.23, 4.23, 6.35)
-  dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-  pra_value <- calculate_pra_linear(dilution_data, "Dilution_Percent", "Area")
+  curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+  pra_value <- calculate_pra_linear(curve_data, "Dilution_Percent", "Area")
   testthat::expect_equal(NA, unname(pra_value))
 
-  dilution_data <- data.frame(Dilution_Percent = c(NA, NA), Area = c(NA, NA))
-  pra_value <- calculate_pra_linear(dilution_data, "Dilution_Percent", "Area")
+  curve_data <- data.frame(Dilution_Percent = c(NA, NA), Area = c(NA, NA))
+  pra_value <- calculate_pra_linear(curve_data, "Dilution_Percent", "Area")
   testthat::expect_equal(NA, unname(pra_value))
 
-  dilution_data <- data.frame(Dilution_Percent = NA, Area = NA)
-  pra_value <- calculate_pra_linear(dilution_data, "Dilution_Percent", "Area")
+  curve_data <- data.frame(Dilution_Percent = NA, Area = NA)
+  pra_value <- calculate_pra_linear(curve_data, "Dilution_Percent", "Area")
   testthat::expect_equal(NA, unname(pra_value))
 
-  dilution_data <- NA
-  pra_value <- calculate_pra_linear(dilution_data, "Dilution_Percent", "Area")
+  curve_data <- NA
+  pra_value <- calculate_pra_linear(curve_data, "Dilution_Percent", "Area")
   testthat::expect_equal(NA, unname(pra_value))
 })
 
 test_that("calculate concavity", {
   dilution_percent <- c(10, 20, 40, 60, 80, 100)
   area <- c(22561, 31178, 39981, 48390, 52171, 53410)
-  dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+  curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
   concavity_value <- calculate_concavity(
-    dilution_data,
+    curve_data,
     "Dilution_Percent", "Area"
   )
   testthat::expect_equal(-4.089, unname(concavity_value), tolerance = 0.01)
@@ -59,12 +59,12 @@ test_that("calculate concavity", {
   # Handle the case of a straight horizontal line input. Give NA
   dilution_percent <- c(0, 10, 8, 13)
   area <- c(2, 2, 2, 2)
-  dilution_data <- data.frame(
+  curve_data <- data.frame(
     Dilution_Percent = dilution_percent,
     Area = area
   )
   concavity_value <- calculate_concavity(
-    dilution_data,
+    curve_data,
     "Dilution_Percent",
     "Area"
   )
@@ -73,12 +73,12 @@ test_that("calculate concavity", {
   # Handle the case of a straight vertical line input. Give NA
   dilution_percent <- c(10, 10, 10, 10)
   area <- c(0, 5.23, 4.23, 6.35)
-  dilution_data <- data.frame(
+  curve_data <- data.frame(
     Dilution_Percent = dilution_percent,
     Area = area
   )
   concavity_value <- calculate_concavity(
-    dilution_data,
+    curve_data,
     "Dilution_Percent",
     "Area"
   )
@@ -87,31 +87,31 @@ test_that("calculate concavity", {
   # Too little valid point (<= 3) will give an NA
   dilution_percent <- c(0, 10, 8)
   area <- c(0, 5.23, 4.23)
-  dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+  curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
   concavity_value <- calculate_concavity(
-    dilution_data,
+    curve_data,
     "Dilution_Percent", "Area"
   )
   testthat::expect_equal(NA, unname(concavity_value))
 
 
-  dilution_data <- data.frame(Dilution_Percent = c(NA, NA), Area = c(NA, NA))
+  curve_data <- data.frame(Dilution_Percent = c(NA, NA), Area = c(NA, NA))
   concavity_value <- calculate_concavity(
-    dilution_data,
+    curve_data,
     "Dilution_Percent", "Area"
   )
   testthat::expect_equal(NA, unname(concavity_value))
 
-  dilution_data <- data.frame(Dilution_Percent = NA, Area = NA)
+  curve_data <- data.frame(Dilution_Percent = NA, Area = NA)
   concavity_value <- calculate_concavity(
-    dilution_data,
+    curve_data,
     "Dilution_Percent", "Area"
   )
   testthat::expect_equal(NA, unname(concavity_value))
 
-  dilution_data <- NA
+  curve_data <- NA
   concavity_value <- calculate_concavity(
-    dilution_data,
+    curve_data,
     "Dilution_Percent", "Area"
   )
   testthat::expect_equal(NA, unname(concavity_value))
@@ -120,8 +120,8 @@ test_that("calculate concavity", {
 test_that("calculate Mandel", {
   dilution_percent <- c(10, 20, 40, 60, 80, 100)
   area <- c(22561, 31178, 39981, 48390, 52171, 53410)
-  dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-  mandel_result <- calculate_mandel(dilution_data, "Dilution_Percent", "Area")
+  curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+  mandel_result <- calculate_mandel(curve_data, "Dilution_Percent", "Area")
   testthat::expect_equal(70.1, unname(mandel_result$mandel_stats),
     tolerance = 0.01
   )
@@ -132,38 +132,38 @@ test_that("calculate Mandel", {
   # Handle the case of a straight horizontal line input. Give NA
   dilution_percent <- c(0, 10, 8, 13)
   area <- c(2, 2, 2, 2)
-  dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-  mandel_result <- calculate_mandel(dilution_data, "Dilution_Percent", "Area")
+  curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+  mandel_result <- calculate_mandel(curve_data, "Dilution_Percent", "Area")
   testthat::expect_equal(NA, unname(mandel_result$mandel_stats))
   testthat::expect_equal(NA, unname(mandel_result$mandel_p_val))
 
   # Handle the case of a straight vertical line input. Give NA
   dilution_percent <- c(10, 10, 10, 10)
   area <- c(0, 5.23, 4.23, 6.35)
-  mandel_result <- calculate_mandel(dilution_data, "Dilution_Percent", "Area")
+  mandel_result <- calculate_mandel(curve_data, "Dilution_Percent", "Area")
   testthat::expect_equal(NA, unname(mandel_result$mandel_stats))
   testthat::expect_equal(NA, unname(mandel_result$mandel_p_val))
 
   # Too little valid point (<= 3) will give an NA
   dilution_percent <- c(0, 10, 8)
   area <- c(0, 5.23, 4.23)
-  dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-  mandel_result <- calculate_mandel(dilution_data, "Dilution_Percent", "Area")
+  curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+  mandel_result <- calculate_mandel(curve_data, "Dilution_Percent", "Area")
   testthat::expect_equal(NA, unname(mandel_result$mandel_stats))
   testthat::expect_equal(NA, unname(mandel_result$mandel_p_val))
 
-  dilution_data <- data.frame(Dilution_Percent = c(NA, NA), Area = c(NA, NA))
-  mandel_result <- calculate_mandel(dilution_data, "Dilution_Percent", "Area")
+  curve_data <- data.frame(Dilution_Percent = c(NA, NA), Area = c(NA, NA))
+  mandel_result <- calculate_mandel(curve_data, "Dilution_Percent", "Area")
   testthat::expect_equal(NA, unname(mandel_result$mandel_stats))
   testthat::expect_equal(NA, unname(mandel_result$mandel_p_val))
 
-  dilution_data <- data.frame(Dilution_Percent = NA, Area = NA)
-  mandel_result <- calculate_mandel(dilution_data, "Dilution_Percent", "Area")
+  curve_data <- data.frame(Dilution_Percent = NA, Area = NA)
+  mandel_result <- calculate_mandel(curve_data, "Dilution_Percent", "Area")
   testthat::expect_equal(NA, unname(mandel_result$mandel_stats))
   testthat::expect_equal(NA, unname(mandel_result$mandel_p_val))
 
-  dilution_data <- NA
-  mandel_result <- calculate_mandel(dilution_data, "Dilution_Percent", "Area")
+  curve_data <- NA
+  mandel_result <- calculate_mandel(curve_data, "Dilution_Percent", "Area")
   testthat::expect_equal(NA, unname(mandel_result$mandel_stats))
   testthat::expect_equal(NA, unname(mandel_result$mandel_p_val))
 })
@@ -171,9 +171,9 @@ test_that("calculate Mandel", {
 test_that("calculate dil linear GOF", {
   dilution_percent <- c(10, 20, 40, 60, 80, 100)
   area <- c(22561, 31178, 39981, 48390, 52171, 53410)
-  dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+  curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
   dil_linear_gof <- calculate_gof_linear(
-    dilution_data,
+    curve_data,
     "Dilution_Percent", "Area"
   )
   testthat::expect_equal(0.95575, unname(dil_linear_gof$r_corr),
@@ -189,9 +189,9 @@ test_that("calculate dil linear GOF", {
   # Handle the case of a straight horizontal line input. Give NA
   dilution_percent <- c(0, 10, 8, 13)
   area <- c(2, 2, 2, 2)
-  dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+  curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
   dil_linear_gof <- calculate_gof_linear(
-    dilution_data,
+    curve_data,
     "Dilution_Percent", "Area"
   )
   testthat::expect_equal(NA, unname(dil_linear_gof$r_corr))
@@ -202,7 +202,7 @@ test_that("calculate dil linear GOF", {
   dilution_percent <- c(10, 10, 10, 10)
   area <- c(0, 5.23, 4.23, 6.35)
   dil_linear_gof <- calculate_gof_linear(
-    dilution_data,
+    curve_data,
     "Dilution_Percent", "Area"
   )
   testthat::expect_equal(NA, unname(dil_linear_gof$r_corr))
@@ -212,36 +212,36 @@ test_that("calculate dil linear GOF", {
   # Too little valid point (<= 3) will give an NA
   dilution_percent <- c(0, 10, 8)
   area <- c(0, 5.23, 4.23)
-  dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+  curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
   dil_linear_gof <- calculate_gof_linear(
-    dilution_data,
+    curve_data,
     "Dilution_Percent", "Area"
   )
   testthat::expect_equal(NA, unname(dil_linear_gof$r_corr))
   testthat::expect_equal(NA, unname(dil_linear_gof$r2_linear))
   testthat::expect_equal(NA, unname(dil_linear_gof$r2_adj_linear))
 
-  dilution_data <- data.frame(Dilution_Percent = c(NA, NA), Area = c(NA, NA))
+  curve_data <- data.frame(Dilution_Percent = c(NA, NA), Area = c(NA, NA))
   dil_linear_gof <- calculate_gof_linear(
-    dilution_data,
+    curve_data,
     "Dilution_Percent", "Area"
   )
   testthat::expect_equal(NA, unname(dil_linear_gof$r_corr))
   testthat::expect_equal(NA, unname(dil_linear_gof$r2_linear))
   testthat::expect_equal(NA, unname(dil_linear_gof$r2_adj_linear))
 
-  dilution_data <- data.frame(Dilution_Percent = NA, Area = NA)
+  curve_data <- data.frame(Dilution_Percent = NA, Area = NA)
   dil_linear_gof <- calculate_gof_linear(
-    dilution_data,
+    curve_data,
     "Dilution_Percent", "Area"
   )
   testthat::expect_equal(NA, unname(dil_linear_gof$r_corr))
   testthat::expect_equal(NA, unname(dil_linear_gof$r2_linear))
   testthat::expect_equal(NA, unname(dil_linear_gof$r2_adj_linear))
 
-  dilution_data <- NA
+  curve_data <- NA
   dil_linear_gof <- calculate_gof_linear(
-    dilution_data,
+    curve_data,
     "Dilution_Percent", "Area"
   )
   testthat::expect_equal(NA, unname(dil_linear_gof$r_corr))
@@ -252,41 +252,41 @@ test_that("calculate dil linear GOF", {
 test_that("calculate average deviation from linearity", {
   dilution_percent <- c(10, 20, 40, 60, 80, 100)
   area <- c(22561, 31178, 39981, 48390, 52171, 53410)
-  dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+  curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
 
-  adl_value <- calculate_adl(dilution_data, "Dilution_Percent", "Area")
+  adl_value <- calculate_adl(curve_data, "Dilution_Percent", "Area")
 
   # Handle the case of a straight horizontal line input. Give NA
   dilution_percent <- c(0, 10, 8, 13)
   area <- c(2, 2, 2, 2)
-  dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-  adl_value <- calculate_adl(dilution_data, "Dilution_Percent", "Area")
+  curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+  adl_value <- calculate_adl(curve_data, "Dilution_Percent", "Area")
   testthat::expect_equal(NA, unname(adl_value))
 
   # Handle the case of a straight vertical line input. Give NA
   dilution_percent <- c(10, 10, 10, 10)
   area <- c(0, 5.23, 4.23, 6.35)
-  dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-  adl_value <- calculate_adl(dilution_data, "Dilution_Percent", "Area")
+  curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+  adl_value <- calculate_adl(curve_data, "Dilution_Percent", "Area")
   testthat::expect_equal(NA, unname(adl_value))
 
   # Too little valid point (<= 3) will give an NA
   dilution_percent <- c(0, 10, 8, 13)
   area <- c(0, 5.23, 4.23, 6.35)
-  dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-  adl_value <- calculate_adl(dilution_data, "Dilution_Percent", "Area")
+  curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+  adl_value <- calculate_adl(curve_data, "Dilution_Percent", "Area")
   testthat::expect_equal(NA, unname(adl_value))
 
-  dilution_data <- data.frame(Dilution_Percent = c(NA, NA), Area = c(NA, NA))
-  adl_value <- calculate_adl(dilution_data, "Dilution_Percent", "Area")
+  curve_data <- data.frame(Dilution_Percent = c(NA, NA), Area = c(NA, NA))
+  adl_value <- calculate_adl(curve_data, "Dilution_Percent", "Area")
   testthat::expect_equal(NA, unname(adl_value))
 
-  dilution_data <- data.frame(Dilution_Percent = NA, Area = NA)
-  adl_value <- calculate_adl(dilution_data, "Dilution_Percent", "Area")
+  curve_data <- data.frame(Dilution_Percent = NA, Area = NA)
+  adl_value <- calculate_adl(curve_data, "Dilution_Percent", "Area")
   testthat::expect_equal(NA, unname(adl_value))
 
-  dilution_data <- NA
-  adl_value <- calculate_adl(dilution_data, "Dilution_Percent", "Area")
+  curve_data <- NA
+  adl_value <- calculate_adl(curve_data, "Dilution_Percent", "Area")
   testthat::expect_equal(NA, unname(adl_value))
 })
 
@@ -302,13 +302,13 @@ test_that("calculate kroll linearity test using adl", {
     4482, 4390, 5101, 5046, 5669, 5516
   )
 
-  dilution_data <- data.frame(
+  curve_data <- data.frame(
     Solution_Number = solution_number,
     Result = result
   )
 
   adl_result <- calculate_adl_kroll_test(
-    dilution_data, "Solution_Number",
+    curve_data, "Solution_Number",
     "Result"
   )
 
@@ -341,14 +341,14 @@ test_that("calculate kroll linearity test using adl", {
 test_that("validate_curve_data", {
   dilution_percent <- c(10, 20, 40, 60, 80, 100)
   area <- c(22561, 31178, 39981, 48390, 52171, 53410)
-  dilution_data <- data.frame(Dilution_Percent = dilution_percent,
+  curve_data <- data.frame(Dilution_Percent = dilution_percent,
                               Area = area)
   testthat::expect_error(validate_curve_data(
-    dilution_data,
+    curve_data,
     "Dilution_Percen", "Area"
   ))
   testthat::expect_error(validate_curve_data(
-    dilution_data,
+    curve_data,
     "Dilution_Percent", "Are"
   ))
 })

@@ -20,7 +20,7 @@ format_num_cell_colour(
 \item{sheet}{The name of the sheet to apply the numeric style on \code{workbook}}
 
 \item{dilution_summary}{The summary table generated
-by function \code{\link[=summarise_dilution_table]{summarise_dilution_table()}} and/or \code{\link[=evaluate_linearity]{evaluate_linearity()}}}
+by function \code{\link[=summarise_curve_table]{summarise_curve_table()}} and/or \code{\link[=evaluate_linearity]{evaluate_linearity()}}}
 
 \item{conditional_column}{A character vector to
 indicate which column in \code{dilution_summary} to use}
@@ -44,34 +44,40 @@ r_corr <- c(
   0.951956, 0.948683, 0.978057, 0.976462,
   0.970618, 0.969348, 0.343838, 0.383552
 )
+
 pra_linear <- c(
   65.78711, 64.58687, 90.21257, 89.95473,
   72.91220, 72.36528, -233.05949, -172.13659
 )
+
 mandel_p_val <- c(
   2.899006e-07, 7.922290e-07, 2.903365e-01, 3.082930e-01,
   3.195779e-08, 6.366588e-08, 3.634004e-02, 1.864090e-02
 )
+
 concavity <- c(
   -4133.501328, -4146.745747, -3.350942, -3.393617,
   0.3942824, 0.4012963, -19.9469621, -22.6144875
 )
-dilution_summary <- data.frame(
+
+curve_summary <- data.frame(
   r_corr = r_corr, pra_linear = pra_linear,
   mandel_p_val = mandel_p_val,
   concavity = concavity
 )
-dilution_summary <- mark_near_zero_columns(dilution_summary)
+
+curve_summary <- mark_near_zero_columns(curve_summary)
+
 # Create a new workbook
 my_workbook <- openxlsx::createWorkbook()
 
 # Create a new worksheet
-openxlsx::addWorksheet(wb = my_workbook, sheetName = "Dilution Summary")
+openxlsx::addWorksheet(wb = my_workbook, sheetName = "Curve Summary")
 
 # Write to worksheet as an Excel Table
 openxlsx::writeDataTable(
-  wb = my_workbook, sheet = "Dilution Summary",
-  x = dilution_summary,
+  wb = my_workbook, sheet = "Curve Summary",
+  x = curve_summary,
   withFilter = TRUE,
   bandedRows = FALSE
 )
@@ -79,10 +85,11 @@ openxlsx::writeDataTable(
 # Conditional formatting can only be done
 # after data is written to excel sheet
 format_num_cell_colour(
-  workbook = my_workbook, sheet = "Dilution Summary",
-  dilution_summary = dilution_summary,
+  workbook = my_workbook, sheet = "Curve Summary",
+  dilution_summary = curve_summary,
   conditional_column = "r_corr",
   threshold_value = "0.8",
   pass_criteria = "above"
 )
+
 }

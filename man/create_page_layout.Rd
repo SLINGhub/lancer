@@ -36,7 +36,6 @@ it needs to produce
 }
 }
 \examples{
-
 create_page_layout(
   number_of_plots = 4,
   ncol = 2,

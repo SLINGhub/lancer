@@ -58,11 +58,13 @@ The function will return NA if the number of dilution points
 is less than or equal to three.
 }
 \examples{
+
 # Data from Kroll's 2000 paper
 solution_number <- c(
   1, 1, 2, 2, 3, 3, 4, 4,
   5, 5, 6, 6, 7, 7
 )
+
 result <- c(
   352, 348, 1009, 991, 1603, 1584, 3100, 3200,
   4482, 4390, 5101, 5046, 5669, 5516
@@ -78,7 +80,9 @@ adl_result <- calculate_adl_kroll_test(
   "Solution_Number",
   "Result"
 )
+
 adl_result
+
 }
 \references{
 Kroll, M. H., Praestgaard, J., Michaliszyn, E.,

@@ -91,18 +91,18 @@ curve_data <- tibble::tibble(
 )
 ```
 
-Order of the `Dilution_Batch_Name` and `Transition_Name` grouping variables is maintained when `summarise_dilution_table` is used. No sorting is involved.
+Order of the `Dilution_Batch_Name` and `Transition_Name` grouping variables is maintained when `summarise_curve_table` is used. No sorting is involved.
 
-```{r dilution table}
-# Create curve table and dilution statistical summary
-dilution_summary <- lancer::create_curve_table(
+```{r curve table}
+# Create curve table and statistical summary
+curve_summary <- lancer::create_curve_table(
   curve_annot = curve_annot,
   curve_data_wide = curve_data,
   common_column = "Sample_Name",
   signal_var = "Area",
   column_group = "Transition_Name"
 ) %>%
-  lancer::summarise_dilution_table(
+  lancer::summarise_curve_table(
     grouping_variable = c(
       "Dilution_Batch_Name",
       "Transition_Name"
@@ -112,15 +112,15 @@ dilution_summary <- lancer::create_curve_table(
   )
 ```
 
-```{r print dilution summary}
-print(dilution_summary, width = 100)
+```{r print curve summary}
+print(curve_summary, width = 100)
 ```
 
 `grouping variable` in `evaluate_linearity` only put these variables to the front
 
-```{r dilution evaluation}
-dilution_classified <- lancer::evaluate_linearity(
-  dilution_summary = dilution_summary,
+```{r curve evaluation}
+curve_classified <- lancer::evaluate_linearity(
+  dilution_summary = curve_summary,
   grouping_variable = c(
     "Dilution_Batch_Name",
     "Transition_Name"
@@ -128,6 +128,6 @@ dilution_classified <- lancer::evaluate_linearity(
 )
 ```
 
-```{r print dilution evaluation}
-print(dilution_classified, width = 100)
+```{r print curve evaluation}
+print(curve_classified, width = 100)
 ```

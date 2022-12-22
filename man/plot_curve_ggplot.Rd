@@ -65,26 +65,31 @@ batch per transition
 Plot dilution curve using \code{ggplot2}
 }
 \examples{
+
 # Data Creation
 dilution_percent <- c(
   10, 20, 25, 40, 50, 60,
   75, 80, 100, 125, 150
 )
+
 sample_name <- c(
   "Sample_010a", "Sample_020a",
   "Sample_025a", "Sample_040a", "Sample_050a",
   "Sample_060a", "Sample_075a", "Sample_080a",
   "Sample_100a", "Sample_125a", "Sample_150a"
 )
+
 dilution_batch_name <- c(
   "B1", "B1", "B1", "B1", "B1",
   "B1", "B1", "B1", "B1", "B1", "B1"
 )
+
 transition_name <- c(
   "Lipid1", "Lipid1", "Lipid1", "Lipid1",
   "Lipid1", "Lipid1", "Lipid1", "Lipid1",
   "Lipid1", "Lipid1", "Lipid1"
 )
+
 lipid1_area_saturated <- c(
   5748124, 16616414, 21702718, 36191617,
   49324541, 55618266, 66947588, 74964771,
@@ -112,10 +117,9 @@ dil_batch_col <- c("#377eb8")
 pal <- dil_batch_col \%>\%
   stats::setNames(dilution_batch_name)
 
-
 # Create dilution statistical summary
 dilution_summary_grp <- dilution_data \%>\%
-  summarise_dilution_table(
+  summarise_curve_table(
     grouping_variable = grouping_variable,
     conc_var = "Dilution_Percent",
     signal_var = "Area"
@@ -135,5 +139,7 @@ p <- plot_curve_ggplot(dilution_data,
   conc_var_interval = 50,
   signal_var = "Area"
 )
+
 p
+
 }

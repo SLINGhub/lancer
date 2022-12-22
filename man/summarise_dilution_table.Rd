@@ -11,88 +11,12 @@ summarise_dilution_table(
   signal_var = "Area"
 )
 }
-\arguments{
-\item{dilution_table}{Output given from the function \code{create_dilution_table}
-It is in long table format with columns indicating at least the
-lipid/transition name, the concentration and signal. Other columns may be
-present if it is used to group the dilution curve together}
-
-\item{grouping_variable}{A character vector of
-column names in \code{dilution_table}to indicate how each dilution curve
-should be grouped by.}
-
-\item{conc_var}{Column name in \code{dilution_table} to indicate concentration
-Default: 'Dilution_Percent'}
-
-\item{signal_var}{Column name in \code{dilution_table} to indicate signal
-Default: 'Area'}
-}
-\value{
-A dilution summary table output from the function
-\code{\link[=summarise_curve_data]{summarise_curve_data()}} for each group
-}
 \description{
 Get the summary statistics of each group from
 the dilution table
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+\code{summarise_dilution_table} was renamed to
+\code{summarise_curve_table}.
 }
-\details{
-The function first perform \code{tidyr::nest} on \code{dilution_table}
-based on the \code{grouping_variable} to organise the dilution curve data
-for each group. Next for each group, the function
-\code{\link[=summarise_curve_data]{summarise_curve_data()}} is used to get the summary statistics.
-}
-\examples{
-# Data Creation
-dilution_percent <- c(
-  10, 20, 40, 60, 80, 100,
-  10, 20, 40, 60, 80, 100
-)
-dilution_batch_name <- c(
-  "B1", "B1", "B1", "B1", "B1", "B1",
-  "B2", "B2", "B2", "B2", "B2", "B2"
-)
-sample_name <- c(
-  "Sample_010a", "Sample_020a", "Sample_040a",
-  "Sample_060a", "Sample_080a", "Sample_100a",
-  "Sample_010b", "Sample_020b", "Sample_040b",
-  "Sample_060b", "Sample_080b", "Sample_100b"
-)
-lipid1_area <- c(
-  22561, 31178, 39981, 48390, 52171, 53410,
-  32561, 41178, 49981, 58390, 62171, 63410
-)
-lipid2_area <- c(
-  2299075, 4136350, 7020062, 8922063, 9288742, 11365710,
-  2300075, 4137350, 7021062, 8923063, 9289742, 11366710
-)
-curve_annot <- tibble::tibble(
-  Sample_Name = sample_name,
-  Dilution_Batch_Name = dilution_batch_name,
-  Dilution_Percent = dilution_percent
-)
-curve_data <- tibble::tibble(
-  Sample_Name = sample_name,
-  Lipid1 = lipid1_area,
-  Lipid2 = lipid2_area
-)
-# Create curve table
-curve_table <- create_curve_table(
-  curve_annot = curve_annot,
-  curve_data_wide = curve_data,
-  common_column = "Sample_Name",
-  signal_var = "Area",
-  column_group = "Transition_Name"
-)
-# Give summary result for each curve grouped by Transition_Name
-# and Dilution Batch
-dilution_summary <- curve_table \%>\%
-  summarise_dilution_table(
-    grouping_variable = c(
-      "Transition_Name",
-      "Dilution_Batch_Name"
-    ),
-    conc_var = "Dilution_Percent",
-    signal_var = "Area"
-  )
-print(dilution_summary, width = 100)
-}
+\keyword{internal}

@@ -31,26 +31,31 @@ dilution_percent <- c(
   10, 20, 40, 60, 80, 100,
   10, 20, 40, 60, 80, 100
 )
+
 dilution_batch_name <- c(
   "B1", "B1", "B1", "B1", "B1", "B1",
   "B2", "B2", "B2", "B2", "B2", "B2"
 )
+
 lipid1_area <- c(
   22561, 31178, 39981, 48390, 52171, 53410,
   32561, 41178, 49981, 58390, 62171, 63410
 )
+
 transition_name <- c(
   "Lipid1", "Lipid1", "Lipid1",
   "Lipid1", "Lipid1", "Lipid1",
   "Lipid1", "Lipid1", "Lipid1",
   "Lipid1", "Lipid1", "Lipid1"
 )
+
 curve_table <- tibble::tibble(
   Transition_Name = transition_name,
   Dilution_Batch_Name = dilution_batch_name,
   Area = lipid1_area,
   Dilution_Percent = dilution_percent
 )
+
 validate_curve_table(
   curve_table = curve_table,
   needed_column = c(

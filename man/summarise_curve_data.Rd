@@ -30,11 +30,17 @@ for one group or batch
 \details{
 The function will return a tibble with NA values
 if the number of curve points is less than or equal to three
+}
+\examples{
 dilution_percent <- c(10, 20, 40, 60, 80, 100)
+
 area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+
 curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+
 curve_summary <- summarise_curve_data(curve_data,
-"Dilution_Percent",
-"Area")
+                                      "Dilution_Percent",
+                                      "Area")
 print(curve_summary, width = 100)
+
 }

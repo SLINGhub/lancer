@@ -10,7 +10,7 @@ reference:
       Functions used for tidy workflow
     contents:
     - create_curve_table
-    - summarise_dilution_table
+    - summarise_curve_table
     - evaluate_linearity
     - write_summary_excel
     - add_ggplot_panel
@@ -21,7 +21,7 @@ reference:
     desc: >
       Functions used to summarise dilution curve data
     contents:
-    - summarise_dilution_table
+    - summarise_curve_table
     - summarise_curve_data
     - ends_with("_model")
     - calculate_concavity
@@ -98,3 +98,4 @@ reference:
     - validate_lipid_data_wide
     - create_dilution_table
     - summarise_dilution_data
+    - summarise_dilution_table

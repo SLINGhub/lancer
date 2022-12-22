@@ -5,20 +5,24 @@ test_that("create dilution table and statistical summary", {
     10, 20, 40, 60, 80, 100,
     10, 20, 40, 60, 80, 100
   )
+
   dilution_batch_name <- c(
     "B1", "B1", "B1", "B1", "B1", "B1",
     "B2", "B2", "B2", "B2", "B2", "B2"
   )
+
   sample_name <- c(
     "Sample_010a", "Sample_020a", "Sample_040a",
     "Sample_060a", "Sample_080a", "Sample_100a",
     "Sample_010b", "Sample_020b", "Sample_040b",
     "Sample_060b", "Sample_080b", "Sample_100b"
   )
+
   lipid1_area <- c(
     22561, 31178, 39981, 48390, 52171, 53410,
     32561, 41178, 49981, 58390, 62171, 63410
   )
+
   lipid2_area <- c(
     2299075, 4136350, 7020062, 8922063, 9288742, 11365710,
     2300075, 4137350, 7021062, 8923063, 9289742, 11366710
@@ -57,9 +61,9 @@ test_that("create dilution table and statistical summary", {
     column_group = "Transition_Name"
   )
 
-  # Get dilution statistical summary
-  dilution_summary <- curve_table %>%
-    summarise_dilution_table(
+  # Get curve statistical summary
+  curve_summary <- curve_table %>%
+    summarise_curve_table(
       grouping_variable = c(
         "Transition_Name",
         "Dilution_Batch_Name"
@@ -80,10 +84,9 @@ test_that("create dilution table and statistical summary", {
     common_column = "Sample_Name"
   ))
 
-
-  # Validating bad inputs for summarise_dilution_table
+  # Validating bad inputs for summarise_curve_table
   testthat::expect_error(
-    summarise_dilution_table(curve_table,
+    summarise_curve_table(curve_table,
       grouping_variable = c(
         "Transition_Name",
         "Dilution_Batc"
@@ -92,8 +95,9 @@ test_that("create dilution table and statistical summary", {
       signal_var = "Area"
     )
   )
+
   testthat::expect_error(
-    summarise_dilution_table(curve_table,
+    summarise_curve_table(curve_table,
       grouping_variable = c(
         "Transition_Name",
         "Dilution_Batch_Name"
@@ -102,8 +106,9 @@ test_that("create dilution table and statistical summary", {
       signal_var = "Area"
     )
   )
+
   testthat::expect_error(
-    summarise_dilution_table(curve_table,
+    summarise_curve_table(curve_table,
       grouping_variable = c(
         "Transition_Name",
         "Dilution_Batch_Name"

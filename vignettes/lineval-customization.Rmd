@@ -31,7 +31,7 @@ pra <- c(65.8, 90.2, 72.9, -233)
 mandel_pval <- c(0.00000029, 0.290, 0.000000032, 0.0363)
 concavity <- c(-4134, -3.35, 0.394, -19.9)
 
-dilution_summary <- tibble::tibble(
+curve_summary <- tibble::tibble(
   Transition_Name = transition_name,
   Corrcoef = corrcoef,
   Pra = pra,
@@ -42,8 +42,8 @@ dilution_summary <- tibble::tibble(
 
 ```{r different column names}
 
-dilution_classified <- lancer::evaluate_linearity(
-  dilution_summary = dilution_summary,
+curve_classified <- lancer::evaluate_linearity(
+  dilution_summary = curve_summary,
   grouping_variable = c(
     "Transition_Name"
   ),
@@ -55,7 +55,7 @@ dilution_classified <- lancer::evaluate_linearity(
 ```
 
 ```{r print evaluation with different column names}
-print(dilution_classified, width = 100)
+print(curve_classified, width = 100)
 ```
 
 One can change the threshold of the Correlation Coefficient (0.8), 
@@ -66,8 +66,8 @@ respectively.
 
 ```{r different threshold}
 
-dilution_classified <- lancer::evaluate_linearity(
-  dilution_summary = dilution_summary,
+curve_classified <- lancer::evaluate_linearity(
+  dilution_summary = curve_summary,
   grouping_variable = c(
     "Transition_Name"
   ),
@@ -82,7 +82,7 @@ dilution_classified <- lancer::evaluate_linearity(
 ```
 
 ```{r print evaluation with different threshold}
-print(dilution_classified, width = 100)
+print(curve_classified, width = 100)
 ```
 
 Likewise for the excel output using the function `write_summary_excel`, we can choose which
@@ -91,7 +91,7 @@ as well as its threshold value. The sheet name can also be changed.
 
 ```{r customise print to excel, eval = FALSE}
 lancer::write_summary_excel(
-  dilution_summary = dilution_classified,
+  dilution_summary = curve_classified,
   file_name = "dilution_summary.xlsx",
   sheet_name = "Dilution Summary",
   corrcoef_column = "Corrcoef",

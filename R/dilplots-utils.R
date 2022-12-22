@@ -8,7 +8,9 @@
 #' fill-in-a-sequence-of-letters-based-on-a-given-order/88823/3
 #' @examples
 #' group_name <- c("red", "green", "blue")
+#'
 #' create_char_seq(group_name, output_length = 2)
+#'
 #' create_char_seq(group_name, output_length = 5)
 #'
 #' @rdname create_char_seq

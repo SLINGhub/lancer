@@ -30,21 +30,26 @@ sample_name <- c(
   "Sample_010b", "Sample_020b", "Sample_040b",
   "Sample_060b", "Sample_080b", "Sample_100b"
 )
+
 lipid1_area <- c(
   22561, 31178, 39981, 48390, 52171, 53410,
   32561, 41178, 49981, 58390, 62171, 63410
 )
+
 lipid2_area <- c(
   2299075, 4136350, 7020062, 8922063, 9288742, 11365710,
   2300075, 4137350, 7021062, 8923063, 9289742, 11366710
 )
+
 curve_data_wide <- tibble::tibble(
   Sample_Name = sample_name,
   Lipid1 = lipid1_area,
   Lipid2 = lipid2_area
 )
+
 validate_curve_data_wide(
   curve_data_wide = curve_data_wide,
   needed_column = c("Sample_Name")
 )
+
 }
