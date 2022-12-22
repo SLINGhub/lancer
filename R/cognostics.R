@@ -167,12 +167,12 @@ create_default_cog_df <- function() {
 #'   426089, 413292, 450190, 415309, 457618
 #' )
 #'
-#' dilution_annot <- tibble::tibble(
+#' curve_annot <- tibble::tibble(
 #'   Sample_Name = sample_name,
 #'   Dilution_Batch_Name = dilution_batch_name,
 #'   Dilution_Percent = dilution_percent
 #' )
-#' lipid_data <- tibble::tibble(
+#' curve_data <- tibble::tibble(
 #'   Sample_Name = sample_name,
 #'   Lipid1 = lipid1_area_saturated,
 #'   Lipid2 = lipid2_area_linear,
@@ -182,14 +182,16 @@ create_default_cog_df <- function() {
 #'
 #'
 #' # Create dilution table
-#' dilution_table <- create_dilution_table(dilution_annot, lipid_data,
+#' curve_table <- create_curve_table(
+#'   curve_annot = curve_annot,
+#'   curve_data_wide = curve_data,
 #'   common_column = "Sample_Name",
 #'   signal_var = "Area",
 #'   column_group = "Transition_Name"
 #' )
 #'
-#' # Create dilution table and dilution statistical summary
-#' dilution_summary <- dilution_table %>%
+#' # Create dilution statistical summary
+#' dilution_summary <- curve_table %>%
 #'   summarise_dilution_table(
 #'     grouping_variable = c(
 #'       "Transition_Name",
@@ -338,12 +340,12 @@ update_cog_manual <- function(dilution_summary, cog_df,
 #'   426089, 413292, 450190, 415309, 457618
 #' )
 #'
-#' dilution_annot <- tibble::tibble(
+#' curve_annot <- tibble::tibble(
 #'   Sample_Name = sample_name,
 #'   Dilution_Batch_Name = dilution_batch_name,
 #'   Dilution_Percent = dilution_percent
 #' )
-#' lipid_data <- tibble::tibble(
+#' curve_data <- tibble::tibble(
 #'   Sample_Name = sample_name,
 #'   Lipid1 = lipid1_area_saturated,
 #'   Lipid2 = lipid2_area_linear,
@@ -353,14 +355,16 @@ update_cog_manual <- function(dilution_summary, cog_df,
 #'
 #'
 #' # Create dilution table
-#' dilution_table <- create_dilution_table(dilution_annot, lipid_data,
+#' curve_table <- create_curve_table(
+#'   curve_annot = curve_annot,
+#'   curve_data_wide = curve_data,
 #'   common_column = "Sample_Name",
 #'   signal_var = "Area",
 #'   column_group = "Transition_Name"
 #' )
 #'
-#' # Create dilution table and dilution statistical summary
-#' dilution_summary <- dilution_table %>%
+#' # Create dilution statistical summary
+#' dilution_summary <- curve_table %>%
 #'   summarise_dilution_table(
 #'     grouping_variable = c(
 #'       "Transition_Name",
@@ -481,12 +485,12 @@ update_cog_auto <- function(dilution_summary) {
 #'   426089, 413292, 450190, 415309, 457618
 #' )
 #'
-#' dilution_annot <- tibble::tibble(
+#' curve_annot <- tibble::tibble(
 #'   Sample_Name = sample_name,
 #'   Dilution_Batch_Name = dilution_batch_name,
 #'   Dilution_Percent = dilution_percent
 #' )
-#' lipid_data <- tibble::tibble(
+#' curve_data <- tibble::tibble(
 #'   Sample_Name = sample_name,
 #'   Lipid1 = lipid1_area_saturated,
 #'   Lipid2 = lipid2_area_linear,
@@ -496,14 +500,16 @@ update_cog_auto <- function(dilution_summary) {
 #'
 #'
 #' # Create dilution table
-#' dilution_table <- create_dilution_table(dilution_annot, lipid_data,
+#' curve_table <- create_curve_table(
+#'   curve_annot = curve_annot,
+#'   curve_data_wide = curve_data,
 #'   common_column = "Sample_Name",
 #'   signal_var = "Area",
 #'   column_group = "Transition_Name"
 #' )
 #'
-#' # Create dilution table and dilution statistical summary
-#' dilution_summary <- dilution_table %>%
+#' # Create dilution statistical summary
+#' dilution_summary <- curve_table %>%
 #'   summarise_dilution_table(
 #'     grouping_variable = c(
 #'       "Transition_Name",

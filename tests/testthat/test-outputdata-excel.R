@@ -1,4 +1,4 @@
-test_that("Able to print dilution summary data to excel", {
+test_that("Able to print curve summary data to excel", {
   # Data Creation
   dilution_percent <- c(
     10, 20, 25, 40, 50, 60,
@@ -49,12 +49,13 @@ test_that("Able to print dilution summary data to excel", {
     426089, 413292, 450190, 415309, 457618
   )
 
-  dilution_annot <- tibble::tibble(
+  curve_annot <- tibble::tibble(
     Sample_Name = sample_name,
     Dilution_Batch_Name = dilution_batch_name,
     Dilution_Percent = dilution_percent
   )
-  lipid_data <- tibble::tibble(
+
+  curve_data <- tibble::tibble(
     Sample_Name = sample_name,
     Lipid1 = lipid1_area_saturated,
     Lipid2 = lipid2_area_linear,
@@ -62,8 +63,10 @@ test_that("Able to print dilution summary data to excel", {
     Lipid4 = lipid4_area_nonlinear
   )
 
-  # Create dilution table and dilution statistical summary
-  dilution_summary <- create_dilution_table(dilution_annot, lipid_data,
+  # Create curve table and statistical summary
+  dilution_summary <- create_curve_table(
+    curve_annot = curve_annot,
+    curve_data_wide = curve_data,
     common_column = "Sample_Name",
     signal_var = "Area",
     column_group = "Transition_Name"

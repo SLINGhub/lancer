@@ -9,7 +9,7 @@ reference:
     desc: >
       Functions used for tidy workflow
     contents:
-    - create_dilution_table
+    - create_curve_table
     - summarise_dilution_table
     - evaluate_linearity
     - write_summary_excel
@@ -91,3 +91,9 @@ reference:
       <a href="https://lifecycle.r-lib.org/articles/stages.html">
       <img src='figures/lifecycle-deprecated.svg' alt='Deprecated lifecycle'/>
       </a>
+    contents:
+    - validate_dilution_annot
+    - validate_dilution_table
+    - validate_dilution_data
+    - validate_lipid_data_wide
+    - create_dilution_table

@@ -51,12 +51,13 @@ test_that("Able to plot dilution data with its
     426089, 413292, 450190, 415309, 457618
   )
 
-  dilution_annot <- tibble::tibble(
+  curve_annot <- tibble::tibble(
     Sample_Name = sample_name,
     Dilution_Batch_Name = dilution_batch_name,
     Dilution_Percent = dilution_percent
   )
-  lipid_data <- tibble::tibble(
+
+  curve_data <- tibble::tibble(
     Sample_Name = sample_name,
     Lipid1 = lipid1_area_saturated,
     Lipid2 = lipid2_area_linear,
@@ -65,15 +66,17 @@ test_that("Able to plot dilution data with its
   )
 
 
-  # Create dilution table
-  dilution_table <- create_dilution_table(dilution_annot, lipid_data,
+  # Create curve table
+  curve_table <- create_curve_table(
+    curve_annot = curve_annot,
+    curve_data_wide = curve_data,
     common_column = "Sample_Name",
     signal_var = "Area",
     column_group = "Transition_Name"
   )
 
-  # Create dilution table and dilution statistical summary
-  dilution_summary <- dilution_table %>%
+  # Create curve statistical summary
+  dilution_summary <- curve_table %>%
     summarise_dilution_table(
       grouping_variable = c(
         "Transition_Name",
@@ -93,7 +96,7 @@ test_that("Able to plot dilution data with its
   # as a grouping variable
   testthat::expect_silent(
     ggplot_table <- add_ggplot_panel(
-      dilution_table,
+      curve_table,
       dilution_summary = dilution_summary,
       grouping_variable = c(
         "Transition_Name",
@@ -110,7 +113,7 @@ test_that("Able to plot dilution data with its
   # not as a grouping variable
   testthat::expect_silent(
     ggplot_table_no_dil_batch_var <- add_ggplot_panel(
-      dilution_table,
+      curve_table,
       dilution_summary = dilution_summary,
       grouping_variable = c(
         "Transition_Name"
@@ -125,7 +128,7 @@ test_that("Able to plot dilution data with its
   # Create a ggplot table without dilution summary
   testthat::expect_silent(
     ggplot_table_auto <- add_ggplot_panel(
-      dilution_table,
+      curve_table,
       grouping_variable = c(
         "Transition_Name",
         "Dilution_Batch_Name"

@@ -79,13 +79,13 @@ lipid4_area_nonlinear <- c(
   426089, 413292, 450190, 415309, 457618
 )
 
-dilution_annot <- tibble::tibble(
+curve_annot <- tibble::tibble(
   Sample_Name = sample_name,
   Dilution_Batch_Name = dilution_batch_name,
   Dilution_Percent = dilution_percent
 )
 
-lipid_data <- tibble::tibble(
+curve_data <- tibble::tibble(
   Sample_Name = sample_name,
   Lipid1 = lipid1_area_saturated,
   Lipid2 = lipid2_area_linear,
@@ -93,15 +93,15 @@ lipid_data <- tibble::tibble(
   Lipid4 = lipid4_area_nonlinear
 )
 
-dilution_table <- lancer::create_dilution_table(
-  dilution_annot = dilution_annot,
-  lipid_data_wide = lipid_data,
+curve_table <- lancer::create_curve_table(
+  curve_annot = curve_annot,
+  curve_data_wide = curve_data,
   common_column = "Sample_Name",
   signal_var = "Area",
   column_group = "Transition_Name"
 )
 
-dilution_classified <- dilution_table %>%
+dilution_classified <- curve_table %>%
   lancer::summarise_dilution_table(
     grouping_variable = c(
       "Transition_Name",
@@ -118,19 +118,19 @@ dilution_classified <- dilution_table %>%
   ))
 ```
 
-Here is the output of `dilution_table` and `dilution_classified` 
+Here is the output of `curve_table` and `dilution_classified` 
 
-```{r print dilution data}
-print(head(dilution_table), width = 100)
+```{r print curve data}
+print(head(curve_table), width = 100)
 print(head(dilution_classified), width = 100)
 ```
 
-We then create the `ggplot` plots with `dilution_table` and `dilution_classified`
+We then create the `ggplot` plots with `curve_table` and `dilution_classified`
 
 ```{r create ggplot table}
 # Create a trellis table
 trellis_table_orig <- lancer::add_ggplot_panel(
-  dilution_table = dilution_table,
+  dilution_table = curve_table,
   dilution_summary = dilution_classified,
   grouping_variable = c(
     "Transition_Name",

@@ -6,25 +6,11 @@
 \usage{
 validate_dilution_data(dilution_data, conc_var, signal_var)
 }
-\arguments{
-\item{dilution_data}{A data frame or tibble containing dilution data}
-
-\item{conc_var}{Column name in \code{dilution_data} to indicate concentration}
-
-\item{signal_var}{Column name in \code{dilution_data} to indicate signal}
-}
-\value{
-An error if the column name is not found in the Dilution Data
-}
 \description{
 Validate Dilution Data
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+\code{validate_dilution_data} was renamed to
+\code{validate_curve_data}.
 }
-\examples{
-dilution_percent <- c(10, 20, 40, 60, 80, 100)
-area <- c(22561, 31178, 39981, 48390, 52171, 53410)
-dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-validate_dilution_data(
-  dilution_data,
-  "Dilution_Percent", "Area"
-)
-}
+\keyword{internal}

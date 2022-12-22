@@ -6,42 +6,11 @@
 \usage{
 validate_dilution_annot(dilution_annot, needed_column = c("Sample_Name"))
 }
-\arguments{
-\item{dilution_annot}{A data frame or tibble that contains information
-of your dilution batch. A column with sample name should be present.}
-
-\item{needed_column}{A vector consisting of needed column names that
-must be found in \code{dilution_annot},
-Default: c("Sample_Name")}
-}
-\value{
-An error if the things in \code{needed_column}
-is not found in the Dilution Data
-}
 \description{
 Validate Dilution Annotation
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+
+\code{validate_dilution_annot} was renamed to
+\code{validate_curve_annot}.
 }
-\examples{
-dilution_percent <- c(
-  10, 20, 40, 60, 80, 100,
-  10, 20, 40, 60, 80, 100
-)
-dilution_batch_name <- c(
-  "B1", "B1", "B1", "B1", "B1", "B1",
-  "B2", "B2", "B2", "B2", "B2", "B2"
-)
-sample_name <- c(
-  "Sample_010a", "Sample_020a", "Sample_040a",
-  "Sample_060a", "Sample_080a", "Sample_100a",
-  "Sample_010b", "Sample_020b", "Sample_040b",
-  "Sample_060b", "Sample_080b", "Sample_100b"
-)
-dilution_annot <- tibble::tibble(
-  Sample_Name = sample_name,
-  Dilution_Batch_Name = dilution_batch_name,
-  Dilution_Percent = dilution_percent
-)
-validate_dilution_annot(dilution_annot,
-  needed_column = c("Sample_Name")
-)
-}
+\keyword{internal}

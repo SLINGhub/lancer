@@ -349,7 +349,7 @@ plot_curve_plotly <- function(dilution_data,
 #' @description Create a column which contains a list of `plotly
 #' suited for a `trelliscopejs` visualisation
 #' @param dilution_table Output given from
-#' the function [create_dilution_table()]
+#' the function [create_curve_table()]
 #' It is in long table format with columns indicating at least the
 #' lipid/transition name, the concentration and signal. Other columns may be
 #' present if it is used to group the dilution curve together
@@ -447,12 +447,12 @@ plot_curve_plotly <- function(dilution_data,
 #'   426089, 413292, 450190, 415309, 457618
 #' )
 #'
-#' dilution_annot <- tibble::tibble(
+#' curve_annot <- tibble::tibble(
 #'   Sample_Name = sample_name,
 #'   Dilution_Batch_Name = dilution_batch_name,
 #'   Dilution_Percent = dilution_percent
 #' )
-#' lipid_data <- tibble::tibble(
+#' curve_data <- tibble::tibble(
 #'   Sample_Name = sample_name,
 #'   Lipid1 = lipid1_area_saturated,
 #'   Lipid2 = lipid2_area_linear,
@@ -462,14 +462,16 @@ plot_curve_plotly <- function(dilution_data,
 #'
 #'
 #' # Create dilution table
-#' dilution_table <- create_dilution_table(dilution_annot, lipid_data,
+#' curve_table <- create_curve_table(
+#'   curve_annot = curve_annot,
+#'   curve_data_wide = curve_data,
 #'   common_column = "Sample_Name",
 #'   signal_var = "Area",
 #'   column_group = "Transition_Name"
 #' )
 #'
 #' # Create dilution table and dilution statistical summary
-#' dilution_summary <- dilution_table %>%
+#' dilution_summary <- curve_table %>%
 #'   summarise_dilution_table(
 #'     grouping_variable = c(
 #'       "Transition_Name",
@@ -486,7 +488,7 @@ plot_curve_plotly <- function(dilution_data,
 #'
 #'
 #' # Create a trellis table
-#' trellis_table <- add_plotly_panel(dilution_table,
+#' trellis_table <- add_plotly_panel(curve_table,
 #'   dilution_summary = dilution_summary
 #' )
 #' @rdname add_plotly_panel
@@ -517,7 +519,8 @@ add_plotly_panel <- function(dilution_table, dilution_summary = NULL,
 
 
   # Check if dilution_table is valid with the relevant columns
-  validate_dilution_table(dilution_table,
+  validate_curve_table(
+    curve_table = dilution_table,
     needed_column = c(
       grouping_variable,
       sample_name_var,

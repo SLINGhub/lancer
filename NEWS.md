@@ -4,6 +4,14 @@
 
 * Change `lancer` functions that has `dilution` to `curve`
 
+## Completed
+
+* `validate_dilution_annot` changed to `validate_curve_annot`.
+* `validate_dilution_table` changed to `validate_curve_table`.
+* `validate_dilution_data` changed to `validate_curve_data`.
+* `validate_lipid_data_wide` changed to `validate_curve_data_wide`.
+* `create_dilution_table` changed to `create_curve_table`.
+
 # lancer 0.0.6
 
 * Change characterisation of LOD curves from LOD to Noise Regime.

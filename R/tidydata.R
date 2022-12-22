@@ -1,9 +1,28 @@
 #' @title Validate Dilution Annotation
 #' @description Validate Dilution Annotation
-#' @param dilution_annot A data frame or tibble that contains information
-#' of your dilution batch. A column with sample name should be present.
+#' `r lifecycle::badge("deprecated")`
+#'
+#' `validate_dilution_annot` was renamed to
+#' `validate_curve_annot`.
+#' @keywords internal
+#' @export
+validate_dilution_annot <- function(dilution_annot,
+                                    needed_column = c("Sample_Name")) {
+
+  lifecycle::deprecate_warn(when = "0.0.6.9000",
+                            what = "validate_dilution_annot()",
+                            with = "validate_curve_annot()")
+
+  validate_curve_annot(curve_annot = dilution_annot,
+                       needed_column = needed_column)
+}
+
+#' @title Validate Curve Annotation
+#' @description Validate Curve Annotation
+#' @param curve_annot A data frame or tibble that contains information
+#' of your curve batch. A column with sample name should be present.
 #' @param needed_column A vector consisting of needed column names that
-#' must be found in `dilution_annot`,
+#' must be found in `curve_annot`,
 #' Default: c("Sample_Name")
 #' @return An error if the things in `needed_column`
 #' is not found in the Dilution Data
@@ -22,35 +41,54 @@
 #'   "Sample_010b", "Sample_020b", "Sample_040b",
 #'   "Sample_060b", "Sample_080b", "Sample_100b"
 #' )
-#' dilution_annot <- tibble::tibble(
+#' curve_annot <- tibble::tibble(
 #'   Sample_Name = sample_name,
 #'   Dilution_Batch_Name = dilution_batch_name,
 #'   Dilution_Percent = dilution_percent
 #' )
-#' validate_dilution_annot(dilution_annot,
+#' validate_curve_annot(
+#'   curve_annot = curve_annot,
 #'   needed_column = c("Sample_Name")
 #' )
-#' @rdname validate_dilution_annot
+#' @rdname validate_curve_annot
 #' @export
-validate_dilution_annot <- function(dilution_annot,
-                                    needed_column = c("Sample_Name")) {
+validate_curve_annot <- function(curve_annot,
+                                 needed_column = c("Sample_Name")) {
 
-  # Check if things in needed_column are in dilution_annot
-  assertable::assert_colnames(dilution_annot, needed_column,
+  # Check if things in needed_column are in curve_annot
+  assertable::assert_colnames(curve_annot, needed_column,
     only_colnames = FALSE, quiet = TRUE
   )
 }
 
-
-
 #' @title Validate Lipid Data Wide
 #' @description Validate Lipid Data in wide form
-#' @param lipid_data_wide A wide format data frame or tibble
+#' `r lifecycle::badge("deprecated")`
+#'
+#' `validate_lipid_data_wide` was renamed to
+#' `validate_curve_data_wide`.
+#' @keywords internal
+#' @export
+validate_lipid_data_wide <- function(lipid_data_wide,
+                                     needed_column = c("Sample_Name")) {
+
+  lifecycle::deprecate_warn(when = "0.0.6.9000",
+                            what = "validate_lipid_data_wide()",
+                            with = "validate_curve_data_wide()")
+
+  validate_curve_data_wide(curve_data_wide = lipid_data_wide,
+                           needed_column = needed_column)
+
+}
+
+#' @title Validate Curve Data Wide
+#' @description Validate Curve Data in wide form
+#' @param curve_data_wide A wide format data frame or tibble
 #' that contains the Sample Name usually at the first column followed
-#' by different Transitions/Lipids. Each Transition/Lipid is meant to provide
+#' by different curves. Each curve is meant to provide
 #' a `signal_var` for each sample.
 #' @param needed_column A vector consisting of needed column names that
-#' must be found in `lipid_data_wide`,
+#' must be found in `curve_data_wide`,
 #' Default: c("Sample_Name")
 #' @return An error if the things in `needed_column`
 #' is not found in the Lipid Data in wide form
@@ -69,36 +107,62 @@ validate_dilution_annot <- function(dilution_annot,
 #'   2299075, 4136350, 7020062, 8922063, 9288742, 11365710,
 #'   2300075, 4137350, 7021062, 8923063, 9289742, 11366710
 #' )
-#' lipid_data_wide <- tibble::tibble(
+#' curve_data_wide <- tibble::tibble(
 #'   Sample_Name = sample_name,
 #'   Lipid1 = lipid1_area,
 #'   Lipid2 = lipid2_area
 #' )
-#' validate_lipid_data_wide(lipid_data_wide,
+#' validate_curve_data_wide(
+#'   curve_data_wide = curve_data_wide,
 #'   needed_column = c("Sample_Name")
 #' )
-#' @rdname validate_lipid_data_wide
+#' @rdname validate_curve_data_wide
 #' @export
-validate_lipid_data_wide <- function(lipid_data_wide,
+validate_curve_data_wide <- function(curve_data_wide,
                                      needed_column = c("Sample_Name")) {
 
-  # Check if things in needed_column are in lipid_data_wide
-  assertable::assert_colnames(lipid_data_wide, needed_column,
+  # Check if things in needed_column are in curve_data_wide
+  assertable::assert_colnames(curve_data_wide, needed_column,
     only_colnames = FALSE, quiet = TRUE
   )
 }
 
 #' @title Validate Dilution Table
 #' @description Validate Dilution Table
-#' @param dilution_table A dilution table containing data of dilution points,
-#' variables to group the dilution points together and some additional
-#' annotations about the dilution points
+#' `r lifecycle::badge("deprecated")`
+#'
+#' `validate_dilution_table` was renamed to
+#' `validate_curve_table`.
+#' @keywords internal
+#' @export
+validate_dilution_table <- function(dilution_table,
+                                    needed_column = c(
+                                      "Transition_Name",
+                                      "Dilution_Batch_Name",
+                                      "Dilution_Percent",
+                                      "Area"
+                                    )) {
+
+  lifecycle::deprecate_warn(when = "0.0.6.9000",
+                            what = "validate_dilution_table()",
+                            with = "validate_curve_table()")
+
+  validate_curve_table(curve_table = dilution_table,
+                       needed_column = needed_column)
+
+}
+
+#' @title Validate Curve Table
+#' @description Validate Curve Table
+#' @param curve_table A curve table containing data of curve points,
+#' variables to group the curve points together and some additional
+#' annotations about the curve points
 #' @param needed_column A vector consisting of needed column names that
-#' must be found in `dilution_table`,
+#' must be found in `curve_table`,
 #' Default: c("Transition_Name", "Dilution_Batch_Name",
 #'            "Dilution_Percent", "Area")
 #' @return An error if the things in `needed_column`
-#' is not found in Dilution Table
+#' is not found in `curve_table`
 #' @examples
 #' dilution_percent <- c(
 #'   10, 20, 40, 60, 80, 100,
@@ -118,13 +182,14 @@ validate_lipid_data_wide <- function(lipid_data_wide,
 #'   "Lipid1", "Lipid1", "Lipid1",
 #'   "Lipid1", "Lipid1", "Lipid1"
 #' )
-#' dilution_table <- tibble::tibble(
+#' curve_table <- tibble::tibble(
 #'   Transition_Name = transition_name,
 #'   Dilution_Batch_Name = dilution_batch_name,
 #'   Area = lipid1_area,
 #'   Dilution_Percent = dilution_percent
 #' )
-#' validate_lipid_data_wide(dilution_table,
+#' validate_curve_table(
+#'   curve_table = curve_table,
 #'   needed_column = c(
 #'     "Transition_Name",
 #'     "Dilution_Batch_Name",
@@ -133,45 +198,68 @@ validate_lipid_data_wide <- function(lipid_data_wide,
 #'   )
 #' )
 #'
-#' @rdname validate_dilution_table
+#' @rdname validate_curve_table
 #' @export
-validate_dilution_table <- function(dilution_table,
-                                    needed_column = c(
-                                      "Transition_Name",
-                                      "Dilution_Batch_Name",
-                                      "Dilution_Percent",
-                                      "Area"
-                                    )) {
+validate_curve_table <- function(curve_table,
+                                 needed_column =
+                                   c("Transition_Name",
+                                     "Dilution_Batch_Name",
+                                     "Dilution_Percent",
+                                     "Area")) {
 
-  # Check if things in needed_column are in dilution_table
-  assertable::assert_colnames(dilution_table, needed_column,
+  # Check if things in needed_column are in curve_table
+  assertable::assert_colnames(curve_table, needed_column,
     only_colnames = FALSE, quiet = TRUE
   )
 }
 
-
 #' @title Create Dilution Table
 #' @description Create Dilution Table from two data frame or tibble inputs
-#' `dilution_annot` and `lipid_data_wide`. Both input must have at least one
+#' `r lifecycle::badge("deprecated")`
+#'
+#' `create_dilution_table` was renamed to
+#' `create_curve_table`.
+#' @keywords internal
+#' @export
+create_dilution_table <- function(dilution_annot, lipid_data_wide,
+                                  common_column = c("Sample_Name"),
+                                  signal_var = "Area",
+                                  column_group = "Transition_Name") {
+
+  lifecycle::deprecate_warn(when = "0.0.6.9000",
+                            what = "create_dilution_table()",
+                            with = "create_curve_table()")
+
+  create_curve_table(curve_annot = dilution_annot,
+                     curve_data_wide = lipid_data_wide,
+                     common_column = common_column,
+                     signal_var = signal_var,
+                     column_group = column_group)
+
+}
+
+#' @title Create Curve Table
+#' @description Create Curve Table from two data frame or tibble inputs
+#' `curve_annot` and `curve_data_wide`. Both input must have at least one
 #' common column. The default common column names is `Sample_Name`.
-#' @param dilution_annot A data frame or tibble that contains information
-#' of your dilution batch. A column with sample name should be present.
-#' @param lipid_data_wide A wide format data frame or tibble
+#' @param curve_annot A data frame or tibble that contains information
+#' of your curve batch. A column with sample name should be present.
+#' @param curve_data_wide A wide format data frame or tibble
 #' that contains the Sample Name usually at the first column followed
-#' by different Transitions/Lipids. Each Transition/Lipid is meant to provide
+#' by different curves. Each curve is meant to provide
 #' a `signal_var` for each sample.
 #' @param common_column A vector consisting of common column names that
-#' must be found in both `dilution_annot` and `lipid_data_wide`,
+#' must be found in both `curve_annot` and `curve_data_wide`,
 #' Default: c("Sample_Name")
-#' @param signal_var Value provided in `lipid_data_wide` for each transition
-#' or lipid which will be used as a column name when the merged data
+#' @param signal_var Value provided in `curve_data_wide` for each
+#' curve which will be used as a column name when the merged data
 #' is converted to a long format,
 #' Default: 'Area'
-#' @param column_group Value used to group the transition column names in
-#' `lipid_data_wide` when the merged data is converted to a long format,
+#' @param column_group Value used to group the curves in
+#' `curve_data_wide` when the merged data is converted to a long format,
 #' Default: 'Transition_Name'
 #' @return A data frame or tibble in long format
-#' @details We first merge the `dilution_annot` with the `lipid_data_wide`
+#' @details We first merge the `curve_annot` with the `curve_data_wide`
 #' via one or more common columns. Next we convert the data from a wide to
 #' a long format. Merging with a Sample Annotation data can be done after this
 #' @examples
@@ -198,43 +286,45 @@ validate_dilution_table <- function(dilution_table,
 #'   2299075, 4136350, 7020062, 8922063, 9288742, 11365710,
 #'   2300075, 4137350, 7021062, 8923063, 9289742, 11366710
 #' )
-#' dilution_annot <- tibble::tibble(
+#' curve_annot <- tibble::tibble(
 #'   Sample_Name = sample_name,
 #'   Dilution_Batch_Name = dilution_batch_name,
 #'   Dilution_Percent = dilution_percent
 #' )
-#' lipid_data <- tibble::tibble(
+#' curve_data <- tibble::tibble(
 #'   Sample_Name = sample_name,
 #'   Lipid1 = lipid1_area,
 #'   Lipid2 = lipid2_area
 #' )
 #' # Create dilution table
-#' dilution_table <- create_dilution_table(dilution_annot, lipid_data,
+#' curve_table <- create_curve_table(
+#'   curve_annot = curve_annot,
+#'   curve_data_wide = curve_data,
 #'   common_column = "Sample_Name",
 #'   signal_var = "Area",
 #'   column_group = "Transition_Name"
 #' )
-#' print(dilution_table, width = 100)
-#' @rdname create_dilution_table
+#' print(curve_table, width = 100)
+#' @rdname create_curve_table
 #' @export
-create_dilution_table <- function(dilution_annot, lipid_data_wide,
-                                  common_column = c("Sample_Name"),
-                                  signal_var = "Area",
-                                  column_group = "Transition_Name") {
+create_curve_table <- function(curve_annot, curve_data_wide,
+                               common_column = c("Sample_Name"),
+                               signal_var = "Area",
+                               column_group = "Transition_Name") {
 
-  # Check if dilution_annot and lipid_data_wide is valid
-  validate_dilution_annot(dilution_annot, common_column)
-  validate_lipid_data_wide(lipid_data_wide, common_column)
+  # Check if curve_annot and curve_data_wide is valid
+  validate_curve_annot(curve_annot, common_column)
+  validate_curve_data_wide(curve_data_wide, common_column)
 
   # Merge the two data together and make it long
-  dilution_table <- dplyr::inner_join(dilution_annot, lipid_data_wide,
+  curve_table <- dplyr::inner_join(curve_annot, curve_data_wide,
     by = common_column
   ) %>%
-    tidyr::pivot_longer(-dplyr::any_of(colnames(dilution_annot)),
+    tidyr::pivot_longer(-dplyr::any_of(colnames(curve_annot)),
       names_to = column_group, values_to = signal_var
     )
 
-  return(dilution_table)
+  return(curve_table)
 }
 
 
@@ -282,25 +372,27 @@ create_dilution_table <- function(dilution_annot, lipid_data_wide,
 #'   2299075, 4136350, 7020062, 8922063, 9288742, 11365710,
 #'   2300075, 4137350, 7021062, 8923063, 9289742, 11366710
 #' )
-#' dilution_annot <- tibble::tibble(
+#' curve_annot <- tibble::tibble(
 #'   Sample_Name = sample_name,
 #'   Dilution_Batch_Name = dilution_batch_name,
 #'   Dilution_Percent = dilution_percent
 #' )
-#' lipid_data <- tibble::tibble(
+#' curve_data <- tibble::tibble(
 #'   Sample_Name = sample_name,
 #'   Lipid1 = lipid1_area,
 #'   Lipid2 = lipid2_area
 #' )
-#' # Create dilution table
-#' dilution_table <- create_dilution_table(dilution_annot, lipid_data,
+#' # Create curve table
+#' curve_table <- create_curve_table(
+#'   curve_annot = curve_annot,
+#'   curve_data_wide = curve_data,
 #'   common_column = "Sample_Name",
 #'   signal_var = "Area",
 #'   column_group = "Transition_Name"
 #' )
-#' # Give summary result for each dilution curve grouped by Transition_Name
+#' # Give summary result for each curve grouped by Transition_Name
 #' # and Dilution Batch
-#' dilution_summary <- dilution_table %>%
+#' dilution_summary <- curve_table %>%
 #'   summarise_dilution_table(
 #'     grouping_variable = c(
 #'       "Transition_Name",
@@ -321,7 +413,8 @@ summarise_dilution_table <- function(dilution_table,
                                      signal_var = "Area") {
 
   # Check if dilution_table is valid with the relevant columns
-  validate_dilution_table(dilution_table,
+  validate_curve_table(
+    curve_table = dilution_table,
     needed_column = c(
       grouping_variable,
       conc_var,

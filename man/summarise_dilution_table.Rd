@@ -65,25 +65,27 @@ lipid2_area <- c(
   2299075, 4136350, 7020062, 8922063, 9288742, 11365710,
   2300075, 4137350, 7021062, 8923063, 9289742, 11366710
 )
-dilution_annot <- tibble::tibble(
+curve_annot <- tibble::tibble(
   Sample_Name = sample_name,
   Dilution_Batch_Name = dilution_batch_name,
   Dilution_Percent = dilution_percent
 )
-lipid_data <- tibble::tibble(
+curve_data <- tibble::tibble(
   Sample_Name = sample_name,
   Lipid1 = lipid1_area,
   Lipid2 = lipid2_area
 )
-# Create dilution table
-dilution_table <- create_dilution_table(dilution_annot, lipid_data,
+# Create curve table
+curve_table <- create_curve_table(
+  curve_annot = curve_annot,
+  curve_data_wide = curve_data,
   common_column = "Sample_Name",
   signal_var = "Area",
   column_group = "Transition_Name"
 )
-# Give summary result for each dilution curve grouped by Transition_Name
+# Give summary result for each curve grouped by Transition_Name
 # and Dilution Batch
-dilution_summary <- dilution_table \%>\%
+dilution_summary <- curve_table \%>\%
   summarise_dilution_table(
     grouping_variable = c(
       "Transition_Name",

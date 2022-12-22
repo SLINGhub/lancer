@@ -24,39 +24,41 @@ test_that("create dilution table and statistical summary", {
     2300075, 4137350, 7021062, 8923063, 9289742, 11366710
   )
 
-  dilution_annot <- tibble::tibble(
+  curve_annot <- tibble::tibble(
     Sample_Name = sample_name,
     Dilution_Batch_Name = dilution_batch_name,
     Dilution_Percent = dilution_percent
   )
 
-  lipid_data <- tibble::tibble(
+  curve_data <- tibble::tibble(
     Sample_Name = sample_name,
     Lipid1 = lipid1_area,
     Lipid2 = lipid2_area
   )
 
-  bad_dilution_annot <- tibble::tibble(
+  bad_curve_annot <- tibble::tibble(
     Sample_Nam = sample_name,
     Dilution_Batch_Name = dilution_batch_name,
     Dilution_Percent = dilution_percent
   )
 
-  bad_lipid_data <- tibble::tibble(
+  bad_curve_data <- tibble::tibble(
     Sample_Nam = sample_name,
     Lipid1 = lipid1_area,
     Lipid2 = lipid2_area
   )
 
-  # Create dilution table
-  dilution_table <- create_dilution_table(dilution_annot, lipid_data,
+  # Create curve table
+  curve_table <- create_curve_table(
+    curve_annot = curve_annot,
+    curve_data_wide = curve_data,
     common_column = "Sample_Name",
     signal_var = "Area",
     column_group = "Transition_Name"
   )
 
   # Get dilution statistical summary
-  dilution_summary <- dilution_table %>%
+  dilution_summary <- curve_table %>%
     summarise_dilution_table(
       grouping_variable = c(
         "Transition_Name",
@@ -67,21 +69,21 @@ test_that("create dilution table and statistical summary", {
     ) %>%
     dplyr::arrange(.data$Transition_Name)
 
-  # Validating bad inputs for create_dilution_table
-  testthat::expect_error(create_dilution_table(dilution_annot, lipid_data,
+  # Validating bad inputs for create_curve_table
+  testthat::expect_error(create_curve_table(curve_annot, curve_data,
     common_column = "Sample_Nam"
   ))
-  testthat::expect_error(create_dilution_tablee(bad_dilution_annot, lipid_data,
+  testthat::expect_error(create_curve_table(bad_curve_annot, curve_data,
     common_column = "Sample_Name"
   ))
-  testthat::expect_error(create_dilution_table(dilution_annot, bad_lipid_data,
+  testthat::expect_error(create_curve_table(curve_annot, bad_curve_data,
     common_column = "Sample_Name"
   ))
 
 
   # Validating bad inputs for summarise_dilution_table
   testthat::expect_error(
-    summarise_dilution_table(dilution_table,
+    summarise_dilution_table(curve_table,
       grouping_variable = c(
         "Transition_Name",
         "Dilution_Batc"
@@ -91,7 +93,7 @@ test_that("create dilution table and statistical summary", {
     )
   )
   testthat::expect_error(
-    summarise_dilution_table(dilution_table,
+    summarise_dilution_table(curve_table,
       grouping_variable = c(
         "Transition_Name",
         "Dilution_Batch_Name"
@@ -101,7 +103,7 @@ test_that("create dilution table and statistical summary", {
     )
   )
   testthat::expect_error(
-    summarise_dilution_table(dilution_table,
+    summarise_dilution_table(curve_table,
       grouping_variable = c(
         "Transition_Name",
         "Dilution_Batch_Name"

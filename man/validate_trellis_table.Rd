@@ -52,7 +52,7 @@ lipid2_area <- c(
   2299075, 4136350, 7020062, 8922063, 9288742, 11365710,
   2300075, 4137350, 7021062, 8923063, 9289742, 11366710
 )
-lipid_data <- tibble::tibble(
+curve_data <- tibble::tibble(
   Sample_Name = sample_name,
   Lipid1 = lipid1_area,
   Lipid2 = lipid2_area
@@ -65,19 +65,23 @@ dilution_batch_name <- c(
   "B1", "B1", "B1", "B1", "B1", "B1",
   "B2", "B2", "B2", "B2", "B2", "B2"
 )
-dilution_annot <- tibble::tibble(
+curve_annot <- tibble::tibble(
   Sample_Name = sample_name,
   Dilution_Batch_Name = dilution_batch_name,
   Dilution_Percent = dilution_percent
 )
+
 # Create dilution table
-dilution_table <- create_dilution_table(dilution_annot, lipid_data,
+curve_table <- create_curve_table(
+  curve_annot = curve_annot,
+  curve_data_wide = curve_data,
   common_column = "Sample_Name",
   signal_var = "Area",
   column_group = "Transition_Name"
 )
+
 # Create a trellis table without dilution summary
-trellis_table_auto <- add_plotly_panel(dilution_table) \%>\%
+trellis_table_auto <- add_plotly_panel(curve_table) \%>\%
   convert_to_cog(
     cog_df = NULL,
     grouping_variable = c(

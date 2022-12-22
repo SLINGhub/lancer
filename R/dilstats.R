@@ -732,27 +732,52 @@ calculate_pra_linear <- function(dilution_data, conc_var, signal_var) {
 
 #' @title Validate Dilution Data
 #' @description Validate Dilution Data
-#' @param dilution_data A data frame or tibble containing dilution data
+#' `r lifecycle::badge("deprecated")`
+#'
+#' `validate_dilution_data` was renamed to
+#' `validate_curve_data`.
+#' @keywords internal
+#' @export
+validate_dilution_data <- function(dilution_data,
+                                   conc_var,
+                                   signal_var) {
+
+  lifecycle::deprecate_warn(when = "0.0.6.9000",
+                            what = "validate_dilution_data()",
+                            with = "validate_curve_data()")
+
+  validate_curve_data(curve_data = dilution_data,
+                      conc_var = conc_var,
+                      signal_var = signal_var)
+
+}
+
+#' @title Validate Curve Data
+#' @description Validate Curve Data
+#' @param curve_data A data frame or tibble containing curve data
 #' @param conc_var Column name in `dilution_data` to indicate concentration
 #' @param signal_var Column name in `dilution_data` to indicate signal
-#' @return An error if the column name is not found in the Dilution Data
+#' @return An error if the column name is not found in the `curve_data`
 #' @examples
 #' dilution_percent <- c(10, 20, 40, 60, 80, 100)
 #' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
-#' dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
-#' validate_dilution_data(
-#'   dilution_data,
-#'   "Dilution_Percent", "Area"
+#' curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+#' validate_curve_data(
+#'   curve_data = curve_data,
+#'   conc_var = "Dilution_Percent",
+#'   signal_var = "Area"
 #' )
-#' @rdname validate_dilution_data
+#' @rdname validate_curve_data
 #' @export
-validate_dilution_data <- function(dilution_data, conc_var, signal_var) {
+validate_curve_data <- function(curve_data,
+                                conc_var,
+                                signal_var) {
 
-  # Check if conc_var and signal_var is are present in dilution_data
-  assertable::assert_colnames(dilution_data, conc_var,
+  # Check if conc_var and signal_var is are present in curve_data
+  assertable::assert_colnames(curve_data, conc_var,
     only_colnames = FALSE, quiet = TRUE
   )
-  assertable::assert_colnames(dilution_data, signal_var,
+  assertable::assert_colnames(curve_data, signal_var,
     only_colnames = FALSE, quiet = TRUE
   )
 }
@@ -782,6 +807,7 @@ validate_dilution_data <- function(dilution_data, conc_var, signal_var) {
 #' @export
 summarise_dilution_data <- function(dilution_data, conc_var, signal_var,
                                     details = FALSE) {
+
   mandel_result <- calculate_mandel(dilution_data, conc_var, signal_var)
   dil_linear_gof <- calculate_gof_linear(
     dilution_data,

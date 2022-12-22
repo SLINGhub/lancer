@@ -558,13 +558,13 @@ lipid4_area_nonlinear <- c(
   426089, 413292, 450190, 415309, 457618
 )
 
-dilution_annot <- tibble::tibble(
+curve_annot <- tibble::tibble(
   Sample_Name = sample_name,
   Dilution_Batch_Name = dilution_batch_name,
   Dilution_Percent = dilution_percent
 )
 
-lipid_data <- tibble::tibble(
+curve_data <- tibble::tibble(
   Sample_Name = sample_name,
   Lipid1 = lipid1_area_saturated,
   Lipid2 = lipid2_area_linear,
@@ -574,36 +574,36 @@ lipid_data <- tibble::tibble(
 ```
 
 
-The `dilution_annot` should look like this.
+The `curve_annot` should look like this.
 
-```{r dilution annot}
-print(dilution_annot, width = 100)
+```{r curve annot}
+print(curve_annot, width = 100)
 ```
 
-The `lipid_data` should look like this.
+The `curve_data` should look like this.
 
-```{r lipid data}
-print(lipid_data, width = 100)
+```{r curve data}
+print(curve_data, width = 100)
 ```
 
-Merge the data together using `create_dilution_table` 
+Merge the data together using `create_curve_table` 
 
-```{r dilution table}
-# Create dilution table
-dilution_table <- lancer::create_dilution_table(
-  dilution_annot = dilution_annot, 
-  lipid_data_wide = lipid_data,
+```{r curve table}
+# Create curve table
+curve_table <- lancer::create_curve_table(
+  curve_annot = dilution_annot, 
+  curve_data_wide = lipid_data,
   common_column = "Sample_Name",
   signal_var = "Area",
   column_group = "Transition_Name"
 )
 ```
 
-```{r print dilution table}
-print(dilution_table, width = 100)
+```{r print curve table}
+print(curve_table, width = 100)
 ```
 
-Summarise each dilution curve for each transition and batch with `summarise_dilution_table`
+Summarise each curve for each lipid and batch with `summarise_dilution_table`
 
 ```{r dilution summary}
 # Create dilution statistical summary
@@ -663,7 +663,7 @@ Results can be plotted using `add_ggplot_panel`. This will create a column calle
 
 ```{r plot the curves}
 ggplot_table <- lancer::add_ggplot_panel(
-  dilution_table = dilution_table,
+  dilution_table = curve_table,
   dilution_summary = dilution_classified,
   grouping_variable = c(
     "Transition_Name",
@@ -713,7 +713,7 @@ To create an [interactive trelliscope display](https://hafen.github.io/trellisco
 ```{r create plotly table}
 # Create a trellis table
 trellis_table <- lancer::add_plotly_panel(
-  dilution_table = dilution_table,
+  dilution_table = curve_table,
   dilution_summary = dilution_classified,
   grouping_variable = c(
     "Transition_Name",

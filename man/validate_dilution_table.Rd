@@ -9,55 +9,11 @@ validate_dilution_table(
   needed_column = c("Transition_Name", "Dilution_Batch_Name", "Dilution_Percent", "Area")
 )
 }
-\arguments{
-\item{dilution_table}{A dilution table containing data of dilution points,
-variables to group the dilution points together and some additional
-annotations about the dilution points}
-
-\item{needed_column}{A vector consisting of needed column names that
-must be found in \code{dilution_table},
-Default: c("Transition_Name", "Dilution_Batch_Name",
-"Dilution_Percent", "Area")}
-}
-\value{
-An error if the things in \code{needed_column}
-is not found in Dilution Table
-}
 \description{
 Validate Dilution Table
-}
-\examples{
-dilution_percent <- c(
-  10, 20, 40, 60, 80, 100,
-  10, 20, 40, 60, 80, 100
-)
-dilution_batch_name <- c(
-  "B1", "B1", "B1", "B1", "B1", "B1",
-  "B2", "B2", "B2", "B2", "B2", "B2"
-)
-lipid1_area <- c(
-  22561, 31178, 39981, 48390, 52171, 53410,
-  32561, 41178, 49981, 58390, 62171, 63410
-)
-transition_name <- c(
-  "Lipid1", "Lipid1", "Lipid1",
-  "Lipid1", "Lipid1", "Lipid1",
-  "Lipid1", "Lipid1", "Lipid1",
-  "Lipid1", "Lipid1", "Lipid1"
-)
-dilution_table <- tibble::tibble(
-  Transition_Name = transition_name,
-  Dilution_Batch_Name = dilution_batch_name,
-  Area = lipid1_area,
-  Dilution_Percent = dilution_percent
-)
-validate_lipid_data_wide(dilution_table,
-  needed_column = c(
-    "Transition_Name",
-    "Dilution_Batch_Name",
-    "Dilution_Percent",
-    "Area"
-  )
-)
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
+\code{validate_dilution_table} was renamed to
+\code{validate_curve_table}.
 }
+\keyword{internal}
