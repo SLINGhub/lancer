@@ -393,10 +393,10 @@ create_reg_col_vec <- function(plot_first_half_lin_reg = FALSE,
 #'   unique() %>%
 #'   as.character()
 #'
-#' dil_batch_col <- c("#377eb8")
+#' curv_batch_col <- c("#377eb8")
 #'
 #' # Create palette for each curve batch for plotting
-#' pal <- dil_batch_col %>%
+#' pal <- curv_batch_col %>%
 #'   stats::setNames(dilution_batch_name)
 #'
 #' # Create curve statistical summary
@@ -756,38 +756,50 @@ plot_curve_ggplot <- function(
 
 #' @title Add A `ggplot` Panel Column
 #' @description Create a column which contains a list of `ggplot`
-#' suited for a pdf report
-#' @param dilution_table Output given from
-#' the function [create_curve_table()]
+#' suited for a pdf report.
+#' @param curve_table Output given from
+#' the function [create_curve_table()].
 #' It is in long table format with columns indicating at least the
 #' lipid/transition name, the concentration and signal. Other columns may be
-#' present if it is used to group the dilution curve together
-#' @param dilution_summary The summary table generated
+#' present if it is used to group the curve together.
+#' @param curve_summary The summary table generated
 #' by function [summarise_curve_table()] and/or
 #' [evaluate_linearity()] but it can also be any generic
 #' data frame or tibble.
 #' If there is no input given in this, the program will create one using
 #' the function [summarise_curve_table()] and [evaluate_linearity()]
-#' with `grouping_variable`, `conc_var` and `signal_var` as inputs
+#' with `grouping_variable`, `conc_var` and `signal_var` as inputs.
 #' Default: NULL
+#' @param dilution_table `r lifecycle::badge("deprecated")`
+#' `dilution_table` was renamed to
+#' `curve_table`.
+#' @param dilution_summary `r lifecycle::badge("deprecated")`
+#' `dilution_summary` was renamed to
+#' `curve_summary`.
 #' @param grouping_variable A character vector of
-#' column names in `dilution_table`to indicate how each dilution curve
-#' should be grouped by,
+#' column names in `curve_table`to indicate how each curve
+#' should be grouped by.
 #' Default: c("Transition_Name", "Dilution_Batch_Name")
-#' @param dil_batch_var Column name in `dilution_table`
-#' to indicate the group name of each dilution batch,
-#' used to colour the points in the dilution plot
+#' @param curv_batch_var Column name in `curve_table`
+#' to indicate the group name of each curve batch,
+#' used to colour the points in the curve plot.
 #' Default: 'Dilution_Batch_Name'
-#' @param dil_batch_col A vector of colours to be used for the dilution
-#' batch group named given in `dil_batch_var`,
+#' @param curv_batch_col A vector of colours to be used for the curve
+#' batch group named given in `curv_batch_var`.
 #' Default: c("#377eb8", "#4daf4a", "#9C27B0", "#BCAAA4", "#FF8A65", "#EFBBCF")
-#' @param conc_var Column name in `dilution_table` to indicate concentration
+#' @param dil_batch_var `r lifecycle::badge("deprecated")`
+#' `dil_batch_var` was renamed to
+#' `curv_batch_var`.
+#' @param dil_batch_col `r lifecycle::badge("deprecated")`
+#' `dil_batch_col` was renamed to
+#' `curv_batch_col`.
+#' @param conc_var Column name in `curve_table` to indicate concentration.
 #' Default: 'Dilution_Percent'
-#' @param conc_var_units Unit of measure for `conc_var`, Default: '%'
+#' @param conc_var_units Unit of measure for `conc_var`. Default: '%'
 #' @param conc_var_interval Distance between two tick labels
-#' in the dilution plot,
+#' in the curve plot.
 #' Default: 50
-#' @param signal_var Column name in `dilution_table` to indicate signal
+#' @param signal_var Column name in `curve_table` to indicate signal.
 #' Default: 'Area'
 #' @param have_plot_title Indicate if you want to have a plot title in
 #' the `ggplot` plot.
@@ -796,13 +808,13 @@ plot_curve_ggplot <- function(
 #' in the `ggplot` plot.
 #' Default: TRUE
 #' @param plot_first_half_lin_reg Decide if we plot an extra regression line
-#' that best fits the first half of `conc_var` dilution points.
+#' that best fits the first half of `conc_var` curve points.
 #' Default: FALSE
 #' @param plot_last_half_lin_reg Decide if we plot an extra regression line
-#' that best fits the last half of `conc_var` dilution points.
+#' that best fits the last half of `conc_var` curve points.
 #' Default: FALSE
 #' @return A table with columns from `grouping variable`
-#' and a new column `panel` created containing a `ggplot` dilution plot
+#' and a new column `panel` created containing a `ggplot` curve plot
 #' in each row. This column is used to create the plot figure in the
 #' pdf report.
 #' @rdname add_ggplot_panel
@@ -906,7 +918,7 @@ plot_curve_ggplot <- function(
 #' # Create a ggplot table
 #' ggplot_table <- add_ggplot_panel(
 #'   curve_table,
-#'   dilution_summary = curve_summary
+#'   curve_summary = curve_summary
 #' )
 #' ggplot_list <- ggplot_table$panel
 #'
@@ -918,17 +930,18 @@ plot_curve_ggplot <- function(
 #'
 #' @export
 add_ggplot_panel <- function(
-    dilution_table,
-    dilution_summary = NULL,
+    curve_table,
+    curve_summary = NULL,
+    dilution_table = lifecycle::deprecated(),
+    dilution_summary = lifecycle::deprecated(),
     grouping_variable = c("Transition_Name",
                           "Dilution_Batch_Name"),
-    dil_batch_var = "Dilution_Batch_Name",
-    dil_batch_col = c("#377eb8",
-                      "#4daf4a",
-                      "#9C27B0",
-                      "#BCAAA4",
-                      "#FF8A65",
-                      "#EFBBCF"),
+    curv_batch_var = "Dilution_Batch_Name",
+    curv_batch_col = c("#377eb8", "#4daf4a",
+                       "#9C27B0", "#BCAAA4",
+                       "#FF8A65", "#EFBBCF"),
+    dil_batch_var = lifecycle::deprecated(),
+    dil_batch_col = lifecycle::deprecated(),
     conc_var = "Dilution_Percent",
     conc_var_units = "%",
     conc_var_interval = 50,
@@ -938,21 +951,52 @@ add_ggplot_panel <- function(
     plot_first_half_lin_reg = FALSE,
     plot_last_half_lin_reg = FALSE) {
 
+  if (lifecycle::is_present(dilution_table)) {
+    lifecycle::deprecate_warn(
+      when = "0.0.6.9000",
+      what = "add_ggplot_panel(dilution_table)",
+      with = "add_ggplot_panel(curve_table)")
+    curve_table <- dilution_table
+  }
 
-  # Check if dilution_table is valid with the relevant columns
+  if (lifecycle::is_present(dilution_summary)) {
+    lifecycle::deprecate_warn(
+      when = "0.0.6.9000",
+      what = "add_ggplot_panel(dilution_summary)",
+      with = "add_ggplot_panel(curve_summary)")
+    curve_summary <- dilution_summary
+  }
+
+  if (lifecycle::is_present(dil_batch_var)) {
+    lifecycle::deprecate_warn(
+      when = "0.0.6.9000",
+      what = "add_ggplot_panel(dil_batch_var)",
+      with = "add_ggplot_panel(curv_batch_var)")
+    curv_batch_var <- dil_batch_var
+  }
+
+  if (lifecycle::is_present(dil_batch_col)) {
+    lifecycle::deprecate_warn(
+      when = "0.0.6.9000",
+      what = "add_ggplot_panel(dil_batch_col)",
+      with = "add_ggplot_panel(curv_batch_col)")
+    curv_batch_col <- dil_batch_col
+  }
+
+  # Check if curve_table is valid with the relevant columns
   validate_curve_table(
-    curve_table = dilution_table,
+    curve_table = curve_table,
     needed_column = c(
       grouping_variable,
-      dil_batch_var,
+      curv_batch_var,
       conc_var,
       signal_var
     )
   )
 
-  # Try to create dilution summary if you do not have one.
-  if (is.null(dilution_summary)) {
-    dilution_summary <- dilution_table %>%
+  # Try to create curve summary if you do not have one.
+  if (is.null(curve_summary)) {
+    curve_summary <- curve_table %>%
       summarise_curve_table(
         grouping_variable = grouping_variable,
         conc_var = conc_var,
@@ -961,28 +1005,28 @@ add_ggplot_panel <- function(
       evaluate_linearity(grouping_variable = grouping_variable)
   }
 
-  # Check if things in needed_column are in dilution_summary
-  assertable::assert_colnames(dilution_summary, grouping_variable,
+  # Check if things in needed_column are in curve_summary
+  assertable::assert_colnames(curve_summary, grouping_variable,
     only_colnames = FALSE, quiet = TRUE
   )
 
 
-  # Get the dilution batch name from dilution_table
-  dilution_batch_name <- dilution_table %>%
-    dplyr::pull(.data[[dil_batch_var]]) %>%
+  # Get the curve batch name from curve_table
+  curve_batch_name <- curve_table %>%
+    dplyr::pull(.data[[curv_batch_var]]) %>%
     unique() %>%
     as.character()
 
-  # Create palette for each dilution batch for plotting
-  pal <- dil_batch_col %>%
-    create_char_seq(output_length = length(dilution_batch_name)) %>%
-    stats::setNames(dilution_batch_name)
+  # Create palette for each curve batch for plotting
+  pal <- curv_batch_col %>%
+    create_char_seq(output_length = length(curve_batch_name)) %>%
+    stats::setNames(curve_batch_name)
 
   # Create a summary table for each group for plotting the
   # summary table using gridExtra::tableGrob
 
   if (isTRUE(plot_summary_table)) {
-    nested_dilution_summary <- dilution_summary %>%
+    nested_curve_summary <- curve_summary %>%
       dplyr::group_by_at(
         grouping_variable
       ) %>%
@@ -992,15 +1036,15 @@ add_ggplot_panel <- function(
         summary = dplyr::any_of("data")
       )
   } else {
-    nested_dilution_summary <- dilution_summary %>%
+    nested_curve_summary <- curve_summary %>%
       dplyr::select(dplyr::all_of(grouping_variable)) %>%
       dplyr::mutate(summary = NA)
   }
 
-  # Add dil_batch_var in the nested data
-  # Will not work if dil_batch_var is also a grouping_variable
+  # Add curv_batch_var in the nested data
+  # Will not work if curv_batch_var is also a grouping_variable
 
-  dilution_table <- dilution_table %>%
+  curve_table <- curve_table %>%
     dplyr::group_by_at(
       grouping_variable
       ) %>%
@@ -1010,28 +1054,28 @@ add_ggplot_panel <- function(
   # If this is the case, we need to make a copy
   # of the variable inside the nested data
 
-  if (dil_batch_var %in% grouping_variable) {
-    dilution_table <- dilution_table %>%
+  if (curv_batch_var %in% grouping_variable) {
+    curve_table <- curve_table %>%
       dplyr::mutate(data = purrr::map2(
         .x = .data$data,
-        .y = .data[[dil_batch_var]],
-        .f = function(df, dilution_batch_name) {
+        .y = .data[[curv_batch_var]],
+        .f = function(df, curve_batch_name) {
           df <- df %>%
-            dplyr::mutate(!!dil_batch_var := dilution_batch_name)
+            dplyr::mutate(!!curv_batch_var := curve_batch_name)
           return(df)
         }
       ))
   }
 
-  dilution_table <- dilution_table %>%
+  curve_table <- curve_table %>%
     dplyr::ungroup() %>%
-    dplyr::left_join(nested_dilution_summary, by = grouping_variable)
+    dplyr::left_join(nested_curve_summary, by = grouping_variable)
 
   # Create a title name for each group
   # https://stackoverflow.com/questions/44613279/dplyr-concat-columns
   #-stored-in-variable-mutate-and-non-standard-evaluation?rq=1
   if (isTRUE(have_plot_title)) {
-    dilution_table <- dilution_table %>%
+    curve_table <- curve_table %>%
       dplyr::rowwise() %>%
       dplyr::mutate(title = paste0(
         dplyr::across(dplyr::all_of(grouping_variable)),
@@ -1039,12 +1083,12 @@ add_ggplot_panel <- function(
       )) %>%
       dplyr::ungroup()
   } else {
-    dilution_table <- dilution_table %>%
+    curve_table <- curve_table %>%
       dplyr::mutate(title = "")
   }
 
   # Start the plotting
-  dilution_plots <- dilution_table %>%
+  curve_plots <- curve_table %>%
     dplyr::mutate(panel = purrr::pmap(
       .l = list(
         .data$data,
@@ -1053,7 +1097,7 @@ add_ggplot_panel <- function(
       ),
       .f = plot_curve_ggplot,
       pal = pal,
-      curv_batch_var = dil_batch_var,
+      curv_batch_var = curv_batch_var,
       conc_var = conc_var,
       conc_var_units = conc_var_units,
       conc_var_interval = conc_var_interval,
@@ -1063,12 +1107,12 @@ add_ggplot_panel <- function(
     ))
 
 
-  # Left Join with the dilution_summary
-  ggplot_table <- dilution_plots %>%
+  # Left Join with the curve_summary
+  ggplot_table <- curve_plots %>%
     dplyr::select(dplyr::all_of(c(grouping_variable))) %>%
-    dplyr::bind_cols(dilution_plots %>%
+    dplyr::bind_cols(curve_plots %>%
       dplyr::select(dplyr::any_of("panel"))) %>%
-    dplyr::left_join(dilution_summary, by = grouping_variable) %>%
+    dplyr::left_join(curve_summary, by = grouping_variable) %>%
     dplyr::relocate(
       dplyr::any_of("panel"),
       .after = dplyr::last_col()

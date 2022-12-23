@@ -5,11 +5,15 @@
 \title{Add A \code{ggplot} Panel Column}
 \usage{
 add_ggplot_panel(
-  dilution_table,
-  dilution_summary = NULL,
+  curve_table,
+  curve_summary = NULL,
+  dilution_table = lifecycle::deprecated(),
+  dilution_summary = lifecycle::deprecated(),
   grouping_variable = c("Transition_Name", "Dilution_Batch_Name"),
-  dil_batch_var = "Dilution_Batch_Name",
-  dil_batch_col = c("#377eb8", "#4daf4a", "#9C27B0", "#BCAAA4", "#FF8A65", "#EFBBCF"),
+  curv_batch_var = "Dilution_Batch_Name",
+  curv_batch_col = c("#377eb8", "#4daf4a", "#9C27B0", "#BCAAA4", "#FF8A65", "#EFBBCF"),
+  dil_batch_var = lifecycle::deprecated(),
+  dil_batch_col = lifecycle::deprecated(),
   conc_var = "Dilution_Percent",
   conc_var_units = "\%",
   conc_var_interval = 50,
@@ -21,45 +25,61 @@ add_ggplot_panel(
 )
 }
 \arguments{
-\item{dilution_table}{Output given from
-the function \code{\link[=create_curve_table]{create_curve_table()}}
+\item{curve_table}{Output given from
+the function \code{\link[=create_curve_table]{create_curve_table()}}.
 It is in long table format with columns indicating at least the
 lipid/transition name, the concentration and signal. Other columns may be
-present if it is used to group the dilution curve together}
+present if it is used to group the curve together.}
 
-\item{dilution_summary}{The summary table generated
+\item{curve_summary}{The summary table generated
 by function \code{\link[=summarise_curve_table]{summarise_curve_table()}} and/or
 \code{\link[=evaluate_linearity]{evaluate_linearity()}} but it can also be any generic
 data frame or tibble.
 If there is no input given in this, the program will create one using
 the function \code{\link[=summarise_curve_table]{summarise_curve_table()}} and \code{\link[=evaluate_linearity]{evaluate_linearity()}}
-with \code{grouping_variable}, \code{conc_var} and \code{signal_var} as inputs
+with \code{grouping_variable}, \code{conc_var} and \code{signal_var} as inputs.
 Default: NULL}
 
+\item{dilution_table}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+\code{dilution_table} was renamed to
+\code{curve_table}.}
+
+\item{dilution_summary}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+\code{dilution_summary} was renamed to
+\code{curve_summary}.}
+
 \item{grouping_variable}{A character vector of
-column names in \code{dilution_table}to indicate how each dilution curve
-should be grouped by,
+column names in \code{curve_table}to indicate how each curve
+should be grouped by.
 Default: c("Transition_Name", "Dilution_Batch_Name")}
 
-\item{dil_batch_var}{Column name in \code{dilution_table}
-to indicate the group name of each dilution batch,
-used to colour the points in the dilution plot
+\item{curv_batch_var}{Column name in \code{curve_table}
+to indicate the group name of each curve batch,
+used to colour the points in the curve plot.
 Default: 'Dilution_Batch_Name'}
 
-\item{dil_batch_col}{A vector of colours to be used for the dilution
-batch group named given in \code{dil_batch_var},
+\item{curv_batch_col}{A vector of colours to be used for the curve
+batch group named given in \code{curv_batch_var}.
 Default: c("#377eb8", "#4daf4a", "#9C27B0", "#BCAAA4", "#FF8A65", "#EFBBCF")}
 
-\item{conc_var}{Column name in \code{dilution_table} to indicate concentration
+\item{dil_batch_var}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+\code{dil_batch_var} was renamed to
+\code{curv_batch_var}.}
+
+\item{dil_batch_col}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+\code{dil_batch_col} was renamed to
+\code{curv_batch_col}.}
+
+\item{conc_var}{Column name in \code{curve_table} to indicate concentration.
 Default: 'Dilution_Percent'}
 
-\item{conc_var_units}{Unit of measure for \code{conc_var}, Default: '\%'}
+\item{conc_var_units}{Unit of measure for \code{conc_var}. Default: '\%'}
 
 \item{conc_var_interval}{Distance between two tick labels
-in the dilution plot,
+in the curve plot.
 Default: 50}
 
-\item{signal_var}{Column name in \code{dilution_table} to indicate signal
+\item{signal_var}{Column name in \code{curve_table} to indicate signal.
 Default: 'Area'}
 
 \item{have_plot_title}{Indicate if you want to have a plot title in
@@ -71,22 +91,22 @@ in the \code{ggplot} plot.
 Default: TRUE}
 
 \item{plot_first_half_lin_reg}{Decide if we plot an extra regression line
-that best fits the first half of \code{conc_var} dilution points.
+that best fits the first half of \code{conc_var} curve points.
 Default: FALSE}
 
 \item{plot_last_half_lin_reg}{Decide if we plot an extra regression line
-that best fits the last half of \code{conc_var} dilution points.
+that best fits the last half of \code{conc_var} curve points.
 Default: FALSE}
 }
 \value{
 A table with columns from \verb{grouping variable}
-and a new column \code{panel} created containing a \code{ggplot} dilution plot
+and a new column \code{panel} created containing a \code{ggplot} curve plot
 in each row. This column is used to create the plot figure in the
 pdf report.
 }
 \description{
 Create a column which contains a list of \code{ggplot}
-suited for a pdf report
+suited for a pdf report.
 }
 \examples{
 
@@ -188,7 +208,7 @@ curve_summary <- curve_table \%>\%
 # Create a ggplot table
 ggplot_table <- add_ggplot_panel(
   curve_table,
-  dilution_summary = curve_summary
+  curve_summary = curve_summary
 )
 ggplot_list <- ggplot_table$panel
 

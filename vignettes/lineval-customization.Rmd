@@ -43,7 +43,7 @@ curve_summary <- tibble::tibble(
 ```{r different column names}
 
 curve_classified <- lancer::evaluate_linearity(
-  dilution_summary = curve_summary,
+  curve_summary = curve_summary,
   grouping_variable = c(
     "Transition_Name"
   ),
@@ -67,7 +67,7 @@ respectively.
 ```{r different threshold}
 
 curve_classified <- lancer::evaluate_linearity(
-  dilution_summary = curve_summary,
+  curve_summary = curve_summary,
   grouping_variable = c(
     "Transition_Name"
   ),

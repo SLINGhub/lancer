@@ -126,14 +126,14 @@ To see the regression line on half the curve points, set `plot_first_half_lin_re
 
 ```{r create ggplot table with half linear regression}
 ggplot_table <- lancer::add_ggplot_panel(
-  dilution_table = curve_table,
-  dilution_summary = curve_classified,
+  curve_table = curve_table,
+  curve_summary = curve_classified,
   grouping_variable = c(
     "Transition_Name",
     "Dilution_Batch_Name"
   ),
-  dil_batch_var = "Dilution_Batch_Name",
-  dil_batch_col = c(
+  curv_batch_var = "Dilution_Batch_Name",
+  curv_batch_col = c(
     "#377eb8",
     "#4daf4a"
   ),
@@ -161,14 +161,14 @@ You can also change the colours for your dilution batch from `dil_batch_col`
 
 ```{r create ggplot table with conc customisation}
 ggplot_table <- lancer::add_ggplot_panel(
-  dilution_table = curve_table,
-  dilution_summary = curve_classified,
+  curve_table = curve_table,
+  curve_summary = curve_classified,
   grouping_variable = c(
     "Transition_Name",
     "Dilution_Batch_Name"
   ),
-  dil_batch_var = "Dilution_Batch_Name",
-  dil_batch_col = c(
+  curv_batch_var = "Dilution_Batch_Name",
+  curv_batch_col = c(
     "#9C27B0",
     "#377eb8"
   ),

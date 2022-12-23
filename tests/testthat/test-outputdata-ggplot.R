@@ -97,33 +97,33 @@ test_that("Able to plot dilution data with its
     ))
 
 
-  # Create a ggplot table with dil_batch_var
+  # Create a ggplot table with curv_batch_var
   # as a grouping variable
   testthat::expect_silent(
     ggplot_table <- add_ggplot_panel(
       curve_table,
-      dilution_summary = curve_summary,
+      curve_summary = curve_summary,
       grouping_variable = c(
         "Transition_Name",
         "Dilution_Batch_Name"
       ),
-      dil_batch_var = "Dilution_Batch_Name",
+      curv_batch_var = "Dilution_Batch_Name",
       conc_var = "Dilution_Percent",
       signal_var = "Area",
       plot_first_half_lin_reg = FALSE
     )
   )
 
-  # Create a ggplot table with dil_batch_var
+  # Create a ggplot table with curv_batch_var
   # not as a grouping variable
   testthat::expect_silent(
-    ggplot_table_no_dil_batch_var <- add_ggplot_panel(
+    ggplot_table_no_curv_batch_var <- add_ggplot_panel(
       curve_table,
-      dilution_summary = curve_summary,
+      curve_summary = curve_summary,
       grouping_variable = c(
         "Transition_Name"
       ),
-      dil_batch_var = "Dilution_Batch_Name",
+      curv_batch_var = "Dilution_Batch_Name",
       conc_var = "Dilution_Percent",
       signal_var = "Area",
       plot_first_half_lin_reg = FALSE
@@ -138,7 +138,7 @@ test_that("Able to plot dilution data with its
         "Transition_Name",
         "Dilution_Batch_Name"
       ),
-      dil_batch_var = "Dilution_Batch_Name",
+      curv_batch_var = "Dilution_Batch_Name",
       conc_var = "Dilution_Percent",
       signal_var = "Area",
       plot_first_half_lin_reg = FALSE

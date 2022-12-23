@@ -127,10 +127,10 @@ dilution_batch_name <- dilution_batch_name \%>\%
   unique() \%>\%
   as.character()
 
-dil_batch_col <- c("#377eb8")
+curv_batch_col <- c("#377eb8")
 
 # Create palette for each curve batch for plotting
-pal <- dil_batch_col \%>\%
+pal <- curv_batch_col \%>\%
   stats::setNames(dilution_batch_name)
 
 # Create curve statistical summary

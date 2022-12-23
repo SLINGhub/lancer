@@ -126,14 +126,14 @@ We then create the `ggplot` plots with `curve_table` and `curve_classified`
 
 ```{r create ggplot table}
 ggplot_table_orig <- lancer::add_ggplot_panel(
-  dilution_table = curve_table,
-  dilution_summary = curve_classified,
+  curve_table = curve_table,
+  curve_summary = curve_classified,
   grouping_variable = c(
     "Transition_Name",
     "Dilution_Batch_Name"
   ),
-  dil_batch_var = "Dilution_Batch_Name",
-  dil_batch_col = c(
+  curv_batch_var = "Dilution_Batch_Name",
+  curv_batch_col = c(
     "#377eb8",
     "#4daf4a"
   ),
@@ -167,13 +167,13 @@ To only plot the dilution curve without the summary table, set `plot_summary_tab
 
 ```{r create ggplot table without the summary table}
 ggplot_table <- lancer::add_ggplot_panel(
-  dilution_table = curve_table,
+  curve_table = curve_table,
   grouping_variable = c(
     "Transition_Name",
     "Dilution_Batch_Name"
   ),
-  dil_batch_var = "Dilution_Batch_Name",
-  dil_batch_col = c(
+  curv_batch_var = "Dilution_Batch_Name",
+  curv_batch_col = c(
     "#377eb8",
     "#4daf4a"
   ),

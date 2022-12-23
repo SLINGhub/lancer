@@ -489,7 +489,7 @@ Classify each curve according to Workflow 1 and Workflow 2.
 
 ``` r
 curve_classified <- lancer::evaluate_linearity(
-  dilution_summary = curve_summary,
+  curve_summary = curve_summary,
   grouping_variable = c(
     "Transition_Name",
     "Dilution_Batch_Name"
@@ -541,14 +541,14 @@ column called panel that contains all the `ggplot` plots
 
 ``` r
 ggplot_table <- lancer::add_ggplot_panel(
-  dilution_table = curve_table,
-  dilution_summary = curve_classified,
+  curve_table = curve_table,
+  curve_summary = curve_classified,
   grouping_variable = c(
     "Transition_Name",
     "Dilution_Batch_Name"
   ),
-  dil_batch_var = "Dilution_Batch_Name",
-  dil_batch_col = c("#377eb8", "#4daf4a"),
+  curv_batch_var = "Dilution_Batch_Name",
+  curv_batch_col = c("#377eb8", "#4daf4a"),
   conc_var = "Dilution_Percent",
   conc_var_units = "%",
   conc_var_interval = 50,

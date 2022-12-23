@@ -120,7 +120,7 @@ print(curve_summary, width = 100)
 
 ```{r curve evaluation}
 curve_classified <- lancer::evaluate_linearity(
-  dilution_summary = curve_summary,
+  curve_summary = curve_summary,
   grouping_variable = c(
     "Dilution_Batch_Name",
     "Transition_Name"

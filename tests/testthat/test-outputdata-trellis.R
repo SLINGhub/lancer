@@ -204,7 +204,7 @@ test_that("Able to plot dilution data with
 
   # Create a ggplot trellis table
   ggplot_trellis_table <- add_ggplot_panel(curve_table,
-    dilution_summary = curve_summary,
+    curve_summary = curve_summary,
     have_plot_title = FALSE,
     plot_summary_table = FALSE
   ) %>%
