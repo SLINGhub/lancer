@@ -11,7 +11,7 @@ A dataframe of default cognostics information
 }
 \description{
 Create default cognostics data frame to be used to
-convert columns in \code{dilution_summary} to class cognostics
+convert columns in \code{curve_summary} to class cognostics
 }
 \details{
 Internal function to create a dataframe of default cognostics

@@ -14,6 +14,10 @@
 * `summarise_dilution_data` changed to `summarise_curve_data`.
 * `summarise_dilution_table` changed to `summarise_curve_table`.
 
+* `dilution_summary` argument in `update_cog_manual` changed to `curve_summary`
+* `dilution_summary` argument in `update_cog_auto` changed to `curve_summary`
+* `dilution_summary` argument in `convert_to_cog` changed to `curve_summary`
+
 # lancer 0.0.6
 
 * Change characterisation of LOD curves from LOD to Noise Regime.
