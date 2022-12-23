@@ -66,8 +66,8 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_curve_ggplot</span><span class="op">(</span></span>
 <span>  <span class="va">curve_data</span>,</span>
 <span>  <span class="va">curve_summary_grp</span>,</span>
-<span>  <span class="va">pal</span>,</span>
 <span>  title <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  <span class="va">pal</span>,</span>
 <span>  curv_batch_var <span class="op">=</span> <span class="st">"Dilution_Batch_Name"</span>,</span>
 <span>  dilution_data <span class="op">=</span> <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="https://lifecycle.r-lib.org/reference/deprecated.html" class="external-link">deprecated</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  dilution_summary_grp <span class="op">=</span> <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="https://lifecycle.r-lib.org/reference/deprecated.html" class="external-link">deprecated</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -92,15 +92,15 @@
 curve summary data for one group.</p></dd>
 
 
+<dt>title</dt>
+<dd><p>Title to use for each curve plot.
+Default: ''</p></dd>
+
+
 <dt>pal</dt>
 <dd><p>Input palette for each curve batch group in <code>curv_batch_var</code>.
 It is a named char vector where each value is a colour and
 name is a curve batch group given in <code>curv_batch_var</code>.</p></dd>
-
-
-<dt>title</dt>
-<dd><p>Title to use for each curve plot.
-Default: ''</p></dd>
 
 
 <dt>curv_batch_var</dt>
