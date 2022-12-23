@@ -25,7 +25,7 @@ calculate_pra_linear(
 \value{
 The Percent Residual Accuracy (PRA) of the
 Linear Model. More information of this value can be found in
-\url{https://www.sciencedirect.com/science/article/abs/pii/S0039914018307549}.
+\url{https://www.sciencedirect.com/science/article/abs/pii/S0039914018307549}
 }
 \description{
 Calculate the Percent Residual Accuracy (PRA) of the
