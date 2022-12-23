@@ -69,33 +69,44 @@ defined in Kroll et. al. (2000)
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calculate_adl</span><span class="op">(</span><span class="va">dilution_data</span>, <span class="va">conc_var</span>, <span class="va">signal_var</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calculate_adl</span><span class="op">(</span></span>
+<span>  <span class="va">curve_data</span>,</span>
+<span>  <span class="va">conc_var</span>,</span>
+<span>  <span class="va">signal_var</span>,</span>
+<span>  dilution_data <span class="op">=</span> <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="https://lifecycle.r-lib.org/reference/deprecated.html" class="external-link">deprecated</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>dilution_data</dt>
-<dd><p>A data frame or tibble containing dilution data</p></dd>
+    <dl><dt>curve_data</dt>
+<dd><p>A data frame or tibble containing curve data.</p></dd>
 
 
 <dt>conc_var</dt>
-<dd><p>Column name in <code>dilution_data</code> to indicate concentration</p></dd>
+<dd><p>Column name in <code>curve_data</code> to indicate concentration.</p></dd>
 
 
 <dt>signal_var</dt>
-<dd><p>Column name in <code>dilution_data</code> to indicate signal</p></dd>
+<dd><p>Column name in <code>curve_data</code> to indicate signal.</p></dd>
+
+
+<dt>dilution_data</dt>
+<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a>
+<code>dilution_data</code> was renamed to
+<code>curve_data</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>The average deviation from linearity</p>
+<p>The average deviation from linearity.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The function will return NA if the number of dilution points
-is less than or equal to three</p>
+    <p>The function will return NA if the number of curve points
+is less than or equal to three.</p>
     </div>
     <div class="section level2">
     <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a></h2>
@@ -114,10 +125,10 @@ in reportable range studies.
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">area</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">22561</span>, <span class="fl">31178</span>, <span class="fl">39981</span>, <span class="fl">48390</span>, <span class="fl">52171</span>, <span class="fl">53410</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">dilution_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>Dilution_Percent <span class="op">=</span> <span class="va">dilution_percent</span>, Area <span class="op">=</span> <span class="va">area</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">curve_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>Dilution_Percent <span class="op">=</span> <span class="va">dilution_percent</span>, Area <span class="op">=</span> <span class="va">area</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">adl_value</span> <span class="op">&lt;-</span> <span class="fu">calculate_adl</span><span class="op">(</span></span></span>
-<span class="r-in"><span>  <span class="va">dilution_data</span>,</span></span>
+<span class="r-in"><span>  <span class="va">curve_data</span>,</span></span>
 <span class="r-in"><span>  <span class="st">"Dilution_Percent"</span>, <span class="st">"Area"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
