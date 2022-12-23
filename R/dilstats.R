@@ -191,9 +191,6 @@ create_cubic_model <- function(curve_data,
 #' @param curve_data A data frame or tibble containing curve data.
 #' @param conc_var Column name in `curve_data` to indicate concentration.
 #' @param signal_var Column name in `curve_data` to indicate signal.
-#' @param dilution_data `r lifecycle::badge("deprecated")`
-#' `dilution_data` was renamed to
-#' `curve_data`.
 #' @return A data frame of statistical results from Kroll et. al. (2000)
 #' \doi{10.5858/2000-124-1331-EOTEON}
 #' \itemize{
@@ -271,18 +268,10 @@ create_cubic_model <- function(curve_data,
 #' \emph{Journal of Biopharmaceutical Statistics},
 #' \emph{18}(4), 677–690.
 #' \doi{10.1080/10543400802071378}
-calculate_adl_kroll_test <- function(curve_data,
-                                     conc_var,
-                                     signal_var,
-                                     dilution_data = lifecycle::deprecated()) {
-
-  if (lifecycle::is_present(dilution_data)) {
-    lifecycle::deprecate_warn(
-      when = "0.0.6.9000",
-      what = "calculate_adl_kroll_test(dilution_data)",
-      with = "calculate_adl_kroll_test(curve_data)")
-    curve_data <- dilution_data
-  }
+calculate_adl_kroll_test <- function(
+    curve_data,
+    conc_var,
+    signal_var) {
 
   adl_result <- tibble::tibble(
     adl_kroll = NA,
@@ -439,9 +428,6 @@ calculate_adl_kroll_test <- function(curve_data,
 #' @param curve_data A data frame or tibble containing curve data.
 #' @param conc_var Column name in `curve_data` to indicate concentration.
 #' @param signal_var Column name in `curve_data` to indicate signal.
-#' @param dilution_data `r lifecycle::badge("deprecated")`
-#' `dilution_data` was renamed to
-#' `curve_data`.
 #' @return The average deviation from linearity.
 #' @details The function will return NA if the number of curve points
 #' is less than or equal to three.
@@ -469,18 +455,10 @@ calculate_adl_kroll_test <- function(curve_data,
 #' \emph{Archives of pathology & laboratory medicine},
 #' \emph{124}(9), 1331–1338.
 #' \doi{10.5858/2000-124-1331-EOTEON}
-calculate_adl <- function(curve_data,
-                          conc_var,
-                          signal_var,
-                          dilution_data = lifecycle::deprecated()) {
-
-  if (lifecycle::is_present(dilution_data)) {
-    lifecycle::deprecate_warn(
-      when = "0.0.6.9000",
-      what = "calculate_adl(dilution_data)",
-      with = "calculate_adl(curve_data)")
-    curve_data <- dilution_data
-  }
+calculate_adl <- function(
+    curve_data,
+    conc_var,
+    signal_var) {
 
   adl <- NA
 
@@ -824,7 +802,7 @@ calculate_mandel <- function(curve_data,
 #' `curve_data`.
 #' @return The Percent Residual Accuracy (PRA) of the
 #' Linear Model. More information of this value can be found in
-#' \url{https://www.sciencedirect.com/science/article/abs/pii/S0039914018307549}.
+#' \url{https://www.sciencedirect.com/science/article/abs/pii/S0039914018307549}
 #' @details The function will return NA if the number of curve points
 #' is less than or equal to three.
 #' @examples
