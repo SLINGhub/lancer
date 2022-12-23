@@ -66,30 +66,34 @@ the cognostics data frame given by the function <code>create_default_cog_df</cod
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">update_cog_auto</span><span class="op">(</span><span class="va">dilution_summary</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">update_cog_auto</span><span class="op">(</span><span class="va">curve_summary</span>, dilution_summary <span class="op">=</span> <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="https://lifecycle.r-lib.org/reference/deprecated.html" class="external-link">deprecated</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>dilution_summary</dt>
+    <dl><dt>curve_summary</dt>
 <dd><p>The summary table generated
 by function <code><a href="summarise_curve_table.html">summarise_curve_table()</a></code> and/or
-<code><a href="evaluate_linearity.html">evaluate_linearity()</a></code></p></dd>
+<code><a href="evaluate_linearity.html">evaluate_linearity()</a></code>.</p></dd>
+
+
+<dt>dilution_summary</dt>
+<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a>
+<code>dilution_summary</code> was renamed to
+<code>curve_summary</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p><code>dilution_summary</code> with some columns converted
-to type cog as defined in <code><a href="https://rdrr.io/pkg/trelliscopejs/man/cog.html" class="external-link">trelliscopejs::cog</a></code></p>
-
-
+<p><code>curve_summary</code> with some columns converted
+to type cog as defined in <code><a href="https://rdrr.io/pkg/trelliscopejs/man/cog.html" class="external-link">trelliscopejs::cog</a></code>.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>More details in <code><a href="https://rdrr.io/pkg/trelliscopejs/man/cog.html" class="external-link">trelliscopejs::cog</a></code> can be found in
-<a href="https://rdrr.io/cran/trelliscopejs/man/cog.html" class="external-link">https://rdrr.io/cran/trelliscopejs/man/cog.html</a></p>
+<a href="https://rdrr.io/cran/trelliscopejs/man/cog.html" class="external-link">https://rdrr.io/cran/trelliscopejs/man/cog.html</a>.</p>
     </div>
 
     <div class="section level2">
