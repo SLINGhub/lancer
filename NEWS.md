@@ -3,6 +3,7 @@
 ## TODO
 
 * Change `lancer` functions that has `dilution` to `curve`.
+* Update Excel Results pictures in `README.Rmd` and `lineval-customization.Rmd`
 
 ## Completed
 
@@ -20,6 +21,13 @@
 * `dilution_summary` argument in `evaluate_linearity` changed to `curve_summary`.
 * `dilution_summary` argument in `add_ggplot_panel` changed to `curve_summary`.
 * `dilution_summary` argument in `add_plotly_panel` changed to `curve_summary`.
+* `dilution_summary` argument in `calculate_column_max_char` changed to `curve_summary`.
+* `dilution_summary` argument in `mark_near_zero_column` changed to `curve_summary`.
+* `dilution_summary` argument in `format_num_cell_style` changed to `curve_summary`.
+* `dilution_summary` argument in `format_char_cell_colour` changed to `curve_summary`.
+* `dilution_summary` argument in `format_num_cell_colour` changed to `curve_summary`.
+* `dilution_summary` argument in `write_summary_excel` changed to `curve_summary`.
+
 
 * `dilution_summary_grp` argument in `plot_summary_table_char` changed to `curve_summary_grp`.
 * `dilution_summary_grp` argument in `plot_summary_table_num` changed to `curve_summary_grp`.

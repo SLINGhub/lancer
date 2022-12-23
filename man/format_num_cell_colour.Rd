@@ -7,7 +7,8 @@
 format_num_cell_colour(
   workbook,
   sheet,
-  dilution_summary,
+  curve_summary,
+  dilution_summary = lifecycle::deprecated(),
   conditional_column,
   threshold_value,
   pass_criteria = c("above", "below"),
@@ -15,29 +16,33 @@ format_num_cell_colour(
 )
 }
 \arguments{
-\item{workbook}{A workbook object from \code{openxlsx}}
+\item{workbook}{A workbook object from \code{openxlsx}.}
 
-\item{sheet}{The name of the sheet to apply the numeric style on \code{workbook}}
+\item{sheet}{The name of the sheet to apply the numeric style on \code{workbook}.}
 
-\item{dilution_summary}{The summary table generated
-by function \code{\link[=summarise_curve_table]{summarise_curve_table()}} and/or \code{\link[=evaluate_linearity]{evaluate_linearity()}}}
+\item{curve_summary}{The summary table generated
+by function \code{\link[=summarise_curve_table]{summarise_curve_table()}} and/or \code{\link[=evaluate_linearity]{evaluate_linearity()}}.}
+
+\item{dilution_summary}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+\code{dilution_summary} was renamed to
+\code{curve_summary}.}
 
 \item{conditional_column}{A character vector to
-indicate which column in \code{dilution_summary} to use}
+indicate which column in \code{curve_summary} to use.}
 
-\item{threshold_value}{The threshold value to indicate a pass or fail}
+\item{threshold_value}{The threshold value to indicate a pass or fail.}
 
 \item{pass_criteria}{To indicate pass if the value
-is above or below threshold value,
+is above or below threshold value.
 Default: c("above", "below")}
 
 \item{pass_equality}{To indicate if equality to the
-threshold value is considered a pass or fail,
+threshold value is considered a pass or fail.
 Default: TRUE}
 }
 \description{
 Perform cell conditional formatting of two colours
-based on if a given word on a given numeric column from \verb{dilution summary}
+based on if a given word on a given numeric column from \code{curve_summary}.
 }
 \examples{
 r_corr <- c(
@@ -86,7 +91,7 @@ openxlsx::writeDataTable(
 # after data is written to excel sheet
 format_num_cell_colour(
   workbook = my_workbook, sheet = "Curve Summary",
-  dilution_summary = curve_summary,
+  curve_summary = curve_summary,
   conditional_column = "r_corr",
   threshold_value = "0.8",
   pass_criteria = "above"

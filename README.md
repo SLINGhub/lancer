@@ -530,8 +530,8 @@ Results can be exported to Excel via `write_summary_excel`
 
 ``` r
 lancer::write_summary_excel(
-  dilution_summary = curve_classified, 
-  file_name = "dilution_summary.xlsx")
+  curve_summary = curve_classified, 
+  file_name = "curve_summary.xlsx")
 ```
 
 <img src="man/figures/README-ExcelResults.png" alt="Dilution statistics summary reported in Excel using lancer." width="100%" />
@@ -564,7 +564,7 @@ Use `view_ggplot_pdf` to export the plots in a pdf file
 ``` r
 lancer::view_ggplot_pdf(
   ggplot_list = ggplot_list,
-  filename = "dilution_plot.pdf",
+  filename = "curve_plot.pdf",
   ncol_per_page = 2,
   nrow_per_page = 2
 )
@@ -613,6 +613,18 @@ trellis_table <- lancer::add_plotly_panel(
     desc_vec = "desc_vec",
     type_vec = "type_vec"
   )
+#> Warning: The `dilution_table` argument of `add_plotly_panel()` is deprecated as of
+#> lancer 0.0.6.9000.
+#> ℹ Please use the `curve_table` argument instead.
+#> Warning: The `dilution_summary` argument of `add_plotly_panel()` is deprecated as of
+#> lancer 0.0.6.9000.
+#> ℹ Please use the `curve_summary` argument instead.
+#> Warning: The `dil_batch_var` argument of `add_plotly_panel()` is deprecated as of lancer
+#> 0.0.6.9000.
+#> ℹ Please use the `curv_batch_var` argument instead.
+#> Warning: The `dil_batch_col` argument of `add_plotly_panel()` is deprecated as of lancer
+#> 0.0.6.9000.
+#> ℹ Please use the `curv_batch_col` argument instead.
 ```
 
 Use `view_trellis_html` on the R console to output the interactive

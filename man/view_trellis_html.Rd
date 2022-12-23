@@ -2,7 +2,7 @@
 % Please edit documentation in R/outputdata-trellis.R
 \name{view_trellis_html}
 \alias{view_trellis_html}
-\title{View \code{ggplot} or \code{plotly} Dilution Plots As Trellis}
+\title{View \code{ggplot} or \code{plotly} Curve Plots As Trellis}
 \usage{
 view_trellis_html(
   trellis_table,
@@ -28,7 +28,7 @@ folder of the plots found in \code{panel_variable}
 Default: 'Dilution_Plot'}
 
 \item{grouping_variable}{A character vector of
-column names in \code{trellis_table} to indicate how each dilution curve
+column names in \code{trellis_table} to indicate how each curve
 should be grouped by. It is also going to be used as a conditional
 cognostics in the \code{trelliscopejs} report. The function will check
 if these columns are indeed conditional cognostics
@@ -50,7 +50,7 @@ if so, no trellis report is given out
 Default: FALSE}
 }
 \description{
-View \code{ggplot} or \code{plotly} dilution plots in a \code{trelliscope}
+View \code{ggplot} or \code{plotly} curve plots in a \code{trelliscope}
 html report
 }
 \examples{

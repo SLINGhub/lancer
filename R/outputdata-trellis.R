@@ -150,8 +150,8 @@ validate_trellis_table <- function(trellis_table,
   }
 }
 
-#' @title View `ggplot` or `plotly` Dilution Plots As Trellis
-#' @description View `ggplot` or `plotly` dilution plots in a `trelliscope`
+#' @title View `ggplot` or `plotly` Curve Plots As Trellis
+#' @description View `ggplot` or `plotly` curve plots in a `trelliscope`
 #' html report
 #' @param trellis_table The trellis table generated
 #' by function [add_ggplot_panel()] and [convert_to_cog()] or
@@ -163,7 +163,7 @@ validate_trellis_table <- function(trellis_table,
 #' folder of the plots found in `panel_variable`
 #' Default: 'Dilution_Plot'
 #' @param grouping_variable A character vector of
-#' column names in `trellis_table` to indicate how each dilution curve
+#' column names in `trellis_table` to indicate how each curve
 #' should be grouped by. It is also going to be used as a conditional
 #' cognostics in the `trelliscopejs` report. The function will check
 #' if these columns are indeed conditional cognostics

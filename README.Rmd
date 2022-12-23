@@ -648,8 +648,8 @@ Results can be exported to Excel via `write_summary_excel`
 
 ```{r print to excel, eval = FALSE}
 lancer::write_summary_excel(
-  dilution_summary = curve_classified, 
-  file_name = "dilution_summary.xlsx")
+  curve_summary = curve_classified, 
+  file_name = "curve_summary.xlsx")
 ```
 
 ```{r Excel Report, echo = FALSE}
@@ -686,7 +686,7 @@ Use `view_ggplot_pdf` to export the plots in a pdf file
 ```{r view the plotted curves, eval = FALSE}
 lancer::view_ggplot_pdf(
   ggplot_list = ggplot_list,
-  filename = "dilution_plot.pdf",
+  filename = "curve_plot.pdf",
   ncol_per_page = 2,
   nrow_per_page = 2
 )

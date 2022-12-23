@@ -133,6 +133,6 @@ Results can be exported to Excel via `write_summary_excel`
 
 ```{r print to excel, eval = FALSE}
 lancer::write_summary_excel(
-  dilution_summary = curve_summary,
-  file_name = "dilution_summary.xlsx")
+  curve_summary = curve_summary,
+  file_name = "curve_summary.xlsx")
 ```

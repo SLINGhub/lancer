@@ -91,9 +91,9 @@ as well as its threshold value. The sheet name can also be changed.
 
 ```{r customise print to excel, eval = FALSE}
 lancer::write_summary_excel(
-  dilution_summary = curve_classified,
-  file_name = "dilution_summary.xlsx",
-  sheet_name = "Dilution Summary",
+  curve_summary = curve_classified,
+  file_name = "curve_summary.xlsx",
+  sheet_name = "Curve Summary",
   corrcoef_column = "Corrcoef",
   corrcoef_min_threshold = 0.7,
   pra_column = "Pra",

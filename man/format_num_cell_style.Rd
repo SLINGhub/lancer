@@ -4,17 +4,26 @@
 \alias{format_num_cell_style}
 \title{Format Numeric Column Cell Style}
 \usage{
-format_num_cell_style(dilution_summary, workbook, sheet)
+format_num_cell_style(
+  curve_summary,
+  dilution_summary = lifecycle::deprecated(),
+  workbook,
+  sheet
+)
 }
 \arguments{
-\item{dilution_summary}{The summary table generated
+\item{curve_summary}{The summary table generated
 by function \code{\link[=summarise_curve_table]{summarise_curve_table()}} and/or
 \code{\link[=evaluate_linearity]{evaluate_linearity()}}
-but it can also be any generic data frame or tibble}
+but it can also be any generic data frame or tibble.}
 
-\item{workbook}{A workbook object from \code{openxlsx}}
+\item{dilution_summary}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+\code{dilution_summary} was renamed to
+\code{curve_summary}.}
 
-\item{sheet}{The name of the sheet to apply the numeric style on \code{workbook}}
+\item{workbook}{A workbook object from \code{openxlsx}.}
+
+\item{sheet}{The name of the sheet to apply the numeric style on \code{workbook}.}
 }
 \description{
 Format numeric cell style based on the class

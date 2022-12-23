@@ -2,13 +2,16 @@
 #' @description Calculate the maximum number of
 #' characters for each column in the input data frame
 #' or tibble, including the column name.
-#' @param dilution_summary The summary table generated
+#' @param curve_summary The summary table generated
 #' by function [summarise_curve_table()] and/or
 #' [evaluate_linearity()]
-#' but it can also be any generic data frame or tibble
+#' but it can also be any generic data frame or tibble.
+#' @param dilution_summary `r lifecycle::badge("deprecated")`
+#' `dilution_summary` was renamed to
+#' `curve_summary`.
 #' @return A numeric vector each value indicated the
 #' maximum number of characters for each column of the
-#' input data frame or tibble
+#' input data frame or tibble.
 #' @examples
 #' r_corr <- c(
 #'   0.951956, 0.948683, 0.978057, 0.976462,
@@ -42,26 +45,36 @@
 #'
 #' @rdname calculate_column_max_char
 #' @export
-calculate_column_max_char <- function(dilution_summary) {
+calculate_column_max_char <- function(
+    curve_summary,
+    dilution_summary = lifecycle::deprecated()) {
+
+  if (lifecycle::is_present(dilution_summary)) {
+    lifecycle::deprecate_warn(
+      when = "0.0.6.9000",
+      what = "calculate_column_max_char(dilution_summary)",
+      with = "calculate_column_max_char(curve_summary)")
+    curve_summary <- dilution_summary
+  }
 
   # Convert factor columns to type character
   # as nchar gives an error if a input vector
   # is of type factor
-  dilution_summary <- dilution_summary %>%
+  curve_summary <- curve_summary %>%
     dplyr::mutate_if(is.factor, is.character)
 
   # Start with an empty vector
   column_max_char_vector <- c()
 
-  for (i in seq_len(ncol(dilution_summary))) {
+  for (i in seq_len(ncol(curve_summary))) {
     # For each column
 
     # Get the number of char for the column name
-    column_name_char <- colnames(dilution_summary)[i] %>%
+    column_name_char <- colnames(curve_summary)[i] %>%
       nchar()
 
     # Get the number of char for each data in the column
-    data_char <- dilution_summary[, i, drop = TRUE] %>%
+    data_char <- curve_summary[, i, drop = TRUE] %>%
       nchar()
 
     # Get the maximun number of char and append
@@ -80,19 +93,22 @@ calculate_column_max_char <- function(dilution_summary) {
 
 #' @title Mark Near Zero Columns
 #' @description Mark numeric columns with near zero values from a dataset
-#' by changing the class from `numeric` to `scientific`
-#' @param dilution_summary The summary table generated
+#' by changing the class from `numeric` to `scientific`.
+#' @param curve_summary The summary table generated
 #' by function [summarise_curve_table()] and/or
 #' [evaluate_linearity()]
+#' but it can also be any generic data frame or tibble.
+#' @param dilution_summary `r lifecycle::badge("deprecated")`
+#' `dilution_summary` was renamed to
+#' `curve_summary`.
 #' @param threshold_value A small cut off value such that any
 #' numeric column with a number smaller than this value
-#' will be given the class scientific
+#' will be given the class scientific.
 #' Default: 0.01
-#' but it can also be any generic data frame or tibble
 #' @return A data frame or tibble with the class with numeric columns
-#' with near zero values changed from numeric to scientific
+#' with near zero values changed from numeric to scientific.
 #' @details We mark these columns as scientific so that `openxlsx` can
-#' output these columns n scientific notations
+#' output these columns n scientific notations.
 #' @examples
 #' r_corr <- c(
 #'   0.951956, 0.948683, 0.978057, 0.976462,
@@ -126,25 +142,35 @@ calculate_column_max_char <- function(dilution_summary) {
 #'
 #' @rdname mark_near_zero_columns
 #' @export
-mark_near_zero_columns <- function(dilution_summary,
-                                   threshold_value = 0.01) {
+mark_near_zero_columns <- function(
+    curve_summary,
+    dilution_summary = lifecycle::deprecated(),
+    threshold_value = 0.01) {
+
+  if (lifecycle::is_present(dilution_summary)) {
+    lifecycle::deprecate_warn(
+      when = "0.0.6.9000",
+      what = "mark_near_zero_columns(dilution_summary)",
+      with = "mark_near_zero_columns(curve_summary)")
+    curve_summary <- dilution_summary
+  }
 
   # Check if we have numeric columns
   # Check to see if numeric column has at least one value
   # If have none, return as it is
-  remaining_cols <- dilution_summary %>%
+  remaining_cols <- curve_summary %>%
     dplyr::select_if(function(col) is.numeric(col)) %>%
     dplyr::select_if(function(col) !all(is.na(col))) %>%
     colnames()
 
   if (length(remaining_cols) < 1) {
-    return(dilution_summary)
+    return(curve_summary)
   }
 
   # Take the absolute value for each numeric column
   # Collect the minimum value
   # If it is small enough, change the class to scientific
-  near_zero_columns <- dilution_summary %>%
+  near_zero_columns <- curve_summary %>%
     dplyr::mutate_at(remaining_cols, abs) %>%
     dplyr::summarise_at(remaining_cols, min, na.rm = TRUE) %>%
     tidyr::pivot_longer(
@@ -156,10 +182,10 @@ mark_near_zero_columns <- function(dilution_summary,
     dplyr::pull(.data$summary_stats)
 
   for (variables in near_zero_columns) {
-    class(dilution_summary[[variables]]) <- "scientific"
+    class(curve_summary[[variables]]) <- "scientific"
   }
 
-  return(dilution_summary)
+  return(curve_summary)
 }
 
 
@@ -168,12 +194,15 @@ mark_near_zero_columns <- function(dilution_summary,
 #' of the columns. If it is `numeric`, numeric format is two decimal
 #' places. If it is `scientific`, numeric format is scientific of the
 #' form 0.00E+00.
-#' @param dilution_summary The summary table generated
+#' @param curve_summary The summary table generated
 #' by function [summarise_curve_table()] and/or
 #' [evaluate_linearity()]
-#' but it can also be any generic data frame or tibble
-#' @param workbook A workbook object from `openxlsx`
-#' @param sheet The name of the sheet to apply the numeric style on `workbook`
+#' but it can also be any generic data frame or tibble.
+#' @param dilution_summary `r lifecycle::badge("deprecated")`
+#' `dilution_summary` was renamed to
+#' `curve_summary`.
+#' @param workbook A workbook object from `openxlsx`.
+#' @param sheet The name of the sheet to apply the numeric style on `workbook`.
 #' @examples
 #' r_corr <- c(
 #'   0.951956, 0.948683, 0.978057, 0.976462,
@@ -214,10 +243,22 @@ mark_near_zero_columns <- function(dilution_summary,
 #'
 #' @rdname format_num_cell_style
 #' @export
-format_num_cell_style <- function(dilution_summary, workbook, sheet) {
+format_num_cell_style <- function(
+    curve_summary,
+    dilution_summary = lifecycle::deprecated(),
+    workbook,
+    sheet) {
+
+  if (lifecycle::is_present(dilution_summary)) {
+    lifecycle::deprecate_warn(
+      when = "0.0.6.9000",
+      what = "format_num_cell_style(dilution_summary)",
+      with = "format_num_cell_style(curve_summary)")
+    curve_summary <- dilution_summary
+  }
 
   # Get the class for each column
-  classes <- dilution_summary %>%
+  classes <- curve_summary %>%
     purrr::map_chr(class) %>%
     unname()
 
@@ -226,7 +267,7 @@ format_num_cell_style <- function(dilution_summary, workbook, sheet) {
     s <- openxlsx::createStyle(numFmt = "0.00")
     openxlsx::addStyle(
       wb = workbook, sheet = sheet, style = s,
-      rows = 2:(nrow(dilution_summary) + 1),
+      rows = 2:(nrow(curve_summary) + 1),
       cols = which(classes == "numeric"), gridExpand = TRUE
     )
   }
@@ -235,7 +276,7 @@ format_num_cell_style <- function(dilution_summary, workbook, sheet) {
     s <- openxlsx::createStyle(numFmt = "0.00E+00")
     openxlsx::addStyle(
       wb = workbook, sheet = sheet, style = s,
-      rows = 2:(nrow(dilution_summary) + 1),
+      rows = 2:(nrow(curve_summary) + 1),
       cols = which(classes == "scientific"), gridExpand = TRUE
     )
   }
@@ -243,14 +284,17 @@ format_num_cell_style <- function(dilution_summary, workbook, sheet) {
 
 #' @title Format Character Cell Colour
 #' @description Perform cell conditional formatting of two colours
-#' based on if a given word on a given character column from `dilution summary`
-#' @param workbook A workbook object from `openxlsx`
+#' based on if a given word on a given character column from `curve_summary`.
+#' @param workbook A workbook object from `openxlsx`.
 #' @param sheet The name of the sheet to apply the conditional
-#' formatting on `workbook`
-#' @param dilution_summary The summary table generated
-#' by function [summarise_curve_table()] and/or [evaluate_linearity()]
+#' formatting on `workbook`.
+#' @param curve_summary The summary table generated
+#' by function [summarise_curve_table()] and/or [evaluate_linearity()].
+#' @param dilution_summary `r lifecycle::badge("deprecated")`
+#' `dilution_summary` was renamed to
+#' `curve_summary`.
 #' @param conditional_column A string to indicate which column
-#' in `dilution_summary` to use
+#' in `curve_summary` to use.
 #' @param pass_criteria_words A character vector to highlight
 #' which words it must contain to
 #' give a passing colour on the cell.
@@ -301,17 +345,30 @@ format_num_cell_style <- function(dilution_summary, workbook, sheet) {
 #' # after data is written to excel sheet
 #' format_char_cell_colour(
 #'   workbook = my_workbook, sheet = "Curve Summary",
-#'   dilution_summary = curve_summary,
+#'   curve_summary = curve_summary,
 #'   conditional_column = "wf1_group",
 #'   pass_criteria_words = c("Good Linearity")
 #' )
 #'
 #' @rdname format_char_cell_colour
 #' @export
-format_char_cell_colour <- function(workbook, sheet,
-                                    dilution_summary, conditional_column,
-                                    pass_criteria_words) {
-  col_index <- which(colnames(dilution_summary) %in% conditional_column)
+format_char_cell_colour <- function(
+    workbook,
+    sheet,
+    curve_summary,
+    dilution_summary = lifecycle::deprecated(),
+    conditional_column,
+    pass_criteria_words) {
+
+  if (lifecycle::is_present(dilution_summary)) {
+    lifecycle::deprecate_warn(
+      when = "0.0.6.9000",
+      what = "format_char_cell_colour(dilution_summary)",
+      with = "format_char_cell_colour(curve_summary)")
+    curve_summary <- dilution_summary
+  }
+
+  col_index <- which(colnames(curve_summary) %in% conditional_column)
 
   pos_style <- openxlsx::createStyle(fontColour = "#006100", bgFill = "#C6EFCE")
   neg_style <- openxlsx::createStyle(fontColour = "#9C0006", bgFill = "#FFC7CE")
@@ -320,13 +377,13 @@ format_char_cell_colour <- function(workbook, sheet,
     for (words in pass_criteria_words) {
       openxlsx::conditionalFormatting(workbook, sheet,
         cols = col_index,
-        rows = 2:(nrow(dilution_summary) + 1),
+        rows = 2:(nrow(curve_summary) + 1),
         rule = words, style = pos_style,
         type = "contains"
       )
       openxlsx::conditionalFormatting(workbook, sheet,
         cols = col_index,
-        rows = 2:(nrow(dilution_summary) + 1),
+        rows = 2:(nrow(curve_summary) + 1),
         rule = words, style = neg_style,
         type = "notContains"
       )
@@ -336,19 +393,22 @@ format_char_cell_colour <- function(workbook, sheet,
 
 #' @title Format Numeric Cell Colour
 #' @description Perform cell conditional formatting of two colours
-#' based on if a given word on a given numeric column from `dilution summary`
-#' @param workbook A workbook object from `openxlsx`
-#' @param sheet The name of the sheet to apply the numeric style on `workbook`
-#' @param dilution_summary The summary table generated
-#' by function [summarise_curve_table()] and/or [evaluate_linearity()]
+#' based on if a given word on a given numeric column from `curve_summary`.
+#' @param workbook A workbook object from `openxlsx`.
+#' @param sheet The name of the sheet to apply the numeric style on `workbook`.
+#' @param curve_summary The summary table generated
+#' by function [summarise_curve_table()] and/or [evaluate_linearity()].
+#' @param dilution_summary `r lifecycle::badge("deprecated")`
+#' `dilution_summary` was renamed to
+#' `curve_summary`.
 #' @param conditional_column A character vector to
-#' indicate which column in `dilution_summary` to use
-#' @param threshold_value The threshold value to indicate a pass or fail
+#' indicate which column in `curve_summary` to use.
+#' @param threshold_value The threshold value to indicate a pass or fail.
 #' @param pass_criteria To indicate pass if the value
-#' is above or below threshold value,
+#' is above or below threshold value.
 #' Default: c("above", "below")
 #' @param pass_equality To indicate if equality to the
-#' threshold value is considered a pass or fail,
+#' threshold value is considered a pass or fail.
 #' Default: TRUE
 #' @examples
 #' r_corr <- c(
@@ -397,7 +457,7 @@ format_char_cell_colour <- function(workbook, sheet,
 #' # after data is written to excel sheet
 #' format_num_cell_colour(
 #'   workbook = my_workbook, sheet = "Curve Summary",
-#'   dilution_summary = curve_summary,
+#'   curve_summary = curve_summary,
 #'   conditional_column = "r_corr",
 #'   threshold_value = "0.8",
 #'   pass_criteria = "above"
@@ -405,12 +465,25 @@ format_char_cell_colour <- function(workbook, sheet,
 #'
 #' @rdname format_num_cell_colour
 #' @export
-format_num_cell_colour <- function(workbook, sheet,
-                                   dilution_summary, conditional_column,
-                                   threshold_value,
-                                   pass_criteria = c("above", "below"),
-                                   pass_equality = TRUE) {
-  col_index <- which(colnames(dilution_summary) %in% conditional_column)
+format_num_cell_colour <- function(
+    workbook,
+    sheet,
+    curve_summary,
+    dilution_summary = lifecycle::deprecated(),
+    conditional_column,
+    threshold_value,
+    pass_criteria = c("above", "below"),
+    pass_equality = TRUE) {
+
+  if (lifecycle::is_present(dilution_summary)) {
+    lifecycle::deprecate_warn(
+      when = "0.0.6.9000",
+      what = "format_num_cell_colour(dilution_summary)",
+      with = "format_num_cell_colour(curve_summary)")
+    curve_summary <- dilution_summary
+  }
+
+  col_index <- which(colnames(curve_summary) %in% conditional_column)
 
   pos_style <- openxlsx::createStyle(fontColour = "#006100", bgFill = "#C6EFCE")
   neg_style <- openxlsx::createStyle(fontColour = "#9C0006", bgFill = "#FFC7CE")
@@ -434,39 +507,39 @@ format_num_cell_colour <- function(workbook, sheet,
   if (length(col_index) != 0) {
     openxlsx::conditionalFormatting(workbook, sheet,
       cols = col_index,
-      rows = 2:(nrow(dilution_summary) + 1),
+      rows = 2:(nrow(curve_summary) + 1),
       rule = pos_rule, style = pos_style,
       type = "expression"
     )
     openxlsx::conditionalFormatting(workbook, sheet,
       cols = col_index,
-      rows = 2:(nrow(dilution_summary) + 1),
+      rows = 2:(nrow(curve_summary) + 1),
       rule = neg_rule, style = neg_style,
       type = "expression"
     )
   }
 }
 
-#' @title Write Dilution Summary To Excel
-#' @description Write dilution summary table to an excel sheet
-#' @param dilution_summary The summary table generated
+#' @title Write Curve Summary To Excel
+#' @description Write curve summary table to an excel sheet
+#' @param curve_summary The summary table generated
 #' by function [summarise_curve_table()] and/or [evaluate_linearity()]
 #' @param file_name Name of the excel file
 #' @param sheet_name Sheet name to output the results
-#' in Excel, Default: 'Dilution Summary'
-#' @param corrcoef_column A column in `dilution_summary` that holds the
+#' in Excel, Default: 'Curve Summary'
+#' @param corrcoef_column A column in `curve_summary` that holds the
 #' correlation coefficient, Default: 'r_corr'
 #' @param corrcoef_min_threshold The minimum threshold value of the curve's
 #' correlation coefficient to pass being potentially linear.
 #' A pass will colour the excel cell green and red otherwise.
 #' Equality to the threshold is considered a pass, Default: 0.8
-#' @param pra_column A column in `dilution_summary` that holds the
+#' @param pra_column A column in `curve_summary` that holds the
 #' percent residual accuracy, Default: 'pra_linear'
 #' @param pra_min_threshold The minimum threshold value of the curve's
 #' percent residual accuracy to pass being potentially linear.
 #' A pass will colour the excel cell green and red otherwise.
 #' Equality to the threshold is considered a pass, Default: 80
-#' @param mandel_p_val_column A column in `dilution_summary` that holds the
+#' @param mandel_p_val_column A column in `curve_summary` that holds the
 #' p value results for the Mandel's fitting test.
 #' Default: 'mandel_p_val'
 #' @param mandel_p_val_threshold The threshold value of the curve's
@@ -475,9 +548,9 @@ format_num_cell_colour <- function(workbook, sheet,
 #' If the value is less than this value, the cell colour will be red.
 #' Cell colour will be green if the p value is equal or over the threshold.
 #' Default: 0.05
-#' @param workflow1_column A column in `dilution_summary` that holds the
+#' @param workflow1_column A column in `curve_summary` that holds the
 #' evaluation results of workflow 1, Default: 'wf1_group'
-#' @param workflow2_column A column in `dilution_summary` that holds the
+#' @param workflow2_column A column in `curve_summary` that holds the
 #' evaluation results of workflow 2, Default: 'wf2_group'
 #' @param pass_criteria_words A character vector to indicate which words in
 #' `workflow1_column` or `workflow2_column` would have its excel cell coloured
@@ -541,14 +614,14 @@ format_num_cell_colour <- function(workbook, sheet,
 #'
 #' # Create an excel report, set testing = FALSE to output results
 #' write_summary_excel(curve_summary,
-#'   file_name = "dilution_summary.xlsx",
+#'   file_name = "curve_summary.xlsx",
 #'   testing = TRUE
 #' )
 #'
 #' @rdname write_summary_excel
 #' @export
-write_summary_excel <- function(dilution_summary, file_name,
-                                sheet_name = "Dilution Summary",
+write_summary_excel <- function(curve_summary, file_name,
+                                sheet_name = "Curve Summary",
                                 corrcoef_column = "r_corr",
                                 corrcoef_min_threshold = 0.8,
                                 pra_column = "pra_linear",
@@ -572,7 +645,7 @@ write_summary_excel <- function(dilution_summary, file_name,
   openxlsx::modifyBaseFont(wb = my_workbook, fontName = "Consolas")
 
   # Create numeric style based on column name
-  dilution_summary %>%
+  curve_summary %>%
     mark_near_zero_columns() %>%
     format_num_cell_style(
       workbook = my_workbook,
@@ -587,15 +660,15 @@ write_summary_excel <- function(dilution_summary, file_name,
   openxlsx::setColWidths(
     wb = my_workbook,
     sheet = sheet_name,
-    cols = seq_len(ncol(dilution_summary)),
-    widths = calculate_column_max_char(dilution_summary) +
+    cols = seq_len(ncol(curve_summary)),
+    widths = calculate_column_max_char(curve_summary) +
       font_size - 6
   )
 
   # Write to worksheet as an Excel Table
   openxlsx::writeDataTable(
     wb = my_workbook, sheet = sheet_name,
-    x = dilution_summary,
+    x = curve_summary,
     withFilter = TRUE,
     bandedRows = FALSE
   )
@@ -603,7 +676,7 @@ write_summary_excel <- function(dilution_summary, file_name,
   # Conditional formatting can only be done after data is written to excel sheet
   format_num_cell_colour(
     workbook = my_workbook, sheet = sheet_name,
-    dilution_summary = dilution_summary,
+    curve_summary = curve_summary,
     conditional_column = corrcoef_column,
     threshold_value =
       as.character(corrcoef_min_threshold),
@@ -611,14 +684,14 @@ write_summary_excel <- function(dilution_summary, file_name,
   )
   format_num_cell_colour(
     workbook = my_workbook, sheet = sheet_name,
-    dilution_summary = dilution_summary,
+    curve_summary = curve_summary,
     conditional_column = pra_column,
     threshold_value = as.character(pra_min_threshold),
     pass_criteria = "above"
   )
   format_num_cell_colour(
     workbook = my_workbook, sheet = sheet_name,
-    dilution_summary = dilution_summary,
+    curve_summary = curve_summary,
     conditional_column = mandel_p_val_column,
     threshold_value =
       as.character(mandel_p_val_threshold),
@@ -627,13 +700,13 @@ write_summary_excel <- function(dilution_summary, file_name,
 
   format_char_cell_colour(
     workbook = my_workbook, sheet = sheet_name,
-    dilution_summary = dilution_summary,
+    curve_summary = curve_summary,
     conditional_column = workflow1_column,
     pass_criteria_words = pass_criteria_words
   )
   format_char_cell_colour(
     workbook = my_workbook, sheet = sheet_name,
-    dilution_summary = dilution_summary,
+    curve_summary = curve_summary,
     conditional_column = workflow2_column,
     pass_criteria_words = pass_criteria_words
   )
