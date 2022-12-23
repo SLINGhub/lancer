@@ -69,16 +69,25 @@ or tibble, including the column name.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calculate_column_max_char</span><span class="op">(</span><span class="va">dilution_summary</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">calculate_column_max_char</span><span class="op">(</span></span>
+<span>  <span class="va">curve_summary</span>,</span>
+<span>  dilution_summary <span class="op">=</span> <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="https://lifecycle.r-lib.org/reference/deprecated.html" class="external-link">deprecated</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
-    <dl><dt>dilution_summary</dt>
+    <dl><dt>curve_summary</dt>
 <dd><p>The summary table generated
 by function <code><a href="summarise_curve_table.html">summarise_curve_table()</a></code> and/or
 <code><a href="evaluate_linearity.html">evaluate_linearity()</a></code>
-but it can also be any generic data frame or tibble</p></dd>
+but it can also be any generic data frame or tibble.</p></dd>
+
+
+<dt>dilution_summary</dt>
+<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a>
+<code>dilution_summary</code> was renamed to
+<code>curve_summary</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -87,7 +96,7 @@ but it can also be any generic data frame or tibble</p></dd>
 
 <p>A numeric vector each value indicated the
 maximum number of characters for each column of the
-input data frame or tibble</p>
+input data frame or tibble.</p>
     </div>
 
     <div class="section level2">

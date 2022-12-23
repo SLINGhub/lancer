@@ -512,8 +512,8 @@ Equation ( <span class="math inline">6</span> ) is used.</p>
 <p>Results can be exported to Excel via <code>write_summary_excel</code></p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="reference/write_summary_excel.html">write_summary_excel</a></span><span class="op">(</span></span>
-<span>  dilution_summary <span class="op">=</span> <span class="va">curve_classified</span>, </span>
-<span>  file_name <span class="op">=</span> <span class="st">"dilution_summary.xlsx"</span><span class="op">)</span></span></code></pre></div>
+<span>  curve_summary <span class="op">=</span> <span class="va">curve_classified</span>, </span>
+<span>  file_name <span class="op">=</span> <span class="st">"curve_summary.xlsx"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-ExcelResults.png" alt="Dilution statistics summary reported in Excel using lancer." width="100%"></p>
 <p>Results can be plotted using <code>add_ggplot_panel</code>. This will create a column called panel that contains all the <code>ggplot</code> plots</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
@@ -538,7 +538,7 @@ Equation ( <span class="math inline">6</span> ) is used.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="reference/view_ggplot_pdf.html">view_ggplot_pdf</a></span><span class="op">(</span></span>
 <span>  ggplot_list <span class="op">=</span> <span class="va">ggplot_list</span>,</span>
-<span>  filename <span class="op">=</span> <span class="st">"dilution_plot.pdf"</span>,</span>
+<span>  filename <span class="op">=</span> <span class="st">"curve_plot.pdf"</span>,</span>
 <span>  ncol_per_page <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  nrow_per_page <span class="op">=</span> <span class="fl">2</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -575,7 +575,19 @@ Equation ( <span class="math inline">6</span> ) is used.</p>
 <span>    col_name_vec <span class="op">=</span> <span class="st">"col_name_vec"</span>,</span>
 <span>    desc_vec <span class="op">=</span> <span class="st">"desc_vec"</span>,</span>
 <span>    type_vec <span class="op">=</span> <span class="st">"type_vec"</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
+<span>  <span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: The `dilution_table` argument of `add_plotly_panel()` is deprecated as of</span></span>
+<span><span class="co">#&gt; lancer 0.0.6.9000.</span></span>
+<span><span class="co">#&gt; ℹ Please use the `curve_table` argument instead.</span></span>
+<span><span class="co">#&gt; Warning: The `dilution_summary` argument of `add_plotly_panel()` is deprecated as of</span></span>
+<span><span class="co">#&gt; lancer 0.0.6.9000.</span></span>
+<span><span class="co">#&gt; ℹ Please use the `curve_summary` argument instead.</span></span>
+<span><span class="co">#&gt; Warning: The `dil_batch_var` argument of `add_plotly_panel()` is deprecated as of lancer</span></span>
+<span><span class="co">#&gt; 0.0.6.9000.</span></span>
+<span><span class="co">#&gt; ℹ Please use the `curv_batch_var` argument instead.</span></span>
+<span><span class="co">#&gt; Warning: The `dil_batch_col` argument of `add_plotly_panel()` is deprecated as of lancer</span></span>
+<span><span class="co">#&gt; 0.0.6.9000.</span></span>
+<span><span class="co">#&gt; ℹ Please use the `curv_batch_col` argument instead.</span></span></code></pre></div>
 <p>Use <code>view_trellis_html</code> on the R console to output the interactive trelliscope display</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="reference/view_trellis_html.html">view_trellis_html</a></span><span class="op">(</span></span>
