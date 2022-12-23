@@ -19,6 +19,7 @@
 * `dilution_summary` argument in `convert_to_cog` changed to `curve_summary`.
 * `dilution_summary` argument in `evaluate_linearity` changed to `curve_summary`.
 * `dilution_summary` argument in `add_ggplot_panel` changed to `curve_summary`.
+* `dilution_summary` argument in `add_plotly_panel` changed to `curve_summary`.
 
 * `dilution_summary_grp` argument in `plot_summary_table_char` changed to `curve_summary_grp`.
 * `dilution_summary_grp` argument in `plot_summary_table_num` changed to `curve_summary_grp`.
@@ -32,10 +33,13 @@
 * `dil_batch_var` argument in `plot_curve_ggplot` changed to `curv_batch_var`.
 * `dil_batch_var` argument in `plot_curve_plotly` changed to `curv_batch_var`.
 * `dil_batch_var` argument in `add_ggplot_panel` changed to `curv_batch_var`.
+* `dil_batch_var` argument in `add_plotly_panel` changed to `curv_batch_var`.
 
 * `dil_batch_col` argument in `add_ggplot_panel` changed to `curv_batch_col`.
+* `dil_batch_col` argument in `add_plotly_panel` changed to `curv_batch_col`.
 
 * `dilution_table` argument in `add_ggplot_panel` changed to `curve_table`.
+* `dilution_table` argument in `add_plotly_panel` changed to `curve_table`.
 
 # lancer 0.0.6
 

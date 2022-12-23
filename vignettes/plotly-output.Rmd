@@ -129,15 +129,15 @@ We then create the `plotly` plots with `curve_table` and `curve_classified`
 ```{r create plotly table}
 # Create a trellis table
 trellis_table_orig <- lancer::add_plotly_panel(
-  dilution_table = curve_table,
-  dilution_summary = curve_classified,
+  curve_table = curve_table,
+  curve_summary = curve_classified,
   grouping_variable = c(
     "Transition_Name",
     "Dilution_Batch_Name"
   ),
   sample_name_var = "Sample_Name",
-  dil_batch_var = "Dilution_Batch_Name",
-  dil_batch_col = c(
+  curv_batch_var = "Dilution_Batch_Name",
+  curv_batch_col = c(
     "#377eb8",
     "#4daf4a"
   ),
@@ -161,15 +161,15 @@ To see the regression line on half the curve points, set `plot_half_lin_reg = TR
 
 ```{r create plotly table with half linear regression}
 trellis_table <- lancer::add_plotly_panel(
-  dilution_table = curve_table,
-  dilution_summary = curve_classified,
+  curve_table = curve_table,
+  curve_summary = curve_classified,
   grouping_variable = c(
     "Transition_Name",
     "Dilution_Batch_Name"
   ),
   sample_name_var = "Sample_Name",
-  dil_batch_var = "Dilution_Batch_Name",
-  dil_batch_col = c(
+  curv_batch_var = "Dilution_Batch_Name",
+  curv_batch_col = c(
     "#377eb8",
     "#4daf4a"
   ),
@@ -194,15 +194,15 @@ You can also change the colours for your dilution batch from `dil_batch_col`
 
 ```{r create plotly table with conc customisation}
 trellis_table <- lancer::add_plotly_panel(
-  dilution_table = curve_table,
-  dilution_summary = curve_classified,
+  curve_table = curve_table,
+  curve_summary = curve_classified,
   grouping_variable = c(
     "Transition_Name",
     "Dilution_Batch_Name"
   ),
   sample_name_var = "Sample_Name",
-  dil_batch_var = "Dilution_Batch_Name",
-  dil_batch_col = c(
+  curv_batch_var = "Dilution_Batch_Name",
+  curv_batch_col = c(
     "#377eb8",
     "#4daf4a"
   ),

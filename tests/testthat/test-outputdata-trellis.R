@@ -96,16 +96,16 @@ test_that("Able to plot dilution data with
       "Dilution_Batch_Name"
     ))
 
-  # Create a plotly trellis table with dil_batch_var
+  # Create a plotly trellis table with curv_batch_var
   # as a grouping variable
   plotly_trellis_table <- add_plotly_panel(
     curve_table,
-    dilution_summary = curve_summary,
+    curve_summary = curve_summary,
     grouping_variable = c(
       "Transition_Name",
       "Dilution_Batch_Name"
     ),
-    dil_batch_var = "Dilution_Batch_Name"
+    curv_batch_var = "Dilution_Batch_Name"
   ) %>%
     convert_to_cog(
       cog_df = NULL,
@@ -122,7 +122,7 @@ test_that("Able to plot dilution data with
   # Check if trellis_table is valid
   testthat::expect_silent(validate_trellis_table(plotly_trellis_table))
 
-  # Create a plotly trellis table with dil_batch_var
+  # Create a plotly trellis table with curv_batch_var
   # not as a grouping variable
 
   curve_table_filtered <- curve_table %>%
@@ -131,13 +131,13 @@ test_that("Able to plot dilution data with
   curve_summary_filtered <- curve_summary %>%
     dplyr::filter(.data[["Dilution_Batch_Name"]] == "B2")
 
-  plotly_no_dil_batch_var <- add_plotly_panel(
-    dilution_table = curve_table_filtered,
-    dilution_summary = curve_summary_filtered,
+  plotly_no_curv_batch_var <- add_plotly_panel(
+    curve_table = curve_table_filtered,
+    curve_summary = curve_summary_filtered,
     grouping_variable = c(
       "Transition_Name"
     ),
-    dil_batch_var = "Dilution_Batch_Name"
+    curv_batch_var = "Dilution_Batch_Name"
   ) %>%
     convert_to_cog(
       cog_df = NULL,
@@ -153,7 +153,7 @@ test_that("Able to plot dilution data with
   # Check if trellis_table is valid
   testthat::expect_silent(
     validate_trellis_table(
-      trellis_table = plotly_no_dil_batch_var,
+      trellis_table = plotly_no_curv_batch_var,
       grouping_variable = c(
         "Transition_Name")
       ))
@@ -231,7 +231,7 @@ test_that("Able to plot dilution data with
   # if input panel_variable is not called "panel"
   different_panel_table <- add_plotly_panel(
     curve_table,
-    dilution_summary = curve_summary
+    curve_summary = curve_summary
   ) %>%
     dplyr::rename(paneldiff = panel) %>%
     convert_to_cog(
@@ -253,7 +253,7 @@ test_that("Able to plot dilution data with
 
   # Check if convert_to_cog and view_trellis_html works
   # if we have only one grouping variable
-  view_trellis_html(plotly_no_dil_batch_var,
+  view_trellis_html(plotly_no_curv_batch_var,
                     trellis_report_name = "Dilution_Plot_One_Group",
                     trellis_report_folder = "Dilution_Plot",
                     grouping_variable = c("Transition_Name")
@@ -261,7 +261,7 @@ test_that("Able to plot dilution data with
 
   # Check if convert_to_cog and view_trellis_html works
   # if we add additional labels
-  view_trellis_html(plotly_no_dil_batch_var,
+  view_trellis_html(plotly_no_curv_batch_var,
                     trellis_report_name = "Dilution_Plot_Additional_Group",
                     trellis_report_folder = "Dilution_Plot",
                     grouping_variable = c("Transition_Name"),
