@@ -12,12 +12,12 @@ create_reg_col_vec(
 \arguments{
 \item{plot_first_half_lin_reg}{Decide if we plot an extra
 regression line that best fits the first half
-of \code{conc_var} dilution points.
+of \code{conc_var} curve points.
 Default: FALSE}
 
 \item{plot_last_half_lin_reg}{Decide if we plot an extra
 regression line that best fits the last half
-of \code{conc_var} dilution points.
+of \code{conc_var} curve points.
 Default: FALSE}
 }
 \value{
@@ -25,14 +25,14 @@ A named vector in which a linear regression is
 named as "Lin" and is given the colour black. A
 quadratic regression is named as "Quad" and is given
 the colour red. A linear regression of the first
-half of the dilution points is named as "Lin First Half"
+half of the curve points is named as "Lin First Half"
 and is given the colour blue. A linear regression of
-the last half of the dilution points is
+the last half of the curve points is
 named as "Lin Last Half" and is given the colour purple.
 }
 \description{
 Internal function that create a named vector
-to indicate which regression line has what colour
+to indicate which regression line has what colour.
 }
 \examples{
 # Data Creation

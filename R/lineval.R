@@ -1,36 +1,39 @@
-#' @title Evaluate Linearity Based On Dilution Summary Data
+#' @title Evaluate Linearity Based On Curve Summary Data
 #' @description Evaluate if a curve is linear based
-#' on dilution summary statistics
+#' on curve summary statistics
 #'
-#' @param dilution_summary A data frame or tibble output from
-#' the function [summarise_curve_data()]
+#' @param curve_summary A data frame or tibble output from
+#' the function [summarise_curve_data()].
+#' @param dilution_summary `r lifecycle::badge("deprecated")`
+#' `dilution_summary` was renamed to
+#' `curve_summary`.
 #' @param grouping_variable A character vector of
-#' column names in `dilution_summary`to indicate which columns should be placed
+#' column names in `curve_summary`to indicate which columns should be placed
 #' first before the evaluation results. Default: c()
-#' @param corrcoef_column A column in `dilution_summary` that holds the
-#' correlation coefficient, Default: 'r_corr'
+#' @param corrcoef_column A column in `curve_summary` that holds the
+#' correlation coefficient. Default: 'r_corr'
 #' @param corrcoef_min_threshold The minimum threshold value of the curve's
 #' correlation coefficient to pass being potentially linear.
-#' Equality to the threshold is considered a pass, Default: 0.8
-#' @param pra_column A column in `dilution_summary` that holds the
-#' percent residual accuracy, Default: 'pra_linear'
+#' Equality to the threshold is considered a pass. Default: 0.8
+#' @param pra_column A column in `curve_summary` that holds the
+#' percent residual accuracy, Default: 'pra_linear'.
 #' @param pra_min_threshold The minimum threshold value of the curve's
 #' percent residual accuracy to pass being potentially linear.
-#' Equality to the threshold is considered a pass, Default: 80
-#' @param mandel_p_val_column A column in `dilution_summary` that holds the
-#' p value results for the Mandel's fitting test, Default: 'mandel_p_val'
+#' Equality to the threshold is considered a pass. Default: 80
+#' @param mandel_p_val_column A column in `curve_summary` that holds the
+#' p value results for the Mandel's fitting test. Default: 'mandel_p_val'
 #' @param mandel_p_val_threshold The threshold value of the curve's
 #' p value for the Mandel's fitting test to reject the hypothesis that
 #' the quadratic model fits better than the linear model.
 #' Default: 0.05
-#' @param concavity_column A column in `dilution_summary` that holds the
-#' concavity of the quadratic model, Default: 'concavity'
-#' @return A data frame or tibble with evaluation results
+#' @param concavity_column A column in `curve_summary` that holds the
+#' concavity of the quadratic model, Default: 'concavity'.
+#' @return A data frame or tibble with evaluation results.
 #' @details Two work flows are given to evaluate linearity of dilution
 #' curves. The results are highlighted as columns `wf1_group` and
 #' `wf2_group` for now. Column names used to categorise the dilution
 #' curves will be moved to the front allow with `wf1_group` and
-#' `wf2_group`
+#' `wf2_group`.
 #' @examples
 #' r_corr <- c(0.951956, 0.948683, 0.978057, 0.976462, 0.970618, 0.969348)
 #'
@@ -58,7 +61,8 @@
 #'
 #' @rdname evaluate_linearity
 #' @export
-evaluate_linearity <- function(dilution_summary,
+evaluate_linearity <- function(curve_summary,
+                               dilution_summary = lifecycle::deprecated(),
                                grouping_variable = c(),
                                corrcoef_column = "r_corr",
                                corrcoef_min_threshold = 0.8,
@@ -68,9 +72,16 @@ evaluate_linearity <- function(dilution_summary,
                                mandel_p_val_threshold = 0.05,
                                concavity_column = "concavity") {
 
+  if (lifecycle::is_present(dilution_summary)) {
+    lifecycle::deprecate_warn(when = "0.0.6.9000",
+                              what = "evaluate_linearity(dilution_summary)",
+                              with = "evaluate_linearity(curve_summary)")
+    curve_summary <- dilution_summary
+  }
+
   # Check if these column name existed
   col_names <- c(corrcoef_column, pra_column)
-  non_df_cols <- col_names[!col_names %in% colnames(dilution_summary)]
+  non_df_cols <- col_names[!col_names %in% colnames(curve_summary)]
 
   if (length(non_df_cols) > 0) {
     # If no, return the summary data with a warning
@@ -79,10 +90,10 @@ evaluate_linearity <- function(dilution_summary,
                     but not in your input dataframe: ",
       paste(non_df_cols, collapse = " ")
     ))
-    return(dilution_summary)
+    return(curve_summary)
   } else {
     # Else perform the evaluation
-    dilution_summary <- dilution_summary %>%
+    curve_summary <- curve_summary %>%
       dplyr::mutate(
         wf1_group =
           dplyr::case_when(
@@ -100,7 +111,7 @@ evaluate_linearity <- function(dilution_summary,
 
   # Check if these column name existed
   col_names <- c(mandel_p_val_column, concavity_column)
-  non_df_cols <- col_names[!col_names %in% colnames(dilution_summary)]
+  non_df_cols <- col_names[!col_names %in% colnames(curve_summary)]
 
   if (length(non_df_cols) > 0) {
     # If no, return the summary data with a warning
@@ -111,7 +122,7 @@ evaluate_linearity <- function(dilution_summary,
     ))
 
     # Rearrange the column based on the first evaluation
-    dilution_summary <- dilution_summary %>%
+    curve_summary <- curve_summary %>%
       dplyr::relocate(
         dplyr::any_of(
           c(grouping_variable, "wf1_group",
@@ -119,10 +130,10 @@ evaluate_linearity <- function(dilution_summary,
         )
       )
 
-    return(dilution_summary)
+    return(curve_summary)
   } else {
     # Else perform the evaluation
-    dilution_summary <- dilution_summary %>%
+    curve_summary <- curve_summary %>%
       dplyr::mutate(
         wf2_group =
           dplyr::case_when(
@@ -142,7 +153,7 @@ evaluate_linearity <- function(dilution_summary,
   }
 
   # Rearrange the column based on the first evaluation
-  dilution_summary <- dilution_summary %>%
+  curve_summary <- curve_summary %>%
     dplyr::relocate(
       dplyr::any_of(
         c(grouping_variable, "wf1_group", "wf2_group",
@@ -152,5 +163,5 @@ evaluate_linearity <- function(dilution_summary,
     )
 
 
-  return(dilution_summary)
+  return(curve_summary)
 }

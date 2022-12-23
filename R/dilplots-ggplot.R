@@ -1,13 +1,16 @@
-#' @title Plot Dilution Summary Character Table For One Group
+#' @title Plot Curve Summary Character Table For One Group
 #' @description
-#' Plot dilution summary character table for one group or batch
-#' @param dilution_summary_grp
-#' A one row data frame or tibble containing dilution summary
+#' Plot curve summary character table for one group or batch
+#' @param curve_summary_grp
+#' A one row data frame or tibble containing curve summary
+#' @param dilution_summary_grp `r lifecycle::badge("deprecated")`
+#' `dilution_summary_grp` was renamed to
+#' `curve_summary_grp`.
 #' @return A `gridtable` object consisting of one table. The first
-#' column is the column names of `dilution_summary_grp` which
+#' column is the column names of `curve_summary_grp` which
 #' are characters or factors or logical. The second column is their
 #' corresponding values. If there are no character/factor/logical
-#' columns in `dilution_summary_grp`, NULL will be returned
+#' columns in `curve_summary_grp`, NULL will be returned
 #' @examples
 #' wf1_group <- c("Poor Linearity")
 #'
@@ -43,8 +46,18 @@
 #'
 #' @rdname plot_summary_table_char
 #' @export
-plot_summary_table_char <- function(dilution_summary_grp) {
-  dilution_char_data <- dilution_summary_grp %>%
+plot_summary_table_char <- function(
+    curve_summary_grp,
+    dilution_summary_grp = lifecycle::deprecated()) {
+
+  if (lifecycle::is_present(dilution_summary_grp)) {
+    lifecycle::deprecate_warn(when = "0.0.6.9000",
+                              what = "plot_summary_table_char(dilution_summary_grp)",
+                              with = "plot_summary_table_char(curve_summary_grp)")
+    curve_summary_grp <- dilution_summary_grp
+  }
+
+  curve_char_data <- curve_summary_grp %>%
     dplyr::select_if(
       function(col) {
         is.character(col) |
@@ -53,30 +66,33 @@ plot_summary_table_char <- function(dilution_summary_grp) {
       }
     )
 
-  remaining_cols <- length(colnames(dilution_char_data))
+  remaining_cols <- length(colnames(curve_char_data))
 
   if (remaining_cols < 1) {
-    dilution_char_data <- NULL
+    curve_char_data <- NULL
   } else {
-    dilution_char_data <- dilution_char_data %>%
+    curve_char_data <- curve_char_data %>%
       dplyr::mutate_if(is.logical, as.character) %>%
       tidyr::pivot_longer(cols = dplyr::everything()) %>%
       gridExtra::tableGrob(rows = NULL, cols = NULL)
   }
 
-  return(dilution_char_data)
+  return(curve_char_data)
 }
 
-#' @title Plot Dilution Summary Numeric Table For One Group
-#' @description Plot dilution Summary numeric table for one group
-#' or batch
-#' @param dilution_summary_grp
-#' A one row data frame or tibble containing dilution summary
+#' @title Plot Curve Summary Numeric Table For One Group
+#' @description Plot curve summary numeric table for one group
+#' or batch.
+#' @param curve_summary_grp
+#' A one row data frame or tibble containing curve summary.
+#' @param dilution_summary_grp `r lifecycle::badge("deprecated")`
+#' `dilution_summary_grp` was renamed to
+#' `curve_summary_grp`.
 #' @return A `gridtable` object consisting of one table. The first
-#' column is the column names of `dilution_summary_grp` which
+#' column is the column names of `curve_summary_grp` which
 #' are numeric. The second column is their
 #' corresponding values. If there are numeric columns
-#' in `dilution_summary_grp`, NULL will be returned
+#' in `curve_summary_grp`, NULL will be returned.
 #' @examples
 #' wf1_group <- c("Poor Linearity")
 #'
@@ -112,8 +128,18 @@ plot_summary_table_char <- function(dilution_summary_grp) {
 #'
 #' @rdname plot_summary_table_num
 #' @export
-plot_summary_table_num <- function(dilution_summary_grp) {
-  dilution_num_data <- dilution_summary_grp %>%
+plot_summary_table_num <- function(
+    curve_summary_grp,
+    dilution_summary_grp = lifecycle::deprecated()) {
+
+  if (lifecycle::is_present(dilution_summary_grp)) {
+    lifecycle::deprecate_warn(when = "0.0.6.9000",
+                              what = "plot_summary_table_num(dilution_summary_grp)",
+                              with = "plot_summary_table_num(curve_summary_grp)")
+    curve_summary_grp <- dilution_summary_grp
+  }
+
+  curve_num_data <- curve_summary_grp %>%
     mark_near_zero_columns() %>%
     dplyr::select_if(
       function(col) {
@@ -121,12 +147,12 @@ plot_summary_table_num <- function(dilution_summary_grp) {
       }
     )
 
-  remaining_cols <- length(colnames(dilution_num_data))
+  remaining_cols <- length(colnames(curve_num_data))
 
   if (remaining_cols < 1) {
-    dilution_num_data <- NULL
+    curve_num_data <- NULL
   } else {
-    dilution_num_data <- dilution_num_data %>%
+    curve_num_data <- curve_num_data %>%
       dplyr::mutate_if(function(col) class(col) == "scientific",
         formatC,
         format = "e", digits = 2
@@ -139,15 +165,18 @@ plot_summary_table_num <- function(dilution_summary_grp) {
       gridExtra::tableGrob(rows = NULL, cols = NULL)
   }
 
-  return(dilution_num_data)
+  return(curve_num_data)
 }
 
-#' @title Plot Dilution Summary Table For One Group
-#' @description Plot dilution summary table for one group
-#' @param dilution_summary_grp
-#' A one row data frame or tibble containing dilution summary
+#' @title Plot Curve Summary Table For One Group
+#' @description Plot curve summary table for one group
+#' @param curve_summary_grp
+#' A one row data frame or tibble containing curve summary.
+#' @param dilution_summary_grp `r lifecycle::badge("deprecated")`
+#' `dilution_summary_grp` was renamed to
+#' `curve_summary_grp`.
 #' @return A `gridtable` object consisting of two tables. One from
-#' [plot_summary_table_char()] and [plot_summary_table_num()]
+#' [plot_summary_table_char()] and [plot_summary_table_num()].
 #' @examples
 #' wf1_group <- c("Poor Linearity")
 #'
@@ -183,21 +212,32 @@ plot_summary_table_num <- function(dilution_summary_grp) {
 #'
 #' @rdname plot_summary_table
 #' @export
-plot_summary_table <- function(dilution_summary_grp) {
-  if (is.null(dilution_summary_grp) || isTRUE(is.na(dilution_summary_grp))) {
+plot_summary_table <- function(
+    curve_summary_grp,
+    dilution_summary_grp = lifecycle::deprecated()) {
+
+  if (lifecycle::is_present(dilution_summary_grp)) {
+    lifecycle::deprecate_warn(when = "0.0.6.9000",
+                              what = "plot_summary_table(dilution_summary_grp)",
+                              with = "plot_summary_table(curve_summary_grp)")
+    curve_summary_grp <- dilution_summary_grp
+  }
+
+  if (is.null(curve_summary_grp) || isTRUE(is.na(curve_summary_grp))) {
     return(NULL)
   }
-  dilution_char_data <- plot_summary_table_char(dilution_summary_grp)
-  dilution_num_data <- plot_summary_table_num(dilution_summary_grp)
 
-  if (is.null(dilution_char_data) && is.null(dilution_num_data)) {
+  curve_char_data <- plot_summary_table_char(curve_summary_grp)
+  curve_num_data <- plot_summary_table_num(curve_summary_grp)
+
+  if (is.null(curve_char_data) && is.null(curve_num_data)) {
     return(NULL)
-  } else if (is.null(dilution_char_data)) {
-    return(dilution_num_data)
-  } else if (is.null(dilution_num_data)) {
-    return(dilution_char_data)
+  } else if (is.null(curve_char_data)) {
+    return(curve_num_data)
+  } else if (is.null(curve_num_data)) {
+    return(curve_char_data)
   } else {
-    p <- gridExtra::gtable_combine(dilution_char_data, dilution_num_data,
+    p <- gridExtra::gtable_combine(curve_char_data, curve_num_data,
       along = 2
     )
     return(p)
@@ -208,22 +248,22 @@ plot_summary_table <- function(dilution_summary_grp) {
 
 #' @title Create Regression Colour Vector
 #' @description Internal function that create a named vector
-#' to indicate which regression line has what colour
+#' to indicate which regression line has what colour.
 #' @param plot_first_half_lin_reg Decide if we plot an extra
 #' regression line that best fits the first half
-#' of `conc_var` dilution points.
+#' of `conc_var` curve points.
 #' Default: FALSE
 #' @param plot_last_half_lin_reg Decide if we plot an extra
 #' regression line that best fits the last half
-#' of `conc_var` dilution points.
+#' of `conc_var` curve points.
 #' Default: FALSE
 #' @return A named vector in which a linear regression is
 #' named as "Lin" and is given the colour black. A
 #' quadratic regression is named as "Quad" and is given
 #' the colour red. A linear regression of the first
-#' half of the dilution points is named as "Lin First Half"
+#' half of the curve points is named as "Lin First Half"
 #' and is given the colour blue. A linear regression of
-#' the last half of the dilution points is
+#' the last half of the curve points is
 #' named as "Lin Last Half" and is given the colour purple.
 #' @examples
 #' # Data Creation

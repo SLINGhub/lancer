@@ -2,23 +2,30 @@
 % Please edit documentation in R/dilplots-ggplot.R
 \name{plot_summary_table_num}
 \alias{plot_summary_table_num}
-\title{Plot Dilution Summary Numeric Table For One Group}
+\title{Plot Curve Summary Numeric Table For One Group}
 \usage{
-plot_summary_table_num(dilution_summary_grp)
+plot_summary_table_num(
+  curve_summary_grp,
+  dilution_summary_grp = lifecycle::deprecated()
+)
 }
 \arguments{
-\item{dilution_summary_grp}{A one row data frame or tibble containing dilution summary}
+\item{curve_summary_grp}{A one row data frame or tibble containing curve summary.}
+
+\item{dilution_summary_grp}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+\code{dilution_summary_grp} was renamed to
+\code{curve_summary_grp}.}
 }
 \value{
 A \code{gridtable} object consisting of one table. The first
-column is the column names of \code{dilution_summary_grp} which
+column is the column names of \code{curve_summary_grp} which
 are numeric. The second column is their
 corresponding values. If there are numeric columns
-in \code{dilution_summary_grp}, NULL will be returned
+in \code{curve_summary_grp}, NULL will be returned.
 }
 \description{
-Plot dilution Summary numeric table for one group
-or batch
+Plot curve summary numeric table for one group
+or batch.
 }
 \examples{
 wf1_group <- c("Poor Linearity")

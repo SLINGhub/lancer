@@ -493,13 +493,13 @@ summarise_curve_table <- function(curve_table,
     dplyr::relocate(dplyr::all_of(grouping_variable)) %>%
     tidyr::nest() %>%
     dplyr::ungroup() %>%
-    dplyr::mutate(dil_summary = purrr::map(.data$data,
+    dplyr::mutate(curv_summary = purrr::map(.data$data,
       summarise_curve_data,
       conc_var = conc_var,
       signal_var = signal_var
     )) %>%
     tidyr::unnest(c(
-      dplyr::any_of("dil_summary")
+      dplyr::any_of("curv_summary")
       )) %>%
     dplyr::select(!c(
       dplyr::any_of("data")

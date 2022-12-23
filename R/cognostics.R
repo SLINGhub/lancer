@@ -261,9 +261,9 @@ update_cog_manual <- function(curve_summary,
                               type_vec = "type_vec") {
 
   if (lifecycle::is_present(dilution_summary)) {
-    lifecycle::deprecate_warn("0.0.6.9000",
-                              "update_cog_manual(dilution_summary)",
-                              "update_cog_manual(curve_summary)")
+    lifecycle::deprecate_warn(when = "0.0.6.9000",
+                              what = "update_cog_manual(dilution_summary)",
+                              with = "update_cog_manual(curve_summary)")
     curve_summary <- dilution_summary
   }
 
@@ -429,9 +429,9 @@ update_cog_auto <- function(
     dilution_summary = lifecycle::deprecated()) {
 
   if (lifecycle::is_present(dilution_summary)) {
-    lifecycle::deprecate_warn("0.0.6.9000",
-                              "update_cog_auto(dilution_summary)",
-                              "update_cog_auto(curve_summary)")
+    lifecycle::deprecate_warn(when = "0.0.6.9000",
+                              what = "update_cog_auto(dilution_summary)",
+                              with = "update_cog_auto(curve_summary)")
     curve_summary <- dilution_summary
   }
 
@@ -600,9 +600,9 @@ convert_to_cog <- function(curve_summary,
                            type_vec = "type_vec") {
 
   if (lifecycle::is_present(dilution_summary)) {
-    lifecycle::deprecate_warn("0.0.6.9000",
-                              "convert_to_cog(dilution_summary)",
-                              "convert_to_cog(curve_summary)")
+    lifecycle::deprecate_warn(when = "0.0.6.9000",
+                              what = "convert_to_cog(dilution_summary)",
+                              with = "convert_to_cog(curve_summary)")
     curve_summary <- dilution_summary
   }
 

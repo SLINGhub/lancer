@@ -2,10 +2,11 @@
 % Please edit documentation in R/lineval.R
 \name{evaluate_linearity}
 \alias{evaluate_linearity}
-\title{Evaluate Linearity Based On Dilution Summary Data}
+\title{Evaluate Linearity Based On Curve Summary Data}
 \usage{
 evaluate_linearity(
-  dilution_summary,
+  curve_summary,
+  dilution_summary = lifecycle::deprecated(),
   grouping_variable = c(),
   corrcoef_column = "r_corr",
   corrcoef_min_threshold = 0.8,
@@ -17,51 +18,55 @@ evaluate_linearity(
 )
 }
 \arguments{
-\item{dilution_summary}{A data frame or tibble output from
-the function \code{\link[=summarise_curve_data]{summarise_curve_data()}}}
+\item{curve_summary}{A data frame or tibble output from
+the function \code{\link[=summarise_curve_data]{summarise_curve_data()}}.}
+
+\item{dilution_summary}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+\code{dilution_summary} was renamed to
+\code{curve_summary}.}
 
 \item{grouping_variable}{A character vector of
-column names in \code{dilution_summary}to indicate which columns should be placed
+column names in \code{curve_summary}to indicate which columns should be placed
 first before the evaluation results. Default: c()}
 
-\item{corrcoef_column}{A column in \code{dilution_summary} that holds the
-correlation coefficient, Default: 'r_corr'}
+\item{corrcoef_column}{A column in \code{curve_summary} that holds the
+correlation coefficient. Default: 'r_corr'}
 
 \item{corrcoef_min_threshold}{The minimum threshold value of the curve's
 correlation coefficient to pass being potentially linear.
-Equality to the threshold is considered a pass, Default: 0.8}
+Equality to the threshold is considered a pass. Default: 0.8}
 
-\item{pra_column}{A column in \code{dilution_summary} that holds the
-percent residual accuracy, Default: 'pra_linear'}
+\item{pra_column}{A column in \code{curve_summary} that holds the
+percent residual accuracy, Default: 'pra_linear'.}
 
 \item{pra_min_threshold}{The minimum threshold value of the curve's
 percent residual accuracy to pass being potentially linear.
-Equality to the threshold is considered a pass, Default: 80}
+Equality to the threshold is considered a pass. Default: 80}
 
-\item{mandel_p_val_column}{A column in \code{dilution_summary} that holds the
-p value results for the Mandel's fitting test, Default: 'mandel_p_val'}
+\item{mandel_p_val_column}{A column in \code{curve_summary} that holds the
+p value results for the Mandel's fitting test. Default: 'mandel_p_val'}
 
 \item{mandel_p_val_threshold}{The threshold value of the curve's
 p value for the Mandel's fitting test to reject the hypothesis that
 the quadratic model fits better than the linear model.
 Default: 0.05}
 
-\item{concavity_column}{A column in \code{dilution_summary} that holds the
-concavity of the quadratic model, Default: 'concavity'}
+\item{concavity_column}{A column in \code{curve_summary} that holds the
+concavity of the quadratic model, Default: 'concavity'.}
 }
 \value{
-A data frame or tibble with evaluation results
+A data frame or tibble with evaluation results.
 }
 \description{
 Evaluate if a curve is linear based
-on dilution summary statistics
+on curve summary statistics
 }
 \details{
 Two work flows are given to evaluate linearity of dilution
 curves. The results are highlighted as columns \code{wf1_group} and
 \code{wf2_group} for now. Column names used to categorise the dilution
 curves will be moved to the front allow with \code{wf1_group} and
-\code{wf2_group}
+\code{wf2_group}.
 }
 \examples{
 r_corr <- c(0.951956, 0.948683, 0.978057, 0.976462, 0.970618, 0.969348)

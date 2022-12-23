@@ -2,22 +2,29 @@
 % Please edit documentation in R/dilplots-ggplot.R
 \name{plot_summary_table_char}
 \alias{plot_summary_table_char}
-\title{Plot Dilution Summary Character Table For One Group}
+\title{Plot Curve Summary Character Table For One Group}
 \usage{
-plot_summary_table_char(dilution_summary_grp)
+plot_summary_table_char(
+  curve_summary_grp,
+  dilution_summary_grp = lifecycle::deprecated()
+)
 }
 \arguments{
-\item{dilution_summary_grp}{A one row data frame or tibble containing dilution summary}
+\item{curve_summary_grp}{A one row data frame or tibble containing curve summary}
+
+\item{dilution_summary_grp}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+\code{dilution_summary_grp} was renamed to
+\code{curve_summary_grp}.}
 }
 \value{
 A \code{gridtable} object consisting of one table. The first
-column is the column names of \code{dilution_summary_grp} which
+column is the column names of \code{curve_summary_grp} which
 are characters or factors or logical. The second column is their
 corresponding values. If there are no character/factor/logical
-columns in \code{dilution_summary_grp}, NULL will be returned
+columns in \code{curve_summary_grp}, NULL will be returned
 }
 \description{
-Plot dilution summary character table for one group or batch
+Plot curve summary character table for one group or batch
 }
 \examples{
 wf1_group <- c("Poor Linearity")

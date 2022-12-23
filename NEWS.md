@@ -2,7 +2,7 @@
 
 ## TODO
 
-* Change `lancer` functions that has `dilution` to `curve`
+* Change `lancer` functions that has `dilution` to `curve`.
 
 ## Completed
 
@@ -14,9 +14,14 @@
 * `summarise_dilution_data` changed to `summarise_curve_data`.
 * `summarise_dilution_table` changed to `summarise_curve_table`.
 
-* `dilution_summary` argument in `update_cog_manual` changed to `curve_summary`
-* `dilution_summary` argument in `update_cog_auto` changed to `curve_summary`
-* `dilution_summary` argument in `convert_to_cog` changed to `curve_summary`
+* `dilution_summary` argument in `update_cog_manual` changed to `curve_summary`.
+* `dilution_summary` argument in `update_cog_auto` changed to `curve_summary`.
+* `dilution_summary` argument in `convert_to_cog` changed to `curve_summary`.
+* `dilution_summary` argument in `evaluate_linearity` changed to `curve_summary`.
+
+* `dilution_summary_grp` argument in `plot_summary_table_char` changed to `curve_summary_grp`.
+* `dilution_summary_grp` argument in `plot_summary_table_num` changed to `curve_summary_grp`.
+* `dilution_summary_grp` argument in `plot_summary_table` changed to `curve_summary_grp`.
 
 # lancer 0.0.6
 
@@ -32,8 +37,8 @@
 # lancer 0.0.4
 
 * Fix issue that `r_corr` from `calculate_gof_linear` gives a named numeric vector.
-* Change code to suit the changes highlighted in [tidyselect 1.2.0](https://www.tidyverse.org/blog/2022/10/tidyselect-1-2-0/) .
-* Use `actions/checkout@v3` and `actions/cache@v3` in `R-CMD-check.yaml` file 
+* Change code to suit the changes highlighted in [tidyselect 1.2.0](https://www.tidyverse.org/blog/2022/10/tidyselect-1-2-0/).
+* Use `actions/checkout@v3` and `actions/cache@v3` in `R-CMD-check.yaml` file. 
 
 # lancer 0.0.3
 

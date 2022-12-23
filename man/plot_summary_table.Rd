@@ -2,19 +2,26 @@
 % Please edit documentation in R/dilplots-ggplot.R
 \name{plot_summary_table}
 \alias{plot_summary_table}
-\title{Plot Dilution Summary Table For One Group}
+\title{Plot Curve Summary Table For One Group}
 \usage{
-plot_summary_table(dilution_summary_grp)
+plot_summary_table(
+  curve_summary_grp,
+  dilution_summary_grp = lifecycle::deprecated()
+)
 }
 \arguments{
-\item{dilution_summary_grp}{A one row data frame or tibble containing dilution summary}
+\item{curve_summary_grp}{A one row data frame or tibble containing curve summary.}
+
+\item{dilution_summary_grp}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+\code{dilution_summary_grp} was renamed to
+\code{curve_summary_grp}.}
 }
 \value{
 A \code{gridtable} object consisting of two tables. One from
-\code{\link[=plot_summary_table_char]{plot_summary_table_char()}} and \code{\link[=plot_summary_table_num]{plot_summary_table_num()}}
+\code{\link[=plot_summary_table_char]{plot_summary_table_char()}} and \code{\link[=plot_summary_table_num]{plot_summary_table_num()}}.
 }
 \description{
-Plot dilution summary table for one group
+Plot curve summary table for one group
 }
 \examples{
 wf1_group <- c("Poor Linearity")
