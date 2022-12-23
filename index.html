@@ -475,7 +475,7 @@ Equation ( <span class="math inline">6</span> ) is used.</p>
 <p>Classify each curve according to Workflow 1 and Workflow 2.<br><code>wf1_group1</code> gives the results of Workflow 1<br><code>wf2_group2</code> gives the results of Workflow 2</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">curve_classified</span> <span class="op">&lt;-</span> <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="reference/evaluate_linearity.html">evaluate_linearity</a></span><span class="op">(</span></span>
-<span>  dilution_summary <span class="op">=</span> <span class="va">curve_summary</span>,</span>
+<span>  curve_summary <span class="op">=</span> <span class="va">curve_summary</span>,</span>
 <span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>    <span class="st">"Transition_Name"</span>,</span>
 <span>    <span class="st">"Dilution_Batch_Name"</span></span>
@@ -518,14 +518,14 @@ Equation ( <span class="math inline">6</span> ) is used.</p>
 <p>Results can be plotted using <code>add_ggplot_panel</code>. This will create a column called panel that contains all the <code>ggplot</code> plots</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ggplot_table</span> <span class="op">&lt;-</span> <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="reference/add_ggplot_panel.html">add_ggplot_panel</a></span><span class="op">(</span></span>
-<span>  dilution_table <span class="op">=</span> <span class="va">curve_table</span>,</span>
-<span>  dilution_summary <span class="op">=</span> <span class="va">curve_classified</span>,</span>
+<span>  curve_table <span class="op">=</span> <span class="va">curve_table</span>,</span>
+<span>  curve_summary <span class="op">=</span> <span class="va">curve_classified</span>,</span>
 <span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>    <span class="st">"Transition_Name"</span>,</span>
 <span>    <span class="st">"Dilution_Batch_Name"</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  dil_batch_var <span class="op">=</span> <span class="st">"Dilution_Batch_Name"</span>,</span>
-<span>  dil_batch_col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#377eb8"</span>, <span class="st">"#4daf4a"</span><span class="op">)</span>,</span>
+<span>  curv_batch_var <span class="op">=</span> <span class="st">"Dilution_Batch_Name"</span>,</span>
+<span>  curv_batch_col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#377eb8"</span>, <span class="st">"#4daf4a"</span><span class="op">)</span>,</span>
 <span>  conc_var <span class="op">=</span> <span class="st">"Dilution_Percent"</span>,</span>
 <span>  conc_var_units <span class="op">=</span> <span class="st">"%"</span>,</span>
 <span>  conc_var_interval <span class="op">=</span> <span class="fl">50</span>,</span>
