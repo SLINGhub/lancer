@@ -23,6 +23,10 @@
 * `dilution_summary_grp` argument in `plot_summary_table_num` changed to `curve_summary_grp`.
 * `dilution_summary_grp` argument in `plot_summary_table` changed to `curve_summary_grp`.
 
+* `dilution_data` argument in `plot_curve_ggplot` changed to `curve_data`.
+* `dilution_summary_grp` argument in `plot_curve_ggplot` changed to `curve_summary_grp`.
+* `dil_batch_var` argument in `plot_curve_ggplot` changed to `curv_batch_var`.
+
 # lancer 0.0.6
 
 * Change characterisation of LOD curves from LOD to Noise Regime.

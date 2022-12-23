@@ -2,14 +2,17 @@
 % Please edit documentation in R/dilplots-ggplot.R
 \name{plot_curve_ggplot}
 \alias{plot_curve_ggplot}
-\title{Plot Dilution Curve Using \code{ggplot2}}
+\title{Plot Curve Using \code{ggplot2}}
 \usage{
 plot_curve_ggplot(
-  dilution_data,
-  dilution_summary_grp,
-  title,
+  curve_data,
+  curve_summary_grp,
   pal,
-  dil_batch_var = "Dilution_Batch_Name",
+  title = "",
+  curv_batch_var = "Dilution_Batch_Name",
+  dilution_data = lifecycle::deprecated(),
+  dilution_summary_grp = lifecycle::deprecated(),
+  dil_batch_var = lifecycle::deprecated(),
   conc_var = "Dilution_Percent",
   conc_var_units = "\%",
   conc_var_interval = 50,
@@ -19,50 +22,63 @@ plot_curve_ggplot(
 )
 }
 \arguments{
-\item{dilution_data}{A data frame or tibble containing dilution data}
+\item{curve_data}{A data frame or tibble containing curve data.}
 
-\item{dilution_summary_grp}{A data frame or tibble containing
-dilution summary data for one group}
+\item{curve_summary_grp}{A data frame or tibble containing
+curve summary data for one group.}
 
-\item{title}{Title to use for each dilution plot}
-
-\item{pal}{Input palette for each dilution batch group in \code{dil_batch_var}.
+\item{pal}{Input palette for each curve batch group in \code{curv_batch_var}.
 It is a named char vector where each value is a colour and
-name is a dilution batch group given in \code{dil_batch_var}}
+name is a curve batch group given in \code{curv_batch_var}.}
 
-\item{dil_batch_var}{Column name in \code{dilution_table}
-to indicate the group name of each dilution batch,
-used to colour the points in the dilution plot
+\item{title}{Title to use for each curve plot.
+Default: ''}
+
+\item{curv_batch_var}{Column name in \code{curve_table}
+to indicate the group name of each curve batch,
+used to colour the points in the curve plot.
 Default: 'Dilution_Batch_Name'}
 
-\item{conc_var}{Column name in \code{dilution_table} to indicate concentration
+\item{dilution_data}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+\code{dilution_data} was renamed to
+\code{curve_data}.}
+
+\item{dilution_summary_grp}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+\code{dilution_summary_grp} was renamed to
+\code{curve_summary_grp}.}
+
+\item{dil_batch_var}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+\code{dil_batch_var} was renamed to
+\code{curv_batch_var}.}
+
+\item{conc_var}{Column name in \code{curve_table} to indicate concentration.
 Default: 'Dilution_Percent'}
 
-\item{conc_var_units}{Unit of measure for \code{conc_var}, Default: '\%'}
+\item{conc_var_units}{Unit of measure for \code{conc_var}. Default: '\%'}
 
-\item{conc_var_interval}{Distance between two tick labels
-in the dilution plot,
+\item{conc_var_interval}{Distance between two tick labels.
+in the curve plot.
 Default: 50}
 
-\item{signal_var}{Column name in \code{dilution_table} to indicate signal
+\item{signal_var}{Column name in \code{curve_table} to indicate signal.
 Default: 'Area'}
 
 \item{plot_first_half_lin_reg}{Decide if we plot an extra
 regression line that best fits the first half
-of \code{conc_var} dilution points.
+of \code{conc_var} curve points.
 Default: FALSE}
 
 \item{plot_last_half_lin_reg}{Decide if we plot an extra
 regression line that best fits the last half
-of \code{conc_var} dilution points.
+of \code{conc_var} curve points.
 Default: FALSE}
 }
 \value{
-Output \code{ggplot} dilution plot data of one dilution
-batch per transition
+Output \code{ggplot} curve plot data of one curve
+batch per curve name.
 }
 \description{
-Plot dilution curve using \code{ggplot2}
+Plot curve using \code{ggplot2}.
 }
 \examples{
 
@@ -96,7 +112,7 @@ lipid1_area_saturated <- c(
   75438063, 91770737, 94692060
 )
 
-dilution_data <- tibble::tibble(
+curve_data <- tibble::tibble(
   Sample_Name = sample_name,
   Dilution_Batch_Name = dilution_batch_name,
   Dilution_Percent = dilution_percent,
@@ -113,12 +129,12 @@ dilution_batch_name <- dilution_batch_name \%>\%
 
 dil_batch_col <- c("#377eb8")
 
-# Create palette for each dilution batch for plotting
+# Create palette for each curve batch for plotting
 pal <- dil_batch_col \%>\%
   stats::setNames(dilution_batch_name)
 
-# Create dilution statistical summary
-dilution_summary_grp <- dilution_data \%>\%
+# Create curve statistical summary
+curve_summary_grp <- curve_data \%>\%
   summarise_curve_table(
     grouping_variable = grouping_variable,
     conc_var = "Dilution_Percent",
@@ -129,11 +145,12 @@ dilution_summary_grp <- dilution_data \%>\%
 
 
 # Create the ggplot
-p <- plot_curve_ggplot(dilution_data,
-  dilution_summary_grp = dilution_summary_grp,
-  title = "Lipid_Saturated",
+p <- plot_curve_ggplot(
+  curve_data,
+  curve_summary_grp = curve_summary_grp,
   pal = pal,
-  dil_batch_var = "Dilution_Batch_Name",
+  title = "Lipid_Saturated",
+  curv_batch_var = "Dilution_Batch_Name",
   conc_var = "Dilution_Percent",
   conc_var_units = "\%",
   conc_var_interval = 50,

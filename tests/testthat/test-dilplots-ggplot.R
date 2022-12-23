@@ -62,10 +62,10 @@ test_that("Able to plot good dilution data with ggplot correctly", {
 
   # Create the ggplot
   p <- plot_curve_ggplot(curve_data,
-    dilution_summary_grp = curve_summary_grp,
+    curve_summary_grp = curve_summary_grp,
     title = "Lipid_Saturated",
     pal = pal,
-    dil_batch_var = "Dilution_Batch_Name",
+    curv_batch_var = "Dilution_Batch_Name",
     conc_var = "Dilution_Percent",
     conc_var_units = "%",
     conc_var_interval = 50,
@@ -76,10 +76,10 @@ test_that("Able to plot good dilution data with ggplot correctly", {
   vdiffr::expect_doppelganger("A usual dilution plot", p)
 
   p <- plot_curve_ggplot(curve_data,
-    dilution_summary_grp = curve_summary_grp,
+    curve_summary_grp = curve_summary_grp,
     title = "Lipid_Saturated",
     pal = pal,
-    dil_batch_var = "Dilution_Batch_Name",
+    curv_batch_var = "Dilution_Batch_Name",
     conc_var = "Dilution_Percent",
     conc_var_units = "%",
     conc_var_interval = 50,
@@ -90,10 +90,10 @@ test_that("Able to plot good dilution data with ggplot correctly", {
   vdiffr::expect_doppelganger("A Lin First Half dilution plot", p)
 
   p <- plot_curve_ggplot(curve_data,
-    dilution_summary_grp = curve_summary_grp,
+    curve_summary_grp = curve_summary_grp,
     title = "Lipid_Saturated",
     pal = pal,
-    dil_batch_var = "Dilution_Batch_Name",
+    curv_batch_var = "Dilution_Batch_Name",
     conc_var = "Dilution_Percent",
     conc_var_units = "%",
     conc_var_interval = 50,
@@ -104,10 +104,10 @@ test_that("Able to plot good dilution data with ggplot correctly", {
   vdiffr::expect_doppelganger("A Lin Last Half dilution plot", p)
 
   p <- plot_curve_ggplot(curve_data,
-    dilution_summary_grp = curve_summary_grp,
+    curve_summary_grp = curve_summary_grp,
     title = "Lipid_Saturated",
     pal = pal,
-    dil_batch_var = "Dilution_Batch_Name",
+    curv_batch_var = "Dilution_Batch_Name",
     conc_var = "Dilution_Percent",
     conc_var_units = "%",
     conc_var_interval = 50,
@@ -184,10 +184,10 @@ test_that("Able to plot horizontal dilution data with ggplot correctly", {
 
   # Create the ggplot
   p <- plot_curve_ggplot(curve_data,
-    dilution_summary_grp = curve_summary_grp,
+    curve_summary_grp = curve_summary_grp,
     title = "Lipid_Horizontal",
     pal = pal,
-    dil_batch_var = "Dilution_Batch_Name",
+    curv_batch_var = "Dilution_Batch_Name",
     conc_var = "Dilution_Percent",
     conc_var_units = "%",
     conc_var_interval = 50,
@@ -269,10 +269,10 @@ test_that("Able to plot vertical dilution data with ggplot correctly", {
 
   # Create the ggplot
   p <- plot_curve_ggplot(curve_data,
-    dilution_summary_grp = curve_summary_grp,
+    curve_summary_grp = curve_summary_grp,
     title = "Lipid_Vertical",
     pal = pal,
-    dil_batch_var = "Dilution_Batch_Name",
+    curv_batch_var = "Dilution_Batch_Name",
     conc_var = "Dilution_Percent",
     conc_var_units = "%",
     conc_var_interval = 50,
@@ -353,10 +353,10 @@ test_that("Able to plot single point dilution data with ggplot correctly", {
 
   # Create the ggplot
   p <- plot_curve_ggplot(curve_data,
-    dilution_summary_grp = curve_summary_grp,
+    curve_summary_grp = curve_summary_grp,
     title = "Lipid_Point",
     pal = pal,
-    dil_batch_var = "Dilution_Batch_Name",
+    curv_batch_var = "Dilution_Batch_Name",
     conc_var = "Dilution_Percent",
     conc_var_units = "%",
     conc_var_interval = 50,
@@ -432,10 +432,10 @@ test_that("Able to plot NA dilution data with ggplot correctly", {
 
   # Create the ggplot
   p <- plot_curve_ggplot(curve_data,
-    dilution_summary_grp = curve_summary_grp,
+    curve_summary_grp = curve_summary_grp,
     title = "Lipid_No_Point",
     pal = pal,
-    dil_batch_var = "Dilution_Batch_Name",
+    curv_batch_var = "Dilution_Batch_Name",
     conc_var = "Dilution_Percent",
     conc_var_units = "%",
     conc_var_interval = 50,

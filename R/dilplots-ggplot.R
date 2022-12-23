@@ -51,9 +51,10 @@ plot_summary_table_char <- function(
     dilution_summary_grp = lifecycle::deprecated()) {
 
   if (lifecycle::is_present(dilution_summary_grp)) {
-    lifecycle::deprecate_warn(when = "0.0.6.9000",
-                              what = "plot_summary_table_char(dilution_summary_grp)",
-                              with = "plot_summary_table_char(curve_summary_grp)")
+    lifecycle::deprecate_warn(
+      when = "0.0.6.9000",
+      what = "plot_summary_table_char(dilution_summary_grp)",
+      with = "plot_summary_table_char(curve_summary_grp)")
     curve_summary_grp <- dilution_summary_grp
   }
 
@@ -133,9 +134,10 @@ plot_summary_table_num <- function(
     dilution_summary_grp = lifecycle::deprecated()) {
 
   if (lifecycle::is_present(dilution_summary_grp)) {
-    lifecycle::deprecate_warn(when = "0.0.6.9000",
-                              what = "plot_summary_table_num(dilution_summary_grp)",
-                              with = "plot_summary_table_num(curve_summary_grp)")
+    lifecycle::deprecate_warn(
+      when = "0.0.6.9000",
+      what = "plot_summary_table_num(dilution_summary_grp)",
+      with = "plot_summary_table_num(curve_summary_grp)")
     curve_summary_grp <- dilution_summary_grp
   }
 
@@ -302,37 +304,47 @@ create_reg_col_vec <- function(plot_first_half_lin_reg = FALSE,
   return(reg_col_vec)
 }
 
-#' @title Plot Dilution Curve Using `ggplot2`
-#' @description Plot dilution curve using `ggplot2`
-#' @param dilution_data A data frame or tibble containing dilution data
-#' @param dilution_summary_grp A data frame or tibble containing
-#' dilution summary data for one group
-#' @param title Title to use for each dilution plot
-#' @param pal Input palette for each dilution batch group in `dil_batch_var`.
+#' @title Plot Curve Using `ggplot2`
+#' @description Plot curve using `ggplot2`.
+#' @param curve_data A data frame or tibble containing curve data.
+#' @param curve_summary_grp A data frame or tibble containing
+#' curve summary data for one group.
+#' @param pal Input palette for each curve batch group in `curv_batch_var`.
 #' It is a named char vector where each value is a colour and
-#' name is a dilution batch group given in `dil_batch_var`
-#' @param dil_batch_var Column name in `dilution_table`
-#' to indicate the group name of each dilution batch,
-#' used to colour the points in the dilution plot
+#' name is a curve batch group given in `curv_batch_var`.
+#' @param title Title to use for each curve plot.
+#' Default: ''
+#' @param curv_batch_var Column name in `curve_table`
+#' to indicate the group name of each curve batch,
+#' used to colour the points in the curve plot.
 #' Default: 'Dilution_Batch_Name'
-#' @param conc_var Column name in `dilution_table` to indicate concentration
+#' @param dilution_data `r lifecycle::badge("deprecated")`
+#' `dilution_data` was renamed to
+#' `curve_data`.
+#' @param dilution_summary_grp `r lifecycle::badge("deprecated")`
+#' `dilution_summary_grp` was renamed to
+#' `curve_summary_grp`.
+#' @param dil_batch_var `r lifecycle::badge("deprecated")`
+#' `dil_batch_var` was renamed to
+#' `curv_batch_var`.
+#' @param conc_var Column name in `curve_table` to indicate concentration.
 #' Default: 'Dilution_Percent'
-#' @param conc_var_units Unit of measure for `conc_var`, Default: '%'
-#' @param conc_var_interval Distance between two tick labels
-#' in the dilution plot,
+#' @param conc_var_units Unit of measure for `conc_var`. Default: '%'
+#' @param conc_var_interval Distance between two tick labels.
+#' in the curve plot.
 #' Default: 50
-#' @param signal_var Column name in `dilution_table` to indicate signal
+#' @param signal_var Column name in `curve_table` to indicate signal.
 #' Default: 'Area'
 #' @param plot_first_half_lin_reg Decide if we plot an extra
 #' regression line that best fits the first half
-#' of `conc_var` dilution points.
+#' of `conc_var` curve points.
 #' Default: FALSE
 #' @param plot_last_half_lin_reg Decide if we plot an extra
 #' regression line that best fits the last half
-#' of `conc_var` dilution points.
+#' of `conc_var` curve points.
 #' Default: FALSE
-#' @return Output `ggplot` dilution plot data of one dilution
-#' batch per transition
+#' @return Output `ggplot` curve plot data of one curve
+#' batch per curve name.
 #' @rdname plot_curve_ggplot
 #' @examples
 #'
@@ -366,7 +378,7 @@ create_reg_col_vec <- function(plot_first_half_lin_reg = FALSE,
 #'   75438063, 91770737, 94692060
 #' )
 #'
-#' dilution_data <- tibble::tibble(
+#' curve_data <- tibble::tibble(
 #'   Sample_Name = sample_name,
 #'   Dilution_Batch_Name = dilution_batch_name,
 #'   Dilution_Percent = dilution_percent,
@@ -383,12 +395,12 @@ create_reg_col_vec <- function(plot_first_half_lin_reg = FALSE,
 #'
 #' dil_batch_col <- c("#377eb8")
 #'
-#' # Create palette for each dilution batch for plotting
+#' # Create palette for each curve batch for plotting
 #' pal <- dil_batch_col %>%
 #'   stats::setNames(dilution_batch_name)
 #'
-#' # Create dilution statistical summary
-#' dilution_summary_grp <- dilution_data %>%
+#' # Create curve statistical summary
+#' curve_summary_grp <- curve_data %>%
 #'   summarise_curve_table(
 #'     grouping_variable = grouping_variable,
 #'     conc_var = "Dilution_Percent",
@@ -399,11 +411,12 @@ create_reg_col_vec <- function(plot_first_half_lin_reg = FALSE,
 #'
 #'
 #' # Create the ggplot
-#' p <- plot_curve_ggplot(dilution_data,
-#'   dilution_summary_grp = dilution_summary_grp,
-#'   title = "Lipid_Saturated",
+#' p <- plot_curve_ggplot(
+#'   curve_data,
+#'   curve_summary_grp = curve_summary_grp,
 #'   pal = pal,
-#'   dil_batch_var = "Dilution_Batch_Name",
+#'   title = "Lipid_Saturated",
+#'   curv_batch_var = "Dilution_Batch_Name",
 #'   conc_var = "Dilution_Percent",
 #'   conc_var_units = "%",
 #'   conc_var_interval = 50,
@@ -413,71 +426,98 @@ create_reg_col_vec <- function(plot_first_half_lin_reg = FALSE,
 #' p
 #'
 #' @export
-plot_curve_ggplot <- function(dilution_data,
-                              dilution_summary_grp,
-                              title,
-                              pal,
-                              dil_batch_var = "Dilution_Batch_Name",
-                              conc_var = "Dilution_Percent",
-                              conc_var_units = "%",
-                              conc_var_interval = 50,
-                              signal_var = "Area",
-                              plot_first_half_lin_reg = FALSE,
-                              plot_last_half_lin_reg = FALSE) {
+plot_curve_ggplot <- function(
+    curve_data,
+    curve_summary_grp,
+    pal,
+    title = "",
+    curv_batch_var = "Dilution_Batch_Name",
+    dilution_data = lifecycle::deprecated(),
+    dilution_summary_grp = lifecycle::deprecated(),
+    dil_batch_var = lifecycle::deprecated(),
+    conc_var = "Dilution_Percent",
+    conc_var_units = "%",
+    conc_var_interval = 50,
+    signal_var = "Area",
+    plot_first_half_lin_reg = FALSE,
+    plot_last_half_lin_reg = FALSE) {
 
+  if (lifecycle::is_present(dilution_data)) {
+    lifecycle::deprecate_warn(
+      when = "0.0.6.9000",
+      what = "plot_curve_ggplot(dilution_data)",
+      with = "plot_curve_ggplot(curve_data)")
+    curve_data <- dilution_data
+  }
 
-  # Number of dilution batches
-  no_of_dil_batch <- dilution_data %>%
-    dplyr::pull(.data[[dil_batch_var]]) %>%
+  if (lifecycle::is_present(dilution_summary_grp)) {
+    lifecycle::deprecate_warn(
+      when = "0.0.6.9000",
+      what = "plot_curve_ggplot(dilution_summary_grp)",
+      with = "plot_curve_ggplot(curve_summary_grp)")
+    curve_summary_grp <- dilution_summary_grp
+  }
+
+  if (lifecycle::is_present(dil_batch_var)) {
+    lifecycle::deprecate_warn(
+      when = "0.0.6.9000",
+      what = "plot_curve_ggplot(curv_batch_var)",
+      with = "plot_curve_ggplot(curve_summary_grp)")
+    curv_batch_var <- dil_batch_var
+  }
+
+  # Number of curve batches
+  no_of_dil_batch <- curve_data %>%
+    dplyr::pull(.data[[curv_batch_var]]) %>%
     unique() %>%
     length()
 
-  # Name of dilution batch
-  names_of_dil_batch <- dilution_data %>%
-    dplyr::pull(.data[[dil_batch_var]]) %>%
+  # Name of curve batch
+  names_of_dil_batch <- curve_data %>%
+    dplyr::pull(.data[[curv_batch_var]]) %>%
     unique()
 
-  # Filter the dilution palatte based on what batches are
-  # in the dilution_data
+  # Filter the curve palette based on what batches are
+  # in the curve_data
   filtered_pal <- pal[which(names(pal) %in% names_of_dil_batch)]
 
-  # Give an error if the palatte colour is not listed in
-  # dilution_batch_name
+  # Give an error if the palette colour is not listed in
+  # curve_batch_name
   stopifnot(length(filtered_pal) > 0)
 
   # Get conc_vector before we drop the rows
-  conc_vector <- dilution_data[[conc_var]]
+  conc_vector <- curve_data[[conc_var]]
 
   # Drop values that are NA in signal_var
-  dilution_data <- dilution_data %>%
+  curve_data <- curve_data %>%
     tidyr::drop_na(dplyr::all_of(signal_var))
 
   # Named vector to represent the colours of the regression lines
   reg_col_vec <- NA
 
   # Create the table
-  tables <- plot_summary_table(dilution_summary_grp)
+  tables <- plot_summary_table(curve_summary_grp)
 
-  # Create an empty dilution plot first
-  p <- ggplot2::ggplot(dilution_data) +
+  # Create an empty curve plot first
+  p <- ggplot2::ggplot(curve_data) +
     ggplot2::aes(
       x = .data[[conc_var]],
       y = .data[[signal_var]]
     ) +
     ggplot2::geom_point(
-      mapping = ggplot2::aes(colour = factor(.data[[dil_batch_var]])),
+      mapping = ggplot2::aes(colour = factor(.data[[curv_batch_var]])),
       size = 5
     )
 
-  if (nrow(dilution_data) > 3) {
+  if (nrow(curve_data) > 3) {
 
     # When we need to plot a horizontal line
-    if (stats::sd(dilution_data[[signal_var]]) == 0) {
+    if (stats::sd(curve_data[[signal_var]]) == 0) {
       reg_col_vec <- c("Lin" = "black")
 
-      min_x <- min(dilution_data[[conc_var]], na.rm = TRUE)
-      max_x <- max(dilution_data[[conc_var]], na.rm = TRUE)
-      cont_y <- unique(dilution_data[[signal_var]])
+      min_x <- min(curve_data[[conc_var]], na.rm = TRUE)
+      max_x <- max(curve_data[[conc_var]], na.rm = TRUE)
+      cont_y <- unique(curve_data[[signal_var]])
 
       p <- p +
         ggplot2::geom_segment(
@@ -487,14 +527,14 @@ plot_curve_ggplot <- function(dilution_data,
             colour = "Lin"
           )
         )
-    } else if (stats::sd(dilution_data[[conc_var]]) == 0) {
+    } else if (stats::sd(curve_data[[conc_var]]) == 0) {
       # When we need to plot a vertical line
 
       reg_col_vec <- c("Lin" = "black")
 
-      min_y <- min(dilution_data[[signal_var]], na.rm = TRUE)
-      max_y <- max(dilution_data[[signal_var]], na.rm = TRUE)
-      cont_x <- unique(dilution_data[[conc_var]])
+      min_y <- min(curve_data[[signal_var]], na.rm = TRUE)
+      max_y <- max(curve_data[[signal_var]], na.rm = TRUE)
+      cont_x <- unique(curve_data[[conc_var]])
 
       p <- p +
         ggplot2::geom_segment(
@@ -511,25 +551,25 @@ plot_curve_ggplot <- function(dilution_data,
       )
 
       # Model the data
-      linear_model <- create_linear_model(dilution_data, conc_var, signal_var)
-      quad_model <- create_quad_model(dilution_data, conc_var, signal_var)
+      linear_model <- create_linear_model(curve_data, conc_var, signal_var)
+      quad_model <- create_quad_model(curve_data, conc_var, signal_var)
 
-      dilution <- seq(min(dilution_data[[conc_var]], na.rm = TRUE),
-        max(dilution_data[[conc_var]], na.rm = TRUE),
+      curve <- seq(min(curve_data[[conc_var]], na.rm = TRUE),
+        max(curve_data[[conc_var]], na.rm = TRUE),
         length.out = 15
       )
 
       # Create the y values for the line
       y_lin_predict <- stats::predict(
         linear_model,
-        tibble::tibble(!!conc_var := dilution)
+        tibble::tibble(!!conc_var := curve)
       )
       y_quad_predict <- stats::predict(
         quad_model,
-        tibble::tibble(!!conc_var := dilution)
+        tibble::tibble(!!conc_var := curve)
       )
       reg_data <- data.frame(
-        dilution = dilution,
+        curve = curve,
         y_lin_predict = y_lin_predict,
         y_quad_predict = y_quad_predict
       )
@@ -539,14 +579,14 @@ plot_curve_ggplot <- function(dilution_data,
         ggplot2::geom_line(
           data = reg_data,
           mapping = ggplot2::aes(
-            x = dilution, y = y_lin_predict,
+            x = curve, y = y_lin_predict,
             colour = "Lin"
           )
         ) +
         ggplot2::geom_line(
           data = reg_data,
           mapping = ggplot2::aes(
-            x = dilution, y = y_quad_predict,
+            x = curve, y = y_quad_predict,
             colour = "Quad"
           )
         )
@@ -555,7 +595,7 @@ plot_curve_ggplot <- function(dilution_data,
       if (plot_first_half_lin_reg) {
 
         # Get the points for the partial linear curve
-        partial_conc_points <- dilution_data %>%
+        partial_conc_points <- curve_data %>%
           dplyr::pull(.data[[conc_var]]) %>%
           as.numeric() %>%
           sort() %>%
@@ -564,23 +604,23 @@ plot_curve_ggplot <- function(dilution_data,
         first_half_index <- 1:ceiling(length(partial_conc_points) / 2)
         partial_conc_points <- partial_conc_points[first_half_index]
 
-        partial_dilution_data <- dilution_data %>%
+        partial_curve_data <- curve_data %>%
           dplyr::filter(.data[[conc_var]] %in% partial_conc_points)
 
 
         # Create the partial model
         partial_linear_model <- create_linear_model(
-          partial_dilution_data,
+          partial_curve_data,
           conc_var, signal_var
         )
 
         y_partial_lin_predict <- stats::predict(
           partial_linear_model,
-          tibble::tibble(!!conc_var := dilution)
+          tibble::tibble(!!conc_var := curve)
         )
 
         partial_reg_data <- data.frame(
-          dilution = dilution,
+          curve = curve,
           y_partial_lin_predict = y_partial_lin_predict
         )
 
@@ -589,7 +629,7 @@ plot_curve_ggplot <- function(dilution_data,
           ggplot2::geom_line(
             data = partial_reg_data,
             mapping = ggplot2::aes(
-              x = dilution,
+              x = curve,
               y = y_partial_lin_predict,
               colour = "Lin First Half"
             )
@@ -599,7 +639,7 @@ plot_curve_ggplot <- function(dilution_data,
       if (plot_last_half_lin_reg) {
 
         # Get the points for the partial linear curve
-        partial_conc_points <- dilution_data %>%
+        partial_conc_points <- curve_data %>%
           dplyr::pull(.data[[conc_var]]) %>%
           as.numeric() %>%
           sort() %>%
@@ -609,23 +649,23 @@ plot_curve_ggplot <- function(dilution_data,
           ceiling(length(partial_conc_points) / 2):length(partial_conc_points)
         partial_conc_points <- partial_conc_points[last_half_index]
 
-        partial_dilution_data <- dilution_data %>%
+        partial_curve_data <- curve_data %>%
           dplyr::filter(.data[[conc_var]] %in% partial_conc_points)
 
 
         # Create the partial model
         partial_linear_model <- create_linear_model(
-          partial_dilution_data,
+          partial_curve_data,
           conc_var, signal_var
         )
 
         y_partial_lin_predict <- stats::predict(
           partial_linear_model,
-          tibble::tibble(!!conc_var := dilution)
+          tibble::tibble(!!conc_var := curve)
         )
 
         partial_reg_data <- data.frame(
-          dilution = dilution,
+          curve = curve,
           y_partial_lin_predict = y_partial_lin_predict
         )
 
@@ -634,7 +674,7 @@ plot_curve_ggplot <- function(dilution_data,
           ggplot2::geom_line(
             data = partial_reg_data,
             mapping = ggplot2::aes(
-              x = dilution,
+              x = curve,
               y = y_partial_lin_predict,
               colour = "Lin Last Half"
             )
@@ -644,13 +684,13 @@ plot_curve_ggplot <- function(dilution_data,
   }
 
   # Get maximum concentration value for scaling
-  if (nrow(dilution_data) == 0) {
+  if (nrow(curve_data) == 0) {
     conc_vector <- conc_vector[!is.na(conc_vector)]
     max_conc <- ifelse(length(conc_vector) == 0,
       0, max(conc_vector, na.rm = TRUE)
     )
   } else {
-    max_conc <- max(dilution_data[[conc_var]], na.rm = TRUE)
+    max_conc <- max(curve_data[[conc_var]], na.rm = TRUE)
   }
 
   conc_tick_points <- seq(0, max_conc, by = conc_var_interval)
@@ -877,28 +917,27 @@ plot_curve_ggplot <- function(dilution_data,
 #' ggplot_list[[3]]
 #'
 #' @export
-add_ggplot_panel <- function(dilution_table, dilution_summary = NULL,
-                             grouping_variable = c(
-                               "Transition_Name",
-                               "Dilution_Batch_Name"
-                             ),
-                             dil_batch_var = "Dilution_Batch_Name",
-                             dil_batch_col = c(
-                               "#377eb8",
-                               "#4daf4a",
-                               "#9C27B0",
-                               "#BCAAA4",
-                               "#FF8A65",
-                               "#EFBBCF"
-                             ),
-                             conc_var = "Dilution_Percent",
-                             conc_var_units = "%",
-                             conc_var_interval = 50,
-                             signal_var = "Area",
-                             have_plot_title = TRUE,
-                             plot_summary_table = TRUE,
-                             plot_first_half_lin_reg = FALSE,
-                             plot_last_half_lin_reg = FALSE) {
+add_ggplot_panel <- function(
+    dilution_table,
+    dilution_summary = NULL,
+    grouping_variable = c("Transition_Name",
+                          "Dilution_Batch_Name"),
+    dil_batch_var = "Dilution_Batch_Name",
+    dil_batch_col = c("#377eb8",
+                      "#4daf4a",
+                      "#9C27B0",
+                      "#BCAAA4",
+                      "#FF8A65",
+                      "#EFBBCF"),
+    conc_var = "Dilution_Percent",
+    conc_var_units = "%",
+    conc_var_interval = 50,
+    signal_var = "Area",
+    have_plot_title = TRUE,
+    plot_summary_table = TRUE,
+    plot_first_half_lin_reg = FALSE,
+    plot_last_half_lin_reg = FALSE) {
+
 
   # Check if dilution_table is valid with the relevant columns
   validate_curve_table(
@@ -1014,7 +1053,7 @@ add_ggplot_panel <- function(dilution_table, dilution_summary = NULL,
       ),
       .f = plot_curve_ggplot,
       pal = pal,
-      dil_batch_var = dil_batch_var,
+      curv_batch_var = dil_batch_var,
       conc_var = conc_var,
       conc_var_units = conc_var_units,
       conc_var_interval = conc_var_interval,
