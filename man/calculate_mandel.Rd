@@ -4,36 +4,45 @@
 \alias{calculate_mandel}
 \title{Calculate Mandel Fitting Test}
 \usage{
-calculate_mandel(dilution_data, conc_var, signal_var)
+calculate_mandel(
+  curve_data,
+  conc_var,
+  signal_var,
+  dilution_data = lifecycle::deprecated()
+)
 }
 \arguments{
-\item{dilution_data}{A data frame or tibble containing dilution data}
+\item{curve_data}{A data frame or tibble containing curve data.}
 
-\item{conc_var}{Column name in \code{dilution_data} to indicate concentration}
+\item{conc_var}{Column name in \code{curve_data} to indicate concentration.}
 
-\item{signal_var}{Column name in \code{dilution_data} to indicate signal}
+\item{signal_var}{Column name in \code{curve_data} to indicate signal.}
+
+\item{dilution_data}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+\code{dilution_data} was renamed to
+\code{curve_data}.}
 }
 \value{
 A tibble containing Mandel test statistics. The values are
 the Mandel test value and its corresponding p value. More information
 of the test can be found in
-\url{https://link.springer.com/article/10.1007/s00769-002-0487-6}
+\url{https://link.springer.com/article/10.1007/s00769-002-0487-6}.
 }
 \description{
-Calculate the Mandel fitting test for dilution data
+Calculate the Mandel fitting test for curve data.
 }
 \details{
 The function will return a tibble with NA values
-if the number of dilution points is less than or equal to three.
+if the number of curve points is less than or equal to three.
 }
 \examples{
 dilution_percent <- c(10, 20, 40, 60, 80, 100)
 
 area <- c(22561, 31178, 39981, 48390, 52171, 53410)
 
-dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
 
-mandel_result <- calculate_mandel(dilution_data, "Dilution_Percent", "Area")
+mandel_result <- calculate_mandel(curve_data, "Dilution_Percent", "Area")
 
 mandel_result
 

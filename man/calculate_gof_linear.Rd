@@ -4,36 +4,45 @@
 \alias{calculate_gof_linear}
 \title{Calculate Linear Model's Goodness Of Fit}
 \usage{
-calculate_gof_linear(dilution_data, conc_var, signal_var)
+calculate_gof_linear(
+  curve_data,
+  conc_var,
+  signal_var,
+  dilution_data = lifecycle::deprecated()
+)
 }
 \arguments{
-\item{dilution_data}{A data frame or tibble containing dilution data}
+\item{curve_data}{A data frame or tibble containing curve data.}
 
-\item{conc_var}{Column name in \code{dilution_data} to indicate concentration}
+\item{conc_var}{Column name in \code{curve_data} to indicate concentration.}
 
-\item{signal_var}{Column name in \code{dilution_data} to indicate signal}
+\item{signal_var}{Column name in \code{curve_data} to indicate signal.}
+
+\item{dilution_data}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+\code{dilution_data} was renamed to
+\code{curve_data}.}
 }
 \value{
 A tibble containing the Goodness of Fit measures of the linear model
 The Goodness of Fit measures are the Pearson correlation coefficient (R),
-the R^2 and the adjusted R^2
+the R^2 and the adjusted R^2.
 }
 \description{
-Calculate the Goodness of Fit of the Dilution Linear Model
+Calculate the Goodness of Fit of the Linear Model.
 }
 \details{
 The function will return a tibble with NA values
-if the number of dilution points is less than or equal to three
+if the number of curve points is less than or equal to three.
 }
 \examples{
 dilution_percent <- c(10, 20, 40, 60, 80, 100)
 
 area <- c(22561, 31178, 39981, 48390, 52171, 53410)
 
-dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
 
 dil_linear_gof <- calculate_gof_linear(
-  dilution_data,
+  curve_data,
   "Dilution_Percent", "Area"
 )
 

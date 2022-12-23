@@ -7,11 +7,11 @@
 summarise_curve_data(curve_data, conc_var, signal_var, details = FALSE)
 }
 \arguments{
-\item{curve_data}{A data frame or tibble containing curve data}
+\item{curve_data}{A data frame or tibble containing curve data.}
 
-\item{conc_var}{Column name in \code{curve_data} to indicate concentration}
+\item{conc_var}{Column name in \code{curve_data} to indicate concentration.}
 
-\item{signal_var}{Column name in \code{curve_data} to indicate signal}
+\item{signal_var}{Column name in \code{curve_data} to indicate signal.}
 
 \item{details}{If set to \code{TRUE}, will include more columns in the curve
 summary but there are mainly for development and testing.}
@@ -25,11 +25,11 @@ Concavity.
 }
 \description{
 Get the summary statistics of the curve data
-for one group or batch
+for one group or batch.
 }
 \details{
 The function will return a tibble with NA values
-if the number of curve points is less than or equal to three
+if the number of curve points is less than or equal to three.
 }
 \examples{
 dilution_percent <- c(10, 20, 40, 60, 80, 100)

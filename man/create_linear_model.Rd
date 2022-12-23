@@ -4,31 +4,40 @@
 \alias{create_linear_model}
 \title{Create Linear Model}
 \usage{
-create_linear_model(dilution_data, conc_var, signal_var)
+create_linear_model(
+  curve_data,
+  conc_var,
+  signal_var,
+  dilution_data = lifecycle::deprecated()
+)
 }
 \arguments{
-\item{dilution_data}{A data frame or tibble containing dilution data}
+\item{curve_data}{A data frame or tibble containing curve data.}
 
-\item{conc_var}{Column name in \code{dilution_data} to indicate concentration}
+\item{conc_var}{Column name in \code{curve_data} to indicate concentration.}
 
-\item{signal_var}{Column name in \code{dilution_data} to indicate signal}
+\item{signal_var}{Column name in \code{curve_data} to indicate signal.}
+
+\item{dilution_data}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+\code{dilution_data} was renamed to
+\code{curve_data}.}
 }
 \value{
 A linear model object from \code{stats:lm()} with formula
-\code{signal_var ~ conc_var} from data \code{diltuion_data}
+\code{signal_var ~ conc_var} from data \code{diltuion_data}.
 }
 \description{
-A wrapper to create a linear model from dilution data
+A wrapper to create a linear model from curve data.
 }
 \examples{
 dilution_percent <- c(10, 20, 40, 60, 80, 100)
 
 area <- c(22561, 31178, 39981, 48390, 52171, 53410)
 
-dilution_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
 
 linear_model <- create_linear_model(
-  dilution_data,
+  curve_data,
   "Dilution_Percent",
   "Area"
 )

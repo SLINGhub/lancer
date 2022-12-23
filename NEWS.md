@@ -28,11 +28,19 @@
 * `dilution_summary` argument in `format_num_cell_colour` changed to `curve_summary`.
 * `dilution_summary` argument in `write_summary_excel` changed to `curve_summary`.
 
-
 * `dilution_summary_grp` argument in `plot_summary_table_char` changed to `curve_summary_grp`.
 * `dilution_summary_grp` argument in `plot_summary_table_num` changed to `curve_summary_grp`.
 * `dilution_summary_grp` argument in `plot_summary_table` changed to `curve_summary_grp`.
 
+* `dilution_data` argument in `create_linear_model` changed to `curve_data`.
+* `dilution_data` argument in `create_quad_model` changed to `curve_data`.
+* `dilution_data` argument in `create_cubic_model` changed to `curve_data`.
+* `dilution_data` argument in `calculate_adl_kroll_test` changed to `curve_data`.
+* `dilution_data` argument in `calculate_adl` changed to `curve_data`.
+* `dilution_data` argument in `calculate_concavity` changed to `curve_data`.
+* `dilution_data` argument in `calculate_gof_linear` changed to `curve_data`.
+* `dilution_data` argument in `calculate_mandel` changed to `curve_data`.
+* `dilution_data` argument in `calculate_pra_linear` changed to `curve_data`.
 * `dilution_data` argument in `plot_curve_ggplot` changed to `curve_data`.
 * `dilution_data` argument in `plot_curve_plotly` changed to `curve_data`.
 

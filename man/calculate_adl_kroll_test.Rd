@@ -4,14 +4,23 @@
 \alias{calculate_adl_kroll_test}
 \title{Calculate Kroll's Linearity Test}
 \usage{
-calculate_adl_kroll_test(dilution_data, conc_var, signal_var)
+calculate_adl_kroll_test(
+  curve_data,
+  conc_var,
+  signal_var,
+  dilution_data = lifecycle::deprecated()
+)
 }
 \arguments{
-\item{dilution_data}{A data frame or tibble containing dilution data}
+\item{curve_data}{A data frame or tibble containing curve data.}
 
-\item{conc_var}{Column name in \code{dilution_data} to indicate concentration}
+\item{conc_var}{Column name in \code{curve_data} to indicate concentration.}
 
-\item{signal_var}{Column name in \code{dilution_data} to indicate signal}
+\item{signal_var}{Column name in \code{curve_data} to indicate signal.}
+
+\item{dilution_data}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+\code{dilution_data} was renamed to
+\code{curve_data}.}
 }
 \value{
 A data frame of statistical results from Kroll et. al. (2000)
@@ -51,10 +60,10 @@ to determine the best fit.
 Calculate a statistical test for linearity
 from Kroll et. al. (2000)
 \doi{10.5858/2000-124-1331-EOTEON}
-using average deviation from linearity
+using average deviation from linearity.
 }
 \details{
-The function will return NA if the number of dilution points
+The function will return NA if the number of curve points
 is less than or equal to three.
 }
 \examples{
@@ -70,13 +79,13 @@ result <- c(
   4482, 4390, 5101, 5046, 5669, 5516
 )
 
-dilution_data <- data.frame(
+curve_data <- data.frame(
   Solution_Number = solution_number,
   Result = result
 )
 
 adl_result <- calculate_adl_kroll_test(
-  dilution_data,
+  curve_data,
   "Solution_Number",
   "Result"
 )
