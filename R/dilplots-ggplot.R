@@ -309,11 +309,11 @@ create_reg_col_vec <- function(plot_first_half_lin_reg = FALSE,
 #' @param curve_data A data frame or tibble containing curve data.
 #' @param curve_summary_grp A data frame or tibble containing
 #' curve summary data for one group.
+#' @param title Title to use for each curve plot.
+#' Default: ''
 #' @param pal Input palette for each curve batch group in `curv_batch_var`.
 #' It is a named char vector where each value is a colour and
 #' name is a curve batch group given in `curv_batch_var`.
-#' @param title Title to use for each curve plot.
-#' Default: ''
 #' @param curv_batch_var Column name in `curve_table`
 #' to indicate the group name of each curve batch,
 #' used to colour the points in the curve plot.
@@ -429,8 +429,8 @@ create_reg_col_vec <- function(plot_first_half_lin_reg = FALSE,
 plot_curve_ggplot <- function(
     curve_data,
     curve_summary_grp,
-    pal,
     title = "",
+    pal,
     curv_batch_var = "Dilution_Batch_Name",
     dilution_data = lifecycle::deprecated(),
     dilution_summary_grp = lifecycle::deprecated(),
@@ -461,8 +461,8 @@ plot_curve_ggplot <- function(
   if (lifecycle::is_present(dil_batch_var)) {
     lifecycle::deprecate_warn(
       when = "0.0.6.9000",
-      what = "plot_curve_ggplot(curv_batch_var)",
-      with = "plot_curve_ggplot(curve_summary_grp)")
+      what = "plot_curve_ggplot(dil_batch_var)",
+      with = "plot_curve_ggplot(curv_batch_var)")
     curv_batch_var <- dil_batch_var
   }
 

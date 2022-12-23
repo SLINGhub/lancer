@@ -1,22 +1,22 @@
 #' @title Create the page layout for the pdf document
 #' @description Get the page layout for the pdf document based
 #' on the number of plots to display and the number of
-#' columns and rows
+#' columns and rows.
 #' @param number_of_plots Number of plots to be output into the
-#' pdf document
+#' pdf document.
 #' @param ncol Number of columns of plots allowed in one
-#' page of the pdf document, Default: NULL
+#' page of the pdf document. Default: NULL
 #' @param nrow Number of rows of plots allowed in one
-#' page of the pdf document, Default: NULL
+#' page of the pdf document. Default: NULL
 #' @return A list containing the number of rows and cols required
-#' for one pdf page
+#' for one pdf page.
 #' @details
 #'  * If both `ncol` and `nrow` are NULL or only `ncol` is NULL,
 #' the layout will have one column and the total number of rows
-#' will be the number of plots it needs to produce
+#' will be the number of plots it needs to produce.
 #'  * If only `nrow` is NULL, the layout will have one row and
 #' the total number of columns will be the number of plots
-#' it needs to produce
+#' it needs to produce.
 #' @examples
 #' create_page_layout(
 #'   number_of_plots = 4,
@@ -40,25 +40,25 @@ create_page_layout <- function(number_of_plots,
   list(ncol = ncol, nrow = nrow)
 }
 
-#' @title View `ggplot` Dilution Plots As Pdf
-#' @description View `ggplot` dilution plots in a pdf file
+#' @title View `ggplot` Curve Plots As Pdf
+#' @description View `ggplot` curve plots in a pdf file.
 #' @param ggplot_list list of plots to be arranged into a grid
 #' for each pdf page. The list of plot should can be created
 #' via the function [add_ggplot_panel()]. The function will create
 #' a data frame or tibble and the column name "panel" should contain
 #' the list of plots.
-#' @param filename File name of the pdf document,
+#' @param filename File name of the pdf document.
 #' Default: 'dilution_plot.pdf'
 #' @param ncol_per_page Number of columns of plots allowed in one
-#' page of the pdf document
+#' page of the pdf document.
 #' Default: 2
 #' @param nrow_per_page Number of rows of plots allowed in one
-#' page of the pdf document
+#' page of the pdf document.
 #' Default: 2
-#' @param width The width of one pdf page, Default: 15
-#' @param height The height of one pdf page, Default: 8
+#' @param width The width of one pdf page. Default: 15
+#' @param height The height of one pdf page. Default: 8
 #' @param testing To indicate if we are running a test,
-#' if so, no pdf report is given out
+#' if so, no pdf report is given out.
 #' Default: FALSE
 #' @examples
 #' sample_name <- c(

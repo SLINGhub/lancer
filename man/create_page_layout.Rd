@@ -8,31 +8,31 @@ create_page_layout(number_of_plots, ncol = NULL, nrow = NULL)
 }
 \arguments{
 \item{number_of_plots}{Number of plots to be output into the
-pdf document}
+pdf document.}
 
 \item{ncol}{Number of columns of plots allowed in one
-page of the pdf document, Default: NULL}
+page of the pdf document. Default: NULL}
 
 \item{nrow}{Number of rows of plots allowed in one
-page of the pdf document, Default: NULL}
+page of the pdf document. Default: NULL}
 }
 \value{
 A list containing the number of rows and cols required
-for one pdf page
+for one pdf page.
 }
 \description{
 Get the page layout for the pdf document based
 on the number of plots to display and the number of
-columns and rows
+columns and rows.
 }
 \details{
 \itemize{
 \item If both \code{ncol} and \code{nrow} are NULL or only \code{ncol} is NULL,
 the layout will have one column and the total number of rows
-will be the number of plots it needs to produce
+will be the number of plots it needs to produce.
 \item If only \code{nrow} is NULL, the layout will have one row and
 the total number of columns will be the number of plots
-it needs to produce
+it needs to produce.
 }
 }
 \examples{

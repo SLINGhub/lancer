@@ -1,27 +1,33 @@
-#' @title Plot Dilution Curve Using `plotly`
-#' @description Plot Dilution Data using `plotly`
-#' @param dilution_data A data frame or tibble containing dilution data
-#' @param title Title to use for each dilution plot
-#' @param pal Input palette for each dilution batch group in `dil_batch_var`.
+#' @title Plot Curve Using `plotly`
+#' @description Plot curve using `plotly`.
+#' @param curve_data A data frame or tibble containing curve data.
+#' @param title Title to use for each curve plot.
+#' @param pal Input palette for each curve batch group in `curv_batch_var`.
 #' It is a named char vector where each value is a colour and
-#' name is a dilution batch group given in `dil_batch_var`
-#' @param sample_name_var Column name in `dilution_data`
-#' to indicate the sample name
-#' @param dil_batch_var Column name in `dilution_data`
-#' to indicate the group name of each dilution batch,
-#' used to colour the points in the dilution plot
-#' @param conc_var Column name in `dilution_data` to indicate concentration
-#' @param conc_var_units Unit of measure for `conc_var` in the dilution plot
-#' @param conc_var_interval Distance between two tick labels
-#' @param signal_var Column name in `dilution_data` to indicate signal
+#' name is a curve batch group given in `curv_batch_var`.
+#' @param sample_name_var Column name in `curve_data`
+#' to indicate the sample name.
+#' @param curv_batch_var Column name in `curve_data`
+#' to indicate the group name of each curve batch,
+#' used to colour the points in the curve plot.
+#' @param dilution_data `r lifecycle::badge("deprecated")`
+#' `dilution_data` was renamed to
+#' `curve_data`.
+#' @param dil_batch_var `r lifecycle::badge("deprecated")`
+#' `dil_batch_var` was renamed to
+#' `curv_batch_var`.
+#' @param conc_var Column name in `curve_data` to indicate concentration.
+#' @param conc_var_units Unit of measure for `conc_var` in the curve plot.
+#' @param conc_var_interval Distance between two tick labels.
+#' @param signal_var Column name in `curve_data` to indicate signal.
 #' @param plot_first_half_lin_reg Decide if we plot an extra regression line
-#' that best fits the first half of `conc_var` dilution points.
+#' that best fits the first half of `conc_var` curve points.
 #' Default: FALSE
 #' @param plot_last_half_lin_reg Decide if we plot an extra regression line
-#' that best fits the last half of `conc_var` dilution points.
+#' that best fits the last half of `conc_var` curve points.
 #' Default: FALSE
-#' @return Output `plotly` dilution plot data of one dilution batch
-#' per transition
+#' @return Output `plotly` curve plot data of one curve batch
+#' per transition.
 #' @examples
 #'
 #' # Data Creation
@@ -48,30 +54,30 @@
 #'   75438063, 91770737, 94692060
 #' )
 #'
-#' dilution_data <- tibble::tibble(
+#' curve_data <- tibble::tibble(
 #'   Sample_Name = sample_name,
 #'   Dilution_Percent = dilution_percent,
 #'   Area = lipid1_area_saturated,
 #'   Dilution_Batch_Name = dilution_batch_name
 #' )
 #'
-#' # Get the dilution batch name from dilution_table
-#' dilution_batch_name <- dilution_batch_name %>%
+#' # Get the curve batch name from curve_table
+#' curve_batch_name <- dilution_batch_name %>%
 #'   unique() %>%
 #'   as.character()
 #'
-#' dil_batch_col <- c("#377eb8")
+#' curv_batch_col <- c("#377eb8")
 #'
-#' # Create palette for each dilution batch for plotting
-#' pal <- dil_batch_col %>%
-#'   stats::setNames(dilution_batch_name)
+#' # Create palette for each curve batch for plotting
+#' pal <- curv_batch_col %>%
+#'   stats::setNames(curve_batch_name)
 #'
 #' # Plot the html
-#' p <- plot_curve_plotly(dilution_data,
+#' p <- plot_curve_plotly(curve_data,
 #'   title = "Lipid_Saturated",
 #'   sample_name_var = "Sample_Name",
 #'   pal = pal,
-#'   dil_batch_var = "Dilution_Batch_Name",
+#'   curv_batch_var = "Dilution_Batch_Name",
 #'   conc_var = "Dilution_Percent",
 #'   conc_var_units = "%",
 #'   conc_var_interval = 50,
@@ -82,62 +88,81 @@
 #'
 #' @rdname plot_curve_plotly
 #' @export
-plot_curve_plotly <- function(dilution_data,
-                              title,
-                              pal,
-                              sample_name_var = "Sample_Name",
-                              dil_batch_var = "Dilution_Batch_Name",
-                              conc_var = "Dilution_Percent",
-                              conc_var_units = "%",
-                              conc_var_interval = 50,
-                              signal_var = "Area",
-                              plot_first_half_lin_reg = FALSE,
-                              plot_last_half_lin_reg = FALSE) {
+plot_curve_plotly <- function(
+    curve_data,
+    title = "",
+    pal,
+    sample_name_var = "Sample_Name",
+    curv_batch_var = "Dilution_Batch_Name",
+    dilution_data = lifecycle::deprecated(),
+    dil_batch_var = lifecycle::deprecated(),
+    conc_var = "Dilution_Percent",
+    conc_var_units = "%",
+    conc_var_interval = 50,
+    signal_var = "Area",
+    plot_first_half_lin_reg = FALSE,
+    plot_last_half_lin_reg = FALSE) {
 
-  # Convert the column that holds the dilution_batch_var
+  if (lifecycle::is_present(dilution_data)) {
+    lifecycle::deprecate_warn(
+      when = "0.0.6.9000",
+      what = "plot_curve_plotly(dilution_data)",
+      with = "plot_curve_plotly(curve_data)")
+    curve_data <- dilution_data
+  }
+
+  if (lifecycle::is_present(dil_batch_var)) {
+    lifecycle::deprecate_warn(
+      when = "0.0.6.9000",
+      what = "plot_curve_plotly(dil_batch_var)",
+      with = "plot_curve_plotly(curv_batch_var)")
+    curv_batch_var <- dil_batch_var
+  }
+
+  # Convert the column that holds the curv_batch_var
   # to character
-  dilution_data[[dil_batch_var]] <- dilution_data[[dil_batch_var]] %>%
+  curve_data[[curv_batch_var]] <- curve_data[[curv_batch_var]] %>%
     as.character()
 
   # Drop rows whose value of signal_var is NA
-  dilution_data <- dilution_data %>%
+  curve_data <- curve_data %>%
     tidyr::drop_na(dplyr::all_of(signal_var))
 
   # For the hover text
   text_input <- glue::glue(
-    "<b>{dilution_data[[sample_name_var]]}</b>\\
-     <br>{conc_var}: {dilution_data[[conc_var]]}\\
+    "<b>{curve_data[[sample_name_var]]}</b>\\
+     <br>{conc_var}: {curve_data[[conc_var]]}\\
      <br>{signal_var}: {\\
-    format(dilution_data[[signal_var]], big.mark = ", ", nsmall = 1)}"
+    format(curve_data[[signal_var]], big.mark = ", ", nsmall = 1)}"
   )
 
-  # Create the dots in the dilution plot
+  # Create the dots in the curve plot
   p <- plotly::plot_ly() %>%
     plotly::add_trace(
-      data = dilution_data,
-      x = ~ dilution_data[[conc_var]],
-      y = ~ dilution_data[[signal_var]],
+      data = curve_data,
+      x = ~ curve_data[[conc_var]],
+      y = ~ curve_data[[signal_var]],
       type = "scattergl", mode = "markers",
       marker = list(
         size = 10, opacity = 1,
         line = list(color = "black", width = 1.5)
       ),
-      name = ~ dilution_data[[dil_batch_var]],
-      color = ~ dilution_data[[dil_batch_var]],
+      name = ~ curve_data[[curv_batch_var]],
+      color = ~ curve_data[[curv_batch_var]],
       colors = pal,
       hoverinfo = "text",
-      text = ~ dilution_data[[sample_name_var]],
+      text = ~ curve_data[[sample_name_var]],
       hovertemplate = text_input,
       inherit = FALSE
     )
 
-  if (nrow(dilution_data) > 3) {
+  if (nrow(curve_data) > 3) {
 
     # When we need to plot a horizontal line
-    if (stats::sd(dilution_data[[signal_var]]) == 0) {
-      min_x <- min(dilution_data[[conc_var]], na.rm = TRUE)
-      max_x <- max(dilution_data[[conc_var]], na.rm = TRUE)
-      cont_y <- unique(dilution_data[[signal_var]])
+    if (stats::sd(curve_data[[signal_var]]) == 0) {
+      min_x <- min(curve_data[[conc_var]], na.rm = TRUE)
+      max_x <- max(curve_data[[conc_var]], na.rm = TRUE)
+      cont_y <- unique(curve_data[[signal_var]])
 
       p <- p %>%
         plotly::add_segments(
@@ -147,11 +172,11 @@ plot_curve_plotly <- function(dilution_data,
           line = list(color = "black", width = 1),
           inherit = FALSE
         )
-    } else if (stats::sd(dilution_data[[conc_var]]) == 0) {
+    } else if (stats::sd(curve_data[[conc_var]]) == 0) {
       # When we need to plot a vertical line
-      min_y <- min(dilution_data[[signal_var]], na.rm = TRUE)
-      max_y <- max(dilution_data[[signal_var]], na.rm = TRUE)
-      cont_x <- unique(dilution_data[[conc_var]])
+      min_y <- min(curve_data[[signal_var]], na.rm = TRUE)
+      max_y <- max(curve_data[[signal_var]], na.rm = TRUE)
+      cont_x <- unique(curve_data[[conc_var]])
 
       p <- p %>%
         plotly::add_segments(
@@ -166,33 +191,33 @@ plot_curve_plotly <- function(dilution_data,
       # Plot the curves
 
       # Model the data
-      linear_model <- create_linear_model(dilution_data, conc_var, signal_var)
-      quad_model <- create_quad_model(dilution_data, conc_var, signal_var)
+      linear_model <- create_linear_model(curve_data, conc_var, signal_var)
+      quad_model <- create_quad_model(curve_data, conc_var, signal_var)
 
-      dilution <- seq(min(dilution_data[[conc_var]]),
-        max(dilution_data[[conc_var]]),
+      curve <- seq(min(curve_data[[conc_var]]),
+        max(curve_data[[conc_var]]),
         length.out = 15
       )
 
-      # Create the linear and quadratic curve in the dilution plot
+      # Create the linear and quadratic curve in the curve plot
       p <- p %>%
         plotly::add_trace(
-          data = dilution_data,
-          x = dilution,
+          data = curve_data,
+          x = curve,
           y = stats::predict(
             linear_model,
-            tibble::tibble(!!conc_var := dilution)
+            tibble::tibble(!!conc_var := curve)
           ),
           type = "scattergl", mode = "lines", name = "lin reg",
           line = list(color = "black", width = 1),
           inherit = FALSE
         ) %>%
         plotly::add_trace(
-          data = dilution_data,
-          x = dilution,
+          data = curve_data,
+          x = curve,
           y = stats::predict(
             quad_model,
-            tibble::tibble(!!conc_var := dilution)
+            tibble::tibble(!!conc_var := curve)
           ),
           type = "scattergl", mode = "lines", name = "quad reg",
           line = list(
@@ -207,7 +232,7 @@ plot_curve_plotly <- function(dilution_data,
       if (isTRUE(plot_first_half_lin_reg)) {
 
         # Get the points for the partial linear curve
-        partial_conc_points <- dilution_data %>%
+        partial_conc_points <- curve_data %>%
           dplyr::pull(.data[[conc_var]]) %>%
           as.numeric() %>%
           sort() %>%
@@ -216,23 +241,23 @@ plot_curve_plotly <- function(dilution_data,
         partial_conc_points <-
           partial_conc_points[1:ceiling(length(partial_conc_points) / 2)]
 
-        partial_dilution_data <- dilution_data %>%
+        partial_curve_data <- curve_data %>%
           dplyr::filter(.data[[conc_var]] %in% partial_conc_points)
 
         # Create the partial model
         partial_linear_model <- create_linear_model(
-          partial_dilution_data,
+          partial_curve_data,
           conc_var, signal_var
         )
 
-        # Create the lines in the dilution plot
+        # Create the lines in the curve plot
         p <- p %>%
           plotly::add_trace(
-            data = partial_dilution_data,
-            x = dilution,
+            data = partial_curve_data,
+            x = curve,
             y = stats::predict(
               partial_linear_model,
-              tibble::tibble(!!conc_var := dilution)
+              tibble::tibble(!!conc_var := curve)
             ),
             type = "scattergl", mode = "lines", name = "lin first half reg",
             line = list(color = "blue", width = 1),
@@ -243,7 +268,7 @@ plot_curve_plotly <- function(dilution_data,
       if (isTRUE(plot_last_half_lin_reg)) {
 
         # Get the points for the partial linear curve
-        partial_conc_points <- dilution_data %>%
+        partial_conc_points <- curve_data %>%
           dplyr::pull(.data[[conc_var]]) %>%
           as.numeric() %>%
           sort() %>%
@@ -253,23 +278,23 @@ plot_curve_plotly <- function(dilution_data,
           ceiling(length(partial_conc_points) / 2):length(partial_conc_points)
         partial_conc_points <- partial_conc_points[last_half_index]
 
-        partial_dilution_data <- dilution_data %>%
+        partial_curve_data <- curve_data %>%
           dplyr::filter(.data[[conc_var]] %in% partial_conc_points)
 
         # Create the partial model
         partial_linear_model <- create_linear_model(
-          partial_dilution_data,
+          partial_curve_data,
           conc_var, signal_var
         )
 
-        # Create the lines in the dilution plot
+        # Create the lines in the curve plot
         p <- p %>%
           plotly::add_trace(
-            data = partial_dilution_data,
-            x = dilution,
+            data = partial_curve_data,
+            x = curve,
             y = stats::predict(
               partial_linear_model,
-              tibble::tibble(!!conc_var := dilution)
+              tibble::tibble(!!conc_var := curve)
             ),
             type = "scatter", mode = "lines", name = "lin last half reg",
             line = list(color = "purple", width = 1),
@@ -632,7 +657,7 @@ add_plotly_panel <- function(dilution_table, dilution_summary = NULL,
       .f = plot_curve_plotly,
       pal = pal,
       sample_name_var = sample_name_var,
-      dil_batch_var = dil_batch_var,
+      curv_batch_var = dil_batch_var,
       conc_var = conc_var,
       conc_var_units = conc_var_units,
       conc_var_interval = conc_var_interval,

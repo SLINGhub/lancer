@@ -2,7 +2,7 @@
 % Please edit documentation in R/outputdata-ggplot.R
 \name{view_ggplot_pdf}
 \alias{view_ggplot_pdf}
-\title{View \code{ggplot} Dilution Plots As Pdf}
+\title{View \code{ggplot} Curve Plots As Pdf}
 \usage{
 view_ggplot_pdf(
   ggplot_list,
@@ -21,27 +21,27 @@ via the function \code{\link[=add_ggplot_panel]{add_ggplot_panel()}}. The functi
 a data frame or tibble and the column name "panel" should contain
 the list of plots.}
 
-\item{filename}{File name of the pdf document,
+\item{filename}{File name of the pdf document.
 Default: 'dilution_plot.pdf'}
 
 \item{ncol_per_page}{Number of columns of plots allowed in one
-page of the pdf document
+page of the pdf document.
 Default: 2}
 
 \item{nrow_per_page}{Number of rows of plots allowed in one
-page of the pdf document
+page of the pdf document.
 Default: 2}
 
-\item{width}{The width of one pdf page, Default: 15}
+\item{width}{The width of one pdf page. Default: 15}
 
-\item{height}{The height of one pdf page, Default: 8}
+\item{height}{The height of one pdf page. Default: 8}
 
 \item{testing}{To indicate if we are running a test,
-if so, no pdf report is given out
+if so, no pdf report is given out.
 Default: FALSE}
 }
 \description{
-View \code{ggplot} dilution plots in a pdf file
+View \code{ggplot} curve plots in a pdf file.
 }
 \examples{
 sample_name <- c(

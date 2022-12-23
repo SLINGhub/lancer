@@ -25,10 +25,12 @@
 * `dilution_summary_grp` argument in `plot_summary_table` changed to `curve_summary_grp`.
 
 * `dilution_data` argument in `plot_curve_ggplot` changed to `curve_data`.
+* `dilution_data` argument in `plot_curve_plotly` changed to `curve_data`.
 
 * `dilution_summary_grp` argument in `plot_curve_ggplot` changed to `curve_summary_grp`.
 
 * `dil_batch_var` argument in `plot_curve_ggplot` changed to `curv_batch_var`.
+* `dil_batch_var` argument in `plot_curve_plotly` changed to `curv_batch_var`.
 * `dil_batch_var` argument in `add_ggplot_panel` changed to `curv_batch_var`.
 
 * `dil_batch_col` argument in `add_ggplot_panel` changed to `curv_batch_col`.

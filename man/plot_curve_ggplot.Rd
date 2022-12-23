@@ -7,8 +7,8 @@
 plot_curve_ggplot(
   curve_data,
   curve_summary_grp,
-  pal,
   title = "",
+  pal,
   curv_batch_var = "Dilution_Batch_Name",
   dilution_data = lifecycle::deprecated(),
   dilution_summary_grp = lifecycle::deprecated(),
@@ -27,12 +27,12 @@ plot_curve_ggplot(
 \item{curve_summary_grp}{A data frame or tibble containing
 curve summary data for one group.}
 
+\item{title}{Title to use for each curve plot.
+Default: ''}
+
 \item{pal}{Input palette for each curve batch group in \code{curv_batch_var}.
 It is a named char vector where each value is a colour and
 name is a curve batch group given in \code{curv_batch_var}.}
-
-\item{title}{Title to use for each curve plot.
-Default: ''}
 
 \item{curv_batch_var}{Column name in \code{curve_table}
 to indicate the group name of each curve batch,
