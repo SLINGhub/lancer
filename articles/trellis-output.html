@@ -250,19 +250,19 @@ default <code>cog_df</code> created by
 <code>create_default_cog_df</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="../reference/create_default_cog_df.html">create_default_cog_df</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt;             col_name_vec                                    desc_vec type_vec</span></span>
-<span><span class="co">#&gt; 1        Transition_Name                             Transition_Name   factor</span></span>
-<span><span class="co">#&gt; 2    Dilution_Batch_Name                         Dilution_Batch_Name   factor</span></span>
-<span><span class="co">#&gt; 3  Transition_Name_Class                      Classes of Transitions   factor</span></span>
-<span><span class="co">#&gt; 4              wf1_group                       Group from workflow 1   factor</span></span>
-<span><span class="co">#&gt; 5              wf2_group                       Group from workflow 2   factor</span></span>
-<span><span class="co">#&gt; 6                 r_corr                Pearson Correlation R values  numeric</span></span>
-<span><span class="co">#&gt; 7             pra_linear Linear Regression Percent Residual Accuracy  numeric</span></span>
-<span><span class="co">#&gt; 8           mandel_p_val                    P values for Mandel test  numeric</span></span>
-<span><span class="co">#&gt; 9              r2_linear                 Linear Regression R^2 Value  numeric</span></span>
-<span><span class="co">#&gt; 10         r2_adj_linear        Linear Regression Adjusted R^2 Value  numeric</span></span>
-<span><span class="co">#&gt; 11          mandel_stats             Test statistics for Mandel Test  numeric</span></span>
-<span><span class="co">#&gt; 12             adl_value            Average Deviation from Linearity  numeric</span></span></code></pre></div>
+<span><span class="co">#&gt;        col_name_vec                                    desc_vec type_vec</span></span>
+<span><span class="co">#&gt; 1        Curve_Name                                  Curve_Name   factor</span></span>
+<span><span class="co">#&gt; 2  Curve_Batch_Name                            Curve_Batch_Name   factor</span></span>
+<span><span class="co">#&gt; 3       Curve_Class                           Classes of Curves   factor</span></span>
+<span><span class="co">#&gt; 4         wf1_group                       Group from workflow 1   factor</span></span>
+<span><span class="co">#&gt; 5         wf2_group                       Group from workflow 2   factor</span></span>
+<span><span class="co">#&gt; 6            r_corr                Pearson Correlation R values  numeric</span></span>
+<span><span class="co">#&gt; 7        pra_linear Linear Regression Percent Residual Accuracy  numeric</span></span>
+<span><span class="co">#&gt; 8      mandel_p_val                    P values for Mandel test  numeric</span></span>
+<span><span class="co">#&gt; 9         r2_linear                 Linear Regression R^2 Value  numeric</span></span>
+<span><span class="co">#&gt; 10    r2_adj_linear        Linear Regression Adjusted R^2 Value  numeric</span></span>
+<span><span class="co">#&gt; 11     mandel_stats             Test statistics for Mandel Test  numeric</span></span>
+<span><span class="co">#&gt; 12        adl_value            Average Deviation from Linearity  numeric</span></span></code></pre></div>
 <p>Using the function <code>convert_to_cog</code>,</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">trellis_table_convert</span> <span class="op">&lt;-</span> <span class="va">trellis_table_orig</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>

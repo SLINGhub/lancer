@@ -100,14 +100,14 @@ to type cog as defined in <code><a href="https://rdrr.io/pkg/trelliscopejs/man/c
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Data Creation</span></span></span>
-<span class="r-in"><span><span class="va">dilution_percent</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">concentration</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">25</span>, <span class="fl">40</span>, <span class="fl">50</span>, <span class="fl">60</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">75</span>, <span class="fl">80</span>, <span class="fl">100</span>, <span class="fl">125</span>, <span class="fl">150</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">10</span>, <span class="fl">25</span>, <span class="fl">40</span>, <span class="fl">50</span>, <span class="fl">60</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">75</span>, <span class="fl">80</span>, <span class="fl">100</span>, <span class="fl">125</span>, <span class="fl">150</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">dilution_batch_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">curve_batch_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>,</span></span>
 <span class="r-in"><span>  <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>,</span></span>
 <span class="r-in"><span>  <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>,</span></span>
@@ -125,7 +125,7 @@ to type cog as defined in <code><a href="https://rdrr.io/pkg/trelliscopejs/man/c
 <span class="r-in"><span>  <span class="st">"Sample_125b"</span>, <span class="st">"Sample_150b"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">lipid1_area_saturated</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">curve_1_saturation_regime</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fl">5748124</span>, <span class="fl">16616414</span>, <span class="fl">21702718</span>, <span class="fl">36191617</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">49324541</span>, <span class="fl">55618266</span>, <span class="fl">66947588</span>, <span class="fl">74964771</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">75438063</span>, <span class="fl">91770737</span>, <span class="fl">94692060</span>,</span></span>
@@ -134,21 +134,21 @@ to type cog as defined in <code><a href="https://rdrr.io/pkg/trelliscopejs/man/c
 <span class="r-in"><span>  <span class="fl">78044338</span>, <span class="fl">86158414</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">lipid2_area_linear</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">curve_2_good_linearty</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fl">31538</span>, <span class="fl">53709</span>, <span class="fl">69990</span>, <span class="fl">101977</span>, <span class="fl">146436</span>, <span class="fl">180960</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">232881</span>, <span class="fl">283780</span>, <span class="fl">298289</span>, <span class="fl">344519</span>, <span class="fl">430432</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">25463</span>, <span class="fl">63387</span>, <span class="fl">90624</span>, <span class="fl">131274</span>, <span class="fl">138069</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">205353</span>, <span class="fl">202407</span>, <span class="fl">260205</span>, <span class="fl">292257</span>, <span class="fl">367924</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">lipid3_area_lod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">curve_3_noise_regime</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fl">544</span>, <span class="fl">397</span>, <span class="fl">829</span>, <span class="fl">1437</span>, <span class="fl">1808</span>, <span class="fl">2231</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">3343</span>, <span class="fl">2915</span>, <span class="fl">5268</span>, <span class="fl">8031</span>, <span class="fl">11045</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">500</span>, <span class="fl">903</span>, <span class="fl">1267</span>, <span class="fl">2031</span>, <span class="fl">2100</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">3563</span>, <span class="fl">4500</span>, <span class="fl">5300</span>, <span class="fl">8500</span>, <span class="fl">10430</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">lipid4_area_nonlinear</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">curve_4_poor_linearty</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fl">380519</span>, <span class="fl">485372</span>, <span class="fl">478770</span>, <span class="fl">474467</span>, <span class="fl">531640</span>, <span class="fl">576301</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">501068</span>, <span class="fl">550201</span>, <span class="fl">515110</span>, <span class="fl">499543</span>, <span class="fl">474745</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">197417</span>, <span class="fl">322846</span>, <span class="fl">478398</span>, <span class="fl">423174</span>, <span class="fl">418577</span>,</span></span>
@@ -157,16 +157,16 @@ to type cog as defined in <code><a href="https://rdrr.io/pkg/trelliscopejs/man/c
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">curve_batch_annot</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  Sample_Name <span class="op">=</span> <span class="va">sample_name</span>,</span></span>
-<span class="r-in"><span>  Dilution_Batch_Name <span class="op">=</span> <span class="va">dilution_batch_name</span>,</span></span>
-<span class="r-in"><span>  Dilution_Percent <span class="op">=</span> <span class="va">dilution_percent</span></span></span>
+<span class="r-in"><span>  Curve_Batch_Name <span class="op">=</span> <span class="va">curve_batch_name</span>,</span></span>
+<span class="r-in"><span>  Concentration <span class="op">=</span> <span class="va">concentration</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">curve_data</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  Sample_Name <span class="op">=</span> <span class="va">sample_name</span>,</span></span>
-<span class="r-in"><span>  Lipid1 <span class="op">=</span> <span class="va">lipid1_area_saturated</span>,</span></span>
-<span class="r-in"><span>  Lipid2 <span class="op">=</span> <span class="va">lipid2_area_linear</span>,</span></span>
-<span class="r-in"><span>  Lipid3 <span class="op">=</span> <span class="va">lipid3_area_lod</span>,</span></span>
-<span class="r-in"><span>  Lipid4 <span class="op">=</span> <span class="va">lipid4_area_nonlinear</span></span></span>
+<span class="r-in"><span>  `Curve_1` <span class="op">=</span> <span class="va">curve_1_saturation_regime</span>,</span></span>
+<span class="r-in"><span>  `Curve_2` <span class="op">=</span> <span class="va">curve_2_good_linearty</span>,</span></span>
+<span class="r-in"><span>  `Curve_3` <span class="op">=</span> <span class="va">curve_3_noise_regime</span>,</span></span>
+<span class="r-in"><span>  `Curve_4` <span class="op">=</span> <span class="va">curve_4_poor_linearty</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Create curve table</span></span></span>
@@ -174,24 +174,24 @@ to type cog as defined in <code><a href="https://rdrr.io/pkg/trelliscopejs/man/c
 <span class="r-in"><span>  curve_batch_annot <span class="op">=</span> <span class="va">curve_batch_annot</span>,</span></span>
 <span class="r-in"><span>  curve_data_wide <span class="op">=</span> <span class="va">curve_data</span>,</span></span>
 <span class="r-in"><span>  common_column <span class="op">=</span> <span class="st">"Sample_Name"</span>,</span></span>
-<span class="r-in"><span>  signal_var <span class="op">=</span> <span class="st">"Area"</span>,</span></span>
-<span class="r-in"><span>  column_group <span class="op">=</span> <span class="st">"Transition_Name"</span></span></span>
+<span class="r-in"><span>  signal_var <span class="op">=</span> <span class="st">"Signal"</span>,</span></span>
+<span class="r-in"><span>  column_group <span class="op">=</span> <span class="st">"Curve_Name"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Create curve statistical summary</span></span></span>
 <span class="r-in"><span><span class="va">curve_summary</span> <span class="op">&lt;-</span> <span class="va">curve_table</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="summarise_curve_table.html">summarise_curve_table</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>      <span class="st">"Transition_Name"</span>,</span></span>
-<span class="r-in"><span>      <span class="st">"Dilution_Batch_Name"</span></span></span>
+<span class="r-in"><span>      <span class="st">"Curve_Name"</span>,</span></span>
+<span class="r-in"><span>      <span class="st">"Curve_Batch_Name"</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span>,</span></span>
-<span class="r-in"><span>    conc_var <span class="op">=</span> <span class="st">"Dilution_Percent"</span>,</span></span>
-<span class="r-in"><span>    signal_var <span class="op">=</span> <span class="st">"Area"</span></span></span>
+<span class="r-in"><span>    conc_var <span class="op">=</span> <span class="st">"Concentration"</span>,</span></span>
+<span class="r-in"><span>    signal_var <span class="op">=</span> <span class="st">"Signal"</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
-<span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">.data</span><span class="op">$</span><span class="va">Transition_Name</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">.data</span><span class="op">[[</span><span class="st">"Curve_Name"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="evaluate_linearity.html">evaluate_linearity</a></span><span class="op">(</span>grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    <span class="st">"Transition_Name"</span>,</span></span>
-<span class="r-in"><span>    <span class="st">"Dilution_Batch_Name"</span></span></span>
+<span class="r-in"><span>    <span class="st">"Curve_Name"</span>,</span></span>
+<span class="r-in"><span>    <span class="st">"Curve_Batch_Name"</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">updated_summary</span> <span class="op">&lt;-</span> <span class="fu">update_cog_auto</span><span class="op">(</span><span class="va">curve_summary</span><span class="op">)</span></span></span>
@@ -200,35 +200,35 @@ to type cog as defined in <code><a href="https://rdrr.io/pkg/trelliscopejs/man/c
 <span class="r-in"><span><span class="co"># to class cognostics</span></span></span>
 <span class="r-in"><span><span class="va">curve_summary</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 8 × 11</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Transition_N…¹ Dilut…² wf1_g…³ wf2_g…⁴ r_corr pra_l…⁵ mande…⁶ concav…⁷ r2_li…⁸</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Lipid1         B1      Poor L… Satura…  0.963    70.5 2.97<span style="color: #949494;">e</span><span style="color: #BB0000;">-5</span> -<span style="color: #BB0000;">4.17</span><span style="color: #949494;">e</span>+3  0.928 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> Lipid1         B2      Poor L… Satura…  0.950    62.3 1.66<span style="color: #949494;">e</span><span style="color: #BB0000;">-4</span> -<span style="color: #BB0000;">4.14</span><span style="color: #949494;">e</span>+3  0.903 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> Lipid2         B1      Good L… Good L…  0.990    92.8 1.50<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> -<span style="color: #BB0000;">4.91</span><span style="color: #949494;">e</span>+0  0.980 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> Lipid2         B2      Good L… Good L…  0.995    94.3 3.82<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> -<span style="color: #BB0000;">1.94</span><span style="color: #949494;">e</span>+0  0.990 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> Lipid3         B1      Poor L… Noise …  0.964    71.2 6.78<span style="color: #949494;">e</span><span style="color: #BB0000;">-6</span>  4.68<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span>  0.930 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> Lipid3         B2      Poor L… Noise …  0.978    74.7 2.56<span style="color: #949494;">e</span><span style="color: #BB0000;">-3</span>  3.21<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span>  0.956 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> Lipid4         B1      Poor L… Poor L…  0.311  -<span style="color: #BB0000;">251.</span>  6.60<span style="color: #949494;">e</span><span style="color: #BB0000;">-3</span> -<span style="color: #BB0000;">2.05</span><span style="color: #949494;">e</span>+1  0.097<span style="text-decoration: underline;">0</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span> Lipid4         B2      Poor L… Poor L…  0.608   -<span style="color: #BB0000;">73.1</span> 5.33<span style="color: #949494;">e</span><span style="color: #BB0000;">-2</span> -<span style="color: #BB0000;">2.29</span><span style="color: #949494;">e</span>+1  0.370 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Curve_Name Curve_Bat…¹ wf1_g…² wf2_g…³ r_corr pra_l…⁴ mande…⁵ concav…⁶ r2_li…⁷</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Curve_1    B1          Poor L… Satura…  0.963    70.5 2.97<span style="color: #949494;">e</span><span style="color: #BB0000;">-5</span> -<span style="color: #BB0000;">4.17</span><span style="color: #949494;">e</span>+3  0.928 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> Curve_1    B2          Poor L… Satura…  0.950    62.3 1.66<span style="color: #949494;">e</span><span style="color: #BB0000;">-4</span> -<span style="color: #BB0000;">4.14</span><span style="color: #949494;">e</span>+3  0.903 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> Curve_2    B1          Good L… Good L…  0.990    92.8 1.50<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> -<span style="color: #BB0000;">4.91</span><span style="color: #949494;">e</span>+0  0.980 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> Curve_2    B2          Good L… Good L…  0.995    94.3 3.82<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span> -<span style="color: #BB0000;">1.94</span><span style="color: #949494;">e</span>+0  0.990 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> Curve_3    B1          Poor L… Noise …  0.964    71.2 6.78<span style="color: #949494;">e</span><span style="color: #BB0000;">-6</span>  4.68<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span>  0.930 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> Curve_3    B2          Poor L… Noise …  0.978    74.7 2.56<span style="color: #949494;">e</span><span style="color: #BB0000;">-3</span>  3.21<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span>  0.956 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> Curve_4    B1          Poor L… Poor L…  0.311  -<span style="color: #BB0000;">251.</span>  6.60<span style="color: #949494;">e</span><span style="color: #BB0000;">-3</span> -<span style="color: #BB0000;">2.05</span><span style="color: #949494;">e</span>+1  0.097<span style="text-decoration: underline;">0</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span> Curve_4    B2          Poor L… Poor L…  0.608   -<span style="color: #BB0000;">73.1</span> 5.33<span style="color: #949494;">e</span><span style="color: #BB0000;">-2</span> -<span style="color: #BB0000;">2.29</span><span style="color: #949494;">e</span>+1  0.370 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 2 more variables: r2_adj_linear &lt;dbl&gt;, mandel_stats &lt;dbl&gt;, and</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   abbreviated variable names ¹​Transition_Name, ²​Dilution_Batch_Name,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ³​wf1_group, ⁴​wf2_group, ⁵​pra_linear, ⁶​mandel_p_val, ⁷​concavity, ⁸​r2_linear</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   abbreviated variable names ¹​Curve_Batch_Name, ²​wf1_group, ³​wf2_group,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ⁴​pra_linear, ⁵​mandel_p_val, ⁶​concavity, ⁷​r2_linear</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">updated_summary</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 8 × 11</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Transition…¹ Dilut…² wf1_g…³ wf2_g…⁴ r_corr   pra_linear mandel_p_val concav…⁵</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;cog&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;cog&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;cog&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;cog&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;cog&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;cog&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;cog&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Lipid1       B1      Poor L… Satura… 0.963362   70.49412 2.968599e-05 -<span style="color: #BB0000;">4.17</span><span style="color: #949494;">e</span>+3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> Lipid1       B2      Poor L… Satura… 0.950007   62.30351 1.662149e-04 -<span style="color: #BB0000;">4.14</span><span style="color: #949494;">e</span>+3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> Lipid2       B1      Good L… Good L… 0.989903   92.75456 1.501138e-01 -<span style="color: #BB0000;">4.91</span><span style="color: #949494;">e</span>+0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> Lipid2       B2      Good L… Good L… 0.994815   94.32046 3.824145e-01 -<span style="color: #BB0000;">1.94</span><span style="color: #949494;">e</span>+0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> Lipid3       B1      Poor L… Noise … 0.964252   71.18372 6.775079e-06  4.68<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> Lipid3       B2      Poor L… Noise … 0.977958   74.69452 2.563269e-03  3.21<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> Lipid4       B1      Poor L… Poor L… 0.311458 -251.44937 6.599208e-03 -<span style="color: #BB0000;">2.05</span><span style="color: #949494;">e</span>+1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span> Lipid4       B2      Poor L… Poor L… 0.608365  -73.12451 5.331838e-02 -<span style="color: #BB0000;">2.29</span><span style="color: #949494;">e</span>+1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Curve_Name Curve_B…¹ wf1_g…² wf2_g…³ r_corr   pra_linear mandel_p_val concav…⁴</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;cog&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;cog&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;cog&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;cog&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;cog&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;cog&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;cog&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> Curve_1    B1        Poor L… Satura… 0.963362   70.49412 2.968599e-05 -<span style="color: #BB0000;">4.17</span><span style="color: #949494;">e</span>+3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> Curve_1    B2        Poor L… Satura… 0.950007   62.30351 1.662149e-04 -<span style="color: #BB0000;">4.14</span><span style="color: #949494;">e</span>+3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> Curve_2    B1        Good L… Good L… 0.989903   92.75456 1.501138e-01 -<span style="color: #BB0000;">4.91</span><span style="color: #949494;">e</span>+0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> Curve_2    B2        Good L… Good L… 0.994815   94.32046 3.824145e-01 -<span style="color: #BB0000;">1.94</span><span style="color: #949494;">e</span>+0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> Curve_3    B1        Poor L… Noise … 0.964252   71.18372 6.775079e-06  4.68<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> Curve_3    B2        Poor L… Noise … 0.977958   74.69452 2.563269e-03  3.21<span style="color: #949494;">e</span><span style="color: #BB0000;">-1</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span> Curve_4    B1        Poor L… Poor L… 0.311458 -251.44937 6.599208e-03 -<span style="color: #BB0000;">2.05</span><span style="color: #949494;">e</span>+1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span> Curve_4    B2        Poor L… Poor L… 0.608365  -73.12451 5.331838e-02 -<span style="color: #BB0000;">2.29</span><span style="color: #949494;">e</span>+1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 3 more variables: r2_linear &lt;cog&gt;, r2_adj_linear &lt;cog&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   mandel_stats &lt;cog&gt;, and abbreviated variable names ¹​Transition_Name,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ²​Dilution_Batch_Name, ³​wf1_group, ⁴​wf2_group, ⁵​concavity</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   mandel_stats &lt;cog&gt;, and abbreviated variable names ¹​Curve_Batch_Name,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ²​wf1_group, ³​wf2_group, ⁴​concavity</span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
