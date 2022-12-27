@@ -49,10 +49,10 @@ You can install the development version from [GitHub](https://github.com/) with:
 devtools::install_github("SLINGhub/lancer")
 ```
 
-If you want to use a proper release version, referenced by a Git tag (example: 0.0.5) install the package as follows:
+If you want to use a proper release version, referenced by a Git tag (example: 0.0.6) install the package as follows:
 
 ```r
-devtools::install_github("SLINGhub/lancer", ref = "0.0.5")
+devtools::install_github("SLINGhub/lancer", ref = "0.0.6")
 ```
 
 <a href="#top">Back to top</a>
@@ -71,13 +71,13 @@ devtools::install_github("SLINGhub/lancer", ref = "0.0.5")
 
 ## Overview
 
-Using dilution data as a running example, an overview of the workflow is as follows
+Using calibration curve data as a running example, an overview of the workflow is as follows
 
 ```{r README-Workflow, echo = FALSE}
 #| fig.alt = "Overview of lancer workflow. Input
-#|  Transition Signal Data and Dilution Annotation are
-#|  first merged to a Dilution Table. Next,
-#|  Dilution Statistics Summary are then
+#|  Curve Signal Data and Curve Annotation are
+#|  first merged to a Curve Table. Next,
+#|  Curve Statistics Summary are then
 #|  calculated. Finally, results are exported as Excel,
 #|  pdf file or html folder."
 knitr::include_graphics("man/figures/README-Workflow.png")
@@ -89,7 +89,7 @@ knitr::include_graphics("man/figures/README-Workflow.png")
 
 The Pearson correlation coefficient has been used widely to test for linearity. However, it is insufficient as indicated in [Francisco Raposo (2016)](https://www.sciencedirect.com/science/article/abs/pii/S0165993615301242)
 
-Consider a linear curve, saturated curve and a curve with limit of detection (LOD)
+Consider a curve in the linear, saturation and noise regime.
 
 ```{r Motivation}
 linear_data <- data.frame(
@@ -103,7 +103,7 @@ linear_data <- data.frame(
   )
 )
 
-saturated_data <- data.frame(
+saturation_regime_data <- data.frame(
   conc_var = c(
     10, 25, 40, 50, 60,
     75, 80, 100, 125, 150
@@ -115,7 +115,7 @@ saturated_data <- data.frame(
   )
 )
 
-lod_data <- data.frame(
+noise_regime_data <- data.frame(
   conc_var = c(
     10, 25, 40, 50, 60,
     75, 80, 100, 125, 150
@@ -138,7 +138,7 @@ quad_model <- lancer::create_quad_model(
   "conc_var", "signal_var"
 )
 
-dilution <- seq(min(linear_data$conc_var, na.rm = TRUE),
+curve <- seq(min(linear_data$conc_var, na.rm = TRUE),
   max(linear_data$conc_var, na.rm = TRUE),
   length.out = 15
 )
@@ -146,21 +146,22 @@ dilution <- seq(min(linear_data$conc_var, na.rm = TRUE),
 # Create the y values for the line
 y_lin_predict <- stats::predict(
   linear_model,
-  tibble::tibble("conc_var" := dilution)
+  tibble::tibble("conc_var" := curve)
 )
 y_quad_predict <- stats::predict(
   quad_model,
-  tibble::tibble("conc_var" := dilution)
+  tibble::tibble("conc_var" := curve)
 )
 reg_data <- data.frame(
-  dilution = dilution,
+  curve = curve,
   y_lin_predict = y_lin_predict,
   y_quad_predict = y_quad_predict
 )
 
 reg_col_vec <- c("Lin" = "black", "Quad" = "red")
 
-linear_plot <- ggplot2::ggplot(linear_data) +
+linear_plot <- 
+  ggplot2::ggplot(linear_data) +
   ggplot2::aes(
     x = .data$conc_var,
     y = .data$signal_var
@@ -169,14 +170,14 @@ linear_plot <- ggplot2::ggplot(linear_data) +
   ggplot2::geom_line(
     data = reg_data,
     mapping = ggplot2::aes(
-      x = dilution, y = y_lin_predict,
+      x = curve, y = y_lin_predict,
       colour = "Lin"
     )
   ) +
   ggplot2::geom_line(
     data = reg_data,
     mapping = ggplot2::aes(
-      x = dilution, y = y_quad_predict,
+      x = curve, y = y_quad_predict,
       colour = "Quad"
     )
   ) +
@@ -204,40 +205,41 @@ linear_plot <- ggplot2::ggplot(linear_data) +
   )
 ```
 
-```{r create saturation plot, echo = FALSE}
+```{r create saturation regime plot, echo = FALSE}
 # Model the data
 linear_model <- lancer::create_linear_model(
-  saturated_data,
+  saturation_regime_data,
   "conc_var", "signal_var"
 )
 quad_model <- lancer::create_quad_model(
-  saturated_data,
+  saturation_regime_data,
   "conc_var", "signal_var"
 )
 
-dilution <- seq(min(saturated_data$conc_var, na.rm = TRUE),
-  max(saturated_data$conc_var, na.rm = TRUE),
+curve <- seq(min(saturation_regime_data$conc_var, na.rm = TRUE),
+  max(saturation_regime_data$conc_var, na.rm = TRUE),
   length.out = 15
 )
 
 # Create the y values for the line
 y_lin_predict <- stats::predict(
   linear_model,
-  tibble::tibble("conc_var" := dilution)
+  tibble::tibble("conc_var" := curve)
 )
 y_quad_predict <- stats::predict(
   quad_model,
-  tibble::tibble("conc_var" := dilution)
+  tibble::tibble("conc_var" := curve)
 )
 reg_data <- data.frame(
-  dilution = dilution,
+  curve = curve,
   y_lin_predict = y_lin_predict,
   y_quad_predict = y_quad_predict
 )
 
 reg_col_vec <- c("Lin" = "black", "Quad" = "red")
 
-saturation_plot <- ggplot2::ggplot(saturated_data) +
+saturation_regime_plot <-
+  ggplot2::ggplot(saturation_regime_data) +
   ggplot2::aes(
     x = .data$conc_var,
     y = .data$signal_var
@@ -246,14 +248,14 @@ saturation_plot <- ggplot2::ggplot(saturated_data) +
   ggplot2::geom_line(
     data = reg_data,
     mapping = ggplot2::aes(
-      x = dilution, y = y_lin_predict,
+      x = curve, y = y_lin_predict,
       colour = "Lin"
     )
   ) +
   ggplot2::geom_line(
     data = reg_data,
     mapping = ggplot2::aes(
-      x = dilution, y = y_quad_predict,
+      x = curve, y = y_quad_predict,
       colour = "Quad"
     )
   ) +
@@ -275,46 +277,47 @@ saturation_plot <- ggplot2::ggplot(saturated_data) +
     )
   ) +
   ggplot2::labs(
-    title = "Saturation",
+    title = "Saturation Regime",
     x = "Concentration",
     y = "Signal"
   )
 ```
 
-```{r create lod plot, echo = FALSE}
+```{r create noise regime plot, echo = FALSE}
 # Model the data
 linear_model <- lancer::create_linear_model(
-  lod_data,
+  noise_regime_data,
   "conc_var", "signal_var"
 )
 quad_model <- lancer::create_quad_model(
-  lod_data,
+  noise_regime_data,
   "conc_var", "signal_var"
 )
 
-dilution <- seq(min(lod_data$conc_var, na.rm = TRUE),
-  max(lod_data$conc_var, na.rm = TRUE),
+curve <- seq(min(noise_regime_data$conc_var, na.rm = TRUE),
+  max(noise_regime_data$conc_var, na.rm = TRUE),
   length.out = 15
 )
 
 # Create the y values for the line
 y_lin_predict <- stats::predict(
   linear_model,
-  tibble::tibble("conc_var" := dilution)
+  tibble::tibble("conc_var" := curve)
 )
 y_quad_predict <- stats::predict(
   quad_model,
-  tibble::tibble("conc_var" := dilution)
+  tibble::tibble("conc_var" := curve)
 )
 reg_data <- data.frame(
-  dilution = dilution,
+  curve = curve,
   y_lin_predict = y_lin_predict,
   y_quad_predict = y_quad_predict
 )
 
 reg_col_vec <- c("Lin" = "black", "Quad" = "red")
 
-lod_plot <- ggplot2::ggplot(lod_data) +
+noise_regime_plot <- 
+  ggplot2::ggplot(noise_regime_data) +
   ggplot2::aes(
     x = .data$conc_var,
     y = .data$signal_var
@@ -323,14 +326,14 @@ lod_plot <- ggplot2::ggplot(lod_data) +
   ggplot2::geom_line(
     data = reg_data,
     mapping = ggplot2::aes(
-      x = dilution, y = y_lin_predict,
+      x = curve, y = y_lin_predict,
       colour = "Lin"
     )
   ) +
   ggplot2::geom_line(
     data = reg_data,
     mapping = ggplot2::aes(
-      x = dilution, y = y_quad_predict,
+      x = curve, y = y_quad_predict,
       colour = "Quad"
     )
   ) +
@@ -352,7 +355,7 @@ lod_plot <- ggplot2::ggplot(lod_data) +
     )
   ) +
   ggplot2::labs(
-    title = "LOD",
+    title = "Noise Regime",
     x = "Concentration",
     y = "Signal"
   )
@@ -361,38 +364,40 @@ lod_plot <- ggplot2::ggplot(lod_data) +
 ```{r ViewMotivationData1, echo = FALSE}
 #| fig.alt = "A linear curve."
 #| 
-gridExtra::grid.arrange(linear_plot, nrow = 1)
+gridExtra::grid.arrange(linear_plot, 
+                        nrow = 1)
 ```
 
 ```{r ViewMotivationData2, echo = FALSE}
-#| fig.alt = "Left figure is a saturation curve
+#| fig.alt = "Left figure is a curve at saturation regime
 #|  (plateaus at high concentration).
-#|  Right figure is a curve with limit of detection
+#|  Right figure is a curve at noise regime
 #|  (plateaus at low concentration)."
 #| 
-gridExtra::grid.arrange(saturation_plot, lod_plot, ncol = 2)
+gridExtra::grid.arrange(saturation_regime_plot, 
+                        noise_regime_plot, ncol = 2)
 ```
 
 The corresponding Pearson correlation coefficient are really high (>0.9) even though the curves are non-linear.
-There is a need to explore better ways to categorise these two curves.
+There is a need to explore better ways to categorise these curves.
 
 ```{r Pearson Correlation Coefficient1}
 cor(linear_data$conc_var, linear_data$signal_var)
 ```
 
 ```{r Pearson Correlation Coefficient2}
-cor(saturated_data$conc_var, saturated_data$signal_var)
+cor(saturation_regime_data$conc_var, saturation_regime_data$signal_var)
 ```
 
 ```{r Pearson Correlation Coefficient3}
-cor(lod_data$conc_var, lod_data$signal_var)
+cor(noise_regime_data$conc_var, noise_regime_data$signal_var)
 ```
 
 One example is the use of the Percent Residual Accuracy found in [Logue, B. A. and Manandhar, E. (2018)](https://doi.org/10.1016/j.talanta.2018.07.046) which is more sensitive than Pearson correlation coefficient. Observe that the linear dilution curve gives a higher value compared to than the other two curves.
 
 ```{r Percent Residual Accuracy1}
 lancer::calculate_pra_linear(
-  dilution_data = linear_data,
+  curve_data = linear_data,
   conc_var = "conc_var",
   signal_var = "signal_var"
 )
@@ -400,7 +405,7 @@ lancer::calculate_pra_linear(
 
 ```{r Percent Residual Accuracy2}
 lancer::calculate_pra_linear(
-  dilution_data = saturated_data,
+  curve_data = saturation_regime_data,
   conc_var = "conc_var",
   signal_var = "signal_var"
 )
@@ -409,7 +414,7 @@ lancer::calculate_pra_linear(
 
 ```{r Percent Residual Accuracy3}
 lancer::calculate_pra_linear(
-  dilution_data = lod_data,
+  curve_data = noise_regime_data,
   conc_var = "conc_var",
   signal_var = "signal_var"
 )
@@ -418,7 +423,7 @@ Another example is the use of the Mandel's Fitting Test. Observe that the two no
 
 ```{r Mandel Test1}
 lancer::calculate_mandel(
-  dilution_data = linear_data,
+  curve_data = linear_data,
   conc_var = "conc_var",
   signal_var = "signal_var"
 )
@@ -426,7 +431,7 @@ lancer::calculate_mandel(
 
 ```{r Mandel Test2}
 lancer::calculate_mandel(
-  dilution_data = saturated_data,
+  curve_data = saturation_regime_data,
   conc_var = "conc_var",
   signal_var = "signal_var"
 )
@@ -434,7 +439,7 @@ lancer::calculate_mandel(
 
 ```{r Mandel Test3}
 lancer::calculate_mandel(
-  dilution_data = lod_data,
+  curve_data = noise_regime_data,
   conc_var = "conc_var",
   signal_var = "signal_var"
 )
@@ -496,21 +501,21 @@ Workflow 2 involves using $R$, $PRA$ and Mandel's Fitting Test to categorise the
 
 ## Usage
 
-We first create our data set.
+We first create our curve data set.
 
 ```{r data set creation}
 library(lancer)
 
 # Data Creation
 
-dilution_percent <- c(
+concentration <- c(
   10, 20, 25, 40, 50, 60,
   75, 80, 100, 125, 150,
   10, 25, 40, 50, 60,
   75, 80, 100, 125, 150
 )
 
-dilution_batch_name <- c(
+curve_batch_name <- c(
   "B1", "B1", "B1", "B1", "B1",
   "B1", "B1", "B1", "B1", "B1", "B1",
   "B2", "B2", "B2", "B2", "B2",
@@ -528,7 +533,7 @@ sample_name <- c(
   "Sample_125b", "Sample_150b"
 )
 
-lipid1_area_saturated <- c(
+curve_1_saturation_regime <- c(
   5748124, 16616414, 21702718, 36191617,
   49324541, 55618266, 66947588, 74964771,
   75438063, 91770737, 94692060,
@@ -537,21 +542,21 @@ lipid1_area_saturated <- c(
   78044338, 86158414
 )
 
-lipid2_area_linear <- c(
+curve_2_good_linearty <- c(
   31538, 53709, 69990, 101977, 146436, 180960,
   232881, 283780, 298289, 344519, 430432,
   25463, 63387, 90624, 131274, 138069,
   205353, 202407, 260205, 292257, 367924
 )
 
-lipid3_area_lod <- c(
+curve_3_noise_regime <- c(
   544, 397, 829, 1437, 1808, 2231,
   3343, 2915, 5268, 8031, 11045,
   500, 903, 1267, 2031, 2100,
   3563, 4500, 5300, 8500, 10430
 )
 
-lipid4_area_nonlinear <- c(
+curve_4_poor_linearty <- c(
   380519, 485372, 478770, 474467, 531640, 576301,
   501068, 550201, 515110, 499543, 474745,
   197417, 322846, 478398, 423174, 418577,
@@ -560,19 +565,18 @@ lipid4_area_nonlinear <- c(
 
 curve_annot <- tibble::tibble(
   Sample_Name = sample_name,
-  Dilution_Batch_Name = dilution_batch_name,
-  Dilution_Percent = dilution_percent
+  Curve_Batch_Name = curve_batch_name,
+  Concentration = concentration
 )
 
 curve_data <- tibble::tibble(
   Sample_Name = sample_name,
-  Lipid1 = lipid1_area_saturated,
-  Lipid2 = lipid2_area_linear,
-  Lipid3 = lipid3_area_lod,
-  Lipid4 = lipid4_area_nonlinear
+  `Curve 1` = curve_1_saturation_regime,
+  `Curve 2` = curve_2_good_linearty,
+  `Curve 3` = curve_3_noise_regime,
+  `Curve 4` = curve_4_poor_linearty
 )
 ```
-
 
 The `curve_annot` should look like this.
 
@@ -594,8 +598,8 @@ curve_table <- lancer::create_curve_table(
   curve_annot = curve_annot, 
   curve_data_wide = curve_data,
   common_column = "Sample_Name",
-  signal_var = "Area",
-  column_group = "Transition_Name"
+  signal_var = "Signal",
+  column_group = "Curve_Name"
 )
 ```
 
@@ -603,18 +607,18 @@ curve_table <- lancer::create_curve_table(
 print(curve_table, width = 100)
 ```
 
-Summarise each curve for each lipid and batch with `summarise_curve_table`
+Summarise each curve and batch with `summarise_curve_table`
 
 ```{r curve summary}
 # Create dilution statistical summary
 curve_summary <- lancer::summarise_curve_table(
   curve_table = curve_table,
   grouping_variable = c(
-    "Transition_Name",
-    "Dilution_Batch_Name"
+    "Curve_Name",
+    "Curve_Batch_Name"
   ),
-  conc_var = "Dilution_Percent",
-  signal_var = "Area"
+  conc_var = "Concentration",
+  signal_var = "Signal"
 )
 ```
 
@@ -630,8 +634,8 @@ Classify each curve according to Workflow 1 and Workflow 2.
 curve_classified <- lancer::evaluate_linearity(
   curve_summary = curve_summary,
   grouping_variable = c(
-    "Transition_Name",
-    "Dilution_Batch_Name"
+    "Curve_Name",
+    "Curve_Batch_Name"
   )
 )
 ```
@@ -666,15 +670,15 @@ ggplot_table <- lancer::add_ggplot_panel(
   curve_table = curve_table,
   curve_summary = curve_classified,
   grouping_variable = c(
-    "Transition_Name",
-    "Dilution_Batch_Name"
+    "Curve_Name",
+    "Curve_Batch_Name"
   ),
-  curv_batch_var = "Dilution_Batch_Name",
+  curv_batch_var = "Curve_Batch_Name",
   curv_batch_col = c("#377eb8", "#4daf4a"),
-  conc_var = "Dilution_Percent",
+  conc_var = "Concentration",
   conc_var_units = "%",
   conc_var_interval = 50,
-  signal_var = "Area"
+  signal_var = "Signal"
 )
 
 # Get the list of ggplot list for each group
@@ -693,14 +697,14 @@ lancer::view_ggplot_pdf(
 ```
 
 ```{r PDF Results 1, echo = FALSE}
-#| fig.alt = "Dilution batch one's statistics
+#| fig.alt = "Curve batch one's statistics
 #|  summary and plots reported in pdf using lancer."
  
 knitr::include_graphics("man/figures/README-PDFResults1.png")
 ```
 
 ```{r PDF Results 2, echo = FALSE}
-#| fig.alt = "Dilution batch two's statistics
+#| fig.alt = "Curve batch two's statistics
 #|  summary and plots reported in pdf using lancer."
  
 knitr::include_graphics("man/figures/README-PDFResults2.png")
@@ -713,28 +717,28 @@ To create an [interactive trelliscope display](https://hafen.github.io/trellisco
 ```{r create plotly table}
 # Create a trellis table
 trellis_table <- lancer::add_plotly_panel(
-  dilution_table = curve_table,
-  dilution_summary = curve_classified,
+  curve_table = curve_table,
+  curve_summary = curve_classified,
   grouping_variable = c(
-    "Transition_Name",
-    "Dilution_Batch_Name"
+    "Curve_Name",
+    "Curve_Batch_Name"
   ),
   sample_name_var = "Sample_Name",
-  dil_batch_var = "Dilution_Batch_Name",
-  dil_batch_col = c(
+  curv_batch_var = "Curve_Batch_Name",
+  curv_batch_col = c(
     "#377eb8",
     "#4daf4a"
   ),
-  conc_var = "Dilution_Percent",
+  conc_var = "Concentration",
   conc_var_units = "%",
   conc_var_interval = 50,
-  signal_var = "Area",
+  signal_var = "Signal",
   have_plot_title = FALSE
 ) %>%
   lancer::convert_to_cog(
     grouping_variable = c(
-      "Transition_Name",
-      "Dilution_Batch_Name"), 
+      "Curve_Name",
+      "Curve_Batch_Name"), 
     panel_variable = "panel",
     col_name_vec = "col_name_vec",
     desc_vec = "desc_vec",
@@ -748,11 +752,11 @@ Use `view_trellis_html` on the R console to output the interactive trelliscope d
 lancer::view_trellis_html(
   trellis_table = trellis_table,
   grouping_variable = c(
-    "Transition_Name",
-    "Dilution_Batch_Name"
+    "Curve_Name",
+    "Curve_Batch_Name"
   ),
-  trellis_report_name = "Dilution_Plot",
-  trellis_report_folder = "Dilution_Plot_Folder"
+  trellis_report_name = "Curve_Plot",
+  trellis_report_folder = "Curve_Plot_Folder"
 )
 ```
 

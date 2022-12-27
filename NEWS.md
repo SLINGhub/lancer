@@ -7,6 +7,8 @@
 
 ## Completed
 
+* Update README file documentation by replacing `dilution` to `curve`.
+
 * `validate_dilution_annot` changed to `validate_curve_annot`.
 * `validate_dilution_table` changed to `validate_curve_table`.
 * `validate_dilution_data` changed to `validate_curve_data`.
