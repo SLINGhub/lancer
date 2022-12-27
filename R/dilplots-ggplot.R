@@ -876,7 +876,7 @@ plot_curve_ggplot <- function(
 #'   426089, 413292, 450190, 415309, 457618
 #' )
 #'
-#' curve_annot <- tibble::tibble(
+#' curve_batch_annot <- tibble::tibble(
 #'   Sample_Name = sample_name,
 #'   Dilution_Batch_Name = dilution_batch_name,
 #'   Dilution_Percent = dilution_percent
@@ -892,7 +892,7 @@ plot_curve_ggplot <- function(
 #'
 #' # Create curve table
 #' curve_table <- create_curve_table(
-#'   curve_annot = curve_annot,
+#'   curve_batch_annot = curve_batch_annot,
 #'   curve_data_wide = curve_data,
 #'   common_column = "Sample_Name",
 #'   signal_var = "Area",

@@ -3,7 +3,7 @@
 #' `r lifecycle::badge("deprecated")`
 #'
 #' `validate_dilution_annot` was renamed to
-#' `validate_curve_annot`.
+#' `validate_curve_batch_annot`.
 #' @keywords internal
 #' @export
 validate_dilution_annot <- function(dilution_annot,
@@ -11,18 +11,19 @@ validate_dilution_annot <- function(dilution_annot,
 
   lifecycle::deprecate_warn(when = "0.0.6.9000",
                             what = "validate_dilution_annot()",
-                            with = "validate_curve_annot()")
+                            with = "validate_curve_batch_annot()")
 
-  validate_curve_annot(curve_annot = dilution_annot,
-                       needed_column = needed_column)
+  validate_curve_batch_annot(
+    curve_batch_annot = dilution_annot,
+    needed_column = needed_column)
 }
 
-#' @title Validate Curve Annotation
-#' @description Validate Curve Annotation
-#' @param curve_annot A data frame or tibble that contains information
+#' @title Validate Curve Batch Annotation
+#' @description Validate Curve Batch Annotation
+#' @param curve_batch_annot A data frame or tibble that contains information
 #' of your curve batch. A column with sample name should be present.
 #' @param needed_column A vector consisting of needed column names that
-#' must be found in `curve_annot`,
+#' must be found in `curve_batch_annot`,
 #' Default: c("Sample_Name")
 #' @return An error if the things in `needed_column`
 #' is not found in the Dilution Data
@@ -44,24 +45,25 @@ validate_dilution_annot <- function(dilution_annot,
 #'   "Sample_060b", "Sample_080b", "Sample_100b"
 #' )
 #'
-#' curve_annot <- tibble::tibble(
+#' curve_batch_annot <- tibble::tibble(
 #'   Sample_Name = sample_name,
 #'   Dilution_Batch_Name = dilution_batch_name,
 #'   Dilution_Percent = dilution_percent
 #' )
 #'
-#' validate_curve_annot(
-#'   curve_annot = curve_annot,
+#' validate_curve_batch_annot(
+#'   curve_batch_annot = curve_batch_annot,
 #'   needed_column = c("Sample_Name")
 #' )
 #'
-#' @rdname validate_curve_annot
+#' @rdname validate_curve_batch_annot
 #' @export
-validate_curve_annot <- function(curve_annot,
-                                 needed_column = c("Sample_Name")) {
+validate_curve_batch_annot <- function(
+    curve_batch_annot,
+    needed_column = c("Sample_Name")) {
 
   # Check if things in needed_column are in curve_annot
-  assertable::assert_colnames(curve_annot, needed_column,
+  assertable::assert_colnames(curve_batch_annot, needed_column,
     only_colnames = FALSE, quiet = TRUE
   )
 }
@@ -245,7 +247,7 @@ create_dilution_table <- function(dilution_annot, lipid_data_wide,
                             what = "create_dilution_table()",
                             with = "create_curve_table()")
 
-  create_curve_table(curve_annot = dilution_annot,
+  create_curve_table(curve_batch_annot = dilution_annot,
                      curve_data_wide = lipid_data_wide,
                      common_column = common_column,
                      signal_var = signal_var,
@@ -255,16 +257,16 @@ create_dilution_table <- function(dilution_annot, lipid_data_wide,
 
 #' @title Create Curve Table
 #' @description Create Curve Table from two data frame or tibble inputs
-#' `curve_annot` and `curve_data_wide`. Both input must have at least one
+#' `curve_batch_annot` and `curve_data_wide`. Both input must have at least one
 #' common column. The default common column names is `Sample_Name`.
-#' @param curve_annot A data frame or tibble that contains information
+#' @param curve_batch_annot A data frame or tibble that contains information
 #' of your curve batch. A column with sample name should be present.
 #' @param curve_data_wide A wide format data frame or tibble
 #' that contains the Sample Name usually at the first column followed
 #' by different curves. Each curve is meant to provide
 #' a `signal_var` for each sample.
 #' @param common_column A vector consisting of common column names that
-#' must be found in both `curve_annot` and `curve_data_wide`,
+#' must be found in both `curve_batch_annot` and `curve_data_wide`,
 #' Default: c("Sample_Name")
 #' @param signal_var Value provided in `curve_data_wide` for each
 #' curve which will be used as a column name when the merged data
@@ -274,7 +276,7 @@ create_dilution_table <- function(dilution_annot, lipid_data_wide,
 #' `curve_data_wide` when the merged data is converted to a long format,
 #' Default: 'Transition_Name'
 #' @return A data frame or tibble in long format
-#' @details We first merge the `curve_annot` with the `curve_data_wide`
+#' @details We first merge the `curve_batch_annot` with the `curve_data_wide`
 #' via one or more common columns. Next we convert the data from a wide to
 #' a long format. Merging with a Sample Annotation data can be done after this
 #' @examples
@@ -306,7 +308,7 @@ create_dilution_table <- function(dilution_annot, lipid_data_wide,
 #'   2300075, 4137350, 7021062, 8923063, 9289742, 11366710
 #' )
 #'
-#' curve_annot <- tibble::tibble(
+#' curve_batch_annot <- tibble::tibble(
 #'   Sample_Name = sample_name,
 #'   Dilution_Batch_Name = dilution_batch_name,
 #'   Dilution_Percent = dilution_percent
@@ -320,7 +322,7 @@ create_dilution_table <- function(dilution_annot, lipid_data_wide,
 #'
 #' # Create dilution table
 #' curve_table <- create_curve_table(
-#'   curve_annot = curve_annot,
+#'   curve_batch_annot = curve_batch_annot,
 #'   curve_data_wide = curve_data,
 #'   common_column = "Sample_Name",
 #'   signal_var = "Area",
@@ -331,20 +333,20 @@ create_dilution_table <- function(dilution_annot, lipid_data_wide,
 #'
 #' @rdname create_curve_table
 #' @export
-create_curve_table <- function(curve_annot, curve_data_wide,
+create_curve_table <- function(curve_batch_annot, curve_data_wide,
                                common_column = c("Sample_Name"),
                                signal_var = "Area",
                                column_group = "Transition_Name") {
 
-  # Check if curve_annot and curve_data_wide is valid
-  validate_curve_annot(curve_annot, common_column)
+  # Check if curve_batch_annot and curve_data_wide is valid
+  validate_curve_batch_annot(curve_batch_annot, common_column)
   validate_curve_data_wide(curve_data_wide, common_column)
 
   # Merge the two data together and make it long
-  curve_table <- dplyr::inner_join(curve_annot, curve_data_wide,
+  curve_table <- dplyr::inner_join(curve_batch_annot, curve_data_wide,
     by = common_column
   ) %>%
-    tidyr::pivot_longer(-dplyr::any_of(colnames(curve_annot)),
+    tidyr::pivot_longer(-dplyr::any_of(colnames(curve_batch_annot)),
       names_to = column_group, values_to = signal_var
     )
 
@@ -430,7 +432,7 @@ summarise_dilution_table <- function(dilution_table,
 #'   2300075, 4137350, 7021062, 8923063, 9289742, 11366710
 #' )
 #'
-#' curve_annot <- tibble::tibble(
+#' curve_batch_annot <- tibble::tibble(
 #'   Sample_Name = sample_name,
 #'   Dilution_Batch_Name = dilution_batch_name,
 #'   Dilution_Percent = dilution_percent
@@ -444,7 +446,7 @@ summarise_dilution_table <- function(dilution_table,
 #'
 #' # Create curve table
 #' curve_table <- create_curve_table(
-#'   curve_annot = curve_annot,
+#'   curve_batch_annot = curve_batch_annot,
 #'   curve_data_wide = curve_data,
 #'   common_column = "Sample_Name",
 #'   signal_var = "Area",

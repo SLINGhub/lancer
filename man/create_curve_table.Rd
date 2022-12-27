@@ -5,7 +5,7 @@
 \title{Create Curve Table}
 \usage{
 create_curve_table(
-  curve_annot,
+  curve_batch_annot,
   curve_data_wide,
   common_column = c("Sample_Name"),
   signal_var = "Area",
@@ -13,7 +13,7 @@ create_curve_table(
 )
 }
 \arguments{
-\item{curve_annot}{A data frame or tibble that contains information
+\item{curve_batch_annot}{A data frame or tibble that contains information
 of your curve batch. A column with sample name should be present.}
 
 \item{curve_data_wide}{A wide format data frame or tibble
@@ -22,7 +22,7 @@ by different curves. Each curve is meant to provide
 a \code{signal_var} for each sample.}
 
 \item{common_column}{A vector consisting of common column names that
-must be found in both \code{curve_annot} and \code{curve_data_wide},
+must be found in both \code{curve_batch_annot} and \code{curve_data_wide},
 Default: c("Sample_Name")}
 
 \item{signal_var}{Value provided in \code{curve_data_wide} for each
@@ -39,11 +39,11 @@ A data frame or tibble in long format
 }
 \description{
 Create Curve Table from two data frame or tibble inputs
-\code{curve_annot} and \code{curve_data_wide}. Both input must have at least one
+\code{curve_batch_annot} and \code{curve_data_wide}. Both input must have at least one
 common column. The default common column names is \code{Sample_Name}.
 }
 \details{
-We first merge the \code{curve_annot} with the \code{curve_data_wide}
+We first merge the \code{curve_batch_annot} with the \code{curve_data_wide}
 via one or more common columns. Next we convert the data from a wide to
 a long format. Merging with a Sample Annotation data can be done after this
 }
@@ -76,7 +76,7 @@ lipid2_area <- c(
   2300075, 4137350, 7021062, 8923063, 9289742, 11366710
 )
 
-curve_annot <- tibble::tibble(
+curve_batch_annot <- tibble::tibble(
   Sample_Name = sample_name,
   Dilution_Batch_Name = dilution_batch_name,
   Dilution_Percent = dilution_percent
@@ -90,7 +90,7 @@ curve_data <- tibble::tibble(
 
 # Create dilution table
 curve_table <- create_curve_table(
-  curve_annot = curve_annot,
+  curve_batch_annot = curve_batch_annot,
   curve_data_wide = curve_data,
   common_column = "Sample_Name",
   signal_var = "Area",

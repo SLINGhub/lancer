@@ -28,7 +28,7 @@ test_that("create dilution table and statistical summary", {
     2300075, 4137350, 7021062, 8923063, 9289742, 11366710
   )
 
-  curve_annot <- tibble::tibble(
+  curve_batch_annot <- tibble::tibble(
     Sample_Name = sample_name,
     Dilution_Batch_Name = dilution_batch_name,
     Dilution_Percent = dilution_percent
@@ -40,7 +40,7 @@ test_that("create dilution table and statistical summary", {
     Lipid2 = lipid2_area
   )
 
-  bad_curve_annot <- tibble::tibble(
+  bad_curve_batch_annot <- tibble::tibble(
     Sample_Nam = sample_name,
     Dilution_Batch_Name = dilution_batch_name,
     Dilution_Percent = dilution_percent
@@ -54,7 +54,7 @@ test_that("create dilution table and statistical summary", {
 
   # Create curve table
   curve_table <- create_curve_table(
-    curve_annot = curve_annot,
+    curve_batch_annot = curve_batch_annot,
     curve_data_wide = curve_data,
     common_column = "Sample_Name",
     signal_var = "Area",
@@ -74,13 +74,13 @@ test_that("create dilution table and statistical summary", {
     dplyr::arrange(.data$Transition_Name)
 
   # Validating bad inputs for create_curve_table
-  testthat::expect_error(create_curve_table(curve_annot, curve_data,
+  testthat::expect_error(create_curve_table(curve_batch_annot, curve_data,
     common_column = "Sample_Nam"
   ))
-  testthat::expect_error(create_curve_table(bad_curve_annot, curve_data,
+  testthat::expect_error(create_curve_table(bad_curve_batch_annot, curve_data,
     common_column = "Sample_Name"
   ))
-  testthat::expect_error(create_curve_table(curve_annot, bad_curve_data,
+  testthat::expect_error(create_curve_table(curve_batch_annot, bad_curve_data,
     common_column = "Sample_Name"
   ))
 
@@ -117,4 +117,38 @@ test_that("create dilution table and statistical summary", {
       signal_var = "Are"
     )
   )
+})
+
+test_that("validate_dilution_annot is deprecated", {
+
+  dilution_percent <- c(
+    10, 20, 40, 60, 80, 100,
+    10, 20, 40, 60, 80, 100
+  )
+
+  dilution_batch_name <- c(
+    "B1", "B1", "B1", "B1", "B1", "B1",
+    "B2", "B2", "B2", "B2", "B2", "B2"
+  )
+
+  sample_name <- c(
+    "Sample_010a", "Sample_020a", "Sample_040a",
+    "Sample_060a", "Sample_080a", "Sample_100a",
+    "Sample_010b", "Sample_020b", "Sample_040b",
+    "Sample_060b", "Sample_080b", "Sample_100b"
+  )
+
+  dilution_annot <- tibble::tibble(
+    Sample_Name = sample_name,
+    Dilution_Batch_Name = dilution_batch_name,
+    Dilution_Percent = dilution_percent
+  )
+
+  expect_snapshot({
+  validate_dilution_annot(
+    dilution_annot = dilution_annot,
+    needed_column = c("Sample_Name")
+  )
+  })
+
 })

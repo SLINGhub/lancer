@@ -25,14 +25,14 @@ to suit your own dataset using `corrcoef_column`, `pra_column`, `mandel_p_val_co
 ```{r customisation setup}
 library(lancer)
 
-transition_name <- c("Lipid1", "Lipid2", "Lipid3", "Lipid4")
+curve_name <- c("Curve_1", "Curve_2", "Curve_3", "Curve_4")
 corrcoef <- c(0.952, 0.978, 0.971, 0.344)
 pra <- c(65.8, 90.2, 72.9, -233)
 mandel_pval <- c(0.00000029, 0.290, 0.000000032, 0.0363)
 concavity <- c(-4134, -3.35, 0.394, -19.9)
 
 curve_summary <- tibble::tibble(
-  Transition_Name = transition_name,
+  Curve_Name = curve_name,
   Corrcoef = corrcoef,
   Pra = pra,
   Mandel_Pval = mandel_pval,
@@ -45,7 +45,7 @@ curve_summary <- tibble::tibble(
 curve_classified <- lancer::evaluate_linearity(
   curve_summary = curve_summary,
   grouping_variable = c(
-    "Transition_Name"
+    "Curve_Name"
   ),
   corrcoef_column = "Corrcoef",
   pra_column = "Pra",
@@ -69,7 +69,7 @@ respectively.
 curve_classified <- lancer::evaluate_linearity(
   curve_summary = curve_summary,
   grouping_variable = c(
-    "Transition_Name"
+    "Curve_Name"
   ),
   corrcoef_column = "Corrcoef",
   corrcoef_min_threshold = 0.7,

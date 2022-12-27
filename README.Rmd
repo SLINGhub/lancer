@@ -563,7 +563,7 @@ curve_4_poor_linearty <- c(
   426089, 413292, 450190, 415309, 457618
 )
 
-curve_annot <- tibble::tibble(
+curve_batch_annot <- tibble::tibble(
   Sample_Name = sample_name,
   Curve_Batch_Name = curve_batch_name,
   Concentration = concentration
@@ -571,17 +571,17 @@ curve_annot <- tibble::tibble(
 
 curve_data <- tibble::tibble(
   Sample_Name = sample_name,
-  `Curve 1` = curve_1_saturation_regime,
-  `Curve 2` = curve_2_good_linearty,
-  `Curve 3` = curve_3_noise_regime,
-  `Curve 4` = curve_4_poor_linearty
+  `Curve_1` = curve_1_saturation_regime,
+  `Curve_2` = curve_2_good_linearty,
+  `Curve_3` = curve_3_noise_regime,
+  `Curve_4` = curve_4_poor_linearty
 )
 ```
 
-The `curve_annot` should look like this.
+The `curve_batch_annot` should look like this.
 
 ```{r curve annot}
-print(curve_annot, width = 100)
+print(curve_batch_annot, width = 100)
 ```
 
 The `curve_data` should look like this.
@@ -595,7 +595,7 @@ Merge the data together using `create_curve_table`
 ```{r curve table}
 # Create curve table
 curve_table <- lancer::create_curve_table(
-  curve_annot = curve_annot, 
+  curve_batch_annot = curve_batch_annot, 
   curve_data_wide = curve_data,
   common_column = "Sample_Name",
   signal_var = "Signal",

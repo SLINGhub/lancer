@@ -179,7 +179,7 @@ create_default_cog_df <- function() {
 #'   426089, 413292, 450190, 415309, 457618
 #' )
 #'
-#' curve_annot <- tibble::tibble(
+#' curve_batch_annot <- tibble::tibble(
 #'   Sample_Name = sample_name,
 #'   Dilution_Batch_Name = dilution_batch_name,
 #'   Dilution_Percent = dilution_percent
@@ -195,7 +195,7 @@ create_default_cog_df <- function() {
 #'
 #' # Create dilution table
 #' curve_table <- create_curve_table(
-#'   curve_annot = curve_annot,
+#'   curve_batch_annot = curve_batch_annot,
 #'   curve_data_wide = curve_data,
 #'   common_column = "Sample_Name",
 #'   signal_var = "Area",
@@ -375,7 +375,7 @@ update_cog_manual <- function(curve_summary,
 #'   426089, 413292, 450190, 415309, 457618
 #' )
 #'
-#' curve_annot <- tibble::tibble(
+#' curve_batch_annot <- tibble::tibble(
 #'   Sample_Name = sample_name,
 #'   Dilution_Batch_Name = dilution_batch_name,
 #'   Dilution_Percent = dilution_percent
@@ -391,7 +391,7 @@ update_cog_manual <- function(curve_summary,
 #'
 #' # Create curve table
 #' curve_table <- create_curve_table(
-#'   curve_annot = curve_annot,
+#'   curve_batch_annot = curve_batch_annot,
 #'   curve_data_wide = curve_data,
 #'   common_column = "Sample_Name",
 #'   signal_var = "Area",
@@ -538,7 +538,7 @@ update_cog_auto <- function(
 #'   426089, 413292, 450190, 415309, 457618
 #' )
 #'
-#' curve_annot <- tibble::tibble(
+#' curve_batch_annot <- tibble::tibble(
 #'   Sample_Name = sample_name,
 #'   Dilution_Batch_Name = dilution_batch_name,
 #'   Dilution_Percent = dilution_percent
@@ -554,7 +554,7 @@ update_cog_auto <- function(
 #'
 #' # Create curve table
 #' curve_table <- create_curve_table(
-#'   curve_annot = curve_annot,
+#'   curve_batch_annot = curve_batch_annot,
 #'   curve_data_wide = curve_data,
 #'   common_column = "Sample_Name",
 #'   signal_var = "Area",

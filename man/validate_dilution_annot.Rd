@@ -11,6 +11,6 @@ Validate Dilution Annotation
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 
 \code{validate_dilution_annot} was renamed to
-\code{validate_curve_annot}.
+\code{validate_curve_batch_annot}.
 }
 \keyword{internal}

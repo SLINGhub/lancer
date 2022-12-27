@@ -77,7 +77,7 @@ dilution_batch_name <- c(
   "B2", "B2", "B2", "B2", "B2", "B2"
 )
 
-curve_annot <- tibble::tibble(
+curve_batch_annot <- tibble::tibble(
   Sample_Name = sample_name,
   Dilution_Batch_Name = dilution_batch_name,
   Dilution_Percent = dilution_percent
@@ -85,7 +85,7 @@ curve_annot <- tibble::tibble(
 
 # Create dilution table
 curve_table <- create_curve_table(
-  curve_annot = curve_annot,
+  curve_batch_annot = curve_batch_annot,
   curve_data_wide = curve_data,
   common_column = "Sample_Name",
   signal_var = "Area",
