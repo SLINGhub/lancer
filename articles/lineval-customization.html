@@ -43,7 +43,7 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/ggplot-output-1.html">Plots in ggplot2 Part 1</a>
     <a class="dropdown-item" href="../articles/ggplot-output-2.html">Plots in ggplot2 Part 2</a>
-    <a class="dropdown-item" href="../articles/grouping.html">Grouping Variables in Dilution Table</a>
+    <a class="dropdown-item" href="../articles/grouping.html">Grouping Variables in Curve Table</a>
     <a class="dropdown-item" href="../articles/lineval-customization.html">Customise Linearity Evaluation Workflow</a>
     <a class="dropdown-item" href="../articles/plotly-output.html">Plots in plotly</a>
     <a class="dropdown-item" href="../articles/tidy-demo.html">Tidy Workflow Example</a>
@@ -99,14 +99,14 @@ parameters to suit your own dataset using <code>corrcoef_column</code>,
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://slinghub.github.io/lancer/">lancer</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">transition_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Lipid1"</span>, <span class="st">"Lipid2"</span>, <span class="st">"Lipid3"</span>, <span class="st">"Lipid4"</span><span class="op">)</span></span>
+<span><span class="va">curve_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Curve_1"</span>, <span class="st">"Curve_2"</span>, <span class="st">"Curve_3"</span>, <span class="st">"Curve_4"</span><span class="op">)</span></span>
 <span><span class="va">corrcoef</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.952</span>, <span class="fl">0.978</span>, <span class="fl">0.971</span>, <span class="fl">0.344</span><span class="op">)</span></span>
 <span><span class="va">pra</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">65.8</span>, <span class="fl">90.2</span>, <span class="fl">72.9</span>, <span class="op">-</span><span class="fl">233</span><span class="op">)</span></span>
 <span><span class="va">mandel_pval</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.00000029</span>, <span class="fl">0.290</span>, <span class="fl">0.000000032</span>, <span class="fl">0.0363</span><span class="op">)</span></span>
 <span><span class="va">concavity</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">4134</span>, <span class="op">-</span><span class="fl">3.35</span>, <span class="fl">0.394</span>, <span class="op">-</span><span class="fl">19.9</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">curve_summary</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
-<span>  Transition_Name <span class="op">=</span> <span class="va">transition_name</span>,</span>
+<span>  Curve_Name <span class="op">=</span> <span class="va">curve_name</span>,</span>
 <span>  Corrcoef <span class="op">=</span> <span class="va">corrcoef</span>,</span>
 <span>  Pra <span class="op">=</span> <span class="va">pra</span>,</span>
 <span>  Mandel_Pval <span class="op">=</span> <span class="va">mandel_pval</span>,</span>
@@ -117,7 +117,7 @@ parameters to suit your own dataset using <code>corrcoef_column</code>,
 <span><span class="va">curve_classified</span> <span class="op">&lt;-</span> <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="../reference/evaluate_linearity.html">evaluate_linearity</a></span><span class="op">(</span></span>
 <span>  curve_summary <span class="op">=</span> <span class="va">curve_summary</span>,</span>
 <span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"Transition_Name"</span></span>
+<span>    <span class="st">"Curve_Name"</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  corrcoef_column <span class="op">=</span> <span class="st">"Corrcoef"</span>,</span>
 <span>  pra_column <span class="op">=</span> <span class="st">"Pra"</span>,</span>
@@ -127,12 +127,12 @@ parameters to suit your own dataset using <code>corrcoef_column</code>,
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">curve_classified</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 7</span></span></span>
-<span><span class="co">#&gt;   Transition_Name wf1_group      wf2_group         Corrcoef    Pra Mandel_Pval</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Lipid1          Poor Linearity Saturation Regime    0.952   65.8 0.000<span style="text-decoration: underline;">000</span>29 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Lipid2          Good Linearity Good Linearity       0.978   90.2 0.29       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Lipid3          Poor Linearity Noise Regime         0.971   72.9 0.000<span style="text-decoration: underline;">000</span>032</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Lipid4          Poor Linearity Poor Linearity       0.344 -<span style="color: #BB0000;">233</span>   0.036<span style="text-decoration: underline;">3</span>     </span></span>
+<span><span class="co">#&gt;   Curve_Name wf1_group      wf2_group         Corrcoef    Pra Mandel_Pval</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Curve_1    Poor Linearity Saturation Regime    0.952   65.8 0.000<span style="text-decoration: underline;">000</span>29 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Curve_2    Good Linearity Good Linearity       0.978   90.2 0.29       </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Curve_3    Poor Linearity Noise Regime         0.971   72.9 0.000<span style="text-decoration: underline;">000</span>032</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Curve_4    Poor Linearity Poor Linearity       0.344 -<span style="color: #BB0000;">233</span>   0.036<span style="text-decoration: underline;">3</span>     </span></span>
 <span><span class="co">#&gt;   Concavity</span></span>
 <span><span class="co">#&gt;       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> -<span style="color: #BB0000; text-decoration: underline;">4</span><span style="color: #BB0000;">134</span>    </span></span>
@@ -148,7 +148,7 @@ Percent Residual Accuracy (80) and Mandel’s Fitting Test <span class="math inl
 <span><span class="va">curve_classified</span> <span class="op">&lt;-</span> <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="../reference/evaluate_linearity.html">evaluate_linearity</a></span><span class="op">(</span></span>
 <span>  curve_summary <span class="op">=</span> <span class="va">curve_summary</span>,</span>
 <span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"Transition_Name"</span></span>
+<span>    <span class="st">"Curve_Name"</span></span>
 <span>  <span class="op">)</span>,</span>
 <span>  corrcoef_column <span class="op">=</span> <span class="st">"Corrcoef"</span>,</span>
 <span>  corrcoef_min_threshold <span class="op">=</span> <span class="fl">0.7</span>,</span>
@@ -161,12 +161,12 @@ Percent Residual Accuracy (80) and Mandel’s Fitting Test <span class="math inl
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">curve_classified</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 7</span></span></span>
-<span><span class="co">#&gt;   Transition_Name wf1_group      wf2_group         Corrcoef    Pra Mandel_Pval</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Lipid1          Poor Linearity Saturation Regime    0.952   65.8 0.000<span style="text-decoration: underline;">000</span>29 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Lipid2          Good Linearity Good Linearity       0.978   90.2 0.29       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Lipid3          Good Linearity Good Linearity       0.971   72.9 0.000<span style="text-decoration: underline;">000</span>032</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Lipid4          Poor Linearity Poor Linearity       0.344 -<span style="color: #BB0000;">233</span>   0.036<span style="text-decoration: underline;">3</span>     </span></span>
+<span><span class="co">#&gt;   Curve_Name wf1_group      wf2_group         Corrcoef    Pra Mandel_Pval</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Curve_1    Poor Linearity Saturation Regime    0.952   65.8 0.000<span style="text-decoration: underline;">000</span>29 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Curve_2    Good Linearity Good Linearity       0.978   90.2 0.29       </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Curve_3    Good Linearity Good Linearity       0.971   72.9 0.000<span style="text-decoration: underline;">000</span>032</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Curve_4    Poor Linearity Poor Linearity       0.344 -<span style="color: #BB0000;">233</span>   0.036<span style="text-decoration: underline;">3</span>     </span></span>
 <span><span class="co">#&gt;   Concavity</span></span>
 <span><span class="co">#&gt;       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> -<span style="color: #BB0000; text-decoration: underline;">4</span><span style="color: #BB0000;">134</span>    </span></span>

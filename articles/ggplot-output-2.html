@@ -43,7 +43,7 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/ggplot-output-1.html">Plots in ggplot2 Part 1</a>
     <a class="dropdown-item" href="../articles/ggplot-output-2.html">Plots in ggplot2 Part 2</a>
-    <a class="dropdown-item" href="../articles/grouping.html">Grouping Variables in Dilution Table</a>
+    <a class="dropdown-item" href="../articles/grouping.html">Grouping Variables in Curve Table</a>
     <a class="dropdown-item" href="../articles/lineval-customization.html">Customise Linearity Evaluation Workflow</a>
     <a class="dropdown-item" href="../articles/plotly-output.html">Plots in plotly</a>
     <a class="dropdown-item" href="../articles/tidy-demo.html">Tidy Workflow Example</a>
@@ -86,21 +86,21 @@
 
     
     
-<p>Here are some examples to plot dilution data via
+<p>Here are some examples to plot curve data via
 <code>ggplot2</code></p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://slinghub.github.io/lancer/">lancer</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Data Creation</span></span>
 <span></span>
-<span><span class="va">dilution_percent</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span><span class="va">concentration</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">25</span>, <span class="fl">40</span>, <span class="fl">50</span>, <span class="fl">60</span>,</span>
 <span>  <span class="fl">75</span>, <span class="fl">80</span>, <span class="fl">100</span>, <span class="fl">125</span>, <span class="fl">150</span>,</span>
 <span>  <span class="fl">10</span>, <span class="fl">25</span>, <span class="fl">40</span>, <span class="fl">50</span>, <span class="fl">60</span>,</span>
 <span>  <span class="fl">75</span>, <span class="fl">80</span>, <span class="fl">100</span>, <span class="fl">125</span>, <span class="fl">150</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">dilution_batch_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span><span class="va">curve_batch_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>,</span>
 <span>  <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>,</span>
 <span>  <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>,</span>
@@ -118,7 +118,7 @@
 <span>  <span class="st">"Sample_125b"</span>, <span class="st">"Sample_150b"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">lipid1_area_saturated</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span><span class="va">curve_1_saturation_regime</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="fl">5748124</span>, <span class="fl">16616414</span>, <span class="fl">21702718</span>, <span class="fl">36191617</span>,</span>
 <span>  <span class="fl">49324541</span>, <span class="fl">55618266</span>, <span class="fl">66947588</span>, <span class="fl">74964771</span>,</span>
 <span>  <span class="fl">75438063</span>, <span class="fl">91770737</span>, <span class="fl">94692060</span>,</span>
@@ -127,95 +127,95 @@
 <span>  <span class="fl">78044338</span>, <span class="fl">86158414</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">lipid2_area_linear</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span><span class="va">curve_2_good_linearty</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="fl">31538</span>, <span class="fl">53709</span>, <span class="fl">69990</span>, <span class="fl">101977</span>, <span class="fl">146436</span>, <span class="fl">180960</span>,</span>
 <span>  <span class="fl">232881</span>, <span class="fl">283780</span>, <span class="fl">298289</span>, <span class="fl">344519</span>, <span class="fl">430432</span>,</span>
 <span>  <span class="fl">25463</span>, <span class="fl">63387</span>, <span class="fl">90624</span>, <span class="fl">131274</span>, <span class="fl">138069</span>,</span>
 <span>  <span class="fl">205353</span>, <span class="fl">202407</span>, <span class="fl">260205</span>, <span class="fl">292257</span>, <span class="fl">367924</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">lipid3_area_lod</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span><span class="va">curve_3_noise_regime</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="fl">544</span>, <span class="fl">397</span>, <span class="fl">829</span>, <span class="fl">1437</span>, <span class="fl">1808</span>, <span class="fl">2231</span>,</span>
 <span>  <span class="fl">3343</span>, <span class="fl">2915</span>, <span class="fl">5268</span>, <span class="fl">8031</span>, <span class="fl">11045</span>,</span>
 <span>  <span class="fl">500</span>, <span class="fl">903</span>, <span class="fl">1267</span>, <span class="fl">2031</span>, <span class="fl">2100</span>,</span>
 <span>  <span class="fl">3563</span>, <span class="fl">4500</span>, <span class="fl">5300</span>, <span class="fl">8500</span>, <span class="fl">10430</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">lipid4_area_nonlinear</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span><span class="va">curve_4_poor_linearty</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="fl">380519</span>, <span class="fl">485372</span>, <span class="fl">478770</span>, <span class="fl">474467</span>, <span class="fl">531640</span>, <span class="fl">576301</span>,</span>
 <span>  <span class="fl">501068</span>, <span class="fl">550201</span>, <span class="fl">515110</span>, <span class="fl">499543</span>, <span class="fl">474745</span>,</span>
 <span>  <span class="fl">197417</span>, <span class="fl">322846</span>, <span class="fl">478398</span>, <span class="fl">423174</span>, <span class="fl">418577</span>,</span>
 <span>  <span class="fl">426089</span>, <span class="fl">413292</span>, <span class="fl">450190</span>, <span class="fl">415309</span>, <span class="fl">457618</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">curve_annot</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span><span class="va">curve_batch_annot</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
 <span>  Sample_Name <span class="op">=</span> <span class="va">sample_name</span>,</span>
-<span>  Dilution_Batch_Name <span class="op">=</span> <span class="va">dilution_batch_name</span>,</span>
-<span>  Dilution_Percent <span class="op">=</span> <span class="va">dilution_percent</span></span>
+<span>  Curve_Batch_Name <span class="op">=</span> <span class="va">curve_batch_name</span>,</span>
+<span>  Concentration <span class="op">=</span> <span class="va">concentration</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">curve_data</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
 <span>  Sample_Name <span class="op">=</span> <span class="va">sample_name</span>,</span>
-<span>  Lipid1 <span class="op">=</span> <span class="va">lipid1_area_saturated</span>,</span>
-<span>  Lipid2 <span class="op">=</span> <span class="va">lipid2_area_linear</span>,</span>
-<span>  Lipid3 <span class="op">=</span> <span class="va">lipid3_area_lod</span>,</span>
-<span>  Lipid4 <span class="op">=</span> <span class="va">lipid4_area_nonlinear</span></span>
+<span>  `Curve_1` <span class="op">=</span> <span class="va">curve_1_saturation_regime</span>,</span>
+<span>  `Curve_2` <span class="op">=</span> <span class="va">curve_2_good_linearty</span>,</span>
+<span>  `Curve_3` <span class="op">=</span> <span class="va">curve_3_noise_regime</span>,</span>
+<span>  `Curve_4` <span class="op">=</span> <span class="va">curve_4_poor_linearty</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">curve_table</span> <span class="op">&lt;-</span> <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="../reference/create_curve_table.html">create_curve_table</a></span><span class="op">(</span></span>
-<span>  curve_annot <span class="op">=</span> <span class="va">curve_annot</span>,</span>
+<span>  curve_batch_annot <span class="op">=</span> <span class="va">curve_batch_annot</span>,</span>
 <span>  curve_data_wide <span class="op">=</span> <span class="va">curve_data</span>,</span>
 <span>  common_column <span class="op">=</span> <span class="st">"Sample_Name"</span>,</span>
-<span>  signal_var <span class="op">=</span> <span class="st">"Area"</span>,</span>
-<span>  column_group <span class="op">=</span> <span class="st">"Transition_Name"</span></span>
+<span>  signal_var <span class="op">=</span> <span class="st">"Signal"</span>,</span>
+<span>  column_group <span class="op">=</span> <span class="st">"Curve_Name"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">curve_classified</span> <span class="op">&lt;-</span> <span class="va">curve_table</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="../reference/summarise_curve_table.html">summarise_curve_table</a></span><span class="op">(</span></span>
 <span>    grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>      <span class="st">"Transition_Name"</span>,</span>
-<span>      <span class="st">"Dilution_Batch_Name"</span></span>
+<span>      <span class="st">"Curve_Name"</span>,</span>
+<span>      <span class="st">"Curve_Batch_Name"</span></span>
 <span>    <span class="op">)</span>,</span>
-<span>    conc_var <span class="op">=</span> <span class="st">"Dilution_Percent"</span>,</span>
-<span>    signal_var <span class="op">=</span> <span class="st">"Area"</span></span>
+<span>    conc_var <span class="op">=</span> <span class="st">"Concentration"</span>,</span>
+<span>    signal_var <span class="op">=</span> <span class="st">"Signal"</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">.data</span><span class="op">$</span><span class="va">Transition_Name</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">.data</span><span class="op">[[</span><span class="st">"Curve_Name"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="../reference/evaluate_linearity.html">evaluate_linearity</a></span><span class="op">(</span></span>
 <span>    grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>      <span class="st">"Transition_Name"</span>,</span>
-<span>      <span class="st">"Dilution_Batch_Name"</span></span>
+<span>      <span class="st">"Curve_Name"</span>,</span>
+<span>      <span class="st">"Curve_Batch_Name"</span></span>
 <span>  <span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Here is the output of <code>curve_table</code> and
 <code>curve_classified</code></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">curve_table</span><span class="op">)</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
-<span><span class="co">#&gt;   Sample_Name Dilution_Batch_Name Dilution_Percent Transition_Name     Area</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Sample_010a B1                                10 Lipid1           5<span style="text-decoration: underline;">748</span>124</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Sample_010a B1                                10 Lipid2             <span style="text-decoration: underline;">31</span>538</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Sample_010a B1                                10 Lipid3               544</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Sample_010a B1                                10 Lipid4            <span style="text-decoration: underline;">380</span>519</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Sample_020a B1                                20 Lipid1          16<span style="text-decoration: underline;">616</span>414</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Sample_020a B1                                20 Lipid2             <span style="text-decoration: underline;">53</span>709</span></span>
+<span><span class="co">#&gt;   Sample_Name Curve_Batch_Name Concentration Curve_Name   Signal</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Sample_010a B1                          10 Curve_1     5<span style="text-decoration: underline;">748</span>124</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Sample_010a B1                          10 Curve_2       <span style="text-decoration: underline;">31</span>538</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Sample_010a B1                          10 Curve_3         544</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Sample_010a B1                          10 Curve_4      <span style="text-decoration: underline;">380</span>519</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Sample_020a B1                          20 Curve_1    16<span style="text-decoration: underline;">616</span>414</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Sample_020a B1                          20 Curve_2       <span style="text-decoration: underline;">53</span>709</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">curve_classified</span><span class="op">)</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 11</span></span></span>
-<span><span class="co">#&gt;   Transition_Name Dilution_Batch_Name wf1_group      wf2_group         r_corr</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Lipid1          B1                  Poor Linearity Saturation Regime  0.963</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Lipid1          B2                  Poor Linearity Saturation Regime  0.950</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Lipid2          B1                  Good Linearity Good Linearity     0.990</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Lipid2          B2                  Good Linearity Good Linearity     0.995</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Lipid3          B1                  Poor Linearity Noise Regime       0.964</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Lipid3          B2                  Poor Linearity Noise Regime       0.978</span></span>
-<span><span class="co">#&gt;   pra_linear mandel_p_val concavity r2_linear r2_adj_linear mandel_stats</span></span>
-<span><span class="co">#&gt;        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>       70.5   0.000<span style="text-decoration: underline;">029</span>7  -<span style="color: #BB0000; text-decoration: underline;">4</span><span style="color: #BB0000;">174.</span>        0.928         0.920       71.2  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>       62.3   0.000<span style="text-decoration: underline;">166</span>   -<span style="color: #BB0000; text-decoration: underline;">4</span><span style="color: #BB0000;">137.</span>        0.903         0.890       52.9  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>       92.8   0.150         -<span style="color: #BB0000;">4.91</span>      0.980         0.978        2.53 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>       94.3   0.382         -<span style="color: #BB0000;">1.94</span>      0.990         0.988        0.868</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>       71.2   0.000<span style="text-decoration: underline;">006</span>78     0.468     0.930         0.922      106.   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>       74.7   0.002<span style="text-decoration: underline;">56</span>        0.321     0.956         0.951       20.9</span></span></code></pre></div>
+<span><span class="co">#&gt;   Curve_Name Curve_Batch_Name wf1_group      wf2_group         r_corr pra_linear</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Curve_1    B1               Poor Linearity Saturation Regime  0.963       70.5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Curve_1    B2               Poor Linearity Saturation Regime  0.950       62.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Curve_2    B1               Good Linearity Good Linearity     0.990       92.8</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Curve_2    B2               Good Linearity Good Linearity     0.995       94.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Curve_3    B1               Poor Linearity Noise Regime       0.964       71.2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Curve_3    B2               Poor Linearity Noise Regime       0.978       74.7</span></span>
+<span><span class="co">#&gt;   mandel_p_val concavity r2_linear r2_adj_linear mandel_stats</span></span>
+<span><span class="co">#&gt;          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>   0.000<span style="text-decoration: underline;">029</span>7  -<span style="color: #BB0000; text-decoration: underline;">4</span><span style="color: #BB0000;">174.</span>        0.928         0.920       71.2  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>   0.000<span style="text-decoration: underline;">166</span>   -<span style="color: #BB0000; text-decoration: underline;">4</span><span style="color: #BB0000;">137.</span>        0.903         0.890       52.9  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>   0.150         -<span style="color: #BB0000;">4.91</span>      0.980         0.978        2.53 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>   0.382         -<span style="color: #BB0000;">1.94</span>      0.990         0.988        0.868</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>   0.000<span style="text-decoration: underline;">006</span>78     0.468     0.930         0.922      106.   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>   0.002<span style="text-decoration: underline;">56</span>        0.321     0.956         0.951       20.9</span></span></code></pre></div>
 <p>To see the regression line on half the curve points, set
 <code>plot_first_half_lin_reg = TRUE</code></p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
@@ -223,68 +223,68 @@
 <span>  curve_table <span class="op">=</span> <span class="va">curve_table</span>,</span>
 <span>  curve_summary <span class="op">=</span> <span class="va">curve_classified</span>,</span>
 <span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"Transition_Name"</span>,</span>
-<span>    <span class="st">"Dilution_Batch_Name"</span></span>
+<span>    <span class="st">"Curve_Name"</span>,</span>
+<span>    <span class="st">"Curve_Batch_Name"</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  curv_batch_var <span class="op">=</span> <span class="st">"Dilution_Batch_Name"</span>,</span>
+<span>  curv_batch_var <span class="op">=</span> <span class="st">"Curve_Batch_Name"</span>,</span>
 <span>  curv_batch_col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>    <span class="st">"#377eb8"</span>,</span>
 <span>    <span class="st">"#4daf4a"</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  conc_var <span class="op">=</span> <span class="st">"Dilution_Percent"</span>,</span>
+<span>  conc_var <span class="op">=</span> <span class="st">"Concentration"</span>,</span>
 <span>  conc_var_units <span class="op">=</span> <span class="st">"%"</span>,</span>
 <span>  conc_var_interval <span class="op">=</span> <span class="fl">50</span>,</span>
-<span>  signal_var <span class="op">=</span> <span class="st">"Area"</span>,</span>
+<span>  signal_var <span class="op">=</span> <span class="st">"Signal"</span>,</span>
 <span>  plot_first_half_lin_reg <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ggplot_list</span> <span class="op">&lt;-</span> <span class="va">ggplot_table</span><span class="op">$</span><span class="va">panel</span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ggplot_list</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
-<p><img src="ggplot-output-2_files/figure-html/print%20ggplot%20plot%20with%20half%20linear%20regression-1.png" alt="A ggplot of the Lipid1_B1's dilution curve and dilution statistics. A linear regression line which fits the first half of the dilution points is added. This is the first row of the column panel." width="700"></p>
+<p><img src="ggplot-output-2_files/figure-html/print%20ggplot%20plot%20with%20half%20linear%20regression-1.png" alt="A ggplot of the Curve_1_B1's curve and curve statistics. A linear regression line which fits the first half of the curve points is added. This is the first row of the column panel." width="700"></p>
 <p>Units of <code>conc_var</code> and <code>conc_var_interval</code> can
 be customised to suit the range of <code>conc_var</code> You can also
 change the colours for your dilution batch from
-<code>dil_batch_col</code></p>
+<code>curve_batch_col</code></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ggplot_table</span> <span class="op">&lt;-</span> <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="../reference/add_ggplot_panel.html">add_ggplot_panel</a></span><span class="op">(</span></span>
 <span>  curve_table <span class="op">=</span> <span class="va">curve_table</span>,</span>
 <span>  curve_summary <span class="op">=</span> <span class="va">curve_classified</span>,</span>
 <span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    <span class="st">"Transition_Name"</span>,</span>
-<span>    <span class="st">"Dilution_Batch_Name"</span></span>
+<span>    <span class="st">"Curve_Name"</span>,</span>
+<span>    <span class="st">"Curve_Batch_Name"</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  curv_batch_var <span class="op">=</span> <span class="st">"Dilution_Batch_Name"</span>,</span>
+<span>  curv_batch_var <span class="op">=</span> <span class="st">"Curve_Batch_Name"</span>,</span>
 <span>  curv_batch_col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>    <span class="st">"#9C27B0"</span>,</span>
 <span>    <span class="st">"#377eb8"</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  conc_var <span class="op">=</span> <span class="st">"Dilution_Percent"</span>,</span>
+<span>  conc_var <span class="op">=</span> <span class="st">"Concentration"</span>,</span>
 <span>  conc_var_units <span class="op">=</span> <span class="st">"mol"</span>,</span>
 <span>  conc_var_interval <span class="op">=</span> <span class="fl">20</span>,</span>
-<span>  signal_var <span class="op">=</span> <span class="st">"Area"</span>,</span>
+<span>  signal_var <span class="op">=</span> <span class="st">"Signal"</span>,</span>
 <span>  plot_first_half_lin_reg <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ggplot_list</span> <span class="op">&lt;-</span> <span class="va">ggplot_table</span><span class="op">$</span><span class="va">panel</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ggplot_list</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
-<p><img src="ggplot-output-2_files/figure-html/print%20ggplot%20plot%20with%20conc%20customisation%201-1.png" alt="A ggplot of the Lipid4_B2's dilution curve and dilution statistics. The dilution points colour, concentration interval and units are customised. This is the second row of the column panel." width="700"></p>
+<p><img src="ggplot-output-2_files/figure-html/print%20ggplot%20plot%20with%20conc%20customisation%201-1.png" alt="A ggplot of the Curve_2_B1's curve and curve statistics. The curve points colour, concentration interval and units are customised. This is the second row of the column panel." width="700"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ggplot_list</span><span class="op">[[</span><span class="fl">8</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
-<p><img src="ggplot-output-2_files/figure-html/print%20ggplot%20plot%20with%20conc%20customisation%202-1.png" alt="A ggplot of the Lipid4_B2's dilution curve and dilution statistics. The dilution points colour, concentration interval and units are customised. This is the eighth row of the column panel." width="700"></p>
-<p>The list of ggplots can be output in pdf. You may have to adjust the
-width and height accordingly.</p>
+<p><img src="ggplot-output-2_files/figure-html/print%20ggplot%20plot%20with%20conc%20customisation%202-1.png" alt="A ggplot of the Curve_4_B2's curve and curve statistics. The curve points colour, concentration interval and units are customised. This is the eighth row of the column panel." width="700"></p>
+<p>The list of <code>ggplots</code> can be output in pdf. You may have
+to adjust the width and height accordingly.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="../reference/view_ggplot_pdf.html">view_ggplot_pdf</a></span><span class="op">(</span></span>
 <span>  ggplot_list <span class="op">=</span> <span class="va">ggplot_list</span>,</span>
-<span>  filename <span class="op">=</span> <span class="st">"dilution_plot.pdf"</span>,</span>
+<span>  filename <span class="op">=</span> <span class="st">"curve_plot.pdf"</span>,</span>
 <span>  ncol_per_page <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  nrow_per_page <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  width <span class="op">=</span> <span class="fl">15</span>, height <span class="op">=</span> <span class="fl">8</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="vignettes-pdfoutput1.png" alt="Dilution batch one's statistics summary and plots reported in pdf using lancer. Pdf page width and height are customised."></p>
-<p><img src="vignettes-pdfoutput2.png" alt="Dilution batch two's statistics summary and plots reported in pdf using lancer. Pdf page width and height are customised."></p>
+<p><img src="vignettes-pdfoutput1.png" alt="Curve batch one's statistics summary and plots reported in pdf using lancer. Pdf page width and height are customised."></p>
+<p><img src="vignettes-pdfoutput2.png" alt="Curve batch two's statistics summary and plots reported in pdf using lancer. Pdf page width and height are customised."></p>
   </main>
 </div>
 
