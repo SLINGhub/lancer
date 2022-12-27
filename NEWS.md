@@ -3,11 +3,10 @@
 ## TODO
 
 * Change `lancer` functions that has `dilution` to `curve`.
-* Update Excel Results pictures in `README.Rmd` and `lineval-customization.Rmd`
 
 ## Completed
 
-* Update README file documentation by replacing `dilution` to `curve`.
+* Update README and vignettes file documentation by replacing `dilution` to `curve`.
 
 * `validate_dilution_annot` changed to `validate_curve_batch_annot`.
 * `validate_dilution_table` changed to `validate_curve_table`.

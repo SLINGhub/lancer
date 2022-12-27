@@ -9,9 +9,9 @@
 #' is not found in the Cognostics Data
 #' @examples
 #' # Create Cognostics Dataframe
-#' col_name_vec <- c("Transition_Name", "Dilution_Batch_Name")
+#' col_name_vec <- c("Curve_Name", "Curve_Batch_Name")
 #'
-#' desc_vec <- c("Transition_Name", "Dilution_Batch_Name")
+#' desc_vec <- c("Curve_Name", "Curve_Batch_Name")
 #'
 #' type_vec <- c("factor", "factor")
 #'
@@ -56,8 +56,8 @@ create_default_cog_df <- function() {
   # <https://rdrr.io/cran/trelliscopejs/man/cog.html>
 
   col_name_vec <- c(
-    "Transition_Name", "Dilution_Batch_Name",
-    "Transition_Name_Class",
+    "Curve_Name", "Curve_Batch_Name",
+    "Curve_Class",
     "wf1_group", "wf2_group",
     "r_corr", "pra_linear", "mandel_p_val",
     "r2_linear", "r2_adj_linear", "mandel_stats",
@@ -65,8 +65,8 @@ create_default_cog_df <- function() {
   )
 
   desc_vec <- c(
-    "Transition_Name", "Dilution_Batch_Name",
-    "Classes of Transitions",
+    "Curve_Name", "Curve_Batch_Name",
+    "Classes of Curves",
     "Group from workflow 1", "Group from workflow 2",
     "Pearson Correlation R values",
     "Linear Regression Percent Residual Accuracy",
@@ -124,14 +124,14 @@ create_default_cog_df <- function() {
 #' @examples
 #'
 #' # Data Creation
-#' dilution_percent <- c(
+#' concentration <- c(
 #'   10, 20, 25, 40, 50, 60,
 #'   75, 80, 100, 125, 150,
 #'   10, 25, 40, 50, 60,
 #'   75, 80, 100, 125, 150
 #' )
 #'
-#' dilution_batch_name <- c(
+#' curve_batch_name <- c(
 #'   "B1", "B1", "B1", "B1", "B1",
 #'   "B1", "B1", "B1", "B1", "B1", "B1",
 #'   "B2", "B2", "B2", "B2", "B2",
@@ -149,7 +149,7 @@ create_default_cog_df <- function() {
 #'   "Sample_125b", "Sample_150b"
 #' )
 #'
-#' lipid1_area_saturated <- c(
+#' curve_1_saturation_regime <- c(
 #'   5748124, 16616414, 21702718, 36191617,
 #'   49324541, 55618266, 66947588, 74964771,
 #'   75438063, 91770737, 94692060,
@@ -158,21 +158,21 @@ create_default_cog_df <- function() {
 #'   78044338, 86158414
 #' )
 #'
-#' lipid2_area_linear <- c(
+#' curve_2_good_linearty <- c(
 #'   31538, 53709, 69990, 101977, 146436, 180960,
 #'   232881, 283780, 298289, 344519, 430432,
 #'   25463, 63387, 90624, 131274, 138069,
 #'   205353, 202407, 260205, 292257, 367924
 #' )
 #'
-#' lipid3_area_lod <- c(
+#' curve_3_noise_regime <- c(
 #'   544, 397, 829, 1437, 1808, 2231,
 #'   3343, 2915, 5268, 8031, 11045,
 #'   500, 903, 1267, 2031, 2100,
 #'   3563, 4500, 5300, 8500, 10430
 #' )
 #'
-#' lipid4_area_nonlinear <- c(
+#' curve_4_poor_linearty <- c(
 #'   380519, 485372, 478770, 474467, 531640, 576301,
 #'   501068, 550201, 515110, 499543, 474745,
 #'   197417, 322846, 478398, 423174, 418577,
@@ -181,52 +181,52 @@ create_default_cog_df <- function() {
 #'
 #' curve_batch_annot <- tibble::tibble(
 #'   Sample_Name = sample_name,
-#'   Dilution_Batch_Name = dilution_batch_name,
-#'   Dilution_Percent = dilution_percent
+#'   Curve_Batch_Name = curve_batch_name,
+#'   Concentration = concentration
 #' )
 #'
 #' curve_data <- tibble::tibble(
 #'   Sample_Name = sample_name,
-#'   Lipid1 = lipid1_area_saturated,
-#'   Lipid2 = lipid2_area_linear,
-#'   Lipid3 = lipid3_area_lod,
-#'   Lipid4 = lipid4_area_nonlinear
+#'   `Curve_1` = curve_1_saturation_regime,
+#'   `Curve_2` = curve_2_good_linearty,
+#'   `Curve_3` = curve_3_noise_regime,
+#'   `Curve_4` = curve_4_poor_linearty
 #' )
 #'
-#' # Create dilution table
+#' # Create curve table
 #' curve_table <- create_curve_table(
 #'   curve_batch_annot = curve_batch_annot,
 #'   curve_data_wide = curve_data,
 #'   common_column = "Sample_Name",
-#'   signal_var = "Area",
-#'   column_group = "Transition_Name"
+#'   signal_var = "Signal",
+#'   column_group = "Curve_Name"
 #' )
 #'
-#' # Create dilution statistical summary
+#' # Create curve statistical summary
 #' curve_summary <- curve_table %>%
 #'   summarise_curve_table(
 #'     grouping_variable = c(
-#'       "Transition_Name",
-#'       "Dilution_Batch_Name"
+#'       "Curve_Name",
+#'       "Curve_Batch_Name"
 #'     ),
-#'     conc_var = "Dilution_Percent",
-#'     signal_var = "Area"
+#'     conc_var = "Concentration",
+#'     signal_var = "Signal"
 #'   ) %>%
-#'   dplyr::arrange(.data$Transition_Name) %>%
+#'   dplyr::arrange(.data[["Curve_Name"]]) %>%
 #'   evaluate_linearity(grouping_variable = c(
-#'     "Transition_Name",
-#'     "Dilution_Batch_Name"
+#'     "Curve_Name",
+#'     "Curve_Batch_Name"
 #'   ))
 #'
 #' # Create our own cog_df
 #' col_name_vec <- c(
-#'   "Transition_Name", "Dilution_Batch_Name",
-#'   "Transition_Name_Class"
+#'   "Curve_Name", "Curve_Batch_Name",
+#'   "Curve_Class"
 #' )
 #'
 #' desc_vec <- c(
-#'   "Transition_Name", "Dilution_Batch_Name",
-#'   "Transition_Name_Class"
+#'   "Curve_Name", "Curve_Batch_Name",
+#'   "Curve_Class"
 #' )
 #'
 #' type_vec <- c("factor", "factor", "factor")
@@ -320,14 +320,14 @@ update_cog_manual <- function(curve_summary,
 #' @examples
 #'
 #' # Data Creation
-#' dilution_percent <- c(
+#' concentration <- c(
 #'   10, 20, 25, 40, 50, 60,
 #'   75, 80, 100, 125, 150,
 #'   10, 25, 40, 50, 60,
 #'   75, 80, 100, 125, 150
 #' )
 #'
-#' dilution_batch_name <- c(
+#' curve_batch_name <- c(
 #'   "B1", "B1", "B1", "B1", "B1",
 #'   "B1", "B1", "B1", "B1", "B1", "B1",
 #'   "B2", "B2", "B2", "B2", "B2",
@@ -345,7 +345,7 @@ update_cog_manual <- function(curve_summary,
 #'   "Sample_125b", "Sample_150b"
 #' )
 #'
-#' lipid1_area_saturated <- c(
+#' curve_1_saturation_regime <- c(
 #'   5748124, 16616414, 21702718, 36191617,
 #'   49324541, 55618266, 66947588, 74964771,
 #'   75438063, 91770737, 94692060,
@@ -354,21 +354,21 @@ update_cog_manual <- function(curve_summary,
 #'   78044338, 86158414
 #' )
 #'
-#' lipid2_area_linear <- c(
+#' curve_2_good_linearty <- c(
 #'   31538, 53709, 69990, 101977, 146436, 180960,
 #'   232881, 283780, 298289, 344519, 430432,
 #'   25463, 63387, 90624, 131274, 138069,
 #'   205353, 202407, 260205, 292257, 367924
 #' )
 #'
-#' lipid3_area_lod <- c(
+#' curve_3_noise_regime <- c(
 #'   544, 397, 829, 1437, 1808, 2231,
 #'   3343, 2915, 5268, 8031, 11045,
 #'   500, 903, 1267, 2031, 2100,
 #'   3563, 4500, 5300, 8500, 10430
 #' )
 #'
-#' lipid4_area_nonlinear <- c(
+#' curve_4_poor_linearty <- c(
 #'   380519, 485372, 478770, 474467, 531640, 576301,
 #'   501068, 550201, 515110, 499543, 474745,
 #'   197417, 322846, 478398, 423174, 418577,
@@ -377,16 +377,16 @@ update_cog_manual <- function(curve_summary,
 #'
 #' curve_batch_annot <- tibble::tibble(
 #'   Sample_Name = sample_name,
-#'   Dilution_Batch_Name = dilution_batch_name,
-#'   Dilution_Percent = dilution_percent
+#'   Curve_Batch_Name = curve_batch_name,
+#'   Concentration = concentration
 #' )
 #'
 #' curve_data <- tibble::tibble(
 #'   Sample_Name = sample_name,
-#'   Lipid1 = lipid1_area_saturated,
-#'   Lipid2 = lipid2_area_linear,
-#'   Lipid3 = lipid3_area_lod,
-#'   Lipid4 = lipid4_area_nonlinear
+#'   `Curve_1` = curve_1_saturation_regime,
+#'   `Curve_2` = curve_2_good_linearty,
+#'   `Curve_3` = curve_3_noise_regime,
+#'   `Curve_4` = curve_4_poor_linearty
 #' )
 #'
 #' # Create curve table
@@ -394,24 +394,24 @@ update_cog_manual <- function(curve_summary,
 #'   curve_batch_annot = curve_batch_annot,
 #'   curve_data_wide = curve_data,
 #'   common_column = "Sample_Name",
-#'   signal_var = "Area",
-#'   column_group = "Transition_Name"
+#'   signal_var = "Signal",
+#'   column_group = "Curve_Name"
 #' )
 #'
 #' # Create curve statistical summary
 #' curve_summary <- curve_table %>%
 #'   summarise_curve_table(
 #'     grouping_variable = c(
-#'       "Transition_Name",
-#'       "Dilution_Batch_Name"
+#'       "Curve_Name",
+#'       "Curve_Batch_Name"
 #'     ),
-#'     conc_var = "Dilution_Percent",
-#'     signal_var = "Area"
+#'     conc_var = "Concentration",
+#'     signal_var = "Signal"
 #'   ) %>%
-#'   dplyr::arrange(.data$Transition_Name) %>%
+#'   dplyr::arrange(.data[["Curve_Name"]]) %>%
 #'   evaluate_linearity(grouping_variable = c(
-#'     "Transition_Name",
-#'     "Dilution_Batch_Name"
+#'     "Curve_Name",
+#'     "Curve_Batch_Name"
 #'   ))
 #'
 #' updated_summary <- update_cog_auto(curve_summary)
@@ -483,14 +483,14 @@ update_cog_auto <- function(
 #' @examples
 #'
 #' # Data Creation
-#' dilution_percent <- c(
+#' concentration <- c(
 #'   10, 20, 25, 40, 50, 60,
 #'   75, 80, 100, 125, 150,
 #'   10, 25, 40, 50, 60,
 #'   75, 80, 100, 125, 150
 #' )
 #'
-#' dilution_batch_name <- c(
+#' curve_batch_name <- c(
 #'   "B1", "B1", "B1", "B1", "B1",
 #'   "B1", "B1", "B1", "B1", "B1", "B1",
 #'   "B2", "B2", "B2", "B2", "B2",
@@ -508,7 +508,7 @@ update_cog_auto <- function(
 #'   "Sample_125b", "Sample_150b"
 #' )
 #'
-#' lipid1_area_saturated <- c(
+#' curve_1_saturation_regime <- c(
 #'   5748124, 16616414, 21702718, 36191617,
 #'   49324541, 55618266, 66947588, 74964771,
 #'   75438063, 91770737, 94692060,
@@ -517,21 +517,21 @@ update_cog_auto <- function(
 #'   78044338, 86158414
 #' )
 #'
-#' lipid2_area_linear <- c(
+#' curve_2_good_linearty <- c(
 #'   31538, 53709, 69990, 101977, 146436, 180960,
 #'   232881, 283780, 298289, 344519, 430432,
 #'   25463, 63387, 90624, 131274, 138069,
 #'   205353, 202407, 260205, 292257, 367924
 #' )
 #'
-#' lipid3_area_lod <- c(
+#' curve_3_noise_regime <- c(
 #'   544, 397, 829, 1437, 1808, 2231,
 #'   3343, 2915, 5268, 8031, 11045,
 #'   500, 903, 1267, 2031, 2100,
 #'   3563, 4500, 5300, 8500, 10430
 #' )
 #'
-#' lipid4_area_nonlinear <- c(
+#' curve_4_poor_linearty <- c(
 #'   380519, 485372, 478770, 474467, 531640, 576301,
 #'   501068, 550201, 515110, 499543, 474745,
 #'   197417, 322846, 478398, 423174, 418577,
@@ -540,16 +540,16 @@ update_cog_auto <- function(
 #'
 #' curve_batch_annot <- tibble::tibble(
 #'   Sample_Name = sample_name,
-#'   Dilution_Batch_Name = dilution_batch_name,
-#'   Dilution_Percent = dilution_percent
+#'   Curve_Batch_Name = curve_batch_name,
+#'   Concentration = concentration
 #' )
 #'
 #' curve_data <- tibble::tibble(
 #'   Sample_Name = sample_name,
-#'   Lipid1 = lipid1_area_saturated,
-#'   Lipid2 = lipid2_area_linear,
-#'   Lipid3 = lipid3_area_lod,
-#'   Lipid4 = lipid4_area_nonlinear
+#'   `Curve_1` = curve_1_saturation_regime,
+#'   `Curve_2` = curve_2_good_linearty,
+#'   `Curve_3` = curve_3_noise_regime,
+#'   `Curve_4` = curve_4_poor_linearty
 #' )
 #'
 #' # Create curve table
@@ -557,27 +557,31 @@ update_cog_auto <- function(
 #'   curve_batch_annot = curve_batch_annot,
 #'   curve_data_wide = curve_data,
 #'   common_column = "Sample_Name",
-#'   signal_var = "Area",
-#'   column_group = "Transition_Name"
+#'   signal_var = "Signal",
+#'   column_group = "Curve_Name"
 #' )
 #'
 #' # Create curve statistical summary
 #' curve_summary <- curve_table %>%
 #'   summarise_curve_table(
 #'     grouping_variable = c(
-#'       "Transition_Name",
-#'       "Dilution_Batch_Name"
+#'       "Curve_Name",
+#'       "Curve_Batch_Name"
 #'     ),
-#'     conc_var = "Dilution_Percent",
-#'     signal_var = "Area"
+#'     conc_var = "Concentration",
+#'     signal_var = "Signal"
 #'   ) %>%
-#'   dplyr::arrange(.data$Transition_Name) %>%
+#'   dplyr::arrange(.data[["Curve_Name"]]) %>%
 #'   evaluate_linearity(grouping_variable = c(
-#'     "Transition_Name",
-#'     "Dilution_Batch_Name"
+#'     "Curve_Name",
+#'     "Curve_Batch_Name"
 #'   ))
 #'
-#' updated_summary <- convert_to_cog(curve_summary)
+#' updated_summary <- convert_to_cog(
+#'   curve_summary,
+#'   grouping_variable = c("Curve_Name",
+#'                         "Curve_Batch_Name")
+#'   )
 #'
 #' # Observe that the columns has been converted
 #' # to class cognostics
@@ -591,8 +595,8 @@ convert_to_cog <- function(curve_summary,
                            dilution_summary = lifecycle::deprecated(),
                            cog_df = NULL,
                            grouping_variable = c(
-                             "Transition_Name",
-                             "Dilution_Batch_Name"
+                             "Curve_Name",
+                             "Curve_Batch_Name"
                            ),
                            panel_variable = NULL,
                            col_name_vec = "col_name_vec",
