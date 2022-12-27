@@ -364,7 +364,7 @@ Equation ( <span class="math inline">6</span> ) is used.</p>
 <span>  <span class="fl">426089</span>, <span class="fl">413292</span>, <span class="fl">450190</span>, <span class="fl">415309</span>, <span class="fl">457618</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">curve_annot</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
+<span><span class="va">curve_batch_annot</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
 <span>  Sample_Name <span class="op">=</span> <span class="va">sample_name</span>,</span>
 <span>  Curve_Batch_Name <span class="op">=</span> <span class="va">curve_batch_name</span>,</span>
 <span>  Concentration <span class="op">=</span> <span class="va">concentration</span></span>
@@ -372,14 +372,14 @@ Equation ( <span class="math inline">6</span> ) is used.</p>
 <span></span>
 <span><span class="va">curve_data</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
 <span>  Sample_Name <span class="op">=</span> <span class="va">sample_name</span>,</span>
-<span>  `Curve 1` <span class="op">=</span> <span class="va">curve_1_saturation_regime</span>,</span>
-<span>  `Curve 2` <span class="op">=</span> <span class="va">curve_2_good_linearty</span>,</span>
-<span>  `Curve 3` <span class="op">=</span> <span class="va">curve_3_noise_regime</span>,</span>
-<span>  `Curve 4` <span class="op">=</span> <span class="va">curve_4_poor_linearty</span></span>
+<span>  `Curve_1` <span class="op">=</span> <span class="va">curve_1_saturation_regime</span>,</span>
+<span>  `Curve_2` <span class="op">=</span> <span class="va">curve_2_good_linearty</span>,</span>
+<span>  `Curve_3` <span class="op">=</span> <span class="va">curve_3_noise_regime</span>,</span>
+<span>  `Curve_4` <span class="op">=</span> <span class="va">curve_4_poor_linearty</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>The <code>curve_annot</code> should look like this.</p>
+<p>The <code>curve_batch_annot</code> should look like this.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">curve_annot</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">curve_batch_annot</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 21 × 3</span></span>
 <span><span class="co">#&gt;    Sample_Name Curve_Batch_Name Concentration</span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;                    &lt;dbl&gt;</span></span>
@@ -398,24 +398,24 @@ Equation ( <span class="math inline">6</span> ) is used.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">curve_data</span>, width <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 21 × 5</span></span>
-<span><span class="co">#&gt;    Sample_Name `Curve 1` `Curve 2` `Curve 3` `Curve 4`</span></span>
-<span><span class="co">#&gt;    &lt;chr&gt;           &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1 Sample_010a   5748124     31538       544    380519</span></span>
-<span><span class="co">#&gt;  2 Sample_020a  16616414     53709       397    485372</span></span>
-<span><span class="co">#&gt;  3 Sample_025a  21702718     69990       829    478770</span></span>
-<span><span class="co">#&gt;  4 Sample_040a  36191617    101977      1437    474467</span></span>
-<span><span class="co">#&gt;  5 Sample_050a  49324541    146436      1808    531640</span></span>
-<span><span class="co">#&gt;  6 Sample_060a  55618266    180960      2231    576301</span></span>
-<span><span class="co">#&gt;  7 Sample_075a  66947588    232881      3343    501068</span></span>
-<span><span class="co">#&gt;  8 Sample_080a  74964771    283780      2915    550201</span></span>
-<span><span class="co">#&gt;  9 Sample_100a  75438063    298289      5268    515110</span></span>
-<span><span class="co">#&gt; 10 Sample_125a  91770737    344519      8031    499543</span></span>
+<span><span class="co">#&gt;    Sample_Name  Curve_1 Curve_2 Curve_3 Curve_4</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;          &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 Sample_010a  5748124   31538     544  380519</span></span>
+<span><span class="co">#&gt;  2 Sample_020a 16616414   53709     397  485372</span></span>
+<span><span class="co">#&gt;  3 Sample_025a 21702718   69990     829  478770</span></span>
+<span><span class="co">#&gt;  4 Sample_040a 36191617  101977    1437  474467</span></span>
+<span><span class="co">#&gt;  5 Sample_050a 49324541  146436    1808  531640</span></span>
+<span><span class="co">#&gt;  6 Sample_060a 55618266  180960    2231  576301</span></span>
+<span><span class="co">#&gt;  7 Sample_075a 66947588  232881    3343  501068</span></span>
+<span><span class="co">#&gt;  8 Sample_080a 74964771  283780    2915  550201</span></span>
+<span><span class="co">#&gt;  9 Sample_100a 75438063  298289    5268  515110</span></span>
+<span><span class="co">#&gt; 10 Sample_125a 91770737  344519    8031  499543</span></span>
 <span><span class="co">#&gt; # … with 11 more rows</span></span></code></pre></div>
 <p>Merge the data together using <code>create_curve_table</code></p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create curve table</span></span>
 <span><span class="va">curve_table</span> <span class="op">&lt;-</span> <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="reference/create_curve_table.html">create_curve_table</a></span><span class="op">(</span></span>
-<span>  curve_annot <span class="op">=</span> <span class="va">curve_annot</span>, </span>
+<span>  curve_batch_annot <span class="op">=</span> <span class="va">curve_batch_annot</span>, </span>
 <span>  curve_data_wide <span class="op">=</span> <span class="va">curve_data</span>,</span>
 <span>  common_column <span class="op">=</span> <span class="st">"Sample_Name"</span>,</span>
 <span>  signal_var <span class="op">=</span> <span class="st">"Signal"</span>,</span>
@@ -426,16 +426,16 @@ Equation ( <span class="math inline">6</span> ) is used.</p>
 <span><span class="co">#&gt; # A tibble: 84 × 5</span></span>
 <span><span class="co">#&gt;    Sample_Name Curve_Batch_Name Concentration Curve_Name   Signal</span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;                    &lt;dbl&gt; &lt;chr&gt;         &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt;  1 Sample_010a B1                          10 Curve 1     5748124</span></span>
-<span><span class="co">#&gt;  2 Sample_010a B1                          10 Curve 2       31538</span></span>
-<span><span class="co">#&gt;  3 Sample_010a B1                          10 Curve 3         544</span></span>
-<span><span class="co">#&gt;  4 Sample_010a B1                          10 Curve 4      380519</span></span>
-<span><span class="co">#&gt;  5 Sample_020a B1                          20 Curve 1    16616414</span></span>
-<span><span class="co">#&gt;  6 Sample_020a B1                          20 Curve 2       53709</span></span>
-<span><span class="co">#&gt;  7 Sample_020a B1                          20 Curve 3         397</span></span>
-<span><span class="co">#&gt;  8 Sample_020a B1                          20 Curve 4      485372</span></span>
-<span><span class="co">#&gt;  9 Sample_025a B1                          25 Curve 1    21702718</span></span>
-<span><span class="co">#&gt; 10 Sample_025a B1                          25 Curve 2       69990</span></span>
+<span><span class="co">#&gt;  1 Sample_010a B1                          10 Curve_1     5748124</span></span>
+<span><span class="co">#&gt;  2 Sample_010a B1                          10 Curve_2       31538</span></span>
+<span><span class="co">#&gt;  3 Sample_010a B1                          10 Curve_3         544</span></span>
+<span><span class="co">#&gt;  4 Sample_010a B1                          10 Curve_4      380519</span></span>
+<span><span class="co">#&gt;  5 Sample_020a B1                          20 Curve_1    16616414</span></span>
+<span><span class="co">#&gt;  6 Sample_020a B1                          20 Curve_2       53709</span></span>
+<span><span class="co">#&gt;  7 Sample_020a B1                          20 Curve_3         397</span></span>
+<span><span class="co">#&gt;  8 Sample_020a B1                          20 Curve_4      485372</span></span>
+<span><span class="co">#&gt;  9 Sample_025a B1                          25 Curve_1    21702718</span></span>
+<span><span class="co">#&gt; 10 Sample_025a B1                          25 Curve_2       69990</span></span>
 <span><span class="co">#&gt; # … with 74 more rows</span></span></code></pre></div>
 <p>Summarise each curve and batch with <code>summarise_curve_table</code></p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
@@ -454,14 +454,14 @@ Equation ( <span class="math inline">6</span> ) is used.</p>
 <span><span class="co">#&gt; # A tibble: 8 × 9</span></span>
 <span><span class="co">#&gt;   Curve_Name Curve_Batch_Name r_corr r2_linear r2_adj_linear mandel_stats</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;             &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;        &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 Curve 1    B1                0.963    0.928        0.920         71.2  </span></span>
-<span><span class="co">#&gt; 2 Curve 2    B1                0.990    0.980        0.978          2.53 </span></span>
-<span><span class="co">#&gt; 3 Curve 3    B1                0.964    0.930        0.922        106.   </span></span>
-<span><span class="co">#&gt; 4 Curve 4    B1                0.311    0.0970      -0.00333       13.2  </span></span>
-<span><span class="co">#&gt; 5 Curve 1    B2                0.950    0.903        0.890         52.9  </span></span>
-<span><span class="co">#&gt; 6 Curve 2    B2                0.995    0.990        0.988          0.868</span></span>
-<span><span class="co">#&gt; 7 Curve 3    B2                0.978    0.956        0.951         20.9  </span></span>
-<span><span class="co">#&gt; 8 Curve 4    B2                0.608    0.370        0.291          5.39 </span></span>
+<span><span class="co">#&gt; 1 Curve_1    B1                0.963    0.928        0.920         71.2  </span></span>
+<span><span class="co">#&gt; 2 Curve_2    B1                0.990    0.980        0.978          2.53 </span></span>
+<span><span class="co">#&gt; 3 Curve_3    B1                0.964    0.930        0.922        106.   </span></span>
+<span><span class="co">#&gt; 4 Curve_4    B1                0.311    0.0970      -0.00333       13.2  </span></span>
+<span><span class="co">#&gt; 5 Curve_1    B2                0.950    0.903        0.890         52.9  </span></span>
+<span><span class="co">#&gt; 6 Curve_2    B2                0.995    0.990        0.988          0.868</span></span>
+<span><span class="co">#&gt; 7 Curve_3    B2                0.978    0.956        0.951         20.9  </span></span>
+<span><span class="co">#&gt; 8 Curve_4    B2                0.608    0.370        0.291          5.39 </span></span>
 <span><span class="co">#&gt;   mandel_p_val pra_linear concavity</span></span>
 <span><span class="co">#&gt;          &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1   0.0000297        70.5 -4174.   </span></span>
@@ -486,14 +486,14 @@ Equation ( <span class="math inline">6</span> ) is used.</p>
 <span><span class="co">#&gt; # A tibble: 8 × 11</span></span>
 <span><span class="co">#&gt;   Curve_Name Curve_Batch_Name wf1_group      wf2_group         r_corr pra_linear</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;      &lt;chr&gt;            &lt;chr&gt;          &lt;chr&gt;              &lt;dbl&gt;      &lt;dbl&gt;</span></span>
-<span><span class="co">#&gt; 1 Curve 1    B1               Poor Linearity Saturation Regime  0.963       70.5</span></span>
-<span><span class="co">#&gt; 2 Curve 2    B1               Good Linearity Good Linearity     0.990       92.8</span></span>
-<span><span class="co">#&gt; 3 Curve 3    B1               Poor Linearity Noise Regime       0.964       71.2</span></span>
-<span><span class="co">#&gt; 4 Curve 4    B1               Poor Linearity Poor Linearity     0.311     -251. </span></span>
-<span><span class="co">#&gt; 5 Curve 1    B2               Poor Linearity Saturation Regime  0.950       62.3</span></span>
-<span><span class="co">#&gt; 6 Curve 2    B2               Good Linearity Good Linearity     0.995       94.3</span></span>
-<span><span class="co">#&gt; 7 Curve 3    B2               Poor Linearity Noise Regime       0.978       74.7</span></span>
-<span><span class="co">#&gt; 8 Curve 4    B2               Poor Linearity Poor Linearity     0.608      -73.1</span></span>
+<span><span class="co">#&gt; 1 Curve_1    B1               Poor Linearity Saturation Regime  0.963       70.5</span></span>
+<span><span class="co">#&gt; 2 Curve_2    B1               Good Linearity Good Linearity     0.990       92.8</span></span>
+<span><span class="co">#&gt; 3 Curve_3    B1               Poor Linearity Noise Regime       0.964       71.2</span></span>
+<span><span class="co">#&gt; 4 Curve_4    B1               Poor Linearity Poor Linearity     0.311     -251. </span></span>
+<span><span class="co">#&gt; 5 Curve_1    B2               Poor Linearity Saturation Regime  0.950       62.3</span></span>
+<span><span class="co">#&gt; 6 Curve_2    B2               Good Linearity Good Linearity     0.995       94.3</span></span>
+<span><span class="co">#&gt; 7 Curve_3    B2               Poor Linearity Noise Regime       0.978       74.7</span></span>
+<span><span class="co">#&gt; 8 Curve_4    B2               Poor Linearity Poor Linearity     0.608      -73.1</span></span>
 <span><span class="co">#&gt;   mandel_p_val concavity r2_linear r2_adj_linear mandel_stats</span></span>
 <span><span class="co">#&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;        &lt;dbl&gt;</span></span>
 <span><span class="co">#&gt; 1   0.0000297  -4174.       0.928        0.920         71.2  </span></span>
@@ -524,8 +524,8 @@ Equation ( <span class="math inline">6</span> ) is used.</p>
 <span>    <span class="st">"Curve_Name"</span>,</span>
 <span>    <span class="st">"Curve_Batch_Name"</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  curv_batch_var <span class="op">=</span> <span class="st">"Curve_Batch_Name"</span>,</span>
-<span>  curv_batch_col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#377eb8"</span>, <span class="st">"#4daf4a"</span><span class="op">)</span>,</span>
+<span>  curve_batch_var <span class="op">=</span> <span class="st">"Curve_Batch_Name"</span>,</span>
+<span>  curve_batch_col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#377eb8"</span>, <span class="st">"#4daf4a"</span><span class="op">)</span>,</span>
 <span>  conc_var <span class="op">=</span> <span class="st">"Concentration"</span>,</span>
 <span>  conc_var_units <span class="op">=</span> <span class="st">"%"</span>,</span>
 <span>  conc_var_interval <span class="op">=</span> <span class="fl">50</span>,</span>

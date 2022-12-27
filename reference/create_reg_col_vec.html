@@ -105,14 +105,14 @@ named as "Lin Last Half" and is given the colour purple.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Data Creation</span></span></span>
-<span class="r-in"><span><span class="va">regression_colour_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">regression_colour_vector</span> <span class="op">&lt;-</span> <span class="fu">create_reg_col_vec</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  plot_first_half_lin_reg <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>  plot_last_half_lin_reg <span class="op">=</span> <span class="cn">TRUE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">regression_colour_vector</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> plot_first_half_lin_reg  plot_last_half_lin_reg </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    TRUE                    TRUE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            Lin           Quad Lin First Half  Lin Last Half </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        "black"          "red"         "blue"       "purple" </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

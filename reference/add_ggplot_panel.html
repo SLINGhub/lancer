@@ -72,8 +72,8 @@ suited for a pdf report.</p>
 <span>  dilution_table <span class="op">=</span> <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="https://lifecycle.r-lib.org/reference/deprecated.html" class="external-link">deprecated</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  dilution_summary <span class="op">=</span> <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="https://lifecycle.r-lib.org/reference/deprecated.html" class="external-link">deprecated</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Transition_Name"</span>, <span class="st">"Dilution_Batch_Name"</span><span class="op">)</span>,</span>
-<span>  curv_batch_var <span class="op">=</span> <span class="st">"Dilution_Batch_Name"</span>,</span>
-<span>  curv_batch_col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#377eb8"</span>, <span class="st">"#4daf4a"</span>, <span class="st">"#9C27B0"</span>, <span class="st">"#BCAAA4"</span>, <span class="st">"#FF8A65"</span>, <span class="st">"#EFBBCF"</span><span class="op">)</span>,</span>
+<span>  curve_batch_var <span class="op">=</span> <span class="st">"Dilution_Batch_Name"</span>,</span>
+<span>  curve_batch_col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#377eb8"</span>, <span class="st">"#4daf4a"</span>, <span class="st">"#9C27B0"</span>, <span class="st">"#BCAAA4"</span>, <span class="st">"#FF8A65"</span>, <span class="st">"#EFBBCF"</span><span class="op">)</span>,</span>
 <span>  dil_batch_var <span class="op">=</span> <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="https://lifecycle.r-lib.org/reference/deprecated.html" class="external-link">deprecated</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  dil_batch_col <span class="op">=</span> <span class="fu">lifecycle</span><span class="fu">::</span><span class="fu"><a href="https://lifecycle.r-lib.org/reference/deprecated.html" class="external-link">deprecated</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  conc_var <span class="op">=</span> <span class="st">"Dilution_Percent"</span>,</span>
@@ -127,29 +127,29 @@ should be grouped by.
 Default: c("Transition_Name", "Dilution_Batch_Name")</p></dd>
 
 
-<dt>curv_batch_var</dt>
+<dt>curve_batch_var</dt>
 <dd><p>Column name in <code>curve_table</code>
 to indicate the group name of each curve batch,
 used to colour the points in the curve plot.
 Default: 'Dilution_Batch_Name'</p></dd>
 
 
-<dt>curv_batch_col</dt>
+<dt>curve_batch_col</dt>
 <dd><p>A vector of colours to be used for the curve
-batch group named given in <code>curv_batch_var</code>.
+batch group named given in <code>curve_batch_var</code>.
 Default: c("#377eb8", "#4daf4a", "#9C27B0", "#BCAAA4", "#FF8A65", "#EFBBCF")</p></dd>
 
 
 <dt>dil_batch_var</dt>
 <dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a>
 <code>dil_batch_var</code> was renamed to
-<code>curv_batch_var</code>.</p></dd>
+<code>curve_batch_var</code>.</p></dd>
 
 
 <dt>dil_batch_col</dt>
 <dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a>
 <code>dil_batch_col</code> was renamed to
-<code>curv_batch_col</code>.</p></dd>
+<code>curve_batch_col</code>.</p></dd>
 
 
 <dt>conc_var</dt>
