@@ -246,8 +246,6 @@ plot_summary_table <- function(
   }
 }
 
-# regression_colour_vector
-
 #' @title Create Regression Colour Vector
 #' @description Internal function that create a named vector
 #' to indicate which regression line has what colour.
@@ -269,7 +267,7 @@ plot_summary_table <- function(
 #' named as "Lin Last Half" and is given the colour purple.
 #' @examples
 #' # Data Creation
-#' regression_colour_vector <- c(
+#' regression_colour_vector <- create_reg_col_vec(
 #'   plot_first_half_lin_reg = TRUE,
 #'   plot_last_half_lin_reg = TRUE
 #' )
@@ -311,10 +309,10 @@ create_reg_col_vec <- function(plot_first_half_lin_reg = FALSE,
 #' curve summary data for one group.
 #' @param title Title to use for each curve plot.
 #' Default: ''
-#' @param pal Input palette for each curve batch group in `curv_batch_var`.
+#' @param pal Input palette for each curve batch group in `curve_batch_var`.
 #' It is a named char vector where each value is a colour and
-#' name is a curve batch group given in `curv_batch_var`.
-#' @param curv_batch_var Column name in `curve_table`
+#' name is a curve batch group given in `curve_batch_var`.
+#' @param curve_batch_var Column name in `curve_table`
 #' to indicate the group name of each curve batch,
 #' used to colour the points in the curve plot.
 #' Default: 'Dilution_Batch_Name'
@@ -326,7 +324,7 @@ create_reg_col_vec <- function(plot_first_half_lin_reg = FALSE,
 #' `curve_summary_grp`.
 #' @param dil_batch_var `r lifecycle::badge("deprecated")`
 #' `dil_batch_var` was renamed to
-#' `curv_batch_var`.
+#' `curve_batch_var`.
 #' @param conc_var Column name in `curve_table` to indicate concentration.
 #' Default: 'Dilution_Percent'
 #' @param conc_var_units Unit of measure for `conc_var`. Default: '%'
@@ -349,7 +347,7 @@ create_reg_col_vec <- function(plot_first_half_lin_reg = FALSE,
 #' @examples
 #'
 #' # Data Creation
-#' dilution_percent <- c(
+#' concentration <- c(
 #'   10, 20, 25, 40, 50, 60,
 #'   75, 80, 100, 125, 150
 #' )
@@ -361,18 +359,18 @@ create_reg_col_vec <- function(plot_first_half_lin_reg = FALSE,
 #'   "Sample_100a", "Sample_125a", "Sample_150a"
 #' )
 #'
-#' dilution_batch_name <- c(
+#' curve_batch_name <- c(
 #'   "B1", "B1", "B1", "B1", "B1",
 #'   "B1", "B1", "B1", "B1", "B1", "B1"
 #' )
 #'
-#' transition_name <- c(
-#'   "Lipid1", "Lipid1", "Lipid1", "Lipid1",
-#'   "Lipid1", "Lipid1", "Lipid1", "Lipid1",
-#'   "Lipid1", "Lipid1", "Lipid1"
+#' curve_name <- c(
+#'   "Curve_1", "Curve_1", "Curve_1", "Curve_1",
+#'   "Curve_1", "Curve_1", "Curve_1", "Curve_1",
+#'   "Curve_1", "Curve_1", "Curve_1"
 #' )
 #'
-#' lipid1_area_saturated <- c(
+#' curve_1_saturation_regime <- c(
 #'   5748124, 16616414, 21702718, 36191617,
 #'   49324541, 55618266, 66947588, 74964771,
 #'   75438063, 91770737, 94692060
@@ -380,35 +378,34 @@ create_reg_col_vec <- function(plot_first_half_lin_reg = FALSE,
 #'
 #' curve_data <- tibble::tibble(
 #'   Sample_Name = sample_name,
-#'   Dilution_Batch_Name = dilution_batch_name,
-#'   Dilution_Percent = dilution_percent,
-#'   Transition_Name = transition_name,
-#'   Area = lipid1_area_saturated,
+#'   Curve_Batch_Name = curve_batch_name,
+#'   Concentration = concentration,
+#'   Curve_Name = curve_name,
+#'   Signal = curve_1_saturation_regime,
 #' )
 #'
-#' grouping_variable <- c("Transition_Name", "Dilution_Batch_Name")
+#' grouping_variable <- c("Curve_Name", "Curve_Batch_Name")
 #'
-#' # Get the dilution batch name from dilution_table
-#' dilution_batch_name <- dilution_batch_name %>%
+#' # Get the curve batch name from curve_table
+#' curve_batch_name <- curve_batch_name %>%
 #'   unique() %>%
 #'   as.character()
 #'
-#' curv_batch_col <- c("#377eb8")
+#' curve_batch_col <- c("#377eb8")
 #'
 #' # Create palette for each curve batch for plotting
-#' pal <- curv_batch_col %>%
-#'   stats::setNames(dilution_batch_name)
+#' pal <- curve_batch_col %>%
+#'   stats::setNames(curve_batch_name)
 #'
 #' # Create curve statistical summary
 #' curve_summary_grp <- curve_data %>%
 #'   summarise_curve_table(
 #'     grouping_variable = grouping_variable,
-#'     conc_var = "Dilution_Percent",
-#'     signal_var = "Area"
+#'     conc_var = "Concentration",
+#'     signal_var = "Signal"
 #'   ) %>%
 #'   evaluate_linearity(grouping_variable = grouping_variable) %>%
 #'   dplyr::select(-c(dplyr::all_of(grouping_variable)))
-#'
 #'
 #' # Create the ggplot
 #' p <- plot_curve_ggplot(
@@ -416,11 +413,11 @@ create_reg_col_vec <- function(plot_first_half_lin_reg = FALSE,
 #'   curve_summary_grp = curve_summary_grp,
 #'   pal = pal,
 #'   title = "Lipid_Saturated",
-#'   curv_batch_var = "Dilution_Batch_Name",
-#'   conc_var = "Dilution_Percent",
+#'   curve_batch_var = "Curve_Batch_Name",
+#'   conc_var = "Concentration",
 #'   conc_var_units = "%",
 #'   conc_var_interval = 50,
-#'   signal_var = "Area"
+#'   signal_var = "Signal"
 #' )
 #'
 #' p
@@ -431,14 +428,14 @@ plot_curve_ggplot <- function(
     curve_summary_grp,
     title = "",
     pal,
-    curv_batch_var = "Dilution_Batch_Name",
+    curve_batch_var = "Curve_Batch_Name",
     dilution_data = lifecycle::deprecated(),
     dilution_summary_grp = lifecycle::deprecated(),
     dil_batch_var = lifecycle::deprecated(),
-    conc_var = "Dilution_Percent",
+    conc_var = "Concentration",
     conc_var_units = "%",
     conc_var_interval = 50,
-    signal_var = "Area",
+    signal_var = "Signal",
     plot_first_half_lin_reg = FALSE,
     plot_last_half_lin_reg = FALSE) {
 
@@ -462,19 +459,19 @@ plot_curve_ggplot <- function(
     lifecycle::deprecate_warn(
       when = "0.0.6.9000",
       what = "plot_curve_ggplot(dil_batch_var)",
-      with = "plot_curve_ggplot(curv_batch_var)")
-    curv_batch_var <- dil_batch_var
+      with = "plot_curve_ggplot(curve_batch_var)")
+    curve_batch_var <- dil_batch_var
   }
 
   # Number of curve batches
   no_of_dil_batch <- curve_data %>%
-    dplyr::pull(.data[[curv_batch_var]]) %>%
+    dplyr::pull(.data[[curve_batch_var]]) %>%
     unique() %>%
     length()
 
   # Name of curve batch
   names_of_dil_batch <- curve_data %>%
-    dplyr::pull(.data[[curv_batch_var]]) %>%
+    dplyr::pull(.data[[curve_batch_var]]) %>%
     unique()
 
   # Filter the curve palette based on what batches are
@@ -505,7 +502,7 @@ plot_curve_ggplot <- function(
       y = .data[[signal_var]]
     ) +
     ggplot2::geom_point(
-      mapping = ggplot2::aes(colour = factor(.data[[curv_batch_var]])),
+      mapping = ggplot2::aes(colour = factor(.data[[curve_batch_var]])),
       size = 5
     )
 
@@ -780,19 +777,19 @@ plot_curve_ggplot <- function(
 #' column names in `curve_table`to indicate how each curve
 #' should be grouped by.
 #' Default: c("Transition_Name", "Dilution_Batch_Name")
-#' @param curv_batch_var Column name in `curve_table`
+#' @param curve_batch_var Column name in `curve_table`
 #' to indicate the group name of each curve batch,
 #' used to colour the points in the curve plot.
 #' Default: 'Dilution_Batch_Name'
-#' @param curv_batch_col A vector of colours to be used for the curve
-#' batch group named given in `curv_batch_var`.
+#' @param curve_batch_col A vector of colours to be used for the curve
+#' batch group named given in `curve_batch_var`.
 #' Default: c("#377eb8", "#4daf4a", "#9C27B0", "#BCAAA4", "#FF8A65", "#EFBBCF")
 #' @param dil_batch_var `r lifecycle::badge("deprecated")`
 #' `dil_batch_var` was renamed to
-#' `curv_batch_var`.
+#' `curve_batch_var`.
 #' @param dil_batch_col `r lifecycle::badge("deprecated")`
 #' `dil_batch_col` was renamed to
-#' `curv_batch_col`.
+#' `curve_batch_col`.
 #' @param conc_var Column name in `curve_table` to indicate concentration.
 #' Default: 'Dilution_Percent'
 #' @param conc_var_units Unit of measure for `conc_var`. Default: '%'
@@ -936,8 +933,8 @@ add_ggplot_panel <- function(
     dilution_summary = lifecycle::deprecated(),
     grouping_variable = c("Transition_Name",
                           "Dilution_Batch_Name"),
-    curv_batch_var = "Dilution_Batch_Name",
-    curv_batch_col = c("#377eb8", "#4daf4a",
+    curve_batch_var = "Dilution_Batch_Name",
+    curve_batch_col = c("#377eb8", "#4daf4a",
                        "#9C27B0", "#BCAAA4",
                        "#FF8A65", "#EFBBCF"),
     dil_batch_var = lifecycle::deprecated(),
@@ -971,16 +968,16 @@ add_ggplot_panel <- function(
     lifecycle::deprecate_warn(
       when = "0.0.6.9000",
       what = "add_ggplot_panel(dil_batch_var)",
-      with = "add_ggplot_panel(curv_batch_var)")
-    curv_batch_var <- dil_batch_var
+      with = "add_ggplot_panel(curve_batch_var)")
+    curve_batch_var <- dil_batch_var
   }
 
   if (lifecycle::is_present(dil_batch_col)) {
     lifecycle::deprecate_warn(
       when = "0.0.6.9000",
       what = "add_ggplot_panel(dil_batch_col)",
-      with = "add_ggplot_panel(curv_batch_col)")
-    curv_batch_col <- dil_batch_col
+      with = "add_ggplot_panel(curve_batch_col)")
+    curve_batch_col <- dil_batch_col
   }
 
   # Check if curve_table is valid with the relevant columns
@@ -988,7 +985,7 @@ add_ggplot_panel <- function(
     curve_table = curve_table,
     needed_column = c(
       grouping_variable,
-      curv_batch_var,
+      curve_batch_var,
       conc_var,
       signal_var
     )
@@ -1013,12 +1010,12 @@ add_ggplot_panel <- function(
 
   # Get the curve batch name from curve_table
   curve_batch_name <- curve_table %>%
-    dplyr::pull(.data[[curv_batch_var]]) %>%
+    dplyr::pull(.data[[curve_batch_var]]) %>%
     unique() %>%
     as.character()
 
   # Create palette for each curve batch for plotting
-  pal <- curv_batch_col %>%
+  pal <- curve_batch_col %>%
     create_char_seq(output_length = length(curve_batch_name)) %>%
     stats::setNames(curve_batch_name)
 
@@ -1041,8 +1038,8 @@ add_ggplot_panel <- function(
       dplyr::mutate(summary = NA)
   }
 
-  # Add curv_batch_var in the nested data
-  # Will not work if curv_batch_var is also a grouping_variable
+  # Add curve_batch_var in the nested data
+  # Will not work if curve_batch_var is also a grouping_variable
 
   curve_table <- curve_table %>%
     dplyr::group_by_at(
@@ -1054,14 +1051,14 @@ add_ggplot_panel <- function(
   # If this is the case, we need to make a copy
   # of the variable inside the nested data
 
-  if (curv_batch_var %in% grouping_variable) {
+  if (curve_batch_var %in% grouping_variable) {
     curve_table <- curve_table %>%
       dplyr::mutate(data = purrr::map2(
         .x = .data$data,
-        .y = .data[[curv_batch_var]],
+        .y = .data[[curve_batch_var]],
         .f = function(df, curve_batch_name) {
           df <- df %>%
-            dplyr::mutate(!!curv_batch_var := curve_batch_name)
+            dplyr::mutate(!!curve_batch_var := curve_batch_name)
           return(df)
         }
       ))
@@ -1097,7 +1094,7 @@ add_ggplot_panel <- function(
       ),
       .f = plot_curve_ggplot,
       pal = pal,
-      curv_batch_var = curv_batch_var,
+      curve_batch_var = curve_batch_var,
       conc_var = conc_var,
       conc_var_units = conc_var_units,
       conc_var_interval = conc_var_interval,

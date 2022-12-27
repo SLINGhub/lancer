@@ -10,8 +10,8 @@ add_ggplot_panel(
   dilution_table = lifecycle::deprecated(),
   dilution_summary = lifecycle::deprecated(),
   grouping_variable = c("Transition_Name", "Dilution_Batch_Name"),
-  curv_batch_var = "Dilution_Batch_Name",
-  curv_batch_col = c("#377eb8", "#4daf4a", "#9C27B0", "#BCAAA4", "#FF8A65", "#EFBBCF"),
+  curve_batch_var = "Dilution_Batch_Name",
+  curve_batch_col = c("#377eb8", "#4daf4a", "#9C27B0", "#BCAAA4", "#FF8A65", "#EFBBCF"),
   dil_batch_var = lifecycle::deprecated(),
   dil_batch_col = lifecycle::deprecated(),
   conc_var = "Dilution_Percent",
@@ -53,22 +53,22 @@ column names in \code{curve_table}to indicate how each curve
 should be grouped by.
 Default: c("Transition_Name", "Dilution_Batch_Name")}
 
-\item{curv_batch_var}{Column name in \code{curve_table}
+\item{curve_batch_var}{Column name in \code{curve_table}
 to indicate the group name of each curve batch,
 used to colour the points in the curve plot.
 Default: 'Dilution_Batch_Name'}
 
-\item{curv_batch_col}{A vector of colours to be used for the curve
-batch group named given in \code{curv_batch_var}.
+\item{curve_batch_col}{A vector of colours to be used for the curve
+batch group named given in \code{curve_batch_var}.
 Default: c("#377eb8", "#4daf4a", "#9C27B0", "#BCAAA4", "#FF8A65", "#EFBBCF")}
 
 \item{dil_batch_var}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 \code{dil_batch_var} was renamed to
-\code{curv_batch_var}.}
+\code{curve_batch_var}.}
 
 \item{dil_batch_col}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 \code{dil_batch_col} was renamed to
-\code{curv_batch_col}.}
+\code{curve_batch_col}.}
 
 \item{conc_var}{Column name in \code{curve_table} to indicate concentration.
 Default: 'Dilution_Percent'}

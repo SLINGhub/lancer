@@ -107,7 +107,7 @@ test_that("Able to plot dilution data with its
         "Transition_Name",
         "Dilution_Batch_Name"
       ),
-      curv_batch_var = "Dilution_Batch_Name",
+      curve_batch_var = "Dilution_Batch_Name",
       conc_var = "Dilution_Percent",
       signal_var = "Area",
       plot_first_half_lin_reg = FALSE
@@ -123,7 +123,7 @@ test_that("Able to plot dilution data with its
       grouping_variable = c(
         "Transition_Name"
       ),
-      curv_batch_var = "Dilution_Batch_Name",
+      curve_batch_var = "Dilution_Batch_Name",
       conc_var = "Dilution_Percent",
       signal_var = "Area",
       plot_first_half_lin_reg = FALSE
@@ -138,7 +138,7 @@ test_that("Able to plot dilution data with its
         "Transition_Name",
         "Dilution_Batch_Name"
       ),
-      curv_batch_var = "Dilution_Batch_Name",
+      curve_batch_var = "Dilution_Batch_Name",
       conc_var = "Dilution_Percent",
       signal_var = "Area",
       plot_first_half_lin_reg = FALSE

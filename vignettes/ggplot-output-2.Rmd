@@ -132,8 +132,8 @@ ggplot_table <- lancer::add_ggplot_panel(
     "Curve_Name",
     "Curve_Batch_Name"
   ),
-  curv_batch_var = "Curve_Batch_Name",
-  curv_batch_col = c(
+  curve_batch_var = "Curve_Batch_Name",
+  curve_batch_col = c(
     "#377eb8",
     "#4daf4a"
   ),
@@ -167,8 +167,8 @@ ggplot_table <- lancer::add_ggplot_panel(
     "Curve_Name",
     "Curve_Batch_Name"
   ),
-  curv_batch_var = "Curve_Batch_Name",
-  curv_batch_col = c(
+  curve_batch_var = "Curve_Batch_Name",
+  curve_batch_col = c(
     "#9C27B0",
     "#377eb8"
   ),

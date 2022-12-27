@@ -355,7 +355,7 @@ curve_4_poor_linearty <- c(
   426089, 413292, 450190, 415309, 457618
 )
 
-curve_annot <- tibble::tibble(
+curve_batch_annot <- tibble::tibble(
   Sample_Name = sample_name,
   Curve_Batch_Name = curve_batch_name,
   Concentration = concentration
@@ -363,17 +363,17 @@ curve_annot <- tibble::tibble(
 
 curve_data <- tibble::tibble(
   Sample_Name = sample_name,
-  `Curve 1` = curve_1_saturation_regime,
-  `Curve 2` = curve_2_good_linearty,
-  `Curve 3` = curve_3_noise_regime,
-  `Curve 4` = curve_4_poor_linearty
+  `Curve_1` = curve_1_saturation_regime,
+  `Curve_2` = curve_2_good_linearty,
+  `Curve_3` = curve_3_noise_regime,
+  `Curve_4` = curve_4_poor_linearty
 )
 ```
 
-The `curve_annot` should look like this.
+The `curve_batch_annot` should look like this.
 
 ``` r
-print(curve_annot, width = 100)
+print(curve_batch_annot, width = 100)
 #> # A tibble: 21 × 3
 #>    Sample_Name Curve_Batch_Name Concentration
 #>    <chr>       <chr>                    <dbl>
@@ -395,18 +395,18 @@ The `curve_data` should look like this.
 ``` r
 print(curve_data, width = 100)
 #> # A tibble: 21 × 5
-#>    Sample_Name `Curve 1` `Curve 2` `Curve 3` `Curve 4`
-#>    <chr>           <dbl>     <dbl>     <dbl>     <dbl>
-#>  1 Sample_010a   5748124     31538       544    380519
-#>  2 Sample_020a  16616414     53709       397    485372
-#>  3 Sample_025a  21702718     69990       829    478770
-#>  4 Sample_040a  36191617    101977      1437    474467
-#>  5 Sample_050a  49324541    146436      1808    531640
-#>  6 Sample_060a  55618266    180960      2231    576301
-#>  7 Sample_075a  66947588    232881      3343    501068
-#>  8 Sample_080a  74964771    283780      2915    550201
-#>  9 Sample_100a  75438063    298289      5268    515110
-#> 10 Sample_125a  91770737    344519      8031    499543
+#>    Sample_Name  Curve_1 Curve_2 Curve_3 Curve_4
+#>    <chr>          <dbl>   <dbl>   <dbl>   <dbl>
+#>  1 Sample_010a  5748124   31538     544  380519
+#>  2 Sample_020a 16616414   53709     397  485372
+#>  3 Sample_025a 21702718   69990     829  478770
+#>  4 Sample_040a 36191617  101977    1437  474467
+#>  5 Sample_050a 49324541  146436    1808  531640
+#>  6 Sample_060a 55618266  180960    2231  576301
+#>  7 Sample_075a 66947588  232881    3343  501068
+#>  8 Sample_080a 74964771  283780    2915  550201
+#>  9 Sample_100a 75438063  298289    5268  515110
+#> 10 Sample_125a 91770737  344519    8031  499543
 #> # … with 11 more rows
 ```
 
@@ -415,7 +415,7 @@ Merge the data together using `create_curve_table`
 ``` r
 # Create curve table
 curve_table <- lancer::create_curve_table(
-  curve_annot = curve_annot, 
+  curve_batch_annot = curve_batch_annot, 
   curve_data_wide = curve_data,
   common_column = "Sample_Name",
   signal_var = "Signal",
@@ -428,16 +428,16 @@ print(curve_table, width = 100)
 #> # A tibble: 84 × 5
 #>    Sample_Name Curve_Batch_Name Concentration Curve_Name   Signal
 #>    <chr>       <chr>                    <dbl> <chr>         <dbl>
-#>  1 Sample_010a B1                          10 Curve 1     5748124
-#>  2 Sample_010a B1                          10 Curve 2       31538
-#>  3 Sample_010a B1                          10 Curve 3         544
-#>  4 Sample_010a B1                          10 Curve 4      380519
-#>  5 Sample_020a B1                          20 Curve 1    16616414
-#>  6 Sample_020a B1                          20 Curve 2       53709
-#>  7 Sample_020a B1                          20 Curve 3         397
-#>  8 Sample_020a B1                          20 Curve 4      485372
-#>  9 Sample_025a B1                          25 Curve 1    21702718
-#> 10 Sample_025a B1                          25 Curve 2       69990
+#>  1 Sample_010a B1                          10 Curve_1     5748124
+#>  2 Sample_010a B1                          10 Curve_2       31538
+#>  3 Sample_010a B1                          10 Curve_3         544
+#>  4 Sample_010a B1                          10 Curve_4      380519
+#>  5 Sample_020a B1                          20 Curve_1    16616414
+#>  6 Sample_020a B1                          20 Curve_2       53709
+#>  7 Sample_020a B1                          20 Curve_3         397
+#>  8 Sample_020a B1                          20 Curve_4      485372
+#>  9 Sample_025a B1                          25 Curve_1    21702718
+#> 10 Sample_025a B1                          25 Curve_2       69990
 #> # … with 74 more rows
 ```
 
@@ -461,14 +461,14 @@ print(curve_summary, width = 100)
 #> # A tibble: 8 × 9
 #>   Curve_Name Curve_Batch_Name r_corr r2_linear r2_adj_linear mandel_stats
 #>   <chr>      <chr>             <dbl>     <dbl>         <dbl>        <dbl>
-#> 1 Curve 1    B1                0.963    0.928        0.920         71.2  
-#> 2 Curve 2    B1                0.990    0.980        0.978          2.53 
-#> 3 Curve 3    B1                0.964    0.930        0.922        106.   
-#> 4 Curve 4    B1                0.311    0.0970      -0.00333       13.2  
-#> 5 Curve 1    B2                0.950    0.903        0.890         52.9  
-#> 6 Curve 2    B2                0.995    0.990        0.988          0.868
-#> 7 Curve 3    B2                0.978    0.956        0.951         20.9  
-#> 8 Curve 4    B2                0.608    0.370        0.291          5.39 
+#> 1 Curve_1    B1                0.963    0.928        0.920         71.2  
+#> 2 Curve_2    B1                0.990    0.980        0.978          2.53 
+#> 3 Curve_3    B1                0.964    0.930        0.922        106.   
+#> 4 Curve_4    B1                0.311    0.0970      -0.00333       13.2  
+#> 5 Curve_1    B2                0.950    0.903        0.890         52.9  
+#> 6 Curve_2    B2                0.995    0.990        0.988          0.868
+#> 7 Curve_3    B2                0.978    0.956        0.951         20.9  
+#> 8 Curve_4    B2                0.608    0.370        0.291          5.39 
 #>   mandel_p_val pra_linear concavity
 #>          <dbl>      <dbl>     <dbl>
 #> 1   0.0000297        70.5 -4174.   
@@ -500,14 +500,14 @@ print(curve_classified, width = 100)
 #> # A tibble: 8 × 11
 #>   Curve_Name Curve_Batch_Name wf1_group      wf2_group         r_corr pra_linear
 #>   <chr>      <chr>            <chr>          <chr>              <dbl>      <dbl>
-#> 1 Curve 1    B1               Poor Linearity Saturation Regime  0.963       70.5
-#> 2 Curve 2    B1               Good Linearity Good Linearity     0.990       92.8
-#> 3 Curve 3    B1               Poor Linearity Noise Regime       0.964       71.2
-#> 4 Curve 4    B1               Poor Linearity Poor Linearity     0.311     -251. 
-#> 5 Curve 1    B2               Poor Linearity Saturation Regime  0.950       62.3
-#> 6 Curve 2    B2               Good Linearity Good Linearity     0.995       94.3
-#> 7 Curve 3    B2               Poor Linearity Noise Regime       0.978       74.7
-#> 8 Curve 4    B2               Poor Linearity Poor Linearity     0.608      -73.1
+#> 1 Curve_1    B1               Poor Linearity Saturation Regime  0.963       70.5
+#> 2 Curve_2    B1               Good Linearity Good Linearity     0.990       92.8
+#> 3 Curve_3    B1               Poor Linearity Noise Regime       0.964       71.2
+#> 4 Curve_4    B1               Poor Linearity Poor Linearity     0.311     -251. 
+#> 5 Curve_1    B2               Poor Linearity Saturation Regime  0.950       62.3
+#> 6 Curve_2    B2               Good Linearity Good Linearity     0.995       94.3
+#> 7 Curve_3    B2               Poor Linearity Noise Regime       0.978       74.7
+#> 8 Curve_4    B2               Poor Linearity Poor Linearity     0.608      -73.1
 #>   mandel_p_val concavity r2_linear r2_adj_linear mandel_stats
 #>          <dbl>     <dbl>     <dbl>         <dbl>        <dbl>
 #> 1   0.0000297  -4174.       0.928        0.920         71.2  
@@ -545,8 +545,8 @@ ggplot_table <- lancer::add_ggplot_panel(
     "Curve_Name",
     "Curve_Batch_Name"
   ),
-  curv_batch_var = "Curve_Batch_Name",
-  curv_batch_col = c("#377eb8", "#4daf4a"),
+  curve_batch_var = "Curve_Batch_Name",
+  curve_batch_col = c("#377eb8", "#4daf4a"),
   conc_var = "Concentration",
   conc_var_units = "%",
   conc_var_interval = 50,

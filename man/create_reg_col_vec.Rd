@@ -36,7 +36,7 @@ to indicate which regression line has what colour.
 }
 \examples{
 # Data Creation
-regression_colour_vector <- c(
+regression_colour_vector <- create_reg_col_vec(
   plot_first_half_lin_reg = TRUE,
   plot_last_half_lin_reg = TRUE
 )

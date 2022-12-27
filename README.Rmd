@@ -673,8 +673,8 @@ ggplot_table <- lancer::add_ggplot_panel(
     "Curve_Name",
     "Curve_Batch_Name"
   ),
-  curv_batch_var = "Curve_Batch_Name",
-  curv_batch_col = c("#377eb8", "#4daf4a"),
+  curve_batch_var = "Curve_Batch_Name",
+  curve_batch_col = c("#377eb8", "#4daf4a"),
   conc_var = "Concentration",
   conc_var_units = "%",
   conc_var_interval = 50,

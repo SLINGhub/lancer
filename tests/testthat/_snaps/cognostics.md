@@ -1,4 +1,4 @@
-# dilution_summary argument in update_cog_manual is deprecated
+# dilution_summary argument is deprecated
 
     Code
       updated_summary <- update_cog_manual(dilution_summary = curve_summary, cog_df,

@@ -9,14 +9,14 @@ plot_curve_ggplot(
   curve_summary_grp,
   title = "",
   pal,
-  curv_batch_var = "Dilution_Batch_Name",
+  curve_batch_var = "Curve_Batch_Name",
   dilution_data = lifecycle::deprecated(),
   dilution_summary_grp = lifecycle::deprecated(),
   dil_batch_var = lifecycle::deprecated(),
-  conc_var = "Dilution_Percent",
+  conc_var = "Concentration",
   conc_var_units = "\%",
   conc_var_interval = 50,
-  signal_var = "Area",
+  signal_var = "Signal",
   plot_first_half_lin_reg = FALSE,
   plot_last_half_lin_reg = FALSE
 )
@@ -30,11 +30,11 @@ curve summary data for one group.}
 \item{title}{Title to use for each curve plot.
 Default: ''}
 
-\item{pal}{Input palette for each curve batch group in \code{curv_batch_var}.
+\item{pal}{Input palette for each curve batch group in \code{curve_batch_var}.
 It is a named char vector where each value is a colour and
-name is a curve batch group given in \code{curv_batch_var}.}
+name is a curve batch group given in \code{curve_batch_var}.}
 
-\item{curv_batch_var}{Column name in \code{curve_table}
+\item{curve_batch_var}{Column name in \code{curve_table}
 to indicate the group name of each curve batch,
 used to colour the points in the curve plot.
 Default: 'Dilution_Batch_Name'}
@@ -49,7 +49,7 @@ Default: 'Dilution_Batch_Name'}
 
 \item{dil_batch_var}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 \code{dil_batch_var} was renamed to
-\code{curv_batch_var}.}
+\code{curve_batch_var}.}
 
 \item{conc_var}{Column name in \code{curve_table} to indicate concentration.
 Default: 'Dilution_Percent'}
@@ -83,7 +83,7 @@ Plot curve using \code{ggplot2}.
 \examples{
 
 # Data Creation
-dilution_percent <- c(
+concentration <- c(
   10, 20, 25, 40, 50, 60,
   75, 80, 100, 125, 150
 )
@@ -95,18 +95,18 @@ sample_name <- c(
   "Sample_100a", "Sample_125a", "Sample_150a"
 )
 
-dilution_batch_name <- c(
+curve_batch_name <- c(
   "B1", "B1", "B1", "B1", "B1",
   "B1", "B1", "B1", "B1", "B1", "B1"
 )
 
-transition_name <- c(
-  "Lipid1", "Lipid1", "Lipid1", "Lipid1",
-  "Lipid1", "Lipid1", "Lipid1", "Lipid1",
-  "Lipid1", "Lipid1", "Lipid1"
+curve_name <- c(
+  "Curve_1", "Curve_1", "Curve_1", "Curve_1",
+  "Curve_1", "Curve_1", "Curve_1", "Curve_1",
+  "Curve_1", "Curve_1", "Curve_1"
 )
 
-lipid1_area_saturated <- c(
+curve_1_saturation_regime <- c(
   5748124, 16616414, 21702718, 36191617,
   49324541, 55618266, 66947588, 74964771,
   75438063, 91770737, 94692060
@@ -114,35 +114,34 @@ lipid1_area_saturated <- c(
 
 curve_data <- tibble::tibble(
   Sample_Name = sample_name,
-  Dilution_Batch_Name = dilution_batch_name,
-  Dilution_Percent = dilution_percent,
-  Transition_Name = transition_name,
-  Area = lipid1_area_saturated,
+  Curve_Batch_Name = curve_batch_name,
+  Concentration = concentration,
+  Curve_Name = curve_name,
+  Signal = curve_1_saturation_regime,
 )
 
-grouping_variable <- c("Transition_Name", "Dilution_Batch_Name")
+grouping_variable <- c("Curve_Name", "Curve_Batch_Name")
 
-# Get the dilution batch name from dilution_table
-dilution_batch_name <- dilution_batch_name \%>\%
+# Get the curve batch name from curve_table
+curve_batch_name <- curve_batch_name \%>\%
   unique() \%>\%
   as.character()
 
-curv_batch_col <- c("#377eb8")
+curve_batch_col <- c("#377eb8")
 
 # Create palette for each curve batch for plotting
-pal <- curv_batch_col \%>\%
-  stats::setNames(dilution_batch_name)
+pal <- curve_batch_col \%>\%
+  stats::setNames(curve_batch_name)
 
 # Create curve statistical summary
 curve_summary_grp <- curve_data \%>\%
   summarise_curve_table(
     grouping_variable = grouping_variable,
-    conc_var = "Dilution_Percent",
-    signal_var = "Area"
+    conc_var = "Concentration",
+    signal_var = "Signal"
   ) \%>\%
   evaluate_linearity(grouping_variable = grouping_variable) \%>\%
   dplyr::select(-c(dplyr::all_of(grouping_variable)))
-
 
 # Create the ggplot
 p <- plot_curve_ggplot(
@@ -150,11 +149,11 @@ p <- plot_curve_ggplot(
   curve_summary_grp = curve_summary_grp,
   pal = pal,
   title = "Lipid_Saturated",
-  curv_batch_var = "Dilution_Batch_Name",
-  conc_var = "Dilution_Percent",
+  curve_batch_var = "Curve_Batch_Name",
+  conc_var = "Concentration",
   conc_var_units = "\%",
   conc_var_interval = 50,
-  signal_var = "Area"
+  signal_var = "Signal"
 )
 
 p

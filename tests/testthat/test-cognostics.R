@@ -1,4 +1,4 @@
-test_that("dilution_summary argument in update_cog_manual is deprecated", {
+test_that("dilution_summary argument is deprecated", {
 
   # Data Creation
   concentration <- c(
@@ -114,7 +114,7 @@ test_that("dilution_summary argument in update_cog_manual is deprecated", {
     type_vec = type_vec
   )
 
-  expect_snapshot({
+  testthat::expect_snapshot({
     updated_summary <- update_cog_manual(
       dilution_summary = curve_summary,
       cog_df,
@@ -124,13 +124,13 @@ test_that("dilution_summary argument in update_cog_manual is deprecated", {
     )
   })
 
-  expect_snapshot({
+  testthat::expect_snapshot({
     updated_summary <- update_cog_auto(
       dilution_summary = curve_summary
     )
   })
 
-  expect_snapshot({
+  testthat::expect_snapshot({
     updated_summary <- convert_to_cog(
       dilution_summary = curve_summary,
       grouping_variable = c(
