@@ -74,12 +74,12 @@ if so, no excel file is given out}
 Write curve summary table to an excel sheet
 }
 \examples{
-transition_name <- c(
-  "Lipid1", "Lipid1", "Lipid1", "Lipid1",
-  "Lipid2", "Lipid2", "Lipid2", "Lipid2"
+curve_name <- c(
+  "Curve_1", "Curve_1", "Curve_1", "Curve_1",
+  "Curve_2", "Curve_2", "Curve_2", "Curve_2"
 )
 
-dilution_batch_name <- c(
+curve_batch_name <- c(
   "B1", "B1", "B1", "B1",
   "B2", "B2", "B2", "B2"
 )
@@ -92,10 +92,10 @@ wf1_group <- c(
 )
 
 wf2_group <- c(
-  "Saturation", "Good Linearity",
-  "LOD", "Poor Linearity",
-  "Saturation", "Good Linearity",
-  "LOD", "Poor Linearity"
+  "Saturation Regime", "Good Linearity",
+  "Noise Regime", "Poor Linearity",
+  "Saturation Regime", "Good Linearity",
+  "Noise Regime", "Poor Linearity"
 )
 
 r_corr <- c(
@@ -119,8 +119,8 @@ concavity <- c(
 )
 
 curve_summary <- data.frame(
-  Transition_Name = transition_name,
-  Dilution_Batch_Name = dilution_batch_name,
+  Curve_Name = curve_name,
+  Curve_Batch_Name = curve_batch_name,
   wf1_group = wf1_group, wf2_group = wf2_group,
   r_corr = r_corr, pra_linear = pra_linear,
   mandel_p_val = mandel_p_val,
