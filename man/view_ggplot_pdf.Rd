@@ -51,20 +51,20 @@ sample_name <- c(
   "Sample_060b", "Sample_080b", "Sample_100b"
 )
 
-curve_1_good_linearty <- c(
+curve_1_good_linearity <- c(
   22561, 31178, 39981, 48390, 52171, 53410,
   32561, 41178, 49981, 58390, 62171, 63410
 )
 
-curve_2_good_linearty <- c(
+curve_2_good_linearity <- c(
   2299075, 4136350, 7020062, 8922063, 9288742, 11365710,
   2300075, 4137350, 7021062, 8923063, 9289742, 11366710
 )
 
 curve_data <- tibble::tibble(
   Sample_Name = sample_name,
-  `Curve_1` = curve_1_good_linearty,
-  `Curve_2` = curve_2_good_linearty
+  `Curve_1` = curve_1_good_linearity,
+  `Curve_2` = curve_2_good_linearity
 )
 
 concentration <- c(

@@ -6,9 +6,9 @@
 \usage{
 view_trellis_html(
   trellis_table,
-  trellis_report_name = "Dilution_Plot",
-  trellis_report_folder = "Dilution_Plot",
-  grouping_variable = c("Transition_Name", "Dilution_Batch_Name"),
+  trellis_report_name = "Curve_Plot",
+  trellis_report_folder = "Curve_Plot",
+  grouping_variable = c("Curve_Name", "Curve_Batch_Name"),
   panel_variable = "panel",
   trellis_additional_labels = c(),
   testing = FALSE
@@ -21,18 +21,18 @@ by function \code{\link[=add_ggplot_panel]{add_ggplot_panel()}} and \code{\link[
 
 \item{trellis_report_name}{A string to indicate the title
 of the trellis report
-Default: 'Dilution_Plot'}
+Default: 'Curve_Plot'}
 
 \item{trellis_report_folder}{A string to indicate the output
 folder of the plots found in \code{panel_variable}
-Default: 'Dilution_Plot'}
+Default: 'Curve_Plot'}
 
 \item{grouping_variable}{A character vector of
 column names in \code{trellis_table} to indicate how each curve
 should be grouped by. It is also going to be used as a conditional
 cognostics in the \code{trelliscopejs} report. The function will check
 if these columns are indeed conditional cognostics
-Default: c("Transition_Name", "Dilution_Batch_Name")}
+Default: c("Curve_Name", "Curve_Batch_Name")}
 
 \item{panel_variable}{A column name in \code{trellis_table} to indicate
 the list of plots to be used in the \code{trelliscopejs} report. This column
@@ -60,57 +60,65 @@ sample_name <- c(
   "Sample_010b", "Sample_020b", "Sample_040b",
   "Sample_060b", "Sample_080b", "Sample_100b"
 )
-lipid1_area <- c(
+
+curve_1_good_linearity <- c(
   22561, 31178, 39981, 48390, 52171, 53410,
   32561, 41178, 49981, 58390, 62171, 63410
 )
-lipid2_area <- c(
+
+curve_2_good_linearity <- c(
   2299075, 4136350, 7020062, 8922063, 9288742, 11365710,
   2300075, 4137350, 7021062, 8923063, 9289742, 11366710
 )
+
 curve_data <- tibble::tibble(
   Sample_Name = sample_name,
-  Lipid1 = lipid1_area,
-  Lipid2 = lipid2_area
+  `Curve_1` = curve_1_good_linearity,
+  `Curve_2` = curve_2_good_linearity
 )
-dilution_percent <- c(
+
+concentration <- c(
   10, 20, 40, 60, 80, 100,
   10, 20, 40, 60, 80, 100
 )
-dilution_batch_name <- c(
+
+curve_batch_name <- c(
   "B1", "B1", "B1", "B1", "B1", "B1",
   "B2", "B2", "B2", "B2", "B2", "B2"
 )
+
 curve_batch_annot <- tibble::tibble(
   Sample_Name = sample_name,
-  Dilution_Batch_Name = dilution_batch_name,
-  Dilution_Percent = dilution_percent
+  Curve_Batch_Name = curve_batch_name,
+  Concentration = concentration
 )
-# Create dilution table
+
+# Create curve table
 curve_table <- create_curve_table(
   curve_batch_annot = curve_batch_annot,
   curve_data_wide = curve_data,
   common_column = "Sample_Name",
-  signal_var = "Area",
-  column_group = "Transition_Name"
+  signal_var = "Signal",
+  column_group = "Curve_Name"
 )
-# Add a plotly panel without dilution summary
-trellis_table_auto <- add_plotly_panel(
+
+# Add a plotly panel without curve summary
+trellis_table <- add_plotly_panel(
   curve_table,
-  grouping_variable = c("Transition_Name",
-                        "Dilution_Batch_Name"),
+  grouping_variable = c("Curve_Name",
+                        "Curve_Batch_Name"),
   sample_name_var = "Sample_Name",
-  curve_batch_var = "Dilution_Batch_Name",
-  conc_var = "Dilution_Percent",
+  curve_batch_var = "Curve_Batch_Name",
+  conc_var = "Concentration",
   conc_var_units = "\%",
   conc_var_interval = 50,
-  signal_var = "Area"
+  signal_var = "Signal"
   ) \%>\%
   convert_to_cog(
     cog_df = NULL,
     grouping_variable = c(
-      "Transition_Name",
-      "Dilution_Batch_Name"
+      "Curve_Name",
+      "Curve_Batch_Name"
     ),
     panel_variable = "panel",
     col_name_vec = "col_name_vec",
@@ -119,5 +127,6 @@ trellis_table_auto <- add_plotly_panel(
   )
 
 # Create a trellis report, set testing = FALSE to output results
-view_trellis_html(trellis_table_auto, testing = TRUE)
+view_trellis_html(trellis_table, testing = TRUE)
+
 }

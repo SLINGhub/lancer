@@ -158,7 +158,7 @@ create_default_cog_df <- function() {
 #'   78044338, 86158414
 #' )
 #'
-#' curve_2_good_linearty <- c(
+#' curve_2_good_linearity <- c(
 #'   31538, 53709, 69990, 101977, 146436, 180960,
 #'   232881, 283780, 298289, 344519, 430432,
 #'   25463, 63387, 90624, 131274, 138069,
@@ -172,7 +172,7 @@ create_default_cog_df <- function() {
 #'   3563, 4500, 5300, 8500, 10430
 #' )
 #'
-#' curve_4_poor_linearty <- c(
+#' curve_4_poor_linearity <- c(
 #'   380519, 485372, 478770, 474467, 531640, 576301,
 #'   501068, 550201, 515110, 499543, 474745,
 #'   197417, 322846, 478398, 423174, 418577,
@@ -188,9 +188,9 @@ create_default_cog_df <- function() {
 #' curve_data <- tibble::tibble(
 #'   Sample_Name = sample_name,
 #'   `Curve_1` = curve_1_saturation_regime,
-#'   `Curve_2` = curve_2_good_linearty,
+#'   `Curve_2` = curve_2_good_linearity,
 #'   `Curve_3` = curve_3_noise_regime,
-#'   `Curve_4` = curve_4_poor_linearty
+#'   `Curve_4` = curve_4_poor_linearity
 #' )
 #'
 #' # Create curve table
@@ -354,7 +354,7 @@ update_cog_manual <- function(curve_summary,
 #'   78044338, 86158414
 #' )
 #'
-#' curve_2_good_linearty <- c(
+#' curve_2_good_linearity <- c(
 #'   31538, 53709, 69990, 101977, 146436, 180960,
 #'   232881, 283780, 298289, 344519, 430432,
 #'   25463, 63387, 90624, 131274, 138069,
@@ -368,7 +368,7 @@ update_cog_manual <- function(curve_summary,
 #'   3563, 4500, 5300, 8500, 10430
 #' )
 #'
-#' curve_4_poor_linearty <- c(
+#' curve_4_poor_linearity <- c(
 #'   380519, 485372, 478770, 474467, 531640, 576301,
 #'   501068, 550201, 515110, 499543, 474745,
 #'   197417, 322846, 478398, 423174, 418577,
@@ -384,9 +384,9 @@ update_cog_manual <- function(curve_summary,
 #' curve_data <- tibble::tibble(
 #'   Sample_Name = sample_name,
 #'   `Curve_1` = curve_1_saturation_regime,
-#'   `Curve_2` = curve_2_good_linearty,
+#'   `Curve_2` = curve_2_good_linearity,
 #'   `Curve_3` = curve_3_noise_regime,
-#'   `Curve_4` = curve_4_poor_linearty
+#'   `Curve_4` = curve_4_poor_linearity
 #' )
 #'
 #' # Create curve table
@@ -517,7 +517,7 @@ update_cog_auto <- function(
 #'   78044338, 86158414
 #' )
 #'
-#' curve_2_good_linearty <- c(
+#' curve_2_good_linearity <- c(
 #'   31538, 53709, 69990, 101977, 146436, 180960,
 #'   232881, 283780, 298289, 344519, 430432,
 #'   25463, 63387, 90624, 131274, 138069,
@@ -531,7 +531,7 @@ update_cog_auto <- function(
 #'   3563, 4500, 5300, 8500, 10430
 #' )
 #'
-#' curve_4_poor_linearty <- c(
+#' curve_4_poor_linearity <- c(
 #'   380519, 485372, 478770, 474467, 531640, 576301,
 #'   501068, 550201, 515110, 499543, 474745,
 #'   197417, 322846, 478398, 423174, 418577,
@@ -547,9 +547,9 @@ update_cog_auto <- function(
 #' curve_data <- tibble::tibble(
 #'   Sample_Name = sample_name,
 #'   `Curve_1` = curve_1_saturation_regime,
-#'   `Curve_2` = curve_2_good_linearty,
+#'   `Curve_2` = curve_2_good_linearity,
 #'   `Curve_3` = curve_3_noise_regime,
-#'   `Curve_4` = curve_4_poor_linearty
+#'   `Curve_4` = curve_4_poor_linearity
 #' )
 #'
 #' # Create curve table
