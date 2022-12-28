@@ -68,7 +68,7 @@ trelliscopejs report"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">validate_trellis_table</span><span class="op">(</span></span>
 <span>  <span class="va">trellis_table</span>,</span>
-<span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Transition_Name"</span>, <span class="st">"Dilution_Batch_Name"</span><span class="op">)</span>,</span>
+<span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Curve_Name"</span>, <span class="st">"Curve_Batch_Name"</span><span class="op">)</span>,</span>
 <span>  panel_variable <span class="op">=</span> <span class="st">"panel"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -82,11 +82,11 @@ by function <code><a href="add_plotly_panel.html">add_plotly_panel()</a></code><
 
 <dt>grouping_variable</dt>
 <dd><p>A character vector of
-column names in <code>trellis_table</code> to indicate how each dilution curve
+column names in <code>trellis_table</code> to indicate how each curve
 should be grouped by. It is also going to be used as a conditional
 cognostics in the <code>trelliscopejs</code> report. The function will check
 if these columns are indeed conditional cognostics
-Default: c("Transition_Name", "Dilution_Batch_Name")</p></dd>
+Default: c("Curve_Name", "Curve_Batch_Name")</p></dd>
 
 
 <dt>panel_variable</dt>
@@ -114,64 +114,64 @@ as common cognostics</p>
 <span class="r-in"><span>  <span class="st">"Sample_060b"</span>, <span class="st">"Sample_080b"</span>, <span class="st">"Sample_100b"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">lipid1_area</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">curve_1_good_linearity</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fl">22561</span>, <span class="fl">31178</span>, <span class="fl">39981</span>, <span class="fl">48390</span>, <span class="fl">52171</span>, <span class="fl">53410</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">32561</span>, <span class="fl">41178</span>, <span class="fl">49981</span>, <span class="fl">58390</span>, <span class="fl">62171</span>, <span class="fl">63410</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">lipid2_area</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">curve_2_good_linearity</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fl">2299075</span>, <span class="fl">4136350</span>, <span class="fl">7020062</span>, <span class="fl">8922063</span>, <span class="fl">9288742</span>, <span class="fl">11365710</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">2300075</span>, <span class="fl">4137350</span>, <span class="fl">7021062</span>, <span class="fl">8923063</span>, <span class="fl">9289742</span>, <span class="fl">11366710</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">curve_data</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  Sample_Name <span class="op">=</span> <span class="va">sample_name</span>,</span></span>
-<span class="r-in"><span>  Lipid1 <span class="op">=</span> <span class="va">lipid1_area</span>,</span></span>
-<span class="r-in"><span>  Lipid2 <span class="op">=</span> <span class="va">lipid2_area</span></span></span>
+<span class="r-in"><span>  `Curve_1` <span class="op">=</span> <span class="va">curve_1_good_linearity</span>,</span></span>
+<span class="r-in"><span>  `Curve_2` <span class="op">=</span> <span class="va">curve_2_good_linearity</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">dilution_percent</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">concentration</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">40</span>, <span class="fl">60</span>, <span class="fl">80</span>, <span class="fl">100</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">40</span>, <span class="fl">60</span>, <span class="fl">80</span>, <span class="fl">100</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">dilution_batch_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">curve_batch_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>,</span></span>
 <span class="r-in"><span>  <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">curve_batch_annot</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  Sample_Name <span class="op">=</span> <span class="va">sample_name</span>,</span></span>
-<span class="r-in"><span>  Dilution_Batch_Name <span class="op">=</span> <span class="va">dilution_batch_name</span>,</span></span>
-<span class="r-in"><span>  Dilution_Percent <span class="op">=</span> <span class="va">dilution_percent</span></span></span>
+<span class="r-in"><span>  Curve_Batch_Name <span class="op">=</span> <span class="va">curve_batch_name</span>,</span></span>
+<span class="r-in"><span>  Concentration <span class="op">=</span> <span class="va">concentration</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Create dilution table</span></span></span>
+<span class="r-in"><span><span class="co"># Create curve table</span></span></span>
 <span class="r-in"><span><span class="va">curve_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="create_curve_table.html">create_curve_table</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  curve_batch_annot <span class="op">=</span> <span class="va">curve_batch_annot</span>,</span></span>
 <span class="r-in"><span>  curve_data_wide <span class="op">=</span> <span class="va">curve_data</span>,</span></span>
 <span class="r-in"><span>  common_column <span class="op">=</span> <span class="st">"Sample_Name"</span>,</span></span>
-<span class="r-in"><span>  signal_var <span class="op">=</span> <span class="st">"Area"</span>,</span></span>
-<span class="r-in"><span>  column_group <span class="op">=</span> <span class="st">"Transition_Name"</span></span></span>
+<span class="r-in"><span>  signal_var <span class="op">=</span> <span class="st">"Signal"</span>,</span></span>
+<span class="r-in"><span>  column_group <span class="op">=</span> <span class="st">"Curve_Name"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Create a trellis table without dilution summary</span></span></span>
-<span class="r-in"><span><span class="va">trellis_table_auto</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_plotly_panel.html">add_plotly_panel</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="co"># Create a trellis table without curve summary</span></span></span>
+<span class="r-in"><span><span class="va">trellis_table</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_plotly_panel.html">add_plotly_panel</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">curve_table</span>,</span></span>
-<span class="r-in"><span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Transition_Name"</span>,</span></span>
-<span class="r-in"><span>                        <span class="st">"Dilution_Batch_Name"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Curve_Name"</span>,</span></span>
+<span class="r-in"><span>                        <span class="st">"Curve_Batch_Name"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>  sample_name_var <span class="op">=</span> <span class="st">"Sample_Name"</span>,</span></span>
-<span class="r-in"><span>  curve_batch_var <span class="op">=</span> <span class="st">"Dilution_Batch_Name"</span>,</span></span>
-<span class="r-in"><span>  conc_var <span class="op">=</span> <span class="st">"Dilution_Percent"</span>,</span></span>
+<span class="r-in"><span>  curve_batch_var <span class="op">=</span> <span class="st">"Curve_Batch_Name"</span>,</span></span>
+<span class="r-in"><span>  conc_var <span class="op">=</span> <span class="st">"Concentration"</span>,</span></span>
 <span class="r-in"><span>  conc_var_units <span class="op">=</span> <span class="st">"%"</span>,</span></span>
 <span class="r-in"><span>  conc_var_interval <span class="op">=</span> <span class="fl">50</span>,</span></span>
-<span class="r-in"><span>  signal_var <span class="op">=</span> <span class="st">"Area"</span></span></span>
+<span class="r-in"><span>  signal_var <span class="op">=</span> <span class="st">"Signal"</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="convert_to_cog.html">convert_to_cog</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    cog_df <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
 <span class="r-in"><span>    grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>      <span class="st">"Transition_Name"</span>,</span></span>
-<span class="r-in"><span>      <span class="st">"Dilution_Batch_Name"</span></span></span>
+<span class="r-in"><span>      <span class="st">"Curve_Name"</span>,</span></span>
+<span class="r-in"><span>      <span class="st">"Curve_Batch_Name"</span></span></span>
 <span class="r-in"><span>    <span class="op">)</span>,</span></span>
 <span class="r-in"><span>    panel_variable <span class="op">=</span> <span class="st">"panel"</span>,</span></span>
 <span class="r-in"><span>    col_name_vec <span class="op">=</span> <span class="st">"col_name_vec"</span>,</span></span>
@@ -179,8 +179,13 @@ as common cognostics</p>
 <span class="r-in"><span>    type_vec <span class="op">=</span> <span class="st">"type_vec"</span></span></span>
 <span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Check if trellis_table_auto is valid</span></span></span>
-<span class="r-in"><span><span class="fu">validate_trellis_table</span><span class="op">(</span><span class="va">trellis_table_auto</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Check if trellis_table is valid</span></span></span>
+<span class="r-in"><span><span class="fu">validate_trellis_table</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">trellis_table</span>,</span></span>
+<span class="r-in"><span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Curve_Name"</span>,</span></span>
+<span class="r-in"><span>                        <span class="st">"Curve_Batch_Name"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  panel_variable <span class="op">=</span> <span class="st">"panel"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

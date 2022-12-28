@@ -128,7 +128,7 @@ trellis. The example in <code>plotly</code> can be found in vignette
 <span>  <span class="fl">78044338</span>, <span class="fl">86158414</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">curve_2_good_linearty</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span><span class="va">curve_2_good_linearity</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="fl">31538</span>, <span class="fl">53709</span>, <span class="fl">69990</span>, <span class="fl">101977</span>, <span class="fl">146436</span>, <span class="fl">180960</span>,</span>
 <span>  <span class="fl">232881</span>, <span class="fl">283780</span>, <span class="fl">298289</span>, <span class="fl">344519</span>, <span class="fl">430432</span>,</span>
 <span>  <span class="fl">25463</span>, <span class="fl">63387</span>, <span class="fl">90624</span>, <span class="fl">131274</span>, <span class="fl">138069</span>,</span>
@@ -142,7 +142,7 @@ trellis. The example in <code>plotly</code> can be found in vignette
 <span>  <span class="fl">3563</span>, <span class="fl">4500</span>, <span class="fl">5300</span>, <span class="fl">8500</span>, <span class="fl">10430</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">curve_4_poor_linearty</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span><span class="va">curve_4_poor_linearity</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="fl">380519</span>, <span class="fl">485372</span>, <span class="fl">478770</span>, <span class="fl">474467</span>, <span class="fl">531640</span>, <span class="fl">576301</span>,</span>
 <span>  <span class="fl">501068</span>, <span class="fl">550201</span>, <span class="fl">515110</span>, <span class="fl">499543</span>, <span class="fl">474745</span>,</span>
 <span>  <span class="fl">197417</span>, <span class="fl">322846</span>, <span class="fl">478398</span>, <span class="fl">423174</span>, <span class="fl">418577</span>,</span>
@@ -158,9 +158,9 @@ trellis. The example in <code>plotly</code> can be found in vignette
 <span><span class="va">curve_data</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span>
 <span>  Sample_Name <span class="op">=</span> <span class="va">sample_name</span>,</span>
 <span>  `Curve_1` <span class="op">=</span> <span class="va">curve_1_saturation_regime</span>,</span>
-<span>  `Curve_2` <span class="op">=</span> <span class="va">curve_2_good_linearty</span>,</span>
+<span>  `Curve_2` <span class="op">=</span> <span class="va">curve_2_good_linearity</span>,</span>
 <span>  `Curve_3` <span class="op">=</span> <span class="va">curve_3_noise_regime</span>,</span>
-<span>  `Curve_4` <span class="op">=</span> <span class="va">curve_4_poor_linearty</span></span>
+<span>  `Curve_4` <span class="op">=</span> <span class="va">curve_4_poor_linearity</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">curve_table</span> <span class="op">&lt;-</span> <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="../reference/create_curve_table.html">create_curve_table</a></span><span class="op">(</span></span>
