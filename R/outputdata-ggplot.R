@@ -68,36 +68,36 @@ create_page_layout <- function(number_of_plots,
 #'   "Sample_060b", "Sample_080b", "Sample_100b"
 #' )
 #'
-#' lipid1_area <- c(
+#' curve_1_good_linearty <- c(
 #'   22561, 31178, 39981, 48390, 52171, 53410,
 #'   32561, 41178, 49981, 58390, 62171, 63410
 #' )
 #'
-#' lipid2_area <- c(
+#' curve_2_good_linearty <- c(
 #'   2299075, 4136350, 7020062, 8922063, 9288742, 11365710,
 #'   2300075, 4137350, 7021062, 8923063, 9289742, 11366710
 #' )
 #'
 #' curve_data <- tibble::tibble(
 #'   Sample_Name = sample_name,
-#'   Lipid1 = lipid1_area,
-#'   Lipid2 = lipid2_area
+#'   `Curve_1` = curve_1_good_linearty,
+#'   `Curve_2` = curve_2_good_linearty
 #' )
 #'
-#' dilution_percent <- c(
+#' concentration <- c(
 #'   10, 20, 40, 60, 80, 100,
 #'   10, 20, 40, 60, 80, 100
 #' )
 #'
-#' dilution_batch_name <- c(
+#' curve_batch_name <- c(
 #'   "B1", "B1", "B1", "B1", "B1", "B1",
 #'   "B2", "B2", "B2", "B2", "B2", "B2"
 #' )
 #'
 #' curve_batch_annot <- tibble::tibble(
 #'   Sample_Name = sample_name,
-#'   Dilution_Batch_Name = dilution_batch_name,
-#'   Dilution_Percent = dilution_percent
+#'   Curve_Batch_Name = curve_batch_name,
+#'   Concentration = concentration
 #' )
 #'
 #' # Create dilution table
@@ -105,8 +105,8 @@ create_page_layout <- function(number_of_plots,
 #'   curve_batch_annot = curve_batch_annot,
 #'   curve_data_wide = curve_data,
 #'   common_column = "Sample_Name",
-#'   signal_var = "Area",
-#'   column_group = "Transition_Name"
+#'   signal_var = "Signal",
+#'   column_group = "Curve_Name"
 #' )
 #'
 #' # Create a ggplot table without dilution summary

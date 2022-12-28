@@ -7,6 +7,7 @@
 ## Completed
 
 * Update README and vignettes file documentation by replacing `dilution` to `curve`.
+* Add test unit for function `create_reg_col_vec`.
 
 * `validate_dilution_annot` changed to `validate_curve_batch_annot`.
 * `validate_dilution_table` changed to `validate_curve_table`.

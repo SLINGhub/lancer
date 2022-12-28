@@ -194,6 +194,19 @@ test_that("Able to plot dilution data with
   class(invalid_trellis_table$panel) <- "list"
   testthat::expect_error(validate_trellis_table(invalid_trellis_table))
 
+  # panel_variable cannot be grouping_variable
+  testthat::expect_error(
+    plotly_trellis_table_auto <- add_plotly_panel(curve_table) %>%
+      convert_to_cog(
+        cog_df = NULL,
+        grouping_variable = c("Transition_Name",
+                              "Dilution_Batch_Name"),
+        panel_variable = "Transition_Name",
+        col_name_vec = "col_name_vec",
+        desc_vec = "desc_vec",
+        type_vec = "type_vec"
+      )
+  )
 
   # Create the trellis report in plotly
   view_trellis_html(plotly_trellis_table,
@@ -203,8 +216,16 @@ test_that("Able to plot dilution data with
 
 
   # Create a ggplot trellis table
-  ggplot_trellis_table <- add_ggplot_panel(curve_table,
+  ggplot_trellis_table <- add_ggplot_panel(
+    curve_table,
     curve_summary = curve_summary,
+    grouping_variable = c("Transition_Name",
+                          "Dilution_Batch_Name"),
+    curve_batch_var = "Dilution_Batch_Name",
+    conc_var = "Dilution_Percent",
+    conc_var_units = "%",
+    conc_var_interval = 50,
+    signal_var = "Area",
     have_plot_title = FALSE,
     plot_summary_table = FALSE
   ) %>%

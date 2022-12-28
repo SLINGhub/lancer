@@ -700,3 +700,93 @@ test_that("dilution_data, dilution_summary_grp and dil_batch_var argument in plo
  })
 
 })
+
+test_that("dilution_data, dilution_summary_grp, dil_batch_var, dil_batch_col argument in add_ggplot_panel are deprecated", {
+
+  # Data Creation
+  concentration <- c(
+    10, 20, 25, 40, 50, 60,
+    75, 80, 100, 125, 150
+  )
+
+  sample_name <- c(
+    "Sample_010a", "Sample_020a",
+    "Sample_025a", "Sample_040a", "Sample_050a",
+    "Sample_060a", "Sample_075a", "Sample_080a",
+    "Sample_100a", "Sample_125a", "Sample_150a"
+  )
+
+  curve_batch_name <- c(
+    "B1", "B1", "B1", "B1", "B1",
+    "B1", "B1", "B1", "B1", "B1", "B1"
+  )
+
+  curve_name <- c(
+    "Curve_1", "Curve_1", "Curve_1", "Curve_1",
+    "Curve_1", "Curve_1", "Curve_1", "Curve_1",
+    "Curve_1", "Curve_1", "Curve_1"
+  )
+
+  curve_1_saturation_regime <- c(
+    5748124, 16616414, 21702718, 36191617,
+    49324541, 55618266, 66947588, 74964771,
+    75438063, 91770737, 94692060
+  )
+
+  curve_batch_annot <- tibble::tibble(
+    Sample_Name = sample_name,
+    Curve_Batch_Name = curve_batch_name,
+    Concentration = concentration
+  )
+
+  curve_data <- tibble::tibble(
+    Sample_Name = sample_name,
+    `Curve_1` = curve_1_saturation_regime
+  )
+
+  # Create curve table
+  curve_table <- create_curve_table(
+    curve_batch_annot = curve_batch_annot,
+    curve_data_wide = curve_data,
+    common_column = "Sample_Name",
+    signal_var = "Signal",
+    column_group = "Curve_Name"
+  )
+
+  # Create curve statistical summary
+  curve_summary <- curve_table %>%
+    summarise_curve_table(
+      grouping_variable = c(
+        "Curve_Name",
+        "Curve_Batch_Name"
+      ),
+      conc_var = "Concentration",
+      signal_var = "Signal"
+    ) %>%
+    dplyr::arrange(.data[["Curve_Name"]]) %>%
+    evaluate_linearity(grouping_variable = c(
+      "Curve_Name",
+      "Curve_Batch_Name"
+    ))
+
+  # Create a ggplot table
+  testthat::expect_snapshot({
+    ggplot_table <- add_ggplot_panel(
+      dilution_table = curve_table,
+      dilution_summary = curve_summary,
+      grouping_variable = c("Curve_Name",
+                            "Curve_Batch_Name"),
+      dil_batch_var = "Curve_Batch_Name",
+      dil_batch_col = c("#377eb8"),
+      conc_var = "Concentration",
+      conc_var_units = "%",
+      conc_var_interval = 50,
+      signal_var = "Signal",
+      have_plot_title = TRUE,
+      plot_summary_table = TRUE,
+      plot_first_half_lin_reg = FALSE,
+      plot_last_half_lin_reg = FALSE
+    )
+  })
+
+})
