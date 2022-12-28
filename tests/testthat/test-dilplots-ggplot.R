@@ -701,7 +701,7 @@ test_that("dilution_data, dilution_summary_grp and dil_batch_var argument in plo
 
 })
 
-test_that("dilution_data, dilution_summary_grp, dil_batch_var, dil_batch_col argument in add_ggplot_panel are deprecated", {
+test_that("dilution_data, dilution_summary, dil_batch_var, dil_batch_col argument in add_ggplot_panel are deprecated", {
 
   # Data Creation
   concentration <- c(

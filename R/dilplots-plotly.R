@@ -2,12 +2,12 @@
 #' @description Plot curve using `plotly`.
 #' @param curve_data A data frame or tibble containing curve data.
 #' @param title Title to use for each curve plot.
-#' @param pal Input palette for each curve batch group in `curv_batch_var`.
+#' @param pal Input palette for each curve batch group in `curve_batch_var`.
 #' It is a named char vector where each value is a colour and
-#' name is a curve batch group given in `curv_batch_var`.
+#' name is a curve batch group given in `curve_batch_var`.
 #' @param sample_name_var Column name in `curve_data`
 #' to indicate the sample name.
-#' @param curv_batch_var Column name in `curve_data`
+#' @param curve_batch_var Column name in `curve_data`
 #' to indicate the group name of each curve batch,
 #' used to colour the points in the curve plot.
 #' @param dilution_data `r lifecycle::badge("deprecated")`
@@ -15,7 +15,7 @@
 #' `curve_data`.
 #' @param dil_batch_var `r lifecycle::badge("deprecated")`
 #' `dil_batch_var` was renamed to
-#' `curv_batch_var`.
+#' `curve_batch_var`.
 #' @param conc_var Column name in `curve_data` to indicate concentration.
 #' @param conc_var_units Unit of measure for `conc_var` in the curve plot.
 #' @param conc_var_interval Distance between two tick labels.
@@ -31,7 +31,7 @@
 #' @examples
 #'
 #' # Data Creation
-#' dilution_percent <- c(
+#' concentration <- c(
 #'   10, 20, 25, 40, 50, 60,
 #'   75, 80, 100, 125, 150
 #' )
@@ -43,12 +43,12 @@
 #'   "Sample_100a", "Sample_125a", "Sample_150a"
 #' )
 #'
-#' dilution_batch_name <- c(
+#' curve_batch_name <- c(
 #'   "B1", "B1", "B1", "B1", "B1",
 #'   "B1", "B1", "B1", "B1", "B1", "B1"
 #' )
 #'
-#' lipid1_area_saturated <- c(
+#' curve_1_saturation_regime <- c(
 #'   5748124, 16616414, 21702718, 36191617,
 #'   49324541, 55618266, 66947588, 74964771,
 #'   75438063, 91770737, 94692060
@@ -56,32 +56,32 @@
 #'
 #' curve_data <- tibble::tibble(
 #'   Sample_Name = sample_name,
-#'   Dilution_Percent = dilution_percent,
-#'   Area = lipid1_area_saturated,
-#'   Dilution_Batch_Name = dilution_batch_name
+#'   Concentration = concentration,
+#'   Signal = curve_1_saturation_regime,
+#'   Curve_Batch_Name = curve_batch_name
 #' )
 #'
 #' # Get the curve batch name from curve_table
-#' curve_batch_name <- dilution_batch_name %>%
+#' curve_batch_name <- curve_batch_name %>%
 #'   unique() %>%
 #'   as.character()
 #'
-#' curv_batch_col <- c("#377eb8")
+#' curve_batch_col <- c("#377eb8")
 #'
 #' # Create palette for each curve batch for plotting
-#' pal <- curv_batch_col %>%
+#' pal <- curve_batch_col %>%
 #'   stats::setNames(curve_batch_name)
 #'
 #' # Plot the html
 #' p <- plot_curve_plotly(curve_data,
-#'   title = "Lipid_Saturated",
+#'   title = "Curve_Saturated",
 #'   sample_name_var = "Sample_Name",
 #'   pal = pal,
-#'   curv_batch_var = "Dilution_Batch_Name",
-#'   conc_var = "Dilution_Percent",
+#'   curve_batch_var = "Curve_Batch_Name",
+#'   conc_var = "Concentration",
 #'   conc_var_units = "%",
 #'   conc_var_interval = 50,
-#'   signal_var = "Area"
+#'   signal_var = "Signal"
 #' )
 #'
 #' p
@@ -93,13 +93,13 @@ plot_curve_plotly <- function(
     title = "",
     pal,
     sample_name_var = "Sample_Name",
-    curv_batch_var = "Dilution_Batch_Name",
+    curve_batch_var = "Curve_Batch_Name",
     dilution_data = lifecycle::deprecated(),
     dil_batch_var = lifecycle::deprecated(),
-    conc_var = "Dilution_Percent",
+    conc_var = "Concentration",
     conc_var_units = "%",
     conc_var_interval = 50,
-    signal_var = "Area",
+    signal_var = "Signal",
     plot_first_half_lin_reg = FALSE,
     plot_last_half_lin_reg = FALSE) {
 
@@ -115,13 +115,13 @@ plot_curve_plotly <- function(
     lifecycle::deprecate_warn(
       when = "0.0.6.9000",
       what = "plot_curve_plotly(dil_batch_var)",
-      with = "plot_curve_plotly(curv_batch_var)")
-    curv_batch_var <- dil_batch_var
+      with = "plot_curve_plotly(curve_batch_var)")
+    curve_batch_var <- dil_batch_var
   }
 
-  # Convert the column that holds the curv_batch_var
+  # Convert the column that holds the curve_batch_var
   # to character
-  curve_data[[curv_batch_var]] <- curve_data[[curv_batch_var]] %>%
+  curve_data[[curve_batch_var]] <- curve_data[[curve_batch_var]] %>%
     as.character()
 
   # Drop rows whose value of signal_var is NA
@@ -147,8 +147,8 @@ plot_curve_plotly <- function(
         size = 10, opacity = 1,
         line = list(color = "black", width = 1.5)
       ),
-      name = ~ curve_data[[curv_batch_var]],
-      color = ~ curve_data[[curv_batch_var]],
+      name = ~ curve_data[[curve_batch_var]],
+      color = ~ curve_data[[curve_batch_var]],
       colors = pal,
       hoverinfo = "text",
       text = ~ curve_data[[sample_name_var]],
@@ -404,19 +404,19 @@ plot_curve_plotly <- function(
 #' @param sample_name_var Column name in `curve_table`
 #' to indicate the sample name. To be used in the curve plot.
 #' Default: 'Sample_Name'
-#' @param curv_batch_var Column name in `curve_table`
+#' @param curve_batch_var Column name in `curve_table`
 #' to indicate the group name of each curve batch,
 #' used to colour the points in the curve plot.
 #' Default: 'Dilution_Batch_Name'
-#' @param curv_batch_col A vector of colours to be used for the curve
-#' batch group named given in `curv_batch_var`.
+#' @param curve_batch_col A vector of colours to be used for the curve
+#' batch group named given in `curve_batch_var`.
 #' Default: c("#377eb8", "#4daf4a", "#9C27B0", "#BCAAA4", "#FF8A65", "#EFBBCF")
 #' @param dil_batch_var `r lifecycle::badge("deprecated")`
 #' `dil_batch_var` was renamed to
-#' `curv_batch_var`.
+#' `curve_batch_var`.
 #' @param dil_batch_col `r lifecycle::badge("deprecated")`
 #' `dil_batch_col` was renamed to
-#' `curv_batch_col`.
+#' `curve_batch_col`.
 #' @param conc_var Column name in `curve_table` to indicate concentration.
 #' Default: 'Dilution_Percent'
 #' @param conc_var_units Unit of measure for `conc_var`. Default: '%'
@@ -443,14 +443,14 @@ plot_curve_plotly <- function(
 #' @examples
 #'
 #' # Data Creation
-#' dilution_percent <- c(
+#' concentration <- c(
 #'   10, 20, 25, 40, 50, 60,
 #'   75, 80, 100, 125, 150,
 #'   10, 25, 40, 50, 60,
 #'   75, 80, 100, 125, 150
 #' )
 #'
-#' dilution_batch_name <- c(
+#' curve_batch_name <- c(
 #'   "B1", "B1", "B1", "B1", "B1",
 #'   "B1", "B1", "B1", "B1", "B1", "B1",
 #'   "B2", "B2", "B2", "B2", "B2",
@@ -468,7 +468,7 @@ plot_curve_plotly <- function(
 #'   "Sample_125b", "Sample_150b"
 #' )
 #'
-#' lipid1_area_saturated <- c(
+#' curve_1_saturation_regime <- c(
 #'   5748124, 16616414, 21702718, 36191617,
 #'   49324541, 55618266, 66947588, 74964771,
 #'   75438063, 91770737, 94692060,
@@ -477,21 +477,21 @@ plot_curve_plotly <- function(
 #'   78044338, 86158414
 #' )
 #'
-#' lipid2_area_linear <- c(
+#' curve_2_good_linearty <- c(
 #'   31538, 53709, 69990, 101977, 146436, 180960,
 #'   232881, 283780, 298289, 344519, 430432,
 #'   25463, 63387, 90624, 131274, 138069,
 #'   205353, 202407, 260205, 292257, 367924
 #' )
 #'
-#' lipid3_area_lod <- c(
+#' curve_3_noise_regime <- c(
 #'   544, 397, 829, 1437, 1808, 2231,
 #'   3343, 2915, 5268, 8031, 11045,
 #'   500, 903, 1267, 2031, 2100,
 #'   3563, 4500, 5300, 8500, 10430
 #' )
 #'
-#' lipid4_area_nonlinear <- c(
+#' curve_4_poor_linearty <- c(
 #'   380519, 485372, 478770, 474467, 531640, 576301,
 #'   501068, 550201, 515110, 499543, 474745,
 #'   197417, 322846, 478398, 423174, 418577,
@@ -500,16 +500,16 @@ plot_curve_plotly <- function(
 #'
 #' curve_batch_annot <- tibble::tibble(
 #'   Sample_Name = sample_name,
-#'   Dilution_Batch_Name = dilution_batch_name,
-#'   Dilution_Percent = dilution_percent
+#'   Curve_Batch_Name = curve_batch_name,
+#'   Concentration = concentration
 #' )
 #'
 #' curve_data <- tibble::tibble(
 #'   Sample_Name = sample_name,
-#'   Lipid1 = lipid1_area_saturated,
-#'   Lipid2 = lipid2_area_linear,
-#'   Lipid3 = lipid3_area_lod,
-#'   Lipid4 = lipid4_area_nonlinear
+#'   `Curve_1` = curve_1_saturation_regime,
+#'   `Curve_2` = curve_2_good_linearty,
+#'   `Curve_3` = curve_3_noise_regime,
+#'   `Curve_4` = curve_4_poor_linearty
 #' )
 #'
 #' # Create curve table
@@ -517,30 +517,38 @@ plot_curve_plotly <- function(
 #'   curve_batch_annot = curve_batch_annot,
 #'   curve_data_wide = curve_data,
 #'   common_column = "Sample_Name",
-#'   signal_var = "Area",
-#'   column_group = "Transition_Name"
+#'   signal_var = "Signal",
+#'   column_group = "Curve_Name"
 #' )
 #'
 #' # Create curve statistical summary
 #' curve_summary <- curve_table %>%
 #'   summarise_curve_table(
 #'     grouping_variable = c(
-#'       "Transition_Name",
-#'       "Dilution_Batch_Name"
+#'       "Curve_Name",
+#'       "Curve_Batch_Name"
 #'     ),
-#'     conc_var = "Dilution_Percent",
-#'     signal_var = "Area"
+#'     conc_var = "Concentration",
+#'     signal_var = "Signal"
 #'   ) %>%
-#'   dplyr::arrange(.data$Transition_Name) %>%
+#'   dplyr::arrange(.data[["Curve_Name"]]) %>%
 #'   evaluate_linearity(grouping_variable = c(
-#'     "Transition_Name",
-#'     "Dilution_Batch_Name"
+#'     "Curve_Name",
+#'     "Curve_Batch_Name"
 #'   ))
 #'
 #' # Create a trellis table
 #' trellis_table <- add_plotly_panel(
 #'   curve_table,
-#'   curve_summary = curve_summary
+#'   curve_summary = curve_summary,
+#'   grouping_variable = c("Curve_Name",
+#'                         "Curve_Batch_Name"),
+#'   sample_name_var = "Sample_Name",
+#'   curve_batch_var = "Curve_Batch_Name",
+#'       conc_var = "Concentration",
+#'       conc_var_units = "%",
+#'       conc_var_interval = 50,
+#'       signal_var = "Signal"
 #' )
 #'
 #' plotly_list <- trellis_table$panel
@@ -558,19 +566,19 @@ add_plotly_panel <- function(
     curve_summary = NULL,
     dilution_table = lifecycle::deprecated(),
     dilution_summary = lifecycle::deprecated(),
-    grouping_variable = c("Transition_Name",
-                          "Dilution_Batch_Name"),
+    grouping_variable = c("Curve_Name",
+                          "Curve_Batch_Name"),
     sample_name_var = "Sample_Name",
-    curv_batch_var = "Dilution_Batch_Name",
-    curv_batch_col = c("#377eb8", "#4daf4a",
+    curve_batch_var = "Curve_Batch_Name",
+    curve_batch_col = c("#377eb8", "#4daf4a",
                        "#9C27B0", "#BCAAA4",
                        "#FF8A65", "#EFBBCF"),
     dil_batch_var = lifecycle::deprecated(),
     dil_batch_col = lifecycle::deprecated(),
-    conc_var = "Dilution_Percent",
+    conc_var = "Concentration",
     conc_var_units = "%",
     conc_var_interval = 50,
-    signal_var = "Area",
+    signal_var = "Signal",
     have_plot_title = FALSE,
     plot_first_half_lin_reg = FALSE,
     plot_last_half_lin_reg = FALSE) {
@@ -595,16 +603,16 @@ add_plotly_panel <- function(
     lifecycle::deprecate_warn(
       when = "0.0.6.9000",
       what = "add_plotly_panel(dil_batch_var)",
-      with = "add_plotly_panel(curv_batch_var)")
-    curv_batch_var <- dil_batch_var
+      with = "add_plotly_panel(curve_batch_var)")
+    curve_batch_var <- dil_batch_var
   }
 
   if (lifecycle::is_present(dil_batch_col)) {
     lifecycle::deprecate_warn(
       when = "0.0.6.9000",
       what = "add_plotly_panel(dil_batch_col)",
-      with = "add_plotly_panel(curv_batch_col)")
-    curv_batch_col <- dil_batch_col
+      with = "add_plotly_panel(curve_batch_col)")
+    curve_batch_col <- dil_batch_col
   }
 
   # Check if curve_table is valid with the relevant columns
@@ -613,7 +621,7 @@ add_plotly_panel <- function(
     needed_column = c(
       grouping_variable,
       sample_name_var,
-      curv_batch_var,
+      curve_batch_var,
       conc_var,
       signal_var
     )
@@ -637,12 +645,12 @@ add_plotly_panel <- function(
 
   # Get the curve batch name from curve_table
   curve_batch_name <- curve_table %>%
-    dplyr::pull(.data[[curv_batch_var]]) %>%
+    dplyr::pull(.data[[curve_batch_var]]) %>%
     unique() %>%
     as.character()
 
   # Create palette for each curve batch for plotting
-  pal <- curv_batch_col %>%
+  pal <- curve_batch_col %>%
     create_char_seq(output_length = length(curve_batch_name)) %>%
     stats::setNames(curve_batch_name)
 
@@ -661,8 +669,8 @@ add_plotly_panel <- function(
       dplyr::mutate(title = "")
   }
 
-  # Add curv_batch_var in the nested data
-  # Will not work if curv_batch_var is also a grouping_variable
+  # Add curve_batch_var in the nested data
+  # Will not work if curve_batch_var is also a grouping_variable
 
   curve_table <- curve_table %>%
     dplyr::group_by_at(
@@ -674,14 +682,14 @@ add_plotly_panel <- function(
   # If this is the case, we need to make a copy
   # of the variable inside the nested data
 
-  if (curv_batch_var %in% grouping_variable) {
+  if (curve_batch_var %in% grouping_variable) {
     curve_table <- curve_table %>%
       dplyr::mutate(data = purrr::map2(
         .x = .data$data,
-        .y = .data[[curv_batch_var]],
+        .y = .data[[curve_batch_var]],
         .f = function(df, curve_batch_name) {
           df <- df %>%
-            dplyr::mutate(!!curv_batch_var := curve_batch_name)
+            dplyr::mutate(!!curve_batch_var := curve_batch_name)
           return(df)
         }
       ))
@@ -697,7 +705,7 @@ add_plotly_panel <- function(
       .f = plot_curve_plotly,
       pal = pal,
       sample_name_var = sample_name_var,
-      curv_batch_var = curv_batch_var,
+      curve_batch_var = curve_batch_var,
       conc_var = conc_var,
       conc_var_units = conc_var_units,
       conc_var_interval = conc_var_interval,

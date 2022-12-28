@@ -136,8 +136,8 @@ trellis_table_orig <- lancer::add_plotly_panel(
     "Curve_Batch_Name"
   ),
   sample_name_var = "Sample_Name",
-  curv_batch_var = "Curve_Batch_Name",
-  curv_batch_col = c(
+  curve_batch_var = "Curve_Batch_Name",
+  curve_batch_col = c(
     "#377eb8",
     "#4daf4a"
   ),
@@ -168,8 +168,8 @@ trellis_table <- lancer::add_plotly_panel(
     "Curve_Batch_Name"
   ),
   sample_name_var = "Sample_Name",
-  curv_batch_var = "Curve_Batch_Name",
-  curv_batch_col = c(
+  curve_batch_var = "Curve_Batch_Name",
+  curve_batch_col = c(
     "#377eb8",
     "#4daf4a"
   ),
@@ -201,8 +201,8 @@ trellis_table <- lancer::add_plotly_panel(
     "Curve_Batch_Name"
   ),
   sample_name_var = "Sample_Name",
-  curv_batch_var = "Curve_Batch_Name",
-  curv_batch_col = c(
+  curve_batch_var = "Curve_Batch_Name",
+  curve_batch_col = c(
     "#377eb8",
     "#4daf4a"
   ),

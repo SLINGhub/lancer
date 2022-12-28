@@ -105,7 +105,12 @@ test_that("Able to plot dilution data with
       "Transition_Name",
       "Dilution_Batch_Name"
     ),
-    curv_batch_var = "Dilution_Batch_Name"
+    sample_name_var = "Sample_Name",
+    curve_batch_var = "Dilution_Batch_Name",
+    conc_var = "Dilution_Percent",
+    conc_var_units = "%",
+    conc_var_interval = 50,
+    signal_var = "Area"
   ) %>%
     convert_to_cog(
       cog_df = NULL,
@@ -137,7 +142,12 @@ test_that("Able to plot dilution data with
     grouping_variable = c(
       "Transition_Name"
     ),
-    curv_batch_var = "Dilution_Batch_Name"
+    sample_name_var = "Sample_Name",
+    curve_batch_var = "Dilution_Batch_Name",
+    conc_var = "Dilution_Percent",
+    conc_var_units = "%",
+    conc_var_interval = 50,
+    signal_var = "Area"
   ) %>%
     convert_to_cog(
       cog_df = NULL,
@@ -159,7 +169,19 @@ test_that("Able to plot dilution data with
       ))
 
   # Create a trellis table without dilution summary
-  plotly_trellis_table_auto <- add_plotly_panel(curve_table) %>%
+  plotly_trellis_table_auto <- add_plotly_panel(
+    curve_table,
+    grouping_variable = c(
+      "Transition_Name",
+      "Dilution_Batch_Name"
+    ),
+    sample_name_var = "Sample_Name",
+    curve_batch_var = "Dilution_Batch_Name",
+    conc_var = "Dilution_Percent",
+    conc_var_units = "%",
+    conc_var_interval = 50,
+    signal_var = "Area"
+    ) %>%
     convert_to_cog(
       cog_df = NULL,
       grouping_variable = c(
@@ -196,7 +218,19 @@ test_that("Able to plot dilution data with
 
   # panel_variable cannot be grouping_variable
   testthat::expect_error(
-    plotly_trellis_table_auto <- add_plotly_panel(curve_table) %>%
+    plotly_trellis_table_auto <- add_plotly_panel(
+      curve_table,
+      grouping_variable = c(
+        "Transition_Name",
+        "Dilution_Batch_Name"
+      ),
+      sample_name_var = "Sample_Name",
+      curve_batch_var = "Dilution_Batch_Name",
+      conc_var = "Dilution_Percent",
+      conc_var_units = "%",
+      conc_var_interval = 50,
+      signal_var = "Area"
+      ) %>%
       convert_to_cog(
         cog_df = NULL,
         grouping_variable = c("Transition_Name",
@@ -252,7 +286,14 @@ test_that("Able to plot dilution data with
   # if input panel_variable is not called "panel"
   different_panel_table <- add_plotly_panel(
     curve_table,
-    curve_summary = curve_summary
+    curve_summary = curve_summary,
+    grouping_variable = c("Transition_Name",
+                          "Dilution_Batch_Name"),
+    curve_batch_var = "Dilution_Batch_Name",
+    conc_var = "Dilution_Percent",
+    conc_var_units = "%",
+    conc_var_interval = 50,
+    signal_var = "Area"
   ) %>%
     dplyr::rename(paneldiff = panel) %>%
     convert_to_cog(

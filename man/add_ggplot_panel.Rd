@@ -208,8 +208,16 @@ curve_summary <- curve_table \%>\%
 # Create a ggplot table
 ggplot_table <- add_ggplot_panel(
   curve_table,
-  curve_summary = curve_summary
+  curve_summary = curve_summary,
+  grouping_variable = c("Curve_Name",
+                        "Curve_Batch_Name"),
+  curve_batch_var = "Curve_Batch_Name",
+  conc_var = "Concentration",
+  conc_var_units = "\%",
+  conc_var_interval = 50,
+  signal_var = "Signal"
 )
+
 ggplot_list <- ggplot_table$panel
 
 ggplot_list[[1]]

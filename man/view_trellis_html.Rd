@@ -95,7 +95,17 @@ curve_table <- create_curve_table(
   column_group = "Transition_Name"
 )
 # Add a plotly panel without dilution summary
-trellis_table_auto <- add_plotly_panel(curve_table) \%>\%
+trellis_table_auto <- add_plotly_panel(
+  curve_table,
+  grouping_variable = c("Transition_Name",
+                        "Dilution_Batch_Name"),
+  sample_name_var = "Sample_Name",
+  curve_batch_var = "Dilution_Batch_Name",
+  conc_var = "Dilution_Percent",
+  conc_var_units = "\%",
+  conc_var_interval = 50,
+  signal_var = "Area"
+  ) \%>\%
   convert_to_cog(
     cog_df = NULL,
     grouping_variable = c(

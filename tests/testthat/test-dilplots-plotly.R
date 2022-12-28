@@ -1,7 +1,7 @@
-test_that("Able to plot dilution data with plotly correctly", {
+test_that("Able to plot curve data with plotly correctly", {
 
   # Data Creation
-  dilution_percent <- c(
+  concentration <- c(
     10, 20, 25, 40, 50, 60,
     75, 80, 100, 125, 150
   )
@@ -13,75 +13,59 @@ test_that("Able to plot dilution data with plotly correctly", {
     "Sample_100a", "Sample_125a", "Sample_150a"
   )
 
-  dilution_batch_name <- c(
+  curve_batch_name <- c(
     "B1", "B1", "B1", "B1", "B1",
     "B1", "B1", "B1", "B1", "B1", "B1"
   )
 
-  lipid1_area_saturated <- c(
+  curve_1_saturation_regime <- c(
     5748124, 16616414, 21702718, 36191617,
     49324541, 55618266, 66947588, 74964771,
     75438063, 91770737, 94692060
   )
 
-  lipid2_area_linear <- c(
-    31538, 53709, 69990, 101977, 146436, 180960,
-    232881, 283780, 298289, 344519, 4304324
-  )
-
-  lipid3_area_lod <- c(
-    544, 397, 829, 1437, 1808, 2231,
-    3343, 2915, 5268, 8031, 11045
-  )
-
-  lipid4_area_nonlinear <- c(
-    380519, 485372, 478770, 474467, 531640, 576301,
-    501068, 550201, 515110, 499543, 474745
-  )
-
-  bad_area <- c(
+  bad_signal <- c(
     2, 2, 2, 2, 2, 2,
     2, 2, 2, 2, 2
   )
 
-  bad_conc <- c(
+  bad_concentration <- c(
     50, 50, 50, 50, 50, 50,
     50, 50, 50, 50, 50
   )
 
-  na_area <- c(
+  na_signal <- c(
     NA, NA, NA, NA, NA, NA,
     NA, NA, NA, NA, NA
   )
 
   curve_data <- tibble::tibble(
     Sample_Name = sample_name,
-    Dilution_Percent = dilution_percent,
-    Area = lipid1_area_saturated,
-    Dilution_Batch_Name = dilution_batch_name
+    Concentration = concentration,
+    Signal = curve_1_saturation_regime,
+    Curve_Batch_Name = curve_batch_name
   )
 
-  # Get the dilution batch name from dilution_table
-  dilution_batch_name <- dilution_batch_name %>%
+  curve_batch_name <- curve_batch_name %>%
     unique() %>%
     as.character()
 
-  dil_batch_col <- c("#377eb8")
+  curve_batch_col <- c("#377eb8")
 
-  # Create palette for each dilution batch for plotting
-  pal <- dil_batch_col %>%
-    stats::setNames(dilution_batch_name)
+  # Create palette for each curve batch for plotting
+  pal <- curve_batch_col %>%
+    stats::setNames(curve_batch_name)
 
   # Plot the html
   p <- plot_curve_plotly(curve_data,
-    title = "Lipid_Saturated",
+    title = "Curve_Saturated",
     pal = pal,
     sample_name_var = "Sample_Name",
-    curv_batch_var = "Dilution_Batch_Name",
-    conc_var = "Dilution_Percent",
+    curve_batch_var = "Curve_Batch_Name",
+    conc_var = "Concentration",
     conc_var_units = "%",
     conc_var_interval = 50,
-    signal_var = "Area",
+    signal_var = "Signal",
     plot_first_half_lin_reg = TRUE,
     plot_last_half_lin_reg = TRUE
   )
@@ -103,21 +87,21 @@ test_that("Able to plot dilution data with plotly correctly", {
   # Handle the case of horizontal line
   curve_data <- tibble::tibble(
     Sample_Name = sample_name,
-    Dilution_Percent = dilution_percent,
-    Area = bad_area,
-    Dilution_Batch_Name = dilution_batch_name
+    Concentration = concentration,
+    Signal = bad_signal,
+    Curve_Batch_Name = curve_batch_name
   )
 
   # Plot the html
   p <- plot_curve_plotly(curve_data,
-    title = "Lipid_Horizontal",
+    title = "Curve_Horizontal",
     pal = pal,
     sample_name_var = "Sample_Name",
-    curv_batch_var = "Dilution_Batch_Name",
-    conc_var = "Dilution_Percent",
+    curve_batch_var = "Curve_Batch_Name",
+    conc_var = "Concentration",
     conc_var_units = "%",
     conc_var_interval = 50,
-    signal_var = "Area"
+    signal_var = "Signal"
   )
 
 
@@ -138,21 +122,21 @@ test_that("Able to plot dilution data with plotly correctly", {
   # Handle the case of vertical line
   curve_data <- tibble::tibble(
     Sample_Name = sample_name,
-    Dilution_Percent = bad_conc,
-    Area = lipid1_area_saturated,
-    Dilution_Batch_Name = dilution_batch_name
+    Concentration = bad_concentration,
+    Signal = curve_1_saturation_regime,
+    Curve_Batch_Name = curve_batch_name
   )
 
   # Plot the html
   p <- plot_curve_plotly(curve_data,
-    title = "Lipid_Vertical",
+    title = "Curve_Vertical",
     pal = pal,
     sample_name_var = "Sample_Name",
-    curv_batch_var = "Dilution_Batch_Name",
-    conc_var = "Dilution_Percent",
+    curve_batch_var = "Curve_Batch_Name",
+    conc_var = "Concentration",
     conc_var_units = "%",
     conc_var_interval = 50,
-    signal_var = "Area"
+    signal_var = "Signal"
   )
 
   # The first trace is markers (scatter plot)
@@ -172,21 +156,21 @@ test_that("Able to plot dilution data with plotly correctly", {
   # Handle the case of a point
   curve_data <- tibble::tibble(
     Sample_Name = sample_name,
-    Dilution_Percent = bad_conc,
-    Area = bad_area,
-    Dilution_Batch_Name = dilution_batch_name
+    Concentration = bad_concentration,
+    Signal = bad_signal,
+    Curve_Batch_Name = curve_batch_name
   )
 
   # Plot the html
   p <- plot_curve_plotly(curve_data,
-    title = "Lipid_Point",
+    title = "Curve_Point",
     pal = pal,
     sample_name_var = "Sample_Name",
-    curv_batch_var = "Dilution_Batch_Name",
-    conc_var = "Dilution_Percent",
+    curve_batch_var = "Curve_Batch_Name",
+    conc_var = "Concentration",
     conc_var_units = "%",
     conc_var_interval = 50,
-    signal_var = "Area"
+    signal_var = "Signal"
   )
 
   # The first trace is markers (scatter plot)
@@ -206,21 +190,21 @@ test_that("Able to plot dilution data with plotly correctly", {
   # Handle the case of a plot that gives no points
   curve_data <- tibble::tibble(
     Sample_Name = sample_name,
-    Dilution_Percent = dilution_percent,
-    Area = na_area,
-    Dilution_Batch_Name = dilution_batch_name
+    Concentration = bad_concentration,
+    Signal = na_signal,
+    Curve_Batch_Name = curve_batch_name
   )
 
   # Plot the html
   p <- plot_curve_plotly(curve_data,
-    title = "Lipid_No_Point",
+    title = "Curve_No_Point",
     pal = pal,
     sample_name_var = "Sample_Name",
-    curv_batch_var = "Dilution_Batch_Name",
-    conc_var = "Dilution_Percent",
+    curve_batch_var = "Curve_Batch_Name",
+    conc_var = "Concentration",
     conc_var_units = "%",
     conc_var_interval = 50,
-    signal_var = "Area"
+    signal_var = "Signal"
   )
 
   # The first trace is markers (scatter plot)
@@ -229,4 +213,250 @@ test_that("Able to plot dilution data with plotly correctly", {
     p$x$attrs[[2]]$mode,
     "markers"
   )
+})
+
+test_that("Create a plotly table with plot title", {
+
+  # Data Creation
+  concentration <- c(
+    10, 20, 25, 40, 50, 60,
+    75, 80, 100, 125, 150
+  )
+
+  sample_name <- c(
+    "Sample_010a", "Sample_020a",
+    "Sample_025a", "Sample_040a", "Sample_050a",
+    "Sample_060a", "Sample_075a", "Sample_080a",
+    "Sample_100a", "Sample_125a", "Sample_150a"
+  )
+
+  curve_batch_name <- c(
+    "B1", "B1", "B1", "B1", "B1",
+    "B1", "B1", "B1", "B1", "B1", "B1"
+  )
+
+  curve_name <- c(
+    "Curve_1", "Curve_1", "Curve_1", "Curve_1",
+    "Curve_1", "Curve_1", "Curve_1", "Curve_1",
+    "Curve_1", "Curve_1", "Curve_1"
+  )
+
+  curve_1_saturation_regime <- c(
+    5748124, 16616414, 21702718, 36191617,
+    49324541, 55618266, 66947588, 74964771,
+    75438063, 91770737, 94692060
+  )
+
+  curve_batch_annot <- tibble::tibble(
+    Sample_Name = sample_name,
+    Curve_Batch_Name = curve_batch_name,
+    Concentration = concentration
+  )
+
+  curve_data <- tibble::tibble(
+    Sample_Name = sample_name,
+    `Curve_1` = curve_1_saturation_regime
+  )
+
+  # Create curve table
+  curve_table <- create_curve_table(
+    curve_batch_annot = curve_batch_annot,
+    curve_data_wide = curve_data,
+    common_column = "Sample_Name",
+    signal_var = "Signal",
+    column_group = "Curve_Name"
+  )
+
+  # Create curve statistical summary
+  curve_summary <- curve_table %>%
+    summarise_curve_table(
+      grouping_variable = c(
+        "Curve_Name",
+        "Curve_Batch_Name"
+      ),
+      conc_var = "Concentration",
+      signal_var = "Signal"
+    ) %>%
+    dplyr::arrange(.data[["Curve_Name"]]) %>%
+    evaluate_linearity(grouping_variable = c(
+      "Curve_Name",
+      "Curve_Batch_Name"
+    ))
+
+  # Create a plotly table with plot title
+  plotly_table <- add_plotly_panel(
+    curve_table = curve_table,
+    curve_summary = curve_summary,
+    grouping_variable = c("Curve_Name",
+                          "Curve_Batch_Name"),
+    curve_batch_var = "Curve_Batch_Name",
+    curve_batch_col = c("#377eb8"),
+    conc_var = "Concentration",
+    conc_var_units = "%",
+    conc_var_interval = 50,
+    signal_var = "Signal",
+    have_plot_title = TRUE,
+    plot_first_half_lin_reg = FALSE,
+    plot_last_half_lin_reg = FALSE
+  )
+
+  p <- plotly_table$panel[[1]]
+
+  # Plot title is Curve_1_B1
+  testthat::expect_equal(
+    p$x$layoutAttrs[[p$x$cur_data]]$title$text,
+    "Curve_1_B1"
+  )
+
+})
+
+test_that("dilution_data and dil_batch_var argument in plot_curve_plotly are deprecated", {
+
+  # Data Creation
+  concentration <- c(
+    10, 20, 25, 40, 50, 60,
+    75, 80, 100, 125, 150
+  )
+
+  sample_name <- c(
+    "Sample_010a", "Sample_020a",
+    "Sample_025a", "Sample_040a", "Sample_050a",
+    "Sample_060a", "Sample_075a", "Sample_080a",
+    "Sample_100a", "Sample_125a", "Sample_150a"
+  )
+
+  curve_batch_name <- c(
+    "B1", "B1", "B1", "B1", "B1",
+    "B1", "B1", "B1", "B1", "B1", "B1"
+  )
+
+  curve_1_saturation_regime <- c(
+    5748124, 16616414, 21702718, 36191617,
+    49324541, 55618266, 66947588, 74964771,
+    75438063, 91770737, 94692060
+  )
+
+  curve_data <- tibble::tibble(
+    Sample_Name = sample_name,
+    Concentration = concentration,
+    Signal = curve_1_saturation_regime,
+    Curve_Batch_Name = curve_batch_name
+  )
+
+  curve_batch_name <- curve_batch_name %>%
+    unique() %>%
+    as.character()
+
+  curve_batch_col <- c("#377eb8")
+
+  # Create palette for each curve batch for plotting
+  pal <- curve_batch_col %>%
+    stats::setNames(curve_batch_name)
+
+  # Plot the html
+  testthat::expect_snapshot({
+    p <- plot_curve_plotly(
+      dilution_data = curve_data,
+      title = "Curve_Saturated",
+      pal = pal,
+      sample_name_var = "Sample_Name",
+      dil_batch_var = "Curve_Batch_Name",
+      conc_var = "Concentration",
+      conc_var_units = "%",
+      conc_var_interval = 50,
+      signal_var = "Signal",
+      plot_first_half_lin_reg = TRUE,
+      plot_last_half_lin_reg = TRUE
+    )
+  })
+
+})
+
+test_that("dilution_data, dilution_summary, dil_batch_var, dil_batch_col argument in add_plotly_panel are deprecated", {
+
+  # Data Creation
+  concentration <- c(
+    10, 20, 25, 40, 50, 60,
+    75, 80, 100, 125, 150
+  )
+
+  sample_name <- c(
+    "Sample_010a", "Sample_020a",
+    "Sample_025a", "Sample_040a", "Sample_050a",
+    "Sample_060a", "Sample_075a", "Sample_080a",
+    "Sample_100a", "Sample_125a", "Sample_150a"
+  )
+
+  curve_batch_name <- c(
+    "B1", "B1", "B1", "B1", "B1",
+    "B1", "B1", "B1", "B1", "B1", "B1"
+  )
+
+  curve_name <- c(
+    "Curve_1", "Curve_1", "Curve_1", "Curve_1",
+    "Curve_1", "Curve_1", "Curve_1", "Curve_1",
+    "Curve_1", "Curve_1", "Curve_1"
+  )
+
+  curve_1_saturation_regime <- c(
+    5748124, 16616414, 21702718, 36191617,
+    49324541, 55618266, 66947588, 74964771,
+    75438063, 91770737, 94692060
+  )
+
+  curve_batch_annot <- tibble::tibble(
+    Sample_Name = sample_name,
+    Curve_Batch_Name = curve_batch_name,
+    Concentration = concentration
+  )
+
+  curve_data <- tibble::tibble(
+    Sample_Name = sample_name,
+    `Curve_1` = curve_1_saturation_regime
+  )
+
+  # Create curve table
+  curve_table <- create_curve_table(
+    curve_batch_annot = curve_batch_annot,
+    curve_data_wide = curve_data,
+    common_column = "Sample_Name",
+    signal_var = "Signal",
+    column_group = "Curve_Name"
+  )
+
+  # Create curve statistical summary
+  curve_summary <- curve_table %>%
+    summarise_curve_table(
+      grouping_variable = c(
+        "Curve_Name",
+        "Curve_Batch_Name"
+      ),
+      conc_var = "Concentration",
+      signal_var = "Signal"
+    ) %>%
+    dplyr::arrange(.data[["Curve_Name"]]) %>%
+    evaluate_linearity(grouping_variable = c(
+      "Curve_Name",
+      "Curve_Batch_Name"
+    ))
+
+  # Create a plotly table
+  testthat::expect_snapshot({
+    plotly_table <- add_plotly_panel(
+      dilution_table = curve_table,
+      dilution_summary = curve_summary,
+      grouping_variable = c("Curve_Name",
+                            "Curve_Batch_Name"),
+      dil_batch_var = "Curve_Batch_Name",
+      dil_batch_col = c("#377eb8"),
+      conc_var = "Concentration",
+      conc_var_units = "%",
+      conc_var_interval = 50,
+      signal_var = "Signal",
+      have_plot_title = FALSE,
+      plot_first_half_lin_reg = FALSE,
+      plot_last_half_lin_reg = FALSE
+    )
+  })
+
 })

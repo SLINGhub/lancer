@@ -43,7 +43,7 @@
       The `dil_batch_var` argument of `plot_curve_ggplot()` is deprecated as of lancer 0.0.6.9000.
       i Please use the `curve_batch_var` argument instead.
 
-# dilution_data, dilution_summary_grp, dil_batch_var, dil_batch_col argument in add_ggplot_panel are deprecated
+# dilution_data, dilution_summary, dil_batch_var, dil_batch_col argument in add_ggplot_panel are deprecated
 
     Code
       ggplot_table <- add_ggplot_panel(dilution_table = curve_table,
