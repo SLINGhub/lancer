@@ -133,9 +133,6 @@ view_ggplot_pdf <- function(ggplot_list,
     number_of_plots = number_of_plots,
     ncol = ncol_per_page, nrow = nrow_per_page
   )
-  # Get the number of plots per page
-  # number_of_plots_per_page <- get_number_of_plots_per_page(page_layout$ncol,
-  #                                                         page_layout$nrow)
 
   number_of_plots_per_page <- Inf
 
