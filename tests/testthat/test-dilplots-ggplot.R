@@ -514,17 +514,70 @@ test_that("Able to return NULL when there is no summary for one curve group", {
   curve_summary_grp <- data.frame()
 
   # Test that it gives NULL when both columns types are missing
-  testthat::expect_snapshot({
+
+  testthat::expect_null(
     plot_summary_table(curve_summary_grp)
-  })
+  )
 
-  testthat::expect_snapshot({
+  testthat::expect_null(
     plot_summary_table(NA)
-  })
+  )
 
-  testthat::expect_snapshot({
+  testthat::expect_null(
     plot_summary_table(NULL)
-  })
+  )
+
+})
+
+test_that("Test Regression Colour Vector Output", {
+
+  regression_colour_vector_both_true <- create_reg_col_vec(
+    plot_first_half_lin_reg = TRUE,
+    plot_last_half_lin_reg = TRUE
+  )
+
+  regression_colour_vector_first_true <- create_reg_col_vec(
+    plot_first_half_lin_reg = TRUE,
+    plot_last_half_lin_reg = FALSE
+  )
+
+  regression_colour_vector_last_true <- create_reg_col_vec(
+    plot_first_half_lin_reg = FALSE,
+    plot_last_half_lin_reg = TRUE
+  )
+
+  regression_colour_vector_both_false <- create_reg_col_vec(
+    plot_first_half_lin_reg = FALSE,
+    plot_last_half_lin_reg = FALSE
+  )
+
+  correct_colour_vector_both_true <- c(Lin = "black", Quad = "red",
+                                       `Lin First Half` = "blue",
+                                       `Lin Last Half` = "purple")
+
+  correct_colour_vector_first_true <- c(Lin = "black", Quad = "red",
+                                       `Lin First Half` = "blue")
+
+  correct_colour_vector_last_true <- c(Lin = "black", Quad = "red",
+                                       `Lin Last Half` = "purple")
+
+  correct_colour_vector_both_false <- c(Lin = "black", Quad = "red")
+
+  testthat::expect_mapequal(
+    regression_colour_vector_both_true,
+    correct_colour_vector_both_true)
+
+  testthat::expect_mapequal(
+    regression_colour_vector_first_true,
+    correct_colour_vector_first_true)
+
+  testthat::expect_mapequal(
+    regression_colour_vector_last_true,
+    correct_colour_vector_last_true)
+
+  testthat::expect_mapequal(
+    regression_colour_vector_both_false,
+    correct_colour_vector_both_false)
 
 })
 

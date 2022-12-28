@@ -1,24 +1,3 @@
-# Able to return NULL when there is no summary for one curve group
-
-    Code
-      plot_summary_table(curve_summary_grp)
-    Output
-      NULL
-
----
-
-    Code
-      plot_summary_table(NA)
-    Output
-      NULL
-
----
-
-    Code
-      plot_summary_table(NULL)
-    Output
-      NULL
-
 # dilution_summary, dilution_summary_grp argument in plot_summary_table related functions are deprecated
 
     Code

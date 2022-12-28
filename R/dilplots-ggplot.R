@@ -589,7 +589,7 @@ plot_curve_ggplot <- function(
         )
 
 
-      if (plot_first_half_lin_reg) {
+      if (isTRUE(plot_first_half_lin_reg)) {
 
         # Get the points for the partial linear curve
         partial_conc_points <- curve_data %>%
@@ -633,7 +633,7 @@ plot_curve_ggplot <- function(
           )
       }
 
-      if (plot_last_half_lin_reg) {
+      if (isTRUE(plot_last_half_lin_reg)) {
 
         # Get the points for the partial linear curve
         partial_conc_points <- curve_data %>%
