@@ -309,8 +309,16 @@ pdf report.</p>
 <span class="r-in"><span><span class="co"># Create a ggplot table</span></span></span>
 <span class="r-in"><span><span class="va">ggplot_table</span> <span class="op">&lt;-</span> <span class="fu">add_ggplot_panel</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="va">curve_table</span>,</span></span>
-<span class="r-in"><span>  curve_summary <span class="op">=</span> <span class="va">curve_summary</span></span></span>
+<span class="r-in"><span>  curve_summary <span class="op">=</span> <span class="va">curve_summary</span>,</span></span>
+<span class="r-in"><span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Curve_Name"</span>,</span></span>
+<span class="r-in"><span>                        <span class="st">"Curve_Batch_Name"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  curve_batch_var <span class="op">=</span> <span class="st">"Curve_Batch_Name"</span>,</span></span>
+<span class="r-in"><span>  conc_var <span class="op">=</span> <span class="st">"Concentration"</span>,</span></span>
+<span class="r-in"><span>  conc_var_units <span class="op">=</span> <span class="st">"%"</span>,</span></span>
+<span class="r-in"><span>  conc_var_interval <span class="op">=</span> <span class="fl">50</span>,</span></span>
+<span class="r-in"><span>  signal_var <span class="op">=</span> <span class="st">"Signal"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">ggplot_list</span> <span class="op">&lt;-</span> <span class="va">ggplot_table</span><span class="op">$</span><span class="va">panel</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">ggplot_list</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></span>

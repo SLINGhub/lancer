@@ -171,7 +171,17 @@ Default: FALSE</p></dd>
 <span class="r-in"><span>  column_group <span class="op">=</span> <span class="st">"Transition_Name"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Add a plotly panel without dilution summary</span></span></span>
-<span class="r-in"><span><span class="va">trellis_table_auto</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_plotly_panel.html">add_plotly_panel</a></span><span class="op">(</span><span class="va">curve_table</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
+<span class="r-in"><span><span class="va">trellis_table_auto</span> <span class="op">&lt;-</span> <span class="fu"><a href="add_plotly_panel.html">add_plotly_panel</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="va">curve_table</span>,</span></span>
+<span class="r-in"><span>  grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Transition_Name"</span>,</span></span>
+<span class="r-in"><span>                        <span class="st">"Dilution_Batch_Name"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  sample_name_var <span class="op">=</span> <span class="st">"Sample_Name"</span>,</span></span>
+<span class="r-in"><span>  curve_batch_var <span class="op">=</span> <span class="st">"Dilution_Batch_Name"</span>,</span></span>
+<span class="r-in"><span>  conc_var <span class="op">=</span> <span class="st">"Dilution_Percent"</span>,</span></span>
+<span class="r-in"><span>  conc_var_units <span class="op">=</span> <span class="st">"%"</span>,</span></span>
+<span class="r-in"><span>  conc_var_interval <span class="op">=</span> <span class="fl">50</span>,</span></span>
+<span class="r-in"><span>  signal_var <span class="op">=</span> <span class="st">"Area"</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="convert_to_cog.html">convert_to_cog</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    cog_df <span class="op">=</span> <span class="cn">NULL</span>,</span></span>
 <span class="r-in"><span>    grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
