@@ -250,6 +250,8 @@ test_that("calculate dil linear GOF", {
 })
 
 test_that("calculate average deviation from linearity", {
+
+  # Quadratic curve example
   concentration <- c(10, 20, 40, 60, 80, 100)
   signal <- c(22561, 31178, 39981, 48390, 52171, 53410)
   curve_data <- data.frame(Concentration = concentration,
@@ -257,12 +259,16 @@ test_that("calculate average deviation from linearity", {
 
   adl_value <- calculate_adl(curve_data, "Concentration", "Signal")
 
-  cubic_signal <- c(22561, 23561, 30981, 45390, 52171, 53410)
+  # Sigmodal curve example
+  concentration <- c(10, 20, 30, 40, 50, 60, 70, 80, 90)
+  cubic_signal <- c(22561, 23561, 25981,
+                    45390, 60384, 75294,
+                    80171, 81410, 83893)
 
-  curve_data <- data.frame(Concentration = concentration,
-                           Signal = cubic_signal)
+  cubic_curve_data <- data.frame(Concentration = concentration,
+                                 Signal = cubic_signal)
 
-  adl_value <- calculate_adl(curve_data, "Concentration", "Signal")
+  adl_value <- calculate_adl(cubic_curve_data, "Concentration", "Signal")
 
   # Handle the case of a straight horizontal line input. Give NA
   concentration <- c(0, 10, 8, 13)
