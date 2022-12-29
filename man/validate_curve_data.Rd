@@ -9,9 +9,9 @@ validate_curve_data(curve_data, conc_var, signal_var)
 \arguments{
 \item{curve_data}{A data frame or tibble containing curve data.}
 
-\item{conc_var}{Column name in \code{dilution_data} to indicate concentration.}
+\item{conc_var}{Column name in \code{curve_data} to indicate concentration.}
 
-\item{signal_var}{Column name in \code{dilution_data} to indicate signal.}
+\item{signal_var}{Column name in \code{curve_data} to indicate signal.}
 }
 \value{
 An error if the column name is not found in the \code{curve_data}.
@@ -20,16 +20,17 @@ An error if the column name is not found in the \code{curve_data}.
 Validate Curve Data.
 }
 \examples{
-dilution_percent <- c(10, 20, 40, 60, 80, 100)
+concentration <- c(10, 20, 40, 60, 80, 100)
 
-area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+signal <- c(22561, 31178, 39981, 48390, 52171, 53410)
 
-curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+curve_data <- data.frame(Concentration = concentration,
+                         Signal = signal)
 
 validate_curve_data(
   curve_data = curve_data,
-  conc_var = "Dilution_Percent",
-  signal_var = "Area"
+  conc_var = "Concentration",
+  signal_var = "Signal"
 )
 
 }

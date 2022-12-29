@@ -7,18 +7,19 @@
 #' `dilution_data` was renamed to
 #' `curve_data`.
 #' @return A linear model object from `stats:lm()` with formula
-#' `signal_var ~ conc_var` from data `diltuion_data`.
+#' `signal_var ~ conc_var` from data `curve_data`.
 #' @examples
-#' dilution_percent <- c(10, 20, 40, 60, 80, 100)
+#' concentration <- c(10, 20, 40, 60, 80, 100)
 #'
-#' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+#' signal <- c(22561, 31178, 39981, 48390, 52171, 53410)
 #'
-#' curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+#' curve_data <- data.frame(Concentration = concentration,
+#'                          Signal = signal)
 #'
 #' linear_model <- create_linear_model(
 #'   curve_data,
-#'   "Dilution_Percent",
-#'   "Area"
+#'   "Concentration",
+#'   "Signal"
 #' )
 #'
 #' linear_model
@@ -62,18 +63,19 @@ create_linear_model <- function(curve_data,
 #' `curve_data`.
 #' @return A linear model object from `stats:lm()` with formula
 #' `signal_var ~ conc_var + I(conc_var * conc_var)`
-#' from data `diltuion_data`.
+#' from data `curve_data`.
 #' @examples
-#' dilution_percent <- c(10, 20, 40, 60, 80, 100)
+#' concentration <- c(10, 20, 40, 60, 80, 100)
 #'
-#' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+#' signal <- c(22561, 31178, 39981, 48390, 52171, 53410)
 #'
-#' curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+#' curve_data <- data.frame(Concentration = concentration,
+#'                          Signal = signal)
 #'
 #' quad_model <- create_quad_model(
 #'   curve_data,
-#'   "Dilution_Percent",
-#'   "Area"
+#'   "Concentration",
+#'   "Signal"
 #' )
 #'
 #' quad_model
@@ -125,16 +127,17 @@ create_quad_model <- function(curve_data,
 #' `signal_var ~ conc_var + I(conc_var * conc_var * conc_var)`
 #' from data `diltuion_data`.
 #' @examples
-#' dilution_percent <- c(10, 20, 40, 60, 80, 100)
+#' concentration <- c(10, 20, 40, 60, 80, 100)
 #'
-#' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+#' signal <- c(22561, 31178, 39981, 48390, 52171, 53410)
 #'
-#' curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+#' curve_data <- data.frame(Concentration = concentration,
+#'                          Signal = signal)
 #'
 #' cubic_model <- create_cubic_model(
 #'   curve_data,
-#'   "Dilution_Percent",
-#'   "Area"
+#'   "Concentration",
+#'   "Signal"
 #' )
 #'
 #' cubic_model
@@ -909,20 +912,21 @@ validate_dilution_data <- function(dilution_data,
 #' @title Validate Curve Data
 #' @description Validate Curve Data.
 #' @param curve_data A data frame or tibble containing curve data.
-#' @param conc_var Column name in `dilution_data` to indicate concentration.
-#' @param signal_var Column name in `dilution_data` to indicate signal.
+#' @param conc_var Column name in `curve_data` to indicate concentration.
+#' @param signal_var Column name in `curve_data` to indicate signal.
 #' @return An error if the column name is not found in the `curve_data`.
 #' @examples
-#' dilution_percent <- c(10, 20, 40, 60, 80, 100)
+#' concentration <- c(10, 20, 40, 60, 80, 100)
 #'
-#' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+#' signal <- c(22561, 31178, 39981, 48390, 52171, 53410)
 #'
-#' curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+#' curve_data <- data.frame(Concentration = concentration,
+#'                          Signal = signal)
 #'
 #' validate_curve_data(
 #'   curve_data = curve_data,
-#'   conc_var = "Dilution_Percent",
-#'   signal_var = "Area"
+#'   conc_var = "Concentration",
+#'   signal_var = "Signal"
 #' )
 #'
 #' @rdname validate_curve_data
@@ -980,15 +984,16 @@ summarise_dilution_data <- function(dilution_data,
 #' @details The function will return a tibble with NA values
 #' if the number of curve points is less than or equal to three.
 #' @examples
-#' dilution_percent <- c(10, 20, 40, 60, 80, 100)
+#' concentration <- c(10, 20, 40, 60, 80, 100)
 #'
-#' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+#' signal <- c(22561, 31178, 39981, 48390, 52171, 53410)
 #'
-#' curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+#' curve_data <- data.frame(Concentration = concentration,
+#'                          Signal = signal)
 #'
 #' curve_summary <- summarise_curve_data(curve_data,
-#'                                       "Dilution_Percent",
-#'                                       "Area")
+#'                                       "Concentration",
+#'                                       "Signal")
 #' print(curve_summary, width = 100)
 #'
 #' @rdname summarise_curve_data
