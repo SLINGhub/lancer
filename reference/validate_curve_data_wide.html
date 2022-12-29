@@ -88,7 +88,7 @@ Default: c("Sample_Name")</p></dd>
 <p>An error if the things in <code>needed_column</code></p>
 
 
-<p>is not found in the Lipid Data in wide form</p>
+<p>is not found in the Curve Data in wide form.</p>
     </div>
 
     <div class="section level2">
@@ -100,20 +100,20 @@ Default: c("Sample_Name")</p></dd>
 <span class="r-in"><span>  <span class="st">"Sample_060b"</span>, <span class="st">"Sample_080b"</span>, <span class="st">"Sample_100b"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">lipid1_area</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">curve_1_good_linearity</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fl">22561</span>, <span class="fl">31178</span>, <span class="fl">39981</span>, <span class="fl">48390</span>, <span class="fl">52171</span>, <span class="fl">53410</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">32561</span>, <span class="fl">41178</span>, <span class="fl">49981</span>, <span class="fl">58390</span>, <span class="fl">62171</span>, <span class="fl">63410</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">lipid2_area</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">curve_2_good_linearity</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fl">2299075</span>, <span class="fl">4136350</span>, <span class="fl">7020062</span>, <span class="fl">8922063</span>, <span class="fl">9288742</span>, <span class="fl">11365710</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">2300075</span>, <span class="fl">4137350</span>, <span class="fl">7021062</span>, <span class="fl">8923063</span>, <span class="fl">9289742</span>, <span class="fl">11366710</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">curve_data_wide</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  Sample_Name <span class="op">=</span> <span class="va">sample_name</span>,</span></span>
-<span class="r-in"><span>  Lipid1 <span class="op">=</span> <span class="va">lipid1_area</span>,</span></span>
-<span class="r-in"><span>  Lipid2 <span class="op">=</span> <span class="va">lipid2_area</span></span></span>
+<span class="r-in"><span>  `Curve_1` <span class="op">=</span> <span class="va">curve_1_good_linearity</span>,</span></span>
+<span class="r-in"><span>  `Curve_2` <span class="op">=</span> <span class="va">curve_2_good_linearity</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">validate_curve_data_wide</span><span class="op">(</span></span></span>

@@ -86,17 +86,17 @@ Default: c("Sample_Name")</p></dd>
 <p>An error if the things in <code>needed_column</code></p>
 
 
-<p>is not found in the Dilution Data</p>
+<p>is not found in the Curve Data.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">dilution_percent</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">concentration</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">40</span>, <span class="fl">60</span>, <span class="fl">80</span>, <span class="fl">100</span>,</span></span>
 <span class="r-in"><span>  <span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">40</span>, <span class="fl">60</span>, <span class="fl">80</span>, <span class="fl">100</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">dilution_batch_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span><span class="va">curve_batch_name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>, <span class="st">"B1"</span>,</span></span>
 <span class="r-in"><span>  <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span>, <span class="st">"B2"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
@@ -110,8 +110,8 @@ Default: c("Sample_Name")</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">curve_batch_annot</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>  Sample_Name <span class="op">=</span> <span class="va">sample_name</span>,</span></span>
-<span class="r-in"><span>  Dilution_Batch_Name <span class="op">=</span> <span class="va">dilution_batch_name</span>,</span></span>
-<span class="r-in"><span>  Dilution_Percent <span class="op">=</span> <span class="va">dilution_percent</span></span></span>
+<span class="r-in"><span>  Curve_Batch_Name <span class="op">=</span> <span class="va">curve_batch_name</span>,</span></span>
+<span class="r-in"><span>  Concentration <span class="op">=</span> <span class="va">concentration</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">validate_curve_batch_annot</span><span class="op">(</span></span></span>
