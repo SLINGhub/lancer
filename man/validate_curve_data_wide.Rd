@@ -18,7 +18,7 @@ Default: c("Sample_Name")}
 }
 \value{
 An error if the things in \code{needed_column}
-is not found in the Lipid Data in wide form
+is not found in the Curve Data in wide form.
 }
 \description{
 Validate Curve Data in wide form
@@ -31,20 +31,20 @@ sample_name <- c(
   "Sample_060b", "Sample_080b", "Sample_100b"
 )
 
-lipid1_area <- c(
+curve_1_good_linearity <- c(
   22561, 31178, 39981, 48390, 52171, 53410,
   32561, 41178, 49981, 58390, 62171, 63410
 )
 
-lipid2_area <- c(
+curve_2_good_linearity <- c(
   2299075, 4136350, 7020062, 8922063, 9288742, 11365710,
   2300075, 4137350, 7021062, 8923063, 9289742, 11366710
 )
 
 curve_data_wide <- tibble::tibble(
   Sample_Name = sample_name,
-  Lipid1 = lipid1_area,
-  Lipid2 = lipid2_area
+  `Curve_1` = curve_1_good_linearity,
+  `Curve_2` = curve_2_good_linearity
 )
 
 validate_curve_data_wide(
