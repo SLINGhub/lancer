@@ -272,9 +272,20 @@ test_that("calculate average deviation from linearity", {
   cubic_curve_data <- data.frame(Concentration = concentration,
                                  Signal = cubic_signal)
 
-  adl_value <- calculate_adl(linear_curve_data, "Concentration", "Signal")
-  adl_value <- calculate_adl(quad_curve_data, "Concentration", "Signal")
-  adl_value <- calculate_adl(cubic_curve_data, "Concentration", "Signal")
+  testthat::expect_silent(
+    adl_value <- calculate_adl(
+      linear_curve_data, "Concentration", "Signal")
+  )
+
+  testthat::expect_silent(
+    adl_value <- calculate_adl(
+      quad_curve_data, "Concentration", "Signal")
+  )
+
+  testthat::expect_silent(
+    adl_value <- calculate_adl(
+      cubic_curve_data, "Concentration", "Signal")
+  )
 
   # Handle the case of a straight horizontal line input. Give NA
   concentration <- c(0, 10, 8, 13)
@@ -333,18 +344,26 @@ test_that("calculate kroll linearity test using adl", {
   cubic_curve_data <- data.frame(Concentration = concentration,
                                  Signal = cubic_signal)
 
-  adl_result <- calculate_adl_kroll_test(
-    linear_curve_data,
-    "Concentration",
-    "Signal")
-  adl_result <- calculate_adl_kroll_test(
-    quad_curve_data,
-    "Concentration",
-    "Signal")
-  adl_result <- calculate_adl_kroll_test(
-    cubic_curve_data,
-    "Concentration",
-    "Signal")
+  testthat::expect_silent(
+    adl_result <- calculate_adl_kroll_test(
+      linear_curve_data,
+      "Concentration",
+      "Signal")
+  )
+
+  testthat::expect_silent(
+    adl_result <- calculate_adl_kroll_test(
+      quad_curve_data,
+      "Concentration",
+      "Signal")
+  )
+
+  testthat::expect_silent(
+    adl_result <- calculate_adl_kroll_test(
+      cubic_curve_data,
+      "Concentration",
+      "Signal")
+  )
 
   # Data from the paper
   solution_number <- c(
@@ -374,6 +393,16 @@ test_that("calculate kroll linearity test using adl", {
   # Handle the case of a straight horizontal line input. Give NA
   concentration <- c(0, 10, 8, 13)
   signal <- c(2, 2, 2, 2)
+  curve_data <- data.frame(Concentration = concentration, Signal = signal)
+  adl_result <- calculate_adl_kroll_test(
+    curve_data,
+    "Concentration",
+    "Signal")
+  testthat::expect_equal(NA, unname(adl_result$adl_kroll))
+
+  # Handle the case of a straight vertical line input. Give NA
+  concentration <- c(8, 8, 8, 8)
+  signal <- c(1, 2, 3, 4)
   curve_data <- data.frame(Concentration = concentration, Signal = signal)
   adl_result <- calculate_adl_kroll_test(
     curve_data,
@@ -415,7 +444,6 @@ test_that("calculate kroll linearity test using adl", {
 
 })
 
-
 test_that("validate_curve_data", {
 
   concentration <- c(10, 20, 40, 60, 80, 100)
@@ -433,6 +461,25 @@ test_that("validate_curve_data", {
     curve_data,
     "Concentration", "Signa"
   ))
+})
+
+test_that("test summarise_curve_data when details = TRUE", {
+  concentration <- c(10, 20, 40, 60, 80, 100)
+
+  signal <- c(22561, 31178, 39981, 48390, 52171, 53410)
+
+  curve_data <- data.frame(Concentration = concentration,
+                           Signal = signal)
+
+  testthat::expect_silent(
+    curve_summary <- summarise_curve_data(
+      curve_data,
+      conc_var = "Concentration",
+      signal_var = "Signal",
+      details = TRUE
+      )
+  )
+
 })
 
 test_that("dilution_data argument is deprecated", {

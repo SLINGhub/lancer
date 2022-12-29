@@ -422,7 +422,6 @@ calculate_adl_kroll_test <- function(
     return(adl_result)
   }
 
-  return(adl_result)
 }
 
 #' @title Calculate Average Deviation From Linearity
