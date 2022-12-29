@@ -306,7 +306,8 @@ calculate_adl_kroll_test <- function(
   quad_model <- create_quad_model(curve_data, conc_var, signal_var)
   cubic_model <- create_cubic_model(curve_data, conc_var, signal_var)
 
-  g <- performance::compare_performance(linear_model,
+  g <- performance::compare_performance(
+    linear_model,
     quad_model,
     cubic_model,
     rank = TRUE,

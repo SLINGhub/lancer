@@ -251,23 +251,29 @@ test_that("calculate dil linear GOF", {
 
 test_that("calculate average deviation from linearity", {
 
+  # Linear curve example
+  concentration <- c(10, 20, 40, 60, 80, 100)
+  signal <- c(22561, 44247, 85636, 137928, 170384, 224678)
+  linear_curve_data <- data.frame(Concentration = concentration,
+                                  Signal = signal)
+
   # Quadratic curve example
   concentration <- c(10, 20, 40, 60, 80, 100)
   signal <- c(22561, 31178, 39981, 48390, 52171, 53410)
-  curve_data <- data.frame(Concentration = concentration,
-                           Signal = signal)
+  quad_curve_data <- data.frame(Concentration = concentration,
+                                Signal = signal)
 
-  adl_value <- calculate_adl(curve_data, "Concentration", "Signal")
-
-  # Sigmodal curve example
+  # Sigmoid curve example
   concentration <- c(10, 20, 30, 40, 50, 60, 70, 80, 90)
   cubic_signal <- c(22561, 23561, 25981,
-                    45390, 60384, 75294,
-                    80171, 81410, 83893)
+                    40390, 60384, 80294,
+                    100171, 101410, 103893)
 
   cubic_curve_data <- data.frame(Concentration = concentration,
                                  Signal = cubic_signal)
 
+  adl_value <- calculate_adl(linear_curve_data, "Concentration", "Signal")
+  adl_value <- calculate_adl(quad_curve_data, "Concentration", "Signal")
   adl_value <- calculate_adl(cubic_curve_data, "Concentration", "Signal")
 
   # Handle the case of a straight horizontal line input. Give NA
@@ -306,6 +312,40 @@ test_that("calculate average deviation from linearity", {
 
 test_that("calculate kroll linearity test using adl", {
 
+  # Linear curve example
+  concentration <- c(10, 20, 40, 60, 80, 100)
+  signal <- c(22561, 44247, 85636, 137928, 170384, 224678)
+  linear_curve_data <- data.frame(Concentration = concentration,
+                                  Signal = signal)
+
+  # Quadratic curve example
+  concentration <- c(10, 20, 40, 60, 80, 100)
+  signal <- c(22561, 31178, 39981, 48390, 52171, 53410)
+  quad_curve_data <- data.frame(Concentration = concentration,
+                                Signal = signal)
+
+  # Sigmoid curve example
+  concentration <- c(10, 20, 30, 40, 50, 60, 70, 80, 90)
+  cubic_signal <- c(22561, 23561, 25981,
+                    40390, 60384, 80294,
+                    100171, 101410, 103893)
+
+  cubic_curve_data <- data.frame(Concentration = concentration,
+                                 Signal = cubic_signal)
+
+  adl_result <- calculate_adl_kroll_test(
+    linear_curve_data,
+    "Concentration",
+    "Signal")
+  adl_result <- calculate_adl_kroll_test(
+    quad_curve_data,
+    "Concentration",
+    "Signal")
+  adl_result <- calculate_adl_kroll_test(
+    cubic_curve_data,
+    "Concentration",
+    "Signal")
+
   # Data from the paper
   solution_number <- c(
     1, 1, 2, 2, 3, 3, 4, 4,
@@ -322,7 +362,8 @@ test_that("calculate kroll linearity test using adl", {
   )
 
   adl_result <- calculate_adl_kroll_test(
-    curve_data, "Solution_Number",
+    curve_data,
+    "Solution_Number",
     "Result"
   )
 
@@ -330,25 +371,48 @@ test_that("calculate kroll linearity test using adl", {
     tolerance = 0.001
   )
 
-  # Data in which best fit is cubic
-  solution_number <- c(
-    1, 1, 2, 2, 3, 3, 4, 4,
-    5, 5
-  )
-  result <- c(
-    1, 0.99, 1.6, 1.59, 2.5, 2.6, 4.36, 4.39,
-    5.1, 5
-  )
+  # Handle the case of a straight horizontal line input. Give NA
+  concentration <- c(0, 10, 8, 13)
+  signal <- c(2, 2, 2, 2)
+  curve_data <- data.frame(Concentration = concentration, Signal = signal)
+  adl_result <- calculate_adl_kroll_test(
+    curve_data,
+    "Concentration",
+    "Signal")
+  testthat::expect_equal(NA, unname(adl_result$adl_kroll))
 
-  # Data in which best fit is quadratic
-  solution_number <- c(
-    1, 1, 2, 2, 3, 3, 4, 4,
-    5, 5
-  )
-  result <- c(
-    4.7, 4.6, 7.8, 7.6, 10.4, 10.2, 13, 13.1,
-    15.5, 15.3
-  )
+  # Too little valid point (<= 3) will give an NA
+  concentration <- c(10, 8, 13)
+  signal <- c(5.23, 4.23, 6.35)
+  curve_data <- data.frame(Concentration = concentration, Signal = signal)
+  adl_result <- calculate_adl_kroll_test(
+    curve_data,
+    "Concentration",
+    "Signal")
+  testthat::expect_equal(NA, unname(adl_result$adl_kroll))
+
+  curve_data <- data.frame(Concentration = c(NA, NA), Signal = c(NA, NA))
+  adl_result <- calculate_adl_kroll_test(
+    curve_data,
+    "Concentration",
+    "Signal")
+  testthat::expect_equal(NA, unname(adl_result$adl_kroll))
+
+  curve_data <- data.frame(Concentration = NA, Signal = NA)
+  adl_result <- calculate_adl_kroll_test(
+    curve_data,
+    "Concentration",
+    "Signal")
+  testthat::expect_equal(NA, unname(adl_result$adl_kroll))
+
+  curve_data <- NA
+  adl_value <- calculate_adl(curve_data, "Concentration", "Signal")
+  adl_result <- calculate_adl_kroll_test(
+    curve_data,
+    "Concentration",
+    "Signal")
+  testthat::expect_equal(NA, unname(adl_result$adl_kroll))
+
 })
 
 
