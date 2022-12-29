@@ -33,15 +33,17 @@ The function will return NA if the number of curve points
 is less than or equal to three.
 }
 \examples{
-dilution_percent <- c(10, 20, 40, 60, 80, 100)
+concentration <- c(10, 20, 40, 60, 80, 100)
 
-area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+signal <- c(22561, 31178, 39981, 48390, 52171, 53410)
 
-curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+curve_data <- data.frame(Concentration = concentration,
+                         Signal = signal)
 
 concavity_value <- calculate_concavity(
   curve_data,
-  "Dilution_Percent", "Area"
+  "Concentration",
+  "Signal"
 )
 
 concavity_value

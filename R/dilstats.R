@@ -537,15 +537,17 @@ calculate_adl <- function(
 #' @details The function will return NA if the number of curve points
 #' is less than or equal to three.
 #' @examples
-#' dilution_percent <- c(10, 20, 40, 60, 80, 100)
+#' concentration <- c(10, 20, 40, 60, 80, 100)
 #'
-#' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+#' signal <- c(22561, 31178, 39981, 48390, 52171, 53410)
 #'
-#' curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+#' curve_data <- data.frame(Concentration = concentration,
+#'                          Signal = signal)
 #'
 #' concavity_value <- calculate_concavity(
 #'   curve_data,
-#'   "Dilution_Percent", "Area"
+#'   "Concentration",
+#'   "Signal"
 #' )
 #'
 #' concavity_value
@@ -613,18 +615,20 @@ calculate_concavity <- function(curve_data,
 #' @details The function will return a tibble with NA values
 #' if the number of curve points is less than or equal to three.
 #' @examples
-#' dilution_percent <- c(10, 20, 40, 60, 80, 100)
+#' concentration <- c(10, 20, 40, 60, 80, 100)
 #'
-#' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+#' signal <- c(22561, 31178, 39981, 48390, 52171, 53410)
 #'
-#' curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+#' curve_data <- data.frame(Concentration = concentration,
+#'                          Signal = signal)
 #'
-#' dil_linear_gof <- calculate_gof_linear(
+#' curve_linear_gof <- calculate_gof_linear(
 #'   curve_data,
-#'   "Dilution_Percent", "Area"
+#'   "Concentration",
+#'   "Signal"
 #' )
 #'
-#' dil_linear_gof
+#' curve_linear_gof
 #'
 #' @rdname calculate_gof_linear
 #' @export
@@ -641,14 +645,14 @@ calculate_gof_linear <- function(curve_data,
     curve_data <- dilution_data
   }
 
-  dil_linear_gof <- tibble::tibble(
+  curve_linear_gof <- tibble::tibble(
     r_corr = NA,
     r2_linear = NA,
     r2_adj_linear = NA
   )
 
   if (is.null(nrow(curve_data))) {
-    return(dil_linear_gof)
+    return(curve_linear_gof)
   }
 
   # Drop rows whose value of signal_var is NA
@@ -658,13 +662,13 @@ calculate_gof_linear <- function(curve_data,
   # Return NA for too little points
   # Horizontal, Vertical line or single point
   if (nrow(curve_data) <= 3) {
-    return(dil_linear_gof)
+    return(curve_linear_gof)
   }
   if (stats::sd(curve_data[[conc_var]]) == 0) {
-    return(dil_linear_gof)
+    return(curve_linear_gof)
   }
   if (stats::sd(curve_data[[signal_var]]) == 0) {
-    return(dil_linear_gof)
+    return(curve_linear_gof)
   }
 
   # Get the correlation results
@@ -688,13 +692,13 @@ calculate_gof_linear <- function(curve_data,
   r2_adj_linear <- round(linear_gof$adj.r.squared, digits = 6)
 
 
-  dil_linear_gof <- tibble::tibble(
+  curve_linear_gof <- tibble::tibble(
     r_corr = r_corr,
     r2_linear = r2_linear,
     r2_adj_linear = r2_adj_linear
   )
 
-  return(dil_linear_gof)
+  return(curve_linear_gof)
 }
 
 
@@ -713,13 +717,18 @@ calculate_gof_linear <- function(curve_data,
 #' @details The function will return a tibble with NA values
 #' if the number of curve points is less than or equal to three.
 #' @examples
-#' dilution_percent <- c(10, 20, 40, 60, 80, 100)
+#' concentration <- c(10, 20, 40, 60, 80, 100)
 #'
-#' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+#' signal <- c(22561, 31178, 39981, 48390, 52171, 53410)
 #'
-#' curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+#' curve_data <- data.frame(Concentration = concentration,
+#'                          Signal = signal)
 #'
-#' mandel_result <- calculate_mandel(curve_data, "Dilution_Percent", "Area")
+#' mandel_result <- calculate_mandel(
+#'   curve_data,
+#'   "Concentration",
+#'   "Signal"
+#' )
 #'
 #' mandel_result
 #'
@@ -809,13 +818,18 @@ calculate_mandel <- function(curve_data,
 #' @details The function will return NA if the number of curve points
 #' is less than or equal to three.
 #' @examples
-#' dilution_percent <- c(10, 20, 40, 60, 80, 100)
+#' concentration <- c(10, 20, 40, 60, 80, 100)
 #'
-#' area <- c(22561, 31178, 39981, 48390, 52171, 53410)
+#' signal <- c(22561, 31178, 39981, 48390, 52171, 53410)
 #'
-#' curve_data <- data.frame(Dilution_Percent = dilution_percent, Area = area)
+#' curve_data <- data.frame(Concentration = concentration,
+#'                          Signal = signal)
 #'
-#' pra_value <- calculate_pra_linear(curve_data, "Dilution_Percent", "Area")
+#' pra_value <- calculate_pra_linear(
+#'   curve_data,
+#'   "Concentration",
+#'   "Signal"
+#' )
 #'
 #' pra_value
 #'
@@ -1004,7 +1018,7 @@ summarise_curve_data <- function(curve_data,
                                  details = FALSE) {
 
   mandel_result <- calculate_mandel(curve_data, conc_var, signal_var)
-  dil_linear_gof <- calculate_gof_linear(
+  curve_linear_gof <- calculate_gof_linear(
     curve_data,
     conc_var, signal_var
   )
@@ -1022,7 +1036,7 @@ summarise_curve_data <- function(curve_data,
       signal_var
     )
 
-    curve_summary <- dil_linear_gof %>%
+    curve_summary <- curve_linear_gof %>%
       dplyr::bind_cols(
         mandel_result,
         one_value_tibble,
@@ -1034,7 +1048,7 @@ summarise_curve_data <- function(curve_data,
       concavity = calculate_concavity(curve_data, conc_var, signal_var)
     )
 
-    curve_summary <- dil_linear_gof %>%
+    curve_summary <- curve_linear_gof %>%
       dplyr::bind_cols(
         mandel_result,
         one_value_tibble
