@@ -524,7 +524,6 @@ calculate_adl <- function(
     return(adl)
   }
 
-  return(adl)
 }
 
 #' @title Calculate Concavity
