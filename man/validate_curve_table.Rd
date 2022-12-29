@@ -6,7 +6,7 @@
 \usage{
 validate_curve_table(
   curve_table,
-  needed_column = c("Transition_Name", "Dilution_Batch_Name", "Dilution_Percent", "Area")
+  needed_column = c("Curve_Name", "Curve_Batch_Name", "Concentration", "Signal")
 )
 }
 \arguments{
@@ -16,8 +16,8 @@ annotations about the curve points}
 
 \item{needed_column}{A vector consisting of needed column names that
 must be found in \code{curve_table},
-Default: c("Transition_Name", "Dilution_Batch_Name",
-"Dilution_Percent", "Area")}
+Default: c("Curve_Name", "Curve_Batch_Name",
+"Concentration", "Area")}
 }
 \value{
 An error if the things in \code{needed_column}
@@ -27,42 +27,42 @@ is not found in \code{curve_table}
 Validate Curve Table
 }
 \examples{
-dilution_percent <- c(
+concentration <- c(
   10, 20, 40, 60, 80, 100,
   10, 20, 40, 60, 80, 100
 )
 
-dilution_batch_name <- c(
+curve_batch_name <- c(
   "B1", "B1", "B1", "B1", "B1", "B1",
   "B2", "B2", "B2", "B2", "B2", "B2"
 )
 
-lipid1_area <- c(
+curve_1_good_linearity <- c(
   22561, 31178, 39981, 48390, 52171, 53410,
   32561, 41178, 49981, 58390, 62171, 63410
 )
 
-transition_name <- c(
-  "Lipid1", "Lipid1", "Lipid1",
-  "Lipid1", "Lipid1", "Lipid1",
-  "Lipid1", "Lipid1", "Lipid1",
-  "Lipid1", "Lipid1", "Lipid1"
+curve_name <- c(
+  "Curve_1", "Curve_1", "Curve_1",
+  "Curve_1", "Curve_1", "Curve_1",
+  "Curve_1", "Curve_1", "Curve_1",
+  "Curve_1", "Curve_1", "Curve_1"
 )
 
 curve_table <- tibble::tibble(
-  Transition_Name = transition_name,
-  Dilution_Batch_Name = dilution_batch_name,
-  Area = lipid1_area,
-  Dilution_Percent = dilution_percent
+  Curve_Name = curve_name,
+  Curve_Batch_Name = curve_batch_name,
+  Concentration = concentration,
+  Signal = curve_1_good_linearity
 )
 
 validate_curve_table(
   curve_table = curve_table,
   needed_column = c(
-    "Transition_Name",
-    "Dilution_Batch_Name",
-    "Dilution_Percent",
-    "Area"
+    "Curve_Name",
+    "Curve_Batch_Name",
+    "Concentration",
+    "Signal"
   )
 )
 

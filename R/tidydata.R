@@ -26,14 +26,14 @@ validate_dilution_annot <- function(dilution_annot,
 #' must be found in `curve_batch_annot`,
 #' Default: c("Sample_Name")
 #' @return An error if the things in `needed_column`
-#' is not found in the Dilution Data
+#' is not found in the Curve Data.
 #' @examples
-#' dilution_percent <- c(
+#' concentration <- c(
 #'   10, 20, 40, 60, 80, 100,
 #'   10, 20, 40, 60, 80, 100
 #' )
 #'
-#' dilution_batch_name <- c(
+#' curve_batch_name <- c(
 #'   "B1", "B1", "B1", "B1", "B1", "B1",
 #'   "B2", "B2", "B2", "B2", "B2", "B2"
 #' )
@@ -47,8 +47,8 @@ validate_dilution_annot <- function(dilution_annot,
 #'
 #' curve_batch_annot <- tibble::tibble(
 #'   Sample_Name = sample_name,
-#'   Dilution_Batch_Name = dilution_batch_name,
-#'   Dilution_Percent = dilution_percent
+#'   Curve_Batch_Name = curve_batch_name,
+#'   Concentration = concentration
 #' )
 #'
 #' validate_curve_batch_annot(
@@ -98,7 +98,7 @@ validate_lipid_data_wide <- function(lipid_data_wide,
 #' must be found in `curve_data_wide`,
 #' Default: c("Sample_Name")
 #' @return An error if the things in `needed_column`
-#' is not found in the Lipid Data in wide form
+#' is not found in the Curve Data in wide form.
 #' @examples
 #' sample_name <- c(
 #'   "Sample_010a", "Sample_020a", "Sample_040a",
@@ -107,20 +107,20 @@ validate_lipid_data_wide <- function(lipid_data_wide,
 #'   "Sample_060b", "Sample_080b", "Sample_100b"
 #' )
 #'
-#' lipid1_area <- c(
+#' curve_1_good_linearity <- c(
 #'   22561, 31178, 39981, 48390, 52171, 53410,
 #'   32561, 41178, 49981, 58390, 62171, 63410
 #' )
 #'
-#' lipid2_area <- c(
+#' curve_2_good_linearity <- c(
 #'   2299075, 4136350, 7020062, 8922063, 9288742, 11365710,
 #'   2300075, 4137350, 7021062, 8923063, 9289742, 11366710
 #' )
 #'
 #' curve_data_wide <- tibble::tibble(
 #'   Sample_Name = sample_name,
-#'   Lipid1 = lipid1_area,
-#'   Lipid2 = lipid2_area
+#'   `Curve_1` = curve_1_good_linearity,
+#'   `Curve_2` = curve_2_good_linearity
 #' )
 #'
 #' validate_curve_data_wide(
@@ -171,47 +171,47 @@ validate_dilution_table <- function(dilution_table,
 #' annotations about the curve points
 #' @param needed_column A vector consisting of needed column names that
 #' must be found in `curve_table`,
-#' Default: c("Transition_Name", "Dilution_Batch_Name",
-#'            "Dilution_Percent", "Area")
+#' Default: c("Curve_Name", "Curve_Batch_Name",
+#'            "Concentration", "Area")
 #' @return An error if the things in `needed_column`
 #' is not found in `curve_table`
 #' @examples
-#' dilution_percent <- c(
+#' concentration <- c(
 #'   10, 20, 40, 60, 80, 100,
 #'   10, 20, 40, 60, 80, 100
 #' )
 #'
-#' dilution_batch_name <- c(
+#' curve_batch_name <- c(
 #'   "B1", "B1", "B1", "B1", "B1", "B1",
 #'   "B2", "B2", "B2", "B2", "B2", "B2"
 #' )
 #'
-#' lipid1_area <- c(
+#' curve_1_good_linearity <- c(
 #'   22561, 31178, 39981, 48390, 52171, 53410,
 #'   32561, 41178, 49981, 58390, 62171, 63410
 #' )
 #'
-#' transition_name <- c(
-#'   "Lipid1", "Lipid1", "Lipid1",
-#'   "Lipid1", "Lipid1", "Lipid1",
-#'   "Lipid1", "Lipid1", "Lipid1",
-#'   "Lipid1", "Lipid1", "Lipid1"
+#' curve_name <- c(
+#'   "Curve_1", "Curve_1", "Curve_1",
+#'   "Curve_1", "Curve_1", "Curve_1",
+#'   "Curve_1", "Curve_1", "Curve_1",
+#'   "Curve_1", "Curve_1", "Curve_1"
 #' )
 #'
 #' curve_table <- tibble::tibble(
-#'   Transition_Name = transition_name,
-#'   Dilution_Batch_Name = dilution_batch_name,
-#'   Area = lipid1_area,
-#'   Dilution_Percent = dilution_percent
+#'   Curve_Name = curve_name,
+#'   Curve_Batch_Name = curve_batch_name,
+#'   Concentration = concentration,
+#'   Signal = curve_1_good_linearity
 #' )
 #'
 #' validate_curve_table(
 #'   curve_table = curve_table,
 #'   needed_column = c(
-#'     "Transition_Name",
-#'     "Dilution_Batch_Name",
-#'     "Dilution_Percent",
-#'     "Area"
+#'     "Curve_Name",
+#'     "Curve_Batch_Name",
+#'     "Concentration",
+#'     "Signal"
 #'   )
 #' )
 #'
@@ -219,10 +219,10 @@ validate_dilution_table <- function(dilution_table,
 #' @export
 validate_curve_table <- function(curve_table,
                                  needed_column =
-                                   c("Transition_Name",
-                                     "Dilution_Batch_Name",
-                                     "Dilution_Percent",
-                                     "Area")) {
+                                   c("Curve_Name",
+                                     "Curve_Batch_Name",
+                                     "Concentration",
+                                     "Signal")) {
 
   # Check if things in needed_column are in curve_table
   assertable::assert_colnames(curve_table, needed_column,
@@ -271,22 +271,22 @@ create_dilution_table <- function(dilution_annot, lipid_data_wide,
 #' @param signal_var Value provided in `curve_data_wide` for each
 #' curve which will be used as a column name when the merged data
 #' is converted to a long format,
-#' Default: 'Area'
+#' Default: 'Signal'
 #' @param column_group Value used to group the curves in
 #' `curve_data_wide` when the merged data is converted to a long format,
-#' Default: 'Transition_Name'
+#' Default: 'Curve_Name'
 #' @return A data frame or tibble in long format
 #' @details We first merge the `curve_batch_annot` with the `curve_data_wide`
 #' via one or more common columns. Next we convert the data from a wide to
 #' a long format. Merging with a Sample Annotation data can be done after this
 #' @examples
 #' # Data Creation
-#' dilution_percent <- c(
+#' concentration <- c(
 #'   10, 20, 40, 60, 80, 100,
 #'   10, 20, 40, 60, 80, 100
 #' )
 #'
-#' dilution_batch_name <- c(
+#' curve_batch_name <- c(
 #'   "B1", "B1", "B1", "B1", "B1", "B1",
 #'   "B2", "B2", "B2", "B2", "B2", "B2"
 #' )
@@ -298,35 +298,35 @@ create_dilution_table <- function(dilution_annot, lipid_data_wide,
 #'   "Sample_060b", "Sample_080b", "Sample_100b"
 #' )
 #'
-#' lipid1_area <- c(
+#' curve_1_good_linearity <- c(
 #'   22561, 31178, 39981, 48390, 52171, 53410,
 #'   32561, 41178, 49981, 58390, 62171, 63410
 #' )
 #'
-#' lipid2_area <- c(
+#' curve_2_good_linearity <- c(
 #'   2299075, 4136350, 7020062, 8922063, 9288742, 11365710,
 #'   2300075, 4137350, 7021062, 8923063, 9289742, 11366710
 #' )
 #'
 #' curve_batch_annot <- tibble::tibble(
 #'   Sample_Name = sample_name,
-#'   Dilution_Batch_Name = dilution_batch_name,
-#'   Dilution_Percent = dilution_percent
+#'   Curve_Batch_Name = curve_batch_name,
+#'   Concentration = concentration
 #' )
 #'
-#' curve_data <- tibble::tibble(
+#' curve_data_wide <- tibble::tibble(
 #'   Sample_Name = sample_name,
-#'   Lipid1 = lipid1_area,
-#'   Lipid2 = lipid2_area
+#'   `Curve_1` = curve_1_good_linearity,
+#'   `Curve_2` = curve_2_good_linearity
 #' )
 #'
-#' # Create dilution table
+#' # Create curve table
 #' curve_table <- create_curve_table(
 #'   curve_batch_annot = curve_batch_annot,
-#'   curve_data_wide = curve_data,
+#'   curve_data_wide = curve_data_wide,
 #'   common_column = "Sample_Name",
-#'   signal_var = "Area",
-#'   column_group = "Transition_Name"
+#'   signal_var = "Signal",
+#'   column_group = "Curve_Name"
 #' )
 #'
 #' print(curve_table, width = 100)
@@ -335,8 +335,8 @@ create_dilution_table <- function(dilution_annot, lipid_data_wide,
 #' @export
 create_curve_table <- function(curve_batch_annot, curve_data_wide,
                                common_column = c("Sample_Name"),
-                               signal_var = "Area",
-                               column_group = "Transition_Name") {
+                               signal_var = "Signal",
+                               column_group = "Curve_Name") {
 
   # Check if curve_batch_annot and curve_data_wide is valid
   validate_curve_batch_annot(curve_batch_annot, common_column)
@@ -391,7 +391,7 @@ summarise_dilution_table <- function(dilution_table,
 #' curve name, the concentration and signal. Other columns may be
 #' present if it is used to group the curves together
 #' @param conc_var Column name in `curve_table` to indicate concentration
-#' Default: 'Dilution_Percent'
+#' Default: 'Concentration'
 #' @param signal_var Column name in `curve_table` to indicate signal
 #' Default: 'Area'
 #' @param grouping_variable A character vector of
@@ -400,17 +400,17 @@ summarise_dilution_table <- function(dilution_table,
 #' @return A curve summary table output from the function
 #' [summarise_curve_data()] for each group
 #' @details The function first perform `tidyr::nest` on `curve_table`
-#' based on the `grouping_variable` to organise the dilution curve data
+#' based on the `grouping_variable` to organise the curve data
 #' for each group. Next for each group, the function
 #' [summarise_curve_data()] is used to get the summary statistics.
 #' @examples
 #' # Data Creation
-#' dilution_percent <- c(
+#' concentration <- c(
 #'   10, 20, 40, 60, 80, 100,
 #'   10, 20, 40, 60, 80, 100
 #' )
 #'
-#' dilution_batch_name <- c(
+#' curve_batch_name <- c(
 #'   "B1", "B1", "B1", "B1", "B1", "B1",
 #'   "B2", "B2", "B2", "B2", "B2", "B2"
 #' )
@@ -422,47 +422,47 @@ summarise_dilution_table <- function(dilution_table,
 #'   "Sample_060b", "Sample_080b", "Sample_100b"
 #' )
 #'
-#' lipid1_area <- c(
+#' curve_1_good_linearity <- c(
 #'   22561, 31178, 39981, 48390, 52171, 53410,
 #'   32561, 41178, 49981, 58390, 62171, 63410
 #' )
 #'
-#' lipid2_area <- c(
+#' curve_2_good_linearity <- c(
 #'   2299075, 4136350, 7020062, 8922063, 9288742, 11365710,
 #'   2300075, 4137350, 7021062, 8923063, 9289742, 11366710
 #' )
 #'
 #' curve_batch_annot <- tibble::tibble(
 #'   Sample_Name = sample_name,
-#'   Dilution_Batch_Name = dilution_batch_name,
-#'   Dilution_Percent = dilution_percent
+#'   Curve_Batch_Name = curve_batch_name,
+#'   Concentration = concentration
 #' )
 #'
-#' curve_data <- tibble::tibble(
+#' curve_data_wide <- tibble::tibble(
 #'   Sample_Name = sample_name,
-#'   Lipid1 = lipid1_area,
-#'   Lipid2 = lipid2_area
+#'   `Curve_1` = curve_1_good_linearity,
+#'   `Curve_2` = curve_2_good_linearity
 #' )
 #'
 #' # Create curve table
 #' curve_table <- create_curve_table(
 #'   curve_batch_annot = curve_batch_annot,
-#'   curve_data_wide = curve_data,
+#'   curve_data_wide = curve_data_wide,
 #'   common_column = "Sample_Name",
-#'   signal_var = "Area",
-#'   column_group = "Transition_Name"
+#'   signal_var = "Signal",
+#'   column_group = "Curve_Name"
 #' )
 #'
-#' # Give summary result for each curve grouped by Transition_Name
-#' # and Dilution_Batch_Name
+#' # Give summary result for each curve grouped by Curve_Name
+#' # and Curve_Batch_Name
 #' curve_summary <- curve_table %>%
 #'   summarise_dilution_table(
 #'     grouping_variable = c(
-#'       "Transition_Name",
-#'       "Dilution_Batch_Name"
+#'       "Curve_Name",
+#'       "Curve_Batch_Name"
 #'     ),
-#'     conc_var = "Dilution_Percent",
-#'     signal_var = "Area"
+#'     conc_var = "Concentration",
+#'     signal_var = "Signal"
 #'   )
 #'
 #' print(curve_summary, width = 100)
@@ -470,10 +470,10 @@ summarise_dilution_table <- function(dilution_table,
 #' @rdname summarise_curve_table
 #' @export
 summarise_curve_table <- function(curve_table,
-                                  grouping_variable = c("Transition_Name",
-                                                        "Dilution_Batch_Name"),
-                                  conc_var = "Dilution_Percent",
-                                  signal_var = "Area") {
+                                  grouping_variable = c("Curve_Name",
+                                                        "Curve_Batch_Name"),
+                                  conc_var = "Concentration",
+                                  signal_var = "Signal") {
 
 
   # Check if curve_table is valid with the relevant columns
@@ -495,13 +495,13 @@ summarise_curve_table <- function(curve_table,
     dplyr::relocate(dplyr::all_of(grouping_variable)) %>%
     tidyr::nest() %>%
     dplyr::ungroup() %>%
-    dplyr::mutate(curv_summary = purrr::map(.data$data,
+    dplyr::mutate(curve_summary = purrr::map(.data$data,
       summarise_curve_data,
       conc_var = conc_var,
       signal_var = signal_var
     )) %>%
     tidyr::unnest(c(
-      dplyr::any_of("curv_summary")
+      dplyr::any_of("curve_summary")
       )) %>%
     dplyr::select(!c(
       dplyr::any_of("data")

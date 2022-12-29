@@ -16,18 +16,18 @@ Default: c("Sample_Name")}
 }
 \value{
 An error if the things in \code{needed_column}
-is not found in the Dilution Data
+is not found in the Curve Data.
 }
 \description{
 Validate Curve Batch Annotation
 }
 \examples{
-dilution_percent <- c(
+concentration <- c(
   10, 20, 40, 60, 80, 100,
   10, 20, 40, 60, 80, 100
 )
 
-dilution_batch_name <- c(
+curve_batch_name <- c(
   "B1", "B1", "B1", "B1", "B1", "B1",
   "B2", "B2", "B2", "B2", "B2", "B2"
 )
@@ -41,8 +41,8 @@ sample_name <- c(
 
 curve_batch_annot <- tibble::tibble(
   Sample_Name = sample_name,
-  Dilution_Batch_Name = dilution_batch_name,
-  Dilution_Percent = dilution_percent
+  Curve_Batch_Name = curve_batch_name,
+  Concentration = concentration
 )
 
 validate_curve_batch_annot(
