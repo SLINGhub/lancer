@@ -167,7 +167,7 @@ test_that("Able to plot curve data with
         "Curve_Name")
       ))
 
-  # Create a trellis table without dilution summary
+  # Create a trellis table without curve summary
   plotly_trellis_table_no_summary <- add_plotly_panel(
     curve_table,
     grouping_variable = c(

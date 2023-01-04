@@ -227,12 +227,13 @@ test_that("Able to print curve summary data to excel", {
 
   # Output to excel
   testthat::expect_silent(
-    write_summary_excel(curve_summary, file_name = "dilution_summary.xlsx")
+    write_summary_excel(curve_summary,
+                        file_name = "curve_summary.xlsx")
   )
 
-  if (file.exists("dilution_summary.xlsx")) {
+  if (file.exists("curve_summary.xlsx")) {
     # Delete file if it exists
-    file.remove("dilution_summary.xlsx")
+    file.remove("curve_summary.xlsx")
   }
 })
 

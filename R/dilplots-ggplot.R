@@ -315,7 +315,7 @@ create_reg_col_vec <- function(plot_first_half_lin_reg = FALSE,
 #' @param curve_batch_var Column name in `curve_table`
 #' to indicate the group name of each curve batch,
 #' used to colour the points in the curve plot.
-#' Default: 'Dilution_Batch_Name'
+#' Default: 'Curve_Batch_Name'
 #' @param dilution_data `r lifecycle::badge("deprecated")`
 #' `dilution_data` was renamed to
 #' `curve_data`.
@@ -326,7 +326,7 @@ create_reg_col_vec <- function(plot_first_half_lin_reg = FALSE,
 #' `dil_batch_var` was renamed to
 #' `curve_batch_var`.
 #' @param conc_var Column name in `curve_table` to indicate concentration.
-#' Default: 'Dilution_Percent'
+#' Default: 'Concentration'
 #' @param conc_var_units Unit of measure for `conc_var`. Default: '%'
 #' @param conc_var_interval Distance between two tick labels.
 #' in the curve plot.
@@ -776,11 +776,11 @@ plot_curve_ggplot <- function(
 #' @param grouping_variable A character vector of
 #' column names in `curve_table`to indicate how each curve
 #' should be grouped by.
-#' Default: c("Transition_Name", "Dilution_Batch_Name")
+#' Default: c("Curve_Name", "Curve_Batch_Name")
 #' @param curve_batch_var Column name in `curve_table`
 #' to indicate the group name of each curve batch,
 #' used to colour the points in the curve plot.
-#' Default: 'Dilution_Batch_Name'
+#' Default: 'Curve_Batch_Name'
 #' @param curve_batch_col A vector of colours to be used for the curve
 #' batch group named given in `curve_batch_var`.
 #' Default: c("#377eb8", "#4daf4a", "#9C27B0", "#BCAAA4", "#FF8A65", "#EFBBCF")
@@ -791,7 +791,7 @@ plot_curve_ggplot <- function(
 #' `dil_batch_col` was renamed to
 #' `curve_batch_col`.
 #' @param conc_var Column name in `curve_table` to indicate concentration.
-#' Default: 'Dilution_Percent'
+#' Default: 'Concentration'
 #' @param conc_var_units Unit of measure for `conc_var`. Default: '%'
 #' @param conc_var_interval Distance between two tick labels
 #' in the curve plot.

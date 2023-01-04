@@ -1,6 +1,6 @@
 test_that("Test Linear Evaluation", {
 
-  # Create dilution summary data
+  # Create curve summary data
   r_corr <- c(0.951956, 0.948683, 0.978057, 0.976462, 0.970618, 0.969348)
   pra_linear <- c(65.78711, 64.58687, 90.21257, 89.95473, 72.91220, 72.36528)
   mandel_p_val <- c(
@@ -35,7 +35,7 @@ test_that("Test Linear Evaluation", {
 
 test_that("Argument dilution_summary in evaluate_linearity is deprecated", {
 
-  # Create dilution summary data
+  # Create curve summary data
   r_corr <- c(0.951956, 0.948683, 0.978057, 0.976462, 0.970618, 0.969348)
   pra_linear <- c(65.78711, 64.58687, 90.21257, 89.95473, 72.91220, 72.36528)
   mandel_p_val <- c(

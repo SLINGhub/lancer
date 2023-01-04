@@ -107,7 +107,7 @@ lancer::write_summary_excel(
 ```
 
 ```{r Excel Report, echo = FALSE}
-#| fig.alt = "Dilution statistics
+#| fig.alt = "Curve statistics
 #|  summary reported in Excel using lancer.
 #|  The column names, sheet name and
 #|  threshold are customised."

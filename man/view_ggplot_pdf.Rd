@@ -6,7 +6,7 @@
 \usage{
 view_ggplot_pdf(
   ggplot_list,
-  filename = "dilution_plot.pdf",
+  filename = "curve_plot.pdf",
   ncol_per_page = 2,
   nrow_per_page = 2,
   width = 15,
@@ -22,7 +22,7 @@ a data frame or tibble and the column name "panel" should contain
 the list of plots.}
 
 \item{filename}{File name of the pdf document.
-Default: 'dilution_plot.pdf'}
+Default: 'curve_plot.pdf'}
 
 \item{ncol_per_page}{Number of columns of plots allowed in one
 page of the pdf document.
@@ -83,7 +83,7 @@ curve_batch_annot <- tibble::tibble(
   Concentration = concentration
 )
 
-# Create dilution table
+# Create curve table
 curve_table <- create_curve_table(
   curve_batch_annot = curve_batch_annot,
   curve_data_wide = curve_data,
@@ -92,7 +92,7 @@ curve_table <- create_curve_table(
   column_group = "Curve_Name"
 )
 
-# Create a ggplot table without dilution summary
+# Create a ggplot table without curve summary
 ggplot_table_auto <- add_ggplot_panel(curve_table)
 
 # Get the list of ggplot list for each group

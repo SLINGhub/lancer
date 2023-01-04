@@ -17,9 +17,9 @@ reference:
     - add_plotly_panel
     - view_ggplot_pdf
     - view_trellis_html
-  - title: Summarise Dilution Data
+  - title: Summarise Curve Data
     desc: >
-      Functions used to summarise dilution curve data
+      Functions used to summarise curve data
     contents:
     - summarise_curve_table
     - summarise_curve_data
@@ -31,7 +31,7 @@ reference:
     - evaluate_linearity
   - title: Plotting
     desc: >
-      Functions used to plot dilution curves and summary tables
+      Functions used to plot curves and summary tables
     contents:
     - starts_with("plot_")
   - title: Cognostics Creation
@@ -43,7 +43,7 @@ reference:
     - starts_with("update_cog")
   - title: Output in Excel
     desc: >
-      Functions used to write dilution summary table to Excel
+      Functions used to write curve summary table to Excel
     contents:
     - write_summary_excel
     - calculate_column_max_char

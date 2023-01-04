@@ -20,7 +20,7 @@ by function \code{\link[=summarise_curve_table]{summarise_curve_table()}} and/or
 to type cog as defined in \code{trelliscopejs::cog}.
 }
 \description{
-Update cognostics on the dilution summary based on
+Update cognostics on the \code{curve_summary} based on
 the cognostics data frame given by the function \code{create_default_cog_df}.
 }
 \details{

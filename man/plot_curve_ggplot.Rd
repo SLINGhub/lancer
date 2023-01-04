@@ -37,7 +37,7 @@ name is a curve batch group given in \code{curve_batch_var}.}
 \item{curve_batch_var}{Column name in \code{curve_table}
 to indicate the group name of each curve batch,
 used to colour the points in the curve plot.
-Default: 'Dilution_Batch_Name'}
+Default: 'Curve_Batch_Name'}
 
 \item{dilution_data}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 \code{dilution_data} was renamed to
@@ -52,7 +52,7 @@ Default: 'Dilution_Batch_Name'}
 \code{curve_batch_var}.}
 
 \item{conc_var}{Column name in \code{curve_table} to indicate concentration.
-Default: 'Dilution_Percent'}
+Default: 'Concentration'}
 
 \item{conc_var_units}{Unit of measure for \code{conc_var}. Default: '\%'}
 

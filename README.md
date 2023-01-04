@@ -159,8 +159,7 @@ One example is the use of the Percent Residual Accuracy found in [Logue,
 B. A. and Manandhar, E.
 (2018)](https://doi.org/10.1016/j.talanta.2018.07.046) which is more
 sensitive than Pearson correlation coefficient. Observe that the linear
-dilution curve gives a higher value compared to than the other two
-curves.
+curve gives a higher value compared to than the other two curves.
 
 ``` r
 lancer::calculate_pra_linear(
@@ -190,7 +189,7 @@ lancer::calculate_pra_linear(
 ```
 
 Another example is the use of the Mandel’s Fitting Test. Observe that
-the two non-linear dilution curves give a very low p value.
+the two non-linear curves give a very low p value.
 
 ``` r
 lancer::calculate_mandel(
@@ -232,8 +231,7 @@ lancer::calculate_mandel(
 
 ## How It Works
 
-We try to categorise dilution curves based on the results of three
-parameters.
+We try to categorise curves based on the results of three parameters.
 
 - Pearson Correlation Coefficient ( $R$ )
 - Percent Residual Accuracy ( $PRA$ )
@@ -263,12 +261,11 @@ Equation ( $6$ ) is used.
 
 ## Workflow Proposed
 
-Two methods are proposed to categorise the dilution curves.
+Two methods are proposed to categorise the curves.
 
 ### Workflow 1
 
-Workflow 1 involves using $R$ and $PRA$ to categorise the dilution
-curves.
+Workflow 1 involves using $R$ and $PRA$ to categorise the curves.
 
 - If $R < 0.8$, classify as poor linearity.  
 - If $R \ge{0.8}$, $PRA < 80$, classify as poor linearity.  
@@ -277,7 +274,7 @@ curves.
 ### Workflow 2
 
 Workflow 2 involves using $R$, $PRA$ and Mandel’s Fitting Test to
-categorise the dilution curves.
+categorise the curves.
 
 - If $R < 0.8$, classify as poor linearity.
 - If $R \ge{0.8}$, $PRA < 80$, fit the quadratic model and use Mandel’s
@@ -334,7 +331,7 @@ curve_1_saturation_regime <- c(
   78044338, 86158414
 )
 
-curve_2_good_linearty <- c(
+curve_2_good_linearity <- c(
   31538, 53709, 69990, 101977, 146436, 180960,
   232881, 283780, 298289, 344519, 430432,
   25463, 63387, 90624, 131274, 138069,
@@ -348,7 +345,7 @@ curve_3_noise_regime <- c(
   3563, 4500, 5300, 8500, 10430
 )
 
-curve_4_poor_linearty <- c(
+curve_4_poor_linearity <- c(
   380519, 485372, 478770, 474467, 531640, 576301,
   501068, 550201, 515110, 499543, 474745,
   197417, 322846, 478398, 423174, 418577,
@@ -364,9 +361,9 @@ curve_batch_annot <- tibble::tibble(
 curve_data <- tibble::tibble(
   Sample_Name = sample_name,
   `Curve_1` = curve_1_saturation_regime,
-  `Curve_2` = curve_2_good_linearty,
+  `Curve_2` = curve_2_good_linearity,
   `Curve_3` = curve_3_noise_regime,
-  `Curve_4` = curve_4_poor_linearty
+  `Curve_4` = curve_4_poor_linearity
 )
 ```
 
@@ -444,7 +441,7 @@ print(curve_table, width = 100)
 Summarise each curve and batch with `summarise_curve_table`
 
 ``` r
-# Create dilution statistical summary
+# Create curve statistical summary
 curve_summary <- lancer::summarise_curve_table(
   curve_table = curve_table,
   grouping_variable = c(
@@ -532,7 +529,7 @@ lancer::write_summary_excel(
   file_name = "curve_summary.xlsx")
 ```
 
-<img src="man/figures/README-ExcelResults.png" alt="Dilution statistics summary reported in Excel using lancer." width="100%" />
+<img src="man/figures/README-ExcelResults.png" alt="Curve statistics summary reported in Excel using lancer." width="100%" />
 
 Results can be plotted using `add_ggplot_panel`. This will create a
 column called panel that contains all the `ggplot` plots
@@ -591,8 +588,8 @@ trellis_table <- lancer::add_plotly_panel(
     "Curve_Batch_Name"
   ),
   sample_name_var = "Sample_Name",
-  curv_batch_var = "Curve_Batch_Name",
-  curv_batch_col = c(
+  curve_batch_var = "Curve_Batch_Name",
+  curve_batch_col = c(
     "#377eb8",
     "#4daf4a"
   ),

@@ -48,7 +48,7 @@ create_page_layout <- function(number_of_plots,
 #' a data frame or tibble and the column name "panel" should contain
 #' the list of plots.
 #' @param filename File name of the pdf document.
-#' Default: 'dilution_plot.pdf'
+#' Default: 'curve_plot.pdf'
 #' @param ncol_per_page Number of columns of plots allowed in one
 #' page of the pdf document.
 #' Default: 2
@@ -100,7 +100,7 @@ create_page_layout <- function(number_of_plots,
 #'   Concentration = concentration
 #' )
 #'
-#' # Create dilution table
+#' # Create curve table
 #' curve_table <- create_curve_table(
 #'   curve_batch_annot = curve_batch_annot,
 #'   curve_data_wide = curve_data,
@@ -109,7 +109,7 @@ create_page_layout <- function(number_of_plots,
 #'   column_group = "Curve_Name"
 #' )
 #'
-#' # Create a ggplot table without dilution summary
+#' # Create a ggplot table without curve summary
 #' ggplot_table_auto <- add_ggplot_panel(curve_table)
 #'
 #' # Get the list of ggplot list for each group
@@ -121,7 +121,7 @@ create_page_layout <- function(number_of_plots,
 #' @rdname view_ggplot_pdf
 #' @export
 view_ggplot_pdf <- function(ggplot_list,
-                            filename = "dilution_plot.pdf",
+                            filename = "curve_plot.pdf",
                             ncol_per_page = 2,
                             nrow_per_page = 2,
                             width = 15, height = 8,

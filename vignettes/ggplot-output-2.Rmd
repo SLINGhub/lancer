@@ -157,7 +157,7 @@ ggplot_list[[1]]
 ```
 
 Units of `conc_var` and `conc_var_interval` can be customised to suit the range of `conc_var`
-You can also change the colours for your dilution batch from `curve_batch_col` 
+You can also change the colours for your curve batch from `curve_batch_col` 
 
 ```{r create ggplot table with conc customisation}
 ggplot_table <- lancer::add_ggplot_panel(

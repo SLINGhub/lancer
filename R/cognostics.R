@@ -304,7 +304,7 @@ update_cog_manual <- function(curve_summary,
 }
 
 #' Update Cognostics Automatically
-#' @description Update cognostics on the dilution summary based on
+#' @description Update cognostics on the `curve_summary` based on
 #' the cognostics data frame given by the function `create_default_cog_df`.
 #' @param curve_summary The summary table generated
 #' by function [summarise_curve_table()] and/or
@@ -438,7 +438,7 @@ update_cog_auto <- function(
   # Create the default cognostics table
   cog_df <- create_default_cog_df()
 
-  # Update the dilution summary columns and
+  # Update the curve_summary columns and
   # convert the relevant to cognostics
   curve_summary <- curve_summary %>%
     update_cog_manual(cog_df = cog_df)
@@ -460,10 +460,10 @@ update_cog_auto <- function(
 #' [create_default_cog_df()] will be used.
 #' Default: NULL
 #' @param grouping_variable A character vector of
-#' column names in `curve_summary`to indicate how each dilution curve
+#' column names in `curve_summary`to indicate how each curve
 #' should be grouped by. It is also going to be used as a conditional
 #' cognostics in the `trelliscopejs` report.
-#' Default: c("Transition_Name", "Dilution_Batch_Name")
+#' Default: c("Curve_Name", "Curve_Batch_Name")
 #' @param panel_variable A column name in `curve_summary` to be converted
 #' into a panel for the `Trelliscope` display.
 #' Default: NULL
@@ -476,7 +476,7 @@ update_cog_auto <- function(
 #' @param type_vec Column name in `cog_df` to indicate the type
 #' of each cognostics as define in `trelliscopejs::cog`.
 #' Default: 'type_vec'
-#' @return The dilution summary table with `grouping variable` columns
+#' @return The curve summary table with `grouping variable` columns
 #' converted to conditional cognostics.
 #' other columns in `curve_summary` converted to cognostics
 #' to be used in the in the `trelliscopejs` report.

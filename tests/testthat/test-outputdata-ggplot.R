@@ -1,4 +1,4 @@
-test_that("Able to plot dilution data with its
+test_that("Able to plot curve data with its
           statistical summary in a pdf report", {
 
   # Data Creation
@@ -129,7 +129,7 @@ test_that("Able to plot dilution data with its
     )
   )
 
-  # Create a ggplot table without dilution summary
+  # Create a ggplot table without curve summary
   testthat::expect_silent(
     ggplot_table_auto <- add_ggplot_panel(
       curve_table,
@@ -150,7 +150,7 @@ test_that("Able to plot dilution data with its
   # Create a pdf report, set testing = FALSE to output results
   testthat::expect_silent(
     view_ggplot_pdf(ggplot_list,
-                    filename = "dilution_plot.pdf",
+                    filename = "curve_plot.pdf",
                     ncol_per_page = 2,
                     nrow_per_page = 2,
                     testing = FALSE
@@ -160,7 +160,7 @@ test_that("Able to plot dilution data with its
   # Expect number of columns and rows per page to be two
   pdf_page_list <- view_ggplot_pdf(
     ggplot_list,
-    filename = "dilution_plot.pdf",
+    filename = "curve_plot.pdf",
     ncol_per_page = 2,
     nrow_per_page = 2,
     testing = TRUE
@@ -176,7 +176,7 @@ test_that("Able to plot dilution data with its
   # Expect number of rows per page to be two
   pdf_page_list <- view_ggplot_pdf(
     ggplot_list,
-    filename = "dilution_plot.pdf",
+    filename = "curve_plot.pdf",
     ncol_per_page = NULL,
     nrow_per_page = 2,
     testing = TRUE
@@ -192,7 +192,7 @@ test_that("Able to plot dilution data with its
   # Expect number of cols per page to be two
   pdf_page_list <- view_ggplot_pdf(
     ggplot_list,
-    filename = "dilution_plot.pdf",
+    filename = "curve_plot.pdf",
     ncol_per_page = 2,
     nrow_per_page = NULL,
     testing = TRUE
@@ -212,7 +212,7 @@ test_that("Able to plot dilution data with its
   # set testing = FALSE to output results
   pdf_page_list <- view_ggplot_pdf(
     ggplot_list,
-    filename = "dilution_plot.pdf",
+    filename = "curve_plot.pdf",
     ncol_per_page = 3,
     nrow_per_page = 3,
     width = 20,
@@ -227,9 +227,9 @@ test_that("Able to plot dilution data with its
       nrow = 3)
   )
 
-  if (isTRUE(file.exists("dilution_plot.pdf"))) {
+  if (isTRUE(file.exists("curve_plot.pdf"))) {
     # Delete file if it exists
-    testthat::expect_true(file.remove("dilution_plot.pdf"))
+    testthat::expect_true(file.remove("curve_plot.pdf"))
   }
 })
 

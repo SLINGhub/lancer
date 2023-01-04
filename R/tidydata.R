@@ -456,7 +456,7 @@ summarise_dilution_table <- function(dilution_table,
 #' # Give summary result for each curve grouped by Curve_Name
 #' # and Curve_Batch_Name
 #' curve_summary <- curve_table %>%
-#'   summarise_dilution_table(
+#'   summarise_curve_table(
 #'     grouping_variable = c(
 #'       "Curve_Name",
 #'       "Curve_Batch_Name"

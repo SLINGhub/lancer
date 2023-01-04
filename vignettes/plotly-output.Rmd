@@ -291,7 +291,7 @@ knitr::include_graphics("vignettes-RstudioCommand.png")
 This will create a folder called “Curve_Plot_Folder” as defined by `trellis_report_folder` in your current working directory.
 
 ```{r Output Folder, echo = FALSE}
-#| fig.alt = "Folder named Dilution_Plot_Folder
+#| fig.alt = "Folder named Curve_Plot_Folder
 #|  is created when code is successfully executed."
 
 knitr::include_graphics("vignettes-OutputFolder.png")

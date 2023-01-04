@@ -393,7 +393,7 @@ cor(saturation_regime_data$conc_var, saturation_regime_data$signal_var)
 cor(noise_regime_data$conc_var, noise_regime_data$signal_var)
 ```
 
-One example is the use of the Percent Residual Accuracy found in [Logue, B. A. and Manandhar, E. (2018)](https://doi.org/10.1016/j.talanta.2018.07.046) which is more sensitive than Pearson correlation coefficient. Observe that the linear dilution curve gives a higher value compared to than the other two curves.
+One example is the use of the Percent Residual Accuracy found in [Logue, B. A. and Manandhar, E. (2018)](https://doi.org/10.1016/j.talanta.2018.07.046) which is more sensitive than Pearson correlation coefficient. Observe that the linear curve gives a higher value compared to than the other two curves.
 
 ```{r Percent Residual Accuracy1}
 lancer::calculate_pra_linear(
@@ -419,7 +419,7 @@ lancer::calculate_pra_linear(
   signal_var = "signal_var"
 )
 ```
-Another example is the use of the Mandel's Fitting Test. Observe that the two non-linear dilution curves give a very low p value.
+Another example is the use of the Mandel's Fitting Test. Observe that the two non-linear curves give a very low p value.
 
 ```{r Mandel Test1}
 lancer::calculate_mandel(
@@ -449,7 +449,7 @@ lancer::calculate_mandel(
 
 ## How It Works
 
-We try to categorise dilution curves based on the results of three parameters.  
+We try to categorise curves based on the results of three parameters.  
 
  * Pearson Correlation Coefficient ( $R$ ) 
  * Percent Residual Accuracy ( $PRA$ )
@@ -475,11 +475,11 @@ Equation ( $6$ ) is used.
 
 ## Workflow Proposed
 
-Two methods are proposed to categorise the dilution curves.
+Two methods are proposed to categorise the curves.
 
 ### Workflow 1
 
-Workflow 1 involves using $R$ and $PRA$ to categorise the dilution curves.
+Workflow 1 involves using $R$ and $PRA$ to categorise the curves.
 
  * If $R < 0.8$, classify as poor linearity.  
  * If $R \ge{0.8}$, $PRA < 80$, classify as poor linearity.  
@@ -487,7 +487,7 @@ Workflow 1 involves using $R$ and $PRA$ to categorise the dilution curves.
 
 ### Workflow 2
 
-Workflow 2 involves using $R$, $PRA$ and Mandel's Fitting Test to categorise the dilution curves.
+Workflow 2 involves using $R$, $PRA$ and Mandel's Fitting Test to categorise the curves.
 
  * If $R < 0.8$, classify as poor linearity.
  * If $R \ge{0.8}$, $PRA < 80$, fit the quadratic model and use Mandel's Fitting Test to see if the quadratic model is a better fit ( p value $< 0.05$ ). 
@@ -610,7 +610,7 @@ print(curve_table, width = 100)
 Summarise each curve and batch with `summarise_curve_table`
 
 ```{r curve summary}
-# Create dilution statistical summary
+# Create curve statistical summary
 curve_summary <- lancer::summarise_curve_table(
   curve_table = curve_table,
   grouping_variable = c(
@@ -657,7 +657,7 @@ lancer::write_summary_excel(
 ```
 
 ```{r Excel Report, echo = FALSE}
-#| fig.alt = "Dilution statistics
+#| fig.alt = "Curve statistics
 #|  summary reported in Excel using lancer."
  
 knitr::include_graphics("man/figures/README-ExcelResults.png")
@@ -724,8 +724,8 @@ trellis_table <- lancer::add_plotly_panel(
     "Curve_Batch_Name"
   ),
   sample_name_var = "Sample_Name",
-  curv_batch_var = "Curve_Batch_Name",
-  curv_batch_col = c(
+  curve_batch_var = "Curve_Batch_Name",
+  curve_batch_col = c(
     "#377eb8",
     "#4daf4a"
   ),

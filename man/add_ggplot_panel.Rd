@@ -51,12 +51,12 @@ Default: NULL}
 \item{grouping_variable}{A character vector of
 column names in \code{curve_table}to indicate how each curve
 should be grouped by.
-Default: c("Transition_Name", "Dilution_Batch_Name")}
+Default: c("Curve_Name", "Curve_Batch_Name")}
 
 \item{curve_batch_var}{Column name in \code{curve_table}
 to indicate the group name of each curve batch,
 used to colour the points in the curve plot.
-Default: 'Dilution_Batch_Name'}
+Default: 'Curve_Batch_Name'}
 
 \item{curve_batch_col}{A vector of colours to be used for the curve
 batch group named given in \code{curve_batch_var}.
@@ -71,7 +71,7 @@ Default: c("#377eb8", "#4daf4a", "#9C27B0", "#BCAAA4", "#FF8A65", "#EFBBCF")}
 \code{curve_batch_col}.}
 
 \item{conc_var}{Column name in \code{curve_table} to indicate concentration.
-Default: 'Dilution_Percent'}
+Default: 'Concentration'}
 
 \item{conc_var_units}{Unit of measure for \code{conc_var}. Default: '\%'}
 

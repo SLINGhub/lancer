@@ -1,4 +1,4 @@
-test_that("create dilution table and statistical summary", {
+test_that("create curve table and statistical summary", {
 
   # Data Creation
   concentration <- c(
