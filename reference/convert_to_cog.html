@@ -101,10 +101,10 @@ Default: NULL</p></dd>
 
 <dt>grouping_variable</dt>
 <dd><p>A character vector of
-column names in <code>curve_summary</code>to indicate how each dilution curve
+column names in <code>curve_summary</code>to indicate how each curve
 should be grouped by. It is also going to be used as a conditional
 cognostics in the <code>trelliscopejs</code> report.
-Default: c("Transition_Name", "Dilution_Batch_Name")</p></dd>
+Default: c("Curve_Name", "Curve_Batch_Name")</p></dd>
 
 
 <dt>panel_variable</dt>
@@ -135,7 +135,7 @@ Default: 'type_vec'</p></dd>
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     
 
-<p>The dilution summary table with <code>grouping variable</code> columns
+<p>The curve summary table with <code>grouping variable</code> columns
 converted to conditional cognostics.
 other columns in <code>curve_summary</code> converted to cognostics
 to be used in the in the <code>trelliscopejs</code> report.</p>
