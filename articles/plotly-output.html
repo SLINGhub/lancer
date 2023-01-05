@@ -169,7 +169,7 @@
 <span>  column_group <span class="op">=</span> <span class="st">"Curve_Name"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">curve_classified</span> <span class="op">&lt;-</span> <span class="va">curve_table</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="va">curve_classified</span> <span class="op">&lt;-</span> <span class="va">curve_table</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="../reference/summarise_curve_table.html">summarise_curve_table</a></span><span class="op">(</span></span>
 <span>    grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>      <span class="st">"Curve_Name"</span>,</span>
@@ -177,8 +177,8 @@
 <span>    <span class="op">)</span>,</span>
 <span>    conc_var <span class="op">=</span> <span class="st">"Concentration"</span>,</span>
 <span>    signal_var <span class="op">=</span> <span class="st">"Signal"</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">.data</span><span class="op">[[</span><span class="st">"Curve_Name"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">.data</span><span class="op">[[</span><span class="st">"Curve_Name"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="../reference/evaluate_linearity.html">evaluate_linearity</a></span><span class="op">(</span></span>
 <span>    grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>      <span class="st">"Curve_Name"</span>,</span>
@@ -325,8 +325,8 @@ columns as a common cognostics.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span></span>
-<span><span class="va">trellis_table_orig_converted</span> <span class="op">&lt;-</span> <span class="va">trellis_table_orig</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">curve_name_annot</span>, by <span class="op">=</span> <span class="st">"Curve_Name"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="va">trellis_table_orig_converted</span> <span class="op">&lt;-</span> <span class="va">trellis_table_orig</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">curve_name_annot</span>, by <span class="op">=</span> <span class="st">"Curve_Name"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">lancer</span><span class="fu">::</span><span class="fu"><a href="../reference/convert_to_cog.html">convert_to_cog</a></span><span class="op">(</span></span>
 <span>    cog_df <span class="op">=</span> <span class="va">cog_df</span>,</span>
 <span>    grouping_variable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
