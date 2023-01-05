@@ -598,7 +598,7 @@ trellis_table <- lancer::add_plotly_panel(
   conc_var_interval = 50,
   signal_var = "Signal",
   have_plot_title = FALSE
-) %>%
+) |>
   lancer::convert_to_cog(
     grouping_variable = c(
       "Curve_Name",
