@@ -62,7 +62,7 @@ test_that("create curve table and statistical summary", {
   )
 
   # Get curve statistical summary
-  curve_summary <- curve_table %>%
+  curve_summary <- curve_table |>
     summarise_curve_table(
       grouping_variable = c(
         "Curve_Name",
@@ -70,7 +70,7 @@ test_that("create curve table and statistical summary", {
       ),
       conc_var = "Concentration",
       signal_var = "Signal"
-    ) %>%
+    ) |>
     dplyr::arrange(.data[["Curve_Name"]])
 
   # Validating bad inputs for create_curve_table

@@ -46,14 +46,14 @@ test_that("Able to plot curve data with plotly correctly", {
     Curve_Batch_Name = curve_batch_name
   )
 
-  curve_batch_name <- curve_batch_name %>%
-    unique() %>%
+  curve_batch_name <- curve_batch_name |>
+    unique() |>
     as.character()
 
   curve_batch_col <- c("#377eb8")
 
   # Create palette for each curve batch for plotting
-  pal <- curve_batch_col %>%
+  pal <- curve_batch_col |>
     stats::setNames(curve_batch_name)
 
   # Plot the html
@@ -268,7 +268,7 @@ test_that("Create a plotly table with plot title", {
   )
 
   # Create curve statistical summary
-  curve_summary <- curve_table %>%
+  curve_summary <- curve_table |>
     summarise_curve_table(
       grouping_variable = c(
         "Curve_Name",
@@ -276,8 +276,8 @@ test_that("Create a plotly table with plot title", {
       ),
       conc_var = "Concentration",
       signal_var = "Signal"
-    ) %>%
-    dplyr::arrange(.data[["Curve_Name"]]) %>%
+    ) |>
+    dplyr::arrange(.data[["Curve_Name"]]) |>
     evaluate_linearity(grouping_variable = c(
       "Curve_Name",
       "Curve_Batch_Name"
@@ -343,14 +343,14 @@ test_that("dilution_data and dil_batch_var argument in plot_curve_plotly are dep
     Curve_Batch_Name = curve_batch_name
   )
 
-  curve_batch_name <- curve_batch_name %>%
-    unique() %>%
+  curve_batch_name <- curve_batch_name |>
+    unique() |>
     as.character()
 
   curve_batch_col <- c("#377eb8")
 
   # Create palette for each curve batch for plotting
-  pal <- curve_batch_col %>%
+  pal <- curve_batch_col |>
     stats::setNames(curve_batch_name)
 
   # Plot the html
@@ -425,7 +425,7 @@ test_that("dilution_data, dilution_summary, dil_batch_var, dil_batch_col argumen
   )
 
   # Create curve statistical summary
-  curve_summary <- curve_table %>%
+  curve_summary <- curve_table |>
     summarise_curve_table(
       grouping_variable = c(
         "Curve_Name",
@@ -433,8 +433,8 @@ test_that("dilution_data, dilution_summary, dil_batch_var, dil_batch_col argumen
       ),
       conc_var = "Concentration",
       signal_var = "Signal"
-    ) %>%
-    dplyr::arrange(.data[["Curve_Name"]]) %>%
+    ) |>
+    dplyr::arrange(.data[["Curve_Name"]]) |>
     evaluate_linearity(grouping_variable = c(
       "Curve_Name",
       "Curve_Batch_Name"

@@ -81,7 +81,7 @@ test_that("Able to plot curve data with
   )
 
   # Create curve statistical summary
-  curve_summary <- curve_table %>%
+  curve_summary <- curve_table |>
     summarise_curve_table(
       grouping_variable = c(
         "Curve_Name",
@@ -89,8 +89,8 @@ test_that("Able to plot curve data with
       ),
       conc_var = "Concentration",
       signal_var = "Signal"
-    ) %>%
-    dplyr::arrange(.data[["Curve_Name"]]) %>%
+    ) |>
+    dplyr::arrange(.data[["Curve_Name"]]) |>
     evaluate_linearity(grouping_variable = c(
       "Curve_Name",
       "Curve_Batch_Name"
@@ -111,7 +111,7 @@ test_that("Able to plot curve data with
     conc_var_units = "%",
     conc_var_interval = 50,
     signal_var = "Signal"
-  ) %>%
+  ) |>
     convert_to_cog(
       cog_df = NULL,
       grouping_variable = c(
@@ -129,10 +129,10 @@ test_that("Able to plot curve data with
 
   # Create a plotly trellis table with curve_batch_var
   # not as a grouping variable
-  curve_table_filtered <- curve_table %>%
+  curve_table_filtered <- curve_table |>
     dplyr::filter(.data[["Curve_Batch_Name"]] == "B2")
 
-  curve_summary_filtered <- curve_summary %>%
+  curve_summary_filtered <- curve_summary |>
     dplyr::filter(.data[["Curve_Batch_Name"]] == "B2")
 
   plotly_no_curve_batch_var <- add_plotly_panel(
@@ -147,7 +147,7 @@ test_that("Able to plot curve data with
     conc_var_units = "%",
     conc_var_interval = 50,
     signal_var = "Signal"
-  ) %>%
+  ) |>
     convert_to_cog(
       cog_df = NULL,
       grouping_variable = c(
@@ -180,7 +180,7 @@ test_that("Able to plot curve data with
     conc_var_units = "%",
     conc_var_interval = 50,
     signal_var = "Signal"
-    ) %>%
+    ) |>
     convert_to_cog(
       cog_df = NULL,
       grouping_variable = c(
@@ -200,7 +200,7 @@ test_that("Able to plot curve data with
 
   # Non grouping variable is not a
   # cognostic class, other than panel
-  invalid_trellis_table <- plotly_trellis_table %>%
+  invalid_trellis_table <- plotly_trellis_table |>
     dplyr::mutate(pra_linear = as.numeric(.data$pra_linear))
 
   testthat::expect_error(validate_trellis_table(invalid_trellis_table))
@@ -223,7 +223,7 @@ test_that("Able to plot curve data with
 
   # Grouping variable is not a
   # cognostic class, other than panel
-  invalid_trellis_table <- plotly_trellis_table %>%
+  invalid_trellis_table <- plotly_trellis_table |>
     dplyr::mutate(Curve_Name = as.character(.data$Curve_Name))
 
   testthat::expect_error(validate_trellis_table(invalid_trellis_table))
@@ -255,7 +255,7 @@ test_that("Able to plot curve data with
       conc_var_units = "%",
       conc_var_interval = 50,
       signal_var = "Signal"
-      ) %>%
+      ) |>
       convert_to_cog(
         cog_df = NULL,
         grouping_variable = c("Curve_Name",
@@ -287,7 +287,7 @@ test_that("Able to plot curve data with
     signal_var = "Signal",
     have_plot_title = FALSE,
     plot_summary_table = FALSE
-  ) %>%
+  ) |>
     convert_to_cog(
       cog_df = NULL,
       grouping_variable = c(
@@ -319,8 +319,8 @@ test_that("Able to plot curve data with
     conc_var_units = "%",
     conc_var_interval = 50,
     signal_var = "Signal"
-  ) %>%
-    dplyr::rename(paneldiff = panel) %>%
+  ) |>
+    dplyr::rename(paneldiff = panel) |>
     convert_to_cog(
       cog_df = NULL,
       grouping_variable = c(
@@ -331,7 +331,7 @@ test_that("Able to plot curve data with
       col_name_vec = "col_name_vec",
       desc_vec = "desc_vec",
       type_vec = "type_vec"
-    ) %>%
+    ) |>
     view_trellis_html(
       trellis_report_name = "Curve_Plot_Different",
       trellis_report_folder = "Curve_Plot",

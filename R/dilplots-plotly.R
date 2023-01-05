@@ -62,14 +62,14 @@
 #' )
 #'
 #' # Get the curve batch name from curve_table
-#' curve_batch_name <- curve_batch_name %>%
-#'   unique() %>%
+#' curve_batch_name <- curve_batch_name |>
+#'   unique() |>
 #'   as.character()
 #'
 #' curve_batch_col <- c("#377eb8")
 #'
 #' # Create palette for each curve batch for plotting
-#' pal <- curve_batch_col %>%
+#' pal <- curve_batch_col |>
 #'   stats::setNames(curve_batch_name)
 #'
 #' # Plot the html
@@ -121,11 +121,11 @@ plot_curve_plotly <- function(
 
   # Convert the column that holds the curve_batch_var
   # to character
-  curve_data[[curve_batch_var]] <- curve_data[[curve_batch_var]] %>%
+  curve_data[[curve_batch_var]] <- curve_data[[curve_batch_var]] |>
     as.character()
 
   # Drop rows whose value of signal_var is NA
-  curve_data <- curve_data %>%
+  curve_data <- curve_data |>
     tidyr::drop_na(dplyr::all_of(signal_var))
 
   # For the hover text
@@ -137,7 +137,7 @@ plot_curve_plotly <- function(
   )
 
   # Create the dots in the curve plot
-  p <- plotly::plot_ly() %>%
+  p <- plotly::plot_ly() |>
     plotly::add_trace(
       data = curve_data,
       x = ~ curve_data[[conc_var]],
@@ -164,7 +164,7 @@ plot_curve_plotly <- function(
       max_x <- max(curve_data[[conc_var]], na.rm = TRUE)
       cont_y <- unique(curve_data[[signal_var]])
 
-      p <- p %>%
+      p <- p |>
         plotly::add_segments(
           x = min_x, xend = max_x,
           y = cont_y, yend = cont_y,
@@ -178,7 +178,7 @@ plot_curve_plotly <- function(
       max_y <- max(curve_data[[signal_var]], na.rm = TRUE)
       cont_x <- unique(curve_data[[conc_var]])
 
-      p <- p %>%
+      p <- p |>
         plotly::add_segments(
           x = cont_x, xend = cont_x,
           y = min_y, yend = max_y,
@@ -200,7 +200,7 @@ plot_curve_plotly <- function(
       )
 
       # Create the linear and quadratic curve in the curve plot
-      p <- p %>%
+      p <- p |>
         plotly::add_trace(
           data = curve_data,
           x = curve,
@@ -211,7 +211,7 @@ plot_curve_plotly <- function(
           type = "scattergl", mode = "lines", name = "lin reg",
           line = list(color = "black", width = 1),
           inherit = FALSE
-        ) %>%
+        ) |>
         plotly::add_trace(
           data = curve_data,
           x = curve,
@@ -232,16 +232,16 @@ plot_curve_plotly <- function(
       if (isTRUE(plot_first_half_lin_reg)) {
 
         # Get the points for the partial linear curve
-        partial_conc_points <- curve_data %>%
-          dplyr::pull(.data[[conc_var]]) %>%
-          as.numeric() %>%
-          sort() %>%
+        partial_conc_points <- curve_data |>
+          dplyr::pull(.data[[conc_var]]) |>
+          as.numeric() |>
+          sort() |>
           unique()
 
         partial_conc_points <-
           partial_conc_points[1:ceiling(length(partial_conc_points) / 2)]
 
-        partial_curve_data <- curve_data %>%
+        partial_curve_data <- curve_data |>
           dplyr::filter(.data[[conc_var]] %in% partial_conc_points)
 
         # Create the partial model
@@ -251,7 +251,7 @@ plot_curve_plotly <- function(
         )
 
         # Create the lines in the curve plot
-        p <- p %>%
+        p <- p |>
           plotly::add_trace(
             data = partial_curve_data,
             x = curve,
@@ -268,17 +268,17 @@ plot_curve_plotly <- function(
       if (isTRUE(plot_last_half_lin_reg)) {
 
         # Get the points for the partial linear curve
-        partial_conc_points <- curve_data %>%
-          dplyr::pull(.data[[conc_var]]) %>%
-          as.numeric() %>%
-          sort() %>%
+        partial_conc_points <- curve_data |>
+          dplyr::pull(.data[[conc_var]]) |>
+          as.numeric() |>
+          sort() |>
           unique()
 
         last_half_index <-
           ceiling(length(partial_conc_points) / 2):length(partial_conc_points)
         partial_conc_points <- partial_conc_points[last_half_index]
 
-        partial_curve_data <- curve_data %>%
+        partial_curve_data <- curve_data |>
           dplyr::filter(.data[[conc_var]] %in% partial_conc_points)
 
         # Create the partial model
@@ -288,7 +288,7 @@ plot_curve_plotly <- function(
         )
 
         # Create the lines in the curve plot
-        p <- p %>%
+        p <- p |>
           plotly::add_trace(
             data = partial_curve_data,
             x = curve,
@@ -311,7 +311,7 @@ plot_curve_plotly <- function(
   }
 
   # Create the layout to be the same as ggplot2
-  p <- p %>%
+  p <- p |>
     plotly::layout(
       title = list(
         text = title,
@@ -362,7 +362,7 @@ plot_curve_plotly <- function(
       paper_bgcolor = "rgb(255,255,255)",
       plot_bgcolor = "rgb(229,229,229)",
       showlegend = TRUE
-    ) %>%
+    ) |>
     plotly::add_annotations(
       x = 0,
       y = 1,
@@ -522,7 +522,7 @@ plot_curve_plotly <- function(
 #' )
 #'
 #' # Create curve statistical summary
-#' curve_summary <- curve_table %>%
+#' curve_summary <- curve_table |>
 #'   summarise_curve_table(
 #'     grouping_variable = c(
 #'       "Curve_Name",
@@ -530,8 +530,8 @@ plot_curve_plotly <- function(
 #'     ),
 #'     conc_var = "Concentration",
 #'     signal_var = "Signal"
-#'   ) %>%
-#'   dplyr::arrange(.data[["Curve_Name"]]) %>%
+#'   ) |>
+#'   dplyr::arrange(.data[["Curve_Name"]]) |>
 #'   evaluate_linearity(grouping_variable = c(
 #'     "Curve_Name",
 #'     "Curve_Batch_Name"
@@ -629,12 +629,12 @@ add_plotly_panel <- function(
 
   # Try to create curve summary if you do not have one.
   if (is.null(curve_summary)) {
-    curve_summary <- curve_table %>%
+    curve_summary <- curve_table |>
       summarise_curve_table(
         grouping_variable = grouping_variable,
         conc_var = conc_var,
         signal_var = signal_var
-      ) %>%
+      ) |>
       evaluate_linearity(grouping_variable = grouping_variable)
   }
 
@@ -644,51 +644,51 @@ add_plotly_panel <- function(
   )
 
   # Get the curve batch name from curve_table
-  curve_batch_name <- curve_table %>%
-    dplyr::pull(.data[[curve_batch_var]]) %>%
-    unique() %>%
+  curve_batch_name <- curve_table |>
+    dplyr::pull(.data[[curve_batch_var]]) |>
+    unique() |>
     as.character()
 
   # Create palette for each curve batch for plotting
-  pal <- curve_batch_col %>%
-    create_char_seq(output_length = length(curve_batch_name)) %>%
+  pal <- curve_batch_col |>
+    create_char_seq(output_length = length(curve_batch_name)) |>
     stats::setNames(curve_batch_name)
 
 
   # Create a title name for each group
   if (isTRUE(have_plot_title)) {
-    curve_table <- curve_table %>%
-      dplyr::rowwise() %>%
+    curve_table <- curve_table |>
+      dplyr::rowwise() |>
       dplyr::mutate(title = paste0(
         dplyr::across(dplyr::all_of(grouping_variable)),
         collapse = "_"
-      )) %>%
+      )) |>
       dplyr::ungroup()
   } else {
-    curve_table <- curve_table %>%
+    curve_table <- curve_table |>
       dplyr::mutate(title = "")
   }
 
   # Add curve_batch_var in the nested data
   # Will not work if curve_batch_var is also a grouping_variable
 
-  curve_table <- curve_table %>%
+  curve_table <- curve_table |>
     dplyr::group_by_at(
       c(grouping_variable, "title")
-    ) %>%
-    dplyr::relocate(dplyr::all_of(c(grouping_variable, "title"))) %>%
+    ) |>
+    dplyr::relocate(dplyr::all_of(c(grouping_variable, "title"))) |>
     tidyr::nest()
 
   # If this is the case, we need to make a copy
   # of the variable inside the nested data
 
   if (curve_batch_var %in% grouping_variable) {
-    curve_table <- curve_table %>%
+    curve_table <- curve_table |>
       dplyr::mutate(data = purrr::map2(
         .x = .data$data,
         .y = .data[[curve_batch_var]],
         .f = function(df, curve_batch_name) {
-          df <- df %>%
+          df <- df |>
             dplyr::mutate(!!curve_batch_var := curve_batch_name)
           return(df)
         }
@@ -697,8 +697,8 @@ add_plotly_panel <- function(
 
   # Group/Nest the curve data for each group
   # and do a curve plot for each of them
-  curve_plots <- curve_table %>%
-    dplyr::ungroup() %>%
+  curve_plots <- curve_table |>
+    dplyr::ungroup() |>
     dplyr::mutate(panel = trelliscopejs::map2_plot(
       .x = .data$data,
       .y = .data$title,
@@ -716,11 +716,11 @@ add_plotly_panel <- function(
 
 
   # Left Join plots with grouping variable and curve_summary
-  trellis_table <- curve_plots %>%
-    dplyr::select(dplyr::all_of(c(grouping_variable))) %>%
-    dplyr::bind_cols(curve_plots %>%
-      dplyr::select(dplyr::any_of("panel"))) %>%
-    dplyr::left_join(curve_summary, by = grouping_variable) %>%
+  trellis_table <- curve_plots |>
+    dplyr::select(dplyr::all_of(c(grouping_variable))) |>
+    dplyr::bind_cols(curve_plots |>
+      dplyr::select(dplyr::any_of("panel"))) |>
+    dplyr::left_join(curve_summary, by = grouping_variable) |>
     dplyr::relocate(
       dplyr::any_of("panel"),
       .after = dplyr::last_col()

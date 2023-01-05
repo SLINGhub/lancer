@@ -98,7 +98,7 @@ curve_table <- lancer::create_curve_table(
   column_group = "Curve_Name"
 )
 
-curve_classified <- curve_table %>%
+curve_classified <- curve_table |>
   lancer::summarise_curve_table(
     grouping_variable = c(
       "Curve_Name",
@@ -106,8 +106,8 @@ curve_classified <- curve_table %>%
     ),
     conc_var = "Concentration",
     signal_var = "Signal"
-  ) %>%
-  dplyr::arrange(.data[["Curve_Name"]]) %>%
+  ) |>
+  dplyr::arrange(.data[["Curve_Name"]]) |>
   lancer::evaluate_linearity(
     grouping_variable = c(
       "Curve_Name",

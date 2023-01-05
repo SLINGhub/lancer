@@ -101,14 +101,14 @@ curve_data <- tibble::tibble(
 )
 
 # Get the curve batch name from curve_table
-curve_batch_name <- curve_batch_name \%>\%
-  unique() \%>\%
+curve_batch_name <- curve_batch_name |>
+  unique() |>
   as.character()
 
 curve_batch_col <- c("#377eb8")
 
 # Create palette for each curve batch for plotting
-pal <- curve_batch_col \%>\%
+pal <- curve_batch_col |>
   stats::setNames(curve_batch_name)
 
 # Plot the html

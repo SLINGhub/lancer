@@ -60,7 +60,7 @@ calculate_column_max_char <- function(
   # Convert factor columns to type character
   # as nchar gives an error if a input vector
   # is of type factor
-  curve_summary <- curve_summary %>%
+  curve_summary <- curve_summary |>
     dplyr::mutate_if(is.factor, is.character)
 
   # Start with an empty vector
@@ -70,11 +70,11 @@ calculate_column_max_char <- function(
     # For each column
 
     # Get the number of char for the column name
-    column_name_char <- colnames(curve_summary)[i] %>%
+    column_name_char <- colnames(curve_summary)[i] |>
       nchar()
 
     # Get the number of char for each data in the column
-    data_char <- curve_summary[, i, drop = TRUE] %>%
+    data_char <- curve_summary[, i, drop = TRUE] |>
       nchar()
 
     # Get the maximun number of char and append
@@ -158,9 +158,9 @@ mark_near_zero_columns <- function(
   # Check if we have numeric columns
   # Check to see if numeric column has at least one value
   # If have none, return as it is
-  remaining_cols <- curve_summary %>%
-    dplyr::select_if(function(col) is.numeric(col)) %>%
-    dplyr::select_if(function(col) !all(is.na(col))) %>%
+  remaining_cols <- curve_summary |>
+    dplyr::select_if(function(col) is.numeric(col)) |>
+    dplyr::select_if(function(col) !all(is.na(col))) |>
     colnames()
 
   if (length(remaining_cols) < 1) {
@@ -170,15 +170,15 @@ mark_near_zero_columns <- function(
   # Take the absolute value for each numeric column
   # Collect the minimum value
   # If it is small enough, change the class to scientific
-  near_zero_columns <- curve_summary %>%
-    dplyr::mutate_at(remaining_cols, abs) %>%
-    dplyr::summarise_at(remaining_cols, min, na.rm = TRUE) %>%
+  near_zero_columns <- curve_summary |>
+    dplyr::mutate_at(remaining_cols, abs) |>
+    dplyr::summarise_at(remaining_cols, min, na.rm = TRUE) |>
     tidyr::pivot_longer(
       cols = dplyr::everything(),
       names_to = "summary_stats",
       values_to = "min"
-    ) %>%
-    dplyr::filter(.data$min < threshold_value) %>%
+    ) |>
+    dplyr::filter(.data$min < threshold_value) |>
     dplyr::pull(.data$summary_stats)
 
   for (variables in near_zero_columns) {
@@ -258,8 +258,8 @@ format_num_cell_style <- function(
   }
 
   # Get the class for each column
-  classes <- curve_summary %>%
-    purrr::map_chr(class) %>%
+  classes <- curve_summary |>
+    purrr::map_chr(class) |>
     unname()
 
   # Format numeric style based on the class of column names
@@ -645,8 +645,8 @@ write_summary_excel <- function(curve_summary, file_name,
   openxlsx::modifyBaseFont(wb = my_workbook, fontName = "Consolas")
 
   # Create numeric style based on column name
-  curve_summary %>%
-    mark_near_zero_columns() %>%
+  curve_summary |>
+    mark_near_zero_columns() |>
     format_num_cell_style(
       workbook = my_workbook,
       sheet = sheet_name

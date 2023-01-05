@@ -6,6 +6,7 @@
 
 ## Completed
 
+* Change `%>%` to `|>`.
 * Update README and vignettes file documentation by replacing `dilution` to `curve`.
 * Add test unit for function `create_reg_col_vec`.
 * Change `lancer` functions that has `dilution` to `curve`.

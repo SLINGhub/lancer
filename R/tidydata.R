@@ -345,7 +345,7 @@ create_curve_table <- function(curve_batch_annot, curve_data_wide,
   # Merge the two data together and make it long
   curve_table <- dplyr::inner_join(curve_batch_annot, curve_data_wide,
     by = common_column
-  ) %>%
+  ) |>
     tidyr::pivot_longer(-dplyr::any_of(colnames(curve_batch_annot)),
       names_to = column_group, values_to = signal_var
     )
@@ -455,7 +455,7 @@ summarise_dilution_table <- function(dilution_table,
 #'
 #' # Give summary result for each curve grouped by Curve_Name
 #' # and Curve_Batch_Name
-#' curve_summary <- curve_table %>%
+#' curve_summary <- curve_table |>
 #'   summarise_curve_table(
 #'     grouping_variable = c(
 #'       "Curve_Name",
@@ -488,21 +488,21 @@ summarise_curve_table <- function(curve_table,
 
   # Group/Nest the curve data for each group
   # and do a curve summary for each of them
-  curve_summary <- curve_table %>%
+  curve_summary <- curve_table |>
     dplyr::group_by_at(
       grouping_variable
-      ) %>%
-    dplyr::relocate(dplyr::all_of(grouping_variable)) %>%
-    tidyr::nest() %>%
-    dplyr::ungroup() %>%
+      ) |>
+    dplyr::relocate(dplyr::all_of(grouping_variable)) |>
+    tidyr::nest() |>
+    dplyr::ungroup() |>
     dplyr::mutate(curve_summary = purrr::map(.data$data,
       summarise_curve_data,
       conc_var = conc_var,
       signal_var = signal_var
-    )) %>%
+    )) |>
     tidyr::unnest(c(
       dplyr::any_of("curve_summary")
-      )) %>%
+      )) |>
     dplyr::select(!c(
       dplyr::any_of("data")
       ))

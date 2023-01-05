@@ -93,7 +93,7 @@ evaluate_linearity <- function(curve_summary,
     return(curve_summary)
   } else {
     # Else perform the evaluation
-    curve_summary <- curve_summary %>%
+    curve_summary <- curve_summary |>
       dplyr::mutate(
         wf1_group =
           dplyr::case_when(
@@ -122,7 +122,7 @@ evaluate_linearity <- function(curve_summary,
     ))
 
     # Rearrange the column based on the first evaluation
-    curve_summary <- curve_summary %>%
+    curve_summary <- curve_summary |>
       dplyr::relocate(
         dplyr::any_of(
           c(grouping_variable, "wf1_group",
@@ -133,7 +133,7 @@ evaluate_linearity <- function(curve_summary,
     return(curve_summary)
   } else {
     # Else perform the evaluation
-    curve_summary <- curve_summary %>%
+    curve_summary <- curve_summary |>
       dplyr::mutate(
         wf2_group =
           dplyr::case_when(
@@ -153,7 +153,7 @@ evaluate_linearity <- function(curve_summary,
   }
 
   # Rearrange the column based on the first evaluation
-  curve_summary <- curve_summary %>%
+  curve_summary <- curve_summary |>
     dplyr::relocate(
       dplyr::any_of(
         c(grouping_variable, "wf1_group", "wf2_group",

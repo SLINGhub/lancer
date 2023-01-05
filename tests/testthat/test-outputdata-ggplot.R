@@ -81,7 +81,7 @@ test_that("Able to plot curve data with its
   )
 
   # Create curve statistical summary
-  curve_summary <- curve_table %>%
+  curve_summary <- curve_table |>
     summarise_curve_table(
       grouping_variable = c(
         "Curve_Name",
@@ -89,8 +89,8 @@ test_that("Able to plot curve data with its
       ),
       conc_var = "Concentration",
       signal_var = "Signal"
-    ) %>%
-    dplyr::arrange(.data[["Curve_Name"]]) %>%
+    ) |>
+    dplyr::arrange(.data[["Curve_Name"]]) |>
     evaluate_linearity(grouping_variable = c(
       "Curve_Name",
       "Curve_Batch_Name"

@@ -39,8 +39,9 @@ Suggests:
 Language: en-GB
 URL: https://slinghub.github.io/lancer/, https://github.com/SLINGhub/lancer
 BugReports: https://github.com/SLINGhub/lancer/issues
+Depends:
+    R (>= 4.1.0)
 Imports: 
-    magrittr,
     broom,
     dplyr,
     purrr,

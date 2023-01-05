@@ -78,7 +78,7 @@
 #'   conc_var_units = "%",
 #'   conc_var_interval = 50,
 #'   signal_var = "Signal"
-#'   ) %>%
+#'   ) |>
 #'   convert_to_cog(
 #'     cog_df = NULL,
 #'     grouping_variable = c(
@@ -114,7 +114,7 @@ validate_trellis_table <- function(trellis_table,
     stop("input grouping variable cannot be an empty vector or vector with NA")
   }
 
-  important_variable <- c(grouping_variable, panel_variable) %>%
+  important_variable <- c(grouping_variable, panel_variable) |>
     unique()
 
   # Check if things in needed_column are in trellis_table
@@ -123,8 +123,8 @@ validate_trellis_table <- function(trellis_table,
     only_colnames = FALSE, quiet = TRUE
   )
 
-  non_grouping_variable <- trellis_table %>%
-    dplyr::select(-dplyr::one_of(important_variable)) %>%
+  non_grouping_variable <- trellis_table |>
+    dplyr::select(-dplyr::one_of(important_variable)) |>
     colnames()
 
 
@@ -259,7 +259,7 @@ validate_trellis_table <- function(trellis_table,
 #'   conc_var_units = "%",
 #'   conc_var_interval = 50,
 #'   signal_var = "Signal"
-#'   ) %>%
+#'   ) |>
 #'   convert_to_cog(
 #'     cog_df = NULL,
 #'     grouping_variable = c(
@@ -302,7 +302,7 @@ view_trellis_html <- function(trellis_table,
   trellis_labels <- c(
     grouping_variable,
     trellis_additional_labels
-  ) %>%
+  ) |>
     unique()
 
   # If we only have one label to display

@@ -200,7 +200,7 @@ test_that("Able to print curve summary data to excel", {
     common_column = "Sample_Name",
     signal_var = "Signal",
     column_group = "Curve_Name"
-  ) %>%
+  ) |>
     summarise_curve_table(
       grouping_variable = c(
         "Curve_Name",
@@ -208,16 +208,16 @@ test_that("Able to print curve summary data to excel", {
       ),
       conc_var = "Concentration",
       signal_var = "Signal"
-    ) %>%
-    dplyr::arrange(.data[["Curve_Name"]]) %>%
+    ) |>
+    dplyr::arrange(.data[["Curve_Name"]]) |>
     evaluate_linearity(grouping_variable = c(
       "Curve_Name",
       "Curve_Batch_Name"
     ))
 
   # Testing if the change in class for near zero column works
-  class_change_check <- curve_summary %>%
-    mark_near_zero_columns() %>%
+  class_change_check <- curve_summary |>
+    mark_near_zero_columns() |>
     purrr::map_chr(class)
 
   testthat::expect_equal(

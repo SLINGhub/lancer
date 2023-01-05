@@ -93,7 +93,7 @@ curve_table <- create_curve_table(
 
 # Give summary result for each curve grouped by Curve_Name
 # and Curve_Batch_Name
-curve_summary <- curve_table \%>\%
+curve_summary <- curve_table |>
   summarise_curve_table(
     grouping_variable = c(
       "Curve_Name",

@@ -58,7 +58,7 @@ plot_summary_table_char <- function(
     curve_summary_grp <- dilution_summary_grp
   }
 
-  curve_char_data <- curve_summary_grp %>%
+  curve_char_data <- curve_summary_grp |>
     dplyr::select_if(
       function(col) {
         is.character(col) |
@@ -72,9 +72,9 @@ plot_summary_table_char <- function(
   if (remaining_cols < 1) {
     curve_char_data <- NULL
   } else {
-    curve_char_data <- curve_char_data %>%
-      dplyr::mutate_if(is.logical, as.character) %>%
-      tidyr::pivot_longer(cols = dplyr::everything()) %>%
+    curve_char_data <- curve_char_data |>
+      dplyr::mutate_if(is.logical, as.character) |>
+      tidyr::pivot_longer(cols = dplyr::everything()) |>
       gridExtra::tableGrob(rows = NULL, cols = NULL)
   }
 
@@ -141,8 +141,8 @@ plot_summary_table_num <- function(
     curve_summary_grp <- dilution_summary_grp
   }
 
-  curve_num_data <- curve_summary_grp %>%
-    mark_near_zero_columns() %>%
+  curve_num_data <- curve_summary_grp |>
+    mark_near_zero_columns() |>
     dplyr::select_if(
       function(col) {
         is.numeric(col) | class(col) == "scientific"
@@ -154,16 +154,16 @@ plot_summary_table_num <- function(
   if (remaining_cols < 1) {
     curve_num_data <- NULL
   } else {
-    curve_num_data <- curve_num_data %>%
+    curve_num_data <- curve_num_data |>
       dplyr::mutate_if(function(col) class(col) == "scientific",
         formatC,
         format = "e", digits = 2
-      ) %>%
+      ) |>
       dplyr::mutate_if(is.numeric,
         formatC,
         format = "f", digits = 2
-      ) %>%
-      tidyr::pivot_longer(cols = dplyr::everything()) %>%
+      ) |>
+      tidyr::pivot_longer(cols = dplyr::everything()) |>
       gridExtra::tableGrob(rows = NULL, cols = NULL)
   }
 
@@ -387,24 +387,24 @@ create_reg_col_vec <- function(plot_first_half_lin_reg = FALSE,
 #' grouping_variable <- c("Curve_Name", "Curve_Batch_Name")
 #'
 #' # Get the curve batch name from curve_table
-#' curve_batch_name <- curve_batch_name %>%
-#'   unique() %>%
+#' curve_batch_name <- curve_batch_name |>
+#'   unique() |>
 #'   as.character()
 #'
 #' curve_batch_col <- c("#377eb8")
 #'
 #' # Create palette for each curve batch for plotting
-#' pal <- curve_batch_col %>%
+#' pal <- curve_batch_col |>
 #'   stats::setNames(curve_batch_name)
 #'
 #' # Create curve statistical summary
-#' curve_summary_grp <- curve_data %>%
+#' curve_summary_grp <- curve_data |>
 #'   summarise_curve_table(
 #'     grouping_variable = grouping_variable,
 #'     conc_var = "Concentration",
 #'     signal_var = "Signal"
-#'   ) %>%
-#'   evaluate_linearity(grouping_variable = grouping_variable) %>%
+#'   ) |>
+#'   evaluate_linearity(grouping_variable = grouping_variable) |>
 #'   dplyr::select(-c(dplyr::all_of(grouping_variable)))
 #'
 #' # Create the ggplot
@@ -464,14 +464,14 @@ plot_curve_ggplot <- function(
   }
 
   # Number of curve batches
-  no_of_dil_batch <- curve_data %>%
-    dplyr::pull(.data[[curve_batch_var]]) %>%
-    unique() %>%
+  no_of_dil_batch <- curve_data |>
+    dplyr::pull(.data[[curve_batch_var]]) |>
+    unique() |>
     length()
 
   # Name of curve batch
-  names_of_dil_batch <- curve_data %>%
-    dplyr::pull(.data[[curve_batch_var]]) %>%
+  names_of_dil_batch <- curve_data |>
+    dplyr::pull(.data[[curve_batch_var]]) |>
     unique()
 
   # Filter the curve palette based on what batches are
@@ -486,7 +486,7 @@ plot_curve_ggplot <- function(
   conc_vector <- curve_data[[conc_var]]
 
   # Drop values that are NA in signal_var
-  curve_data <- curve_data %>%
+  curve_data <- curve_data |>
     tidyr::drop_na(dplyr::all_of(signal_var))
 
   # Named vector to represent the colours of the regression lines
@@ -592,16 +592,16 @@ plot_curve_ggplot <- function(
       if (isTRUE(plot_first_half_lin_reg)) {
 
         # Get the points for the partial linear curve
-        partial_conc_points <- curve_data %>%
-          dplyr::pull(.data[[conc_var]]) %>%
-          as.numeric() %>%
-          sort() %>%
+        partial_conc_points <- curve_data |>
+          dplyr::pull(.data[[conc_var]]) |>
+          as.numeric() |>
+          sort() |>
           unique()
 
         first_half_index <- 1:ceiling(length(partial_conc_points) / 2)
         partial_conc_points <- partial_conc_points[first_half_index]
 
-        partial_curve_data <- curve_data %>%
+        partial_curve_data <- curve_data |>
           dplyr::filter(.data[[conc_var]] %in% partial_conc_points)
 
 
@@ -636,17 +636,17 @@ plot_curve_ggplot <- function(
       if (isTRUE(plot_last_half_lin_reg)) {
 
         # Get the points for the partial linear curve
-        partial_conc_points <- curve_data %>%
-          dplyr::pull(.data[[conc_var]]) %>%
-          as.numeric() %>%
-          sort() %>%
+        partial_conc_points <- curve_data |>
+          dplyr::pull(.data[[conc_var]]) |>
+          as.numeric() |>
+          sort() |>
           unique()
 
         last_half_index <-
           ceiling(length(partial_conc_points) / 2):length(partial_conc_points)
         partial_conc_points <- partial_conc_points[last_half_index]
 
-        partial_curve_data <- curve_data %>%
+        partial_curve_data <- curve_data |>
           dplyr::filter(.data[[conc_var]] %in% partial_conc_points)
 
 
@@ -897,7 +897,7 @@ plot_curve_ggplot <- function(
 #' )
 #'
 #' # Create curve statistical summary
-#' curve_summary <- curve_table %>%
+#' curve_summary <- curve_table |>
 #'   summarise_curve_table(
 #'     grouping_variable = c(
 #'       "Curve_Name",
@@ -905,8 +905,8 @@ plot_curve_ggplot <- function(
 #'     ),
 #'     conc_var = "Concentration",
 #'     signal_var = "Signal"
-#'   ) %>%
-#'   dplyr::arrange(.data[["Curve_Name"]]) %>%
+#'   ) |>
+#'   dplyr::arrange(.data[["Curve_Name"]]) |>
 #'   evaluate_linearity(grouping_variable = c(
 #'     "Curve_Name",
 #'     "Curve_Batch_Name"
@@ -1001,12 +1001,12 @@ add_ggplot_panel <- function(
 
   # Try to create curve summary if you do not have one.
   if (is.null(curve_summary)) {
-    curve_summary <- curve_table %>%
+    curve_summary <- curve_table |>
       summarise_curve_table(
         grouping_variable = grouping_variable,
         conc_var = conc_var,
         signal_var = signal_var
-      ) %>%
+      ) |>
       evaluate_linearity(grouping_variable = grouping_variable)
   }
 
@@ -1017,83 +1017,83 @@ add_ggplot_panel <- function(
 
 
   # Get the curve batch name from curve_table
-  curve_batch_name <- curve_table %>%
-    dplyr::pull(.data[[curve_batch_var]]) %>%
-    unique() %>%
+  curve_batch_name <- curve_table |>
+    dplyr::pull(.data[[curve_batch_var]]) |>
+    unique() |>
     as.character()
 
   # Create palette for each curve batch for plotting
-  pal <- curve_batch_col %>%
-    create_char_seq(output_length = length(curve_batch_name)) %>%
+  pal <- curve_batch_col |>
+    create_char_seq(output_length = length(curve_batch_name)) |>
     stats::setNames(curve_batch_name)
 
   # Create a summary table for each group for plotting the
   # summary table using gridExtra::tableGrob
 
   if (isTRUE(plot_summary_table)) {
-    nested_curve_summary <- curve_summary %>%
+    nested_curve_summary <- curve_summary |>
       dplyr::group_by_at(
         grouping_variable
-      ) %>%
-      tidyr::nest() %>%
-      dplyr::ungroup() %>%
+      ) |>
+      tidyr::nest() |>
+      dplyr::ungroup() |>
       dplyr::rename(
         summary = dplyr::any_of("data")
       )
   } else {
-    nested_curve_summary <- curve_summary %>%
-      dplyr::select(dplyr::all_of(grouping_variable)) %>%
+    nested_curve_summary <- curve_summary |>
+      dplyr::select(dplyr::all_of(grouping_variable)) |>
       dplyr::mutate(summary = NA)
   }
 
   # Add curve_batch_var in the nested data
   # Will not work if curve_batch_var is also a grouping_variable
 
-  curve_table <- curve_table %>%
+  curve_table <- curve_table |>
     dplyr::group_by_at(
       grouping_variable
-      ) %>%
-    dplyr::relocate(dplyr::all_of(grouping_variable)) %>%
+      ) |>
+    dplyr::relocate(dplyr::all_of(grouping_variable)) |>
     tidyr::nest()
 
   # If this is the case, we need to make a copy
   # of the variable inside the nested data
 
   if (curve_batch_var %in% grouping_variable) {
-    curve_table <- curve_table %>%
+    curve_table <- curve_table |>
       dplyr::mutate(data = purrr::map2(
         .x = .data$data,
         .y = .data[[curve_batch_var]],
         .f = function(df, curve_batch_name) {
-          df <- df %>%
+          df <- df |>
             dplyr::mutate(!!curve_batch_var := curve_batch_name)
           return(df)
         }
       ))
   }
 
-  curve_table <- curve_table %>%
-    dplyr::ungroup() %>%
+  curve_table <- curve_table |>
+    dplyr::ungroup() |>
     dplyr::left_join(nested_curve_summary, by = grouping_variable)
 
   # Create a title name for each group
   # https://stackoverflow.com/questions/44613279/dplyr-concat-columns
   #-stored-in-variable-mutate-and-non-standard-evaluation?rq=1
   if (isTRUE(have_plot_title)) {
-    curve_table <- curve_table %>%
-      dplyr::rowwise() %>%
+    curve_table <- curve_table |>
+      dplyr::rowwise() |>
       dplyr::mutate(title = paste0(
         dplyr::across(dplyr::all_of(grouping_variable)),
         collapse = "_"
-      )) %>%
+      )) |>
       dplyr::ungroup()
   } else {
-    curve_table <- curve_table %>%
+    curve_table <- curve_table |>
       dplyr::mutate(title = "")
   }
 
   # Start the plotting
-  curve_plots <- curve_table %>%
+  curve_plots <- curve_table |>
     dplyr::mutate(panel = purrr::pmap(
       .l = list(
         .data$data,
@@ -1113,11 +1113,11 @@ add_ggplot_panel <- function(
 
 
   # Left Join with the curve_summary
-  ggplot_table <- curve_plots %>%
-    dplyr::select(dplyr::all_of(c(grouping_variable))) %>%
-    dplyr::bind_cols(curve_plots %>%
-      dplyr::select(dplyr::any_of("panel"))) %>%
-    dplyr::left_join(curve_summary, by = grouping_variable) %>%
+  ggplot_table <- curve_plots |>
+    dplyr::select(dplyr::all_of(c(grouping_variable))) |>
+    dplyr::bind_cols(curve_plots |>
+      dplyr::select(dplyr::any_of("panel"))) |>
+    dplyr::left_join(curve_summary, by = grouping_variable) |>
     dplyr::relocate(
       dplyr::any_of("panel"),
       .after = dplyr::last_col()

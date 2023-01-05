@@ -123,24 +123,24 @@ curve_data <- tibble::tibble(
 grouping_variable <- c("Curve_Name", "Curve_Batch_Name")
 
 # Get the curve batch name from curve_table
-curve_batch_name <- curve_batch_name \%>\%
-  unique() \%>\%
+curve_batch_name <- curve_batch_name |>
+  unique() |>
   as.character()
 
 curve_batch_col <- c("#377eb8")
 
 # Create palette for each curve batch for plotting
-pal <- curve_batch_col \%>\%
+pal <- curve_batch_col |>
   stats::setNames(curve_batch_name)
 
 # Create curve statistical summary
-curve_summary_grp <- curve_data \%>\%
+curve_summary_grp <- curve_data |>
   summarise_curve_table(
     grouping_variable = grouping_variable,
     conc_var = "Concentration",
     signal_var = "Signal"
-  ) \%>\%
-  evaluate_linearity(grouping_variable = grouping_variable) \%>\%
+  ) |>
+  evaluate_linearity(grouping_variable = grouping_variable) |>
   dplyr::select(-c(dplyr::all_of(grouping_variable)))
 
 # Create the ggplot

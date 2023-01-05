@@ -15,7 +15,7 @@ test_that("Test Linear Evaluation", {
   curve_summary <- data.frame(
     r_corr = r_corr, pra_linear = pra_linear,
     mandel_p_val = mandel_p_val,
-    concavity = concavity) %>%
+    concavity = concavity) |>
     evaluate_linearity()
 
   first_group_fail <- data.frame(

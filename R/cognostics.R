@@ -203,7 +203,7 @@ create_default_cog_df <- function() {
 #' )
 #'
 #' # Create curve statistical summary
-#' curve_summary <- curve_table %>%
+#' curve_summary <- curve_table |>
 #'   summarise_curve_table(
 #'     grouping_variable = c(
 #'       "Curve_Name",
@@ -211,8 +211,8 @@ create_default_cog_df <- function() {
 #'     ),
 #'     conc_var = "Concentration",
 #'     signal_var = "Signal"
-#'   ) %>%
-#'   dplyr::arrange(.data[["Curve_Name"]]) %>%
+#'   ) |>
+#'   dplyr::arrange(.data[["Curve_Name"]]) |>
 #'   evaluate_linearity(grouping_variable = c(
 #'     "Curve_Name",
 #'     "Curve_Batch_Name"
@@ -289,7 +289,7 @@ update_cog_manual <- function(curve_summary,
     row_index <- which(cog_df$col_name_vec == colname)
 
     if (length(row_index) == 1) {
-      curve_summary <- curve_summary %>%
+      curve_summary <- curve_summary |>
         dplyr::mutate(
           dplyr::across(
             dplyr::one_of(cog_df[[col_name_vec]][row_index]),
@@ -399,7 +399,7 @@ update_cog_manual <- function(curve_summary,
 #' )
 #'
 #' # Create curve statistical summary
-#' curve_summary <- curve_table %>%
+#' curve_summary <- curve_table |>
 #'   summarise_curve_table(
 #'     grouping_variable = c(
 #'       "Curve_Name",
@@ -407,8 +407,8 @@ update_cog_manual <- function(curve_summary,
 #'     ),
 #'     conc_var = "Concentration",
 #'     signal_var = "Signal"
-#'   ) %>%
-#'   dplyr::arrange(.data[["Curve_Name"]]) %>%
+#'   ) |>
+#'   dplyr::arrange(.data[["Curve_Name"]]) |>
 #'   evaluate_linearity(grouping_variable = c(
 #'     "Curve_Name",
 #'     "Curve_Batch_Name"
@@ -440,7 +440,7 @@ update_cog_auto <- function(
 
   # Update the curve_summary columns and
   # convert the relevant to cognostics
-  curve_summary <- curve_summary %>%
+  curve_summary <- curve_summary |>
     update_cog_manual(cog_df = cog_df)
 
   return(curve_summary)
@@ -562,7 +562,7 @@ update_cog_auto <- function(
 #' )
 #'
 #' # Create curve statistical summary
-#' curve_summary <- curve_table %>%
+#' curve_summary <- curve_table |>
 #'   summarise_curve_table(
 #'     grouping_variable = c(
 #'       "Curve_Name",
@@ -570,8 +570,8 @@ update_cog_auto <- function(
 #'     ),
 #'     conc_var = "Concentration",
 #'     signal_var = "Signal"
-#'   ) %>%
-#'   dplyr::arrange(.data[["Curve_Name"]]) %>%
+#'   ) |>
+#'   dplyr::arrange(.data[["Curve_Name"]]) |>
 #'   evaluate_linearity(grouping_variable = c(
 #'     "Curve_Name",
 #'     "Curve_Batch_Name"
@@ -624,7 +624,7 @@ convert_to_cog <- function(curve_summary,
   }
 
   # Convert logical columns to characters
-  curve_summary <- curve_summary %>%
+  curve_summary <- curve_summary |>
     dplyr::mutate_if(
       is.logical,
       ~ as.character(.x)
@@ -633,13 +633,13 @@ convert_to_cog <- function(curve_summary,
   # Separate the panel variables if it is in curve_summary
   panel_df <- NULL
   if (!is.null(panel_variable)) {
-    panel_df <- curve_summary %>%
+    panel_df <- curve_summary |>
       dplyr::select(dplyr::any_of(c(
         grouping_variable,
         panel_variable
       )))
 
-    curve_summary <- curve_summary %>%
+    curve_summary <- curve_summary |>
       dplyr::select(-dplyr::any_of(c(panel_variable)))
   }
 
@@ -649,14 +649,14 @@ convert_to_cog <- function(curve_summary,
   # Next convert the columns based on user's input cognostics
   # Lastly, convert the rest of the columns based on class
   # Grouping variables must be the conditional columns
-  curve_summary <- curve_summary %>%
-    update_cog_auto() %>%
+  curve_summary <- curve_summary |>
+    update_cog_auto() |>
     update_cog_manual(
       cog_df = cog_df,
       col_name_vec = col_name_vec,
       desc_vec = desc_vec,
       type_vec = type_vec
-    ) %>%
+    ) |>
     trelliscopejs::as_cognostics(
       cond_cols = grouping_variable,
       needs_cond = TRUE, needs_key = FALSE
@@ -671,15 +671,15 @@ convert_to_cog <- function(curve_summary,
     # conditional columns
     # Ensure that the panel variable is converted to
     # trelliscope_panel
-    panel_df <- panel_df %>%
-      dplyr::select(dplyr::all_of(c(grouping_variable))) %>%
+    panel_df <- panel_df |>
+      dplyr::select(dplyr::all_of(c(grouping_variable))) |>
       trelliscopejs::as_cognostics(
         cond_cols = grouping_variable,
         needs_cond = TRUE,
         needs_key = FALSE
-      ) %>%
-      dplyr::bind_cols(panel_df %>%
-        dplyr::select(dplyr::any_of(c(panel_variable)))) %>%
+      ) |>
+      dplyr::bind_cols(panel_df |>
+        dplyr::select(dplyr::any_of(c(panel_variable)))) |>
       dplyr::mutate(dplyr::across(
         dplyr::all_of(panel_variable),
         ~ structure(.x, class = c("trelliscope_panels", "list"))
@@ -687,8 +687,8 @@ convert_to_cog <- function(curve_summary,
 
     # Panel_df to do a left join with curve_summary
     # Move panel_variable to the end
-    curve_summary <- panel_df %>%
-      dplyr::left_join(curve_summary, by = grouping_variable) %>%
+    curve_summary <- panel_df |>
+      dplyr::left_join(curve_summary, by = grouping_variable) |>
       dplyr::relocate(dplyr::any_of(c(panel_variable)),
         .after = dplyr::last_col()
       )

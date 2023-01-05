@@ -101,7 +101,7 @@ curve_summary <- lancer::create_curve_table(
   common_column = "Sample_Name",
   signal_var = "Signal",
   column_group = "Curve_Name"
-) %>%
+) |>
   lancer::summarise_curve_table(
     grouping_variable = c(
       "Curve_Batch_Name",

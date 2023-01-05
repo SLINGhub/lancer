@@ -40,24 +40,24 @@ test_that("Able to plot good curve data with ggplot correctly", {
 
   grouping_variable <- c("Curve_Name", "Curve_Batch_Name")
 
-  curve_batch_name <- curve_batch_name %>%
-    unique() %>%
+  curve_batch_name <- curve_batch_name |>
+    unique() |>
     as.character()
 
   curve_batch_col <- c("#377eb8")
 
   # Create palette for each curve batch for plotting
-  pal <- curve_batch_col %>%
+  pal <- curve_batch_col |>
     stats::setNames(curve_batch_name)
 
   # Create curve statistical summary
-  curve_summary_grp <- curve_data %>%
+  curve_summary_grp <- curve_data |>
     summarise_curve_table(
       grouping_variable = grouping_variable,
       conc_var = "Concentration",
       signal_var = "Signal"
-    ) %>%
-    evaluate_linearity(grouping_variable = grouping_variable) %>%
+    ) |>
+    evaluate_linearity(grouping_variable = grouping_variable) |>
     dplyr::select(-c(dplyr::all_of(grouping_variable)))
 
   # Create the ggplot
@@ -162,24 +162,24 @@ test_that("Able to plot horizontal curve data with ggplot correctly", {
 
   grouping_variable <- c("Curve_Name", "Curve_Batch_Name")
 
-  curve_batch_name <- curve_batch_name %>%
-    unique() %>%
+  curve_batch_name <- curve_batch_name |>
+    unique() |>
     as.character()
 
   curve_batch_col <- c("#377eb8")
 
   # Create palette for each curve batch for plotting
-  pal <- curve_batch_col %>%
+  pal <- curve_batch_col |>
     stats::setNames(curve_batch_name)
 
   # Create curve statistical summary
-  curve_summary_grp <- curve_data %>%
+  curve_summary_grp <- curve_data |>
     summarise_curve_table(
       grouping_variable = grouping_variable,
       conc_var = "Concentration",
       signal_var = "Signal"
-    ) %>%
-    evaluate_linearity(grouping_variable = grouping_variable) %>%
+    ) |>
+    evaluate_linearity(grouping_variable = grouping_variable) |>
     dplyr::select(-c(dplyr::all_of(grouping_variable)))
 
   # Create the ggplot
@@ -242,24 +242,24 @@ test_that("Able to plot vertical curve data with ggplot correctly", {
 
   grouping_variable <- c("Curve_Name", "Curve_Batch_Name")
 
-  curve_batch_name <- curve_batch_name %>%
-    unique() %>%
+  curve_batch_name <- curve_batch_name |>
+    unique() |>
     as.character()
 
   curve_batch_col <- c("#377eb8")
 
   # Create palette for each curve batch for plotting
-  pal <- curve_batch_col %>%
+  pal <- curve_batch_col |>
     stats::setNames(curve_batch_name)
 
   # Create curve statistical summary
-  curve_summary_grp <- curve_data %>%
+  curve_summary_grp <- curve_data |>
     summarise_curve_table(
       grouping_variable = grouping_variable,
       conc_var = "Concentration",
       signal_var = "Signal"
-    ) %>%
-    evaluate_linearity(grouping_variable = grouping_variable) %>%
+    ) |>
+    evaluate_linearity(grouping_variable = grouping_variable) |>
     dplyr::select(-c(dplyr::all_of(grouping_variable)))
 
   # Create the ggplot
@@ -320,24 +320,24 @@ test_that("Able to plot single point curve data with ggplot correctly", {
 
   grouping_variable <- c("Curve_Name", "Curve_Batch_Name")
 
-  curve_batch_name <- curve_batch_name %>%
-    unique() %>%
+  curve_batch_name <- curve_batch_name |>
+    unique() |>
     as.character()
 
   curve_batch_col <- c("#377eb8")
 
   # Create palette for each curve batch for plotting
-  pal <- curve_batch_col %>%
+  pal <- curve_batch_col |>
     stats::setNames(curve_batch_name)
 
   # Create curve statistical summary
-  curve_summary_grp <- curve_data %>%
+  curve_summary_grp <- curve_data |>
     summarise_curve_table(
       grouping_variable = grouping_variable,
       conc_var = "Concentration",
       signal_var = "Signal"
-    ) %>%
-    evaluate_linearity(grouping_variable = grouping_variable) %>%
+    ) |>
+    evaluate_linearity(grouping_variable = grouping_variable) |>
     dplyr::select(-c(dplyr::all_of(grouping_variable)))
 
 
@@ -399,24 +399,24 @@ test_that("Able to plot NA curve data with ggplot correctly", {
 
   grouping_variable <- c("Curve_Name", "Curve_Batch_Name")
 
-  curve_batch_name <- curve_batch_name %>%
-    unique() %>%
+  curve_batch_name <- curve_batch_name |>
+    unique() |>
     as.character()
 
   curve_batch_col <- c("#377eb8")
 
   # Create palette for each curve batch for plotting
-  pal <- curve_batch_col %>%
+  pal <- curve_batch_col |>
     stats::setNames(curve_batch_name)
 
   # Create curve statistical summary
-  curve_summary_grp <- curve_data %>%
+  curve_summary_grp <- curve_data |>
     summarise_curve_table(
       grouping_variable = grouping_variable,
       conc_var = "Concentration",
       signal_var = "Signal"
-    ) %>%
-    evaluate_linearity(grouping_variable = grouping_variable) %>%
+    ) |>
+    evaluate_linearity(grouping_variable = grouping_variable) |>
     dplyr::select(-c(dplyr::all_of(grouping_variable)))
 
 
@@ -664,24 +664,24 @@ test_that("dilution_data, dilution_summary_grp and dil_batch_var argument in plo
  grouping_variable <- c("Curve_Name", "Curve_Batch_Name")
 
  # Get the curve batch name from curve_table
- curve_batch_name <- curve_batch_name %>%
-   unique() %>%
+ curve_batch_name <- curve_batch_name |>
+   unique() |>
    as.character()
 
  curve_batch_col <- c("#377eb8")
 
  # Create palette for each curve batch for plotting
- pal <- curve_batch_col %>%
+ pal <- curve_batch_col |>
    stats::setNames(curve_batch_name)
 
  # Create curve statistical summary
- curve_summary_grp <- curve_data %>%
+ curve_summary_grp <- curve_data |>
    summarise_curve_table(
      grouping_variable = grouping_variable,
      conc_var = "Concentration",
      signal_var = "Signal"
-   ) %>%
-   evaluate_linearity(grouping_variable = grouping_variable) %>%
+   ) |>
+   evaluate_linearity(grouping_variable = grouping_variable) |>
    dplyr::select(-c(dplyr::all_of(grouping_variable)))
 
  # Create the ggplot
@@ -754,7 +754,7 @@ test_that("dilution_data, dilution_summary, dil_batch_var, dil_batch_col argumen
   )
 
   # Create curve statistical summary
-  curve_summary <- curve_table %>%
+  curve_summary <- curve_table |>
     summarise_curve_table(
       grouping_variable = c(
         "Curve_Name",
@@ -762,8 +762,8 @@ test_that("dilution_data, dilution_summary, dil_batch_var, dil_batch_col argumen
       ),
       conc_var = "Concentration",
       signal_var = "Signal"
-    ) %>%
-    dplyr::arrange(.data[["Curve_Name"]]) %>%
+    ) |>
+    dplyr::arrange(.data[["Curve_Name"]]) |>
     evaluate_linearity(grouping_variable = c(
       "Curve_Name",
       "Curve_Batch_Name"

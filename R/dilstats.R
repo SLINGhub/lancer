@@ -286,7 +286,7 @@ calculate_adl_kroll_test <- function(
   }
 
   # Drop rows whose value of signal_var is NA
-  curve_data <- curve_data %>%
+  curve_data <- curve_data |>
     tidyr::drop_na(dplyr::all_of(signal_var))
 
   # Return NA for too little points
@@ -318,11 +318,11 @@ calculate_adl_kroll_test <- function(
 
   mean_of_y <- mean(curve_data[[signal_var]], na.rm = TRUE)
   s_in_paper <- length(unique(curve_data[[conc_var]]))
-  r_in_paper <- curve_data %>%
-    dplyr::group_by(.data[[conc_var]]) %>%
-    dplyr::summarise(no_replicates = length(.data[[conc_var]])) %>%
-    dplyr::ungroup() %>%
-    dplyr::pull(.data[["no_replicates"]]) %>%
+  r_in_paper <- curve_data |>
+    dplyr::group_by(.data[[conc_var]]) |>
+    dplyr::summarise(no_replicates = length(.data[[conc_var]])) |>
+    dplyr::ungroup() |>
+    dplyr::pull(.data[["no_replicates"]]) |>
     max(na.rm = FALSE)
 
   new_data <- tibble::tibble(!!conc_var := unique(curve_data[[conc_var]]))
@@ -472,7 +472,7 @@ calculate_adl <- function(
   }
 
   # Drop rows whose value of signal_var is NA
-  curve_data <- curve_data %>%
+  curve_data <- curve_data |>
     tidyr::drop_na(dplyr::all_of(signal_var))
 
   # Return NA for too little points
@@ -575,7 +575,7 @@ calculate_concavity <- function(curve_data,
   }
 
   # Drop rows whose value of signal_var is NA
-  curve_data <- curve_data %>%
+  curve_data <- curve_data |>
     tidyr::drop_na(dplyr::all_of(signal_var))
 
   # Return NA for too little points
@@ -595,8 +595,8 @@ calculate_concavity <- function(curve_data,
 
   # Get concanvity Value for (x^2) of Quadratic model
   quad_tidy <- broom::tidy(quad_model)
-  concavity <- quad_tidy %>%
-    dplyr::slice(3) %>%
+  concavity <- quad_tidy |>
+    dplyr::slice(3) |>
     dplyr::pull(.data$estimate)
 
   return(concavity)
@@ -657,7 +657,7 @@ calculate_gof_linear <- function(curve_data,
   }
 
   # Drop rows whose value of signal_var is NA
-  curve_data <- curve_data %>%
+  curve_data <- curve_data |>
     tidyr::drop_na(dplyr::all_of(signal_var))
 
   # Return NA for too little points
@@ -758,7 +758,7 @@ calculate_mandel <- function(curve_data,
   }
 
   # Drop rows whose value of signal_var is NA
-  curve_data <- curve_data %>%
+  curve_data <- curve_data |>
     tidyr::drop_na(dplyr::all_of(signal_var))
 
   # Return NA for too little points
@@ -857,8 +857,8 @@ calculate_pra_linear <- function(curve_data,
 
   # Drop rows whose value of signal_var is NA
   # Drop rows whose value of conc_var is 0 or less
-  curve_data <- curve_data %>%
-    tidyr::drop_na(dplyr::all_of(signal_var)) %>%
+  curve_data <- curve_data |>
+    tidyr::drop_na(dplyr::all_of(signal_var)) |>
     dplyr::filter(.data[[conc_var]] > 0)
 
   # Return NA for too little points
@@ -878,11 +878,11 @@ calculate_pra_linear <- function(curve_data,
 
   # Get Intercept Value and Slope of Linear model
   linear_tidy <- broom::tidy(linear_model)
-  intercept <- linear_tidy %>%
-    dplyr::slice(1) %>%
+  intercept <- linear_tidy |>
+    dplyr::slice(1) |>
     dplyr::pull(.data$estimate)
-  slope <- linear_tidy %>%
-    dplyr::slice(2) %>%
+  slope <- linear_tidy |>
+    dplyr::slice(2) |>
     dplyr::pull(.data$estimate)
 
   fit_aug <- tibble::tibble(
@@ -1037,7 +1037,7 @@ summarise_curve_data <- function(curve_data,
       signal_var
     )
 
-    curve_summary <- curve_linear_gof %>%
+    curve_summary <- curve_linear_gof |>
       dplyr::bind_cols(
         mandel_result,
         one_value_tibble,
@@ -1049,7 +1049,7 @@ summarise_curve_data <- function(curve_data,
       concavity = calculate_concavity(curve_data, conc_var, signal_var)
     )
 
-    curve_summary <- curve_linear_gof %>%
+    curve_summary <- curve_linear_gof |>
       dplyr::bind_cols(
         mandel_result,
         one_value_tibble

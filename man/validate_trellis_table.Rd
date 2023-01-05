@@ -97,7 +97,7 @@ trellis_table <- add_plotly_panel(
   conc_var_units = "\%",
   conc_var_interval = 50,
   signal_var = "Signal"
-  ) \%>\%
+  ) |>
   convert_to_cog(
     cog_df = NULL,
     grouping_variable = c(
