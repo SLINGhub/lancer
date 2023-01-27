@@ -2,9 +2,11 @@
 
 ## TODO
 
-# lancer 0.1.0
-
 ## Completed
+
+* Add a figshare DOI.
+
+# lancer 0.1.0
 
 * Change `%>%` to `|>`.
 * Update README and vignettes file documentation by replacing `dilution` to `curve`.
