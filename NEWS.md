@@ -5,6 +5,7 @@
 ## Completed
 
 * Add a figshare DOI.
+* Update workflow picture.
 
 # lancer 0.1.0
 
