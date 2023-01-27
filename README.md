@@ -42,10 +42,10 @@ devtools::install_github("SLINGhub/lancer")
 ```
 
 If you want to use a proper release version, referenced by a Git tag
-(example: 0.1.0) install the package as follows:
+(example: 0.1.1) install the package as follows:
 
 ``` r
-devtools::install_github("SLINGhub/lancer", ref = "0.1.0")
+devtools::install_github("SLINGhub/lancer", ref = "0.1.1")
 ```
 
 <a href="#top">Back to top</a>

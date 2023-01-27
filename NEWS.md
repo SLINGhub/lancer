@@ -1,11 +1,12 @@
-# lancer 0.1.0.9000 (development version)
+# lancer 0.1.1.9000 (development version)
 
 ## TODO
 
-## Completed
+# lancer 0.1.1
 
 * Add a figshare DOI.
 * Update workflow picture.
+* Change license year to 2023.
 
 # lancer 0.1.0
 
