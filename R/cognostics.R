@@ -293,9 +293,10 @@ update_cog_manual <- function(curve_summary,
         dplyr::mutate(
           dplyr::across(
             dplyr::one_of(cog_df[[col_name_vec]][row_index]),
-            trelliscopejs::cog,
-            desc = cog_df[[desc_vec]][row_index],
-            type = cog_df[[type_vec]][row_index]
+            ~ trelliscopejs::cog(.x,
+              desc = cog_df[[desc_vec]][row_index],
+              type = cog_df[[type_vec]][row_index]
+            )
           )
         )
     }
