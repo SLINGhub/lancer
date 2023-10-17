@@ -4,21 +4,13 @@
 \alias{mark_near_zero_columns}
 \title{Mark Near Zero Columns}
 \usage{
-mark_near_zero_columns(
-  curve_summary,
-  dilution_summary = lifecycle::deprecated(),
-  threshold_value = 0.01
-)
+mark_near_zero_columns(curve_summary, threshold_value = 0.01)
 }
 \arguments{
 \item{curve_summary}{The summary table generated
 by function \code{\link[=summarise_curve_table]{summarise_curve_table()}} and/or
 \code{\link[=evaluate_linearity]{evaluate_linearity()}}
 but it can also be any generic data frame or tibble.}
-
-\item{dilution_summary}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
-\code{dilution_summary} was renamed to
-\code{curve_summary}.}
 
 \item{threshold_value}{A small cut off value such that any
 numeric column with a number smaller than this value

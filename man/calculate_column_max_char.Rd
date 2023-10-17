@@ -4,20 +4,13 @@
 \alias{calculate_column_max_char}
 \title{Calculate Column Maximum Character}
 \usage{
-calculate_column_max_char(
-  curve_summary,
-  dilution_summary = lifecycle::deprecated()
-)
+calculate_column_max_char(curve_summary)
 }
 \arguments{
 \item{curve_summary}{The summary table generated
 by function \code{\link[=summarise_curve_table]{summarise_curve_table()}} and/or
 \code{\link[=evaluate_linearity]{evaluate_linearity()}}
 but it can also be any generic data frame or tibble.}
-
-\item{dilution_summary}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
-\code{dilution_summary} was renamed to
-\code{curve_summary}.}
 }
 \value{
 A numeric vector each value indicated the

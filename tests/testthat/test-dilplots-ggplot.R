@@ -606,17 +606,17 @@ test_that("dilution_summary, dilution_summary_grp argument in plot_summary_table
 
   testthat::expect_snapshot({
     table <- plot_summary_table_char(
-      dilution_summary_grp = curve_summary_grp)
+      curve_summary_grp)
   })
 
   testthat::expect_snapshot({
     table <- plot_summary_table_num(
-      dilution_summary_grp = curve_summary_grp)
+      curve_summary_grp)
   })
 
   testthat::expect_snapshot({
     table <- plot_summary_table(
-      dilution_summary_grp = curve_summary_grp)
+      curve_summary_grp)
   })
 
 })
@@ -687,11 +687,10 @@ test_that("dilution_data, dilution_summary_grp and dil_batch_var argument in plo
  # Create the ggplot
  testthat::expect_snapshot({
    p <- plot_curve_ggplot(
-     dilution_data = curve_data,
-     dilution_summary_grp = curve_summary_grp,
+     curve_data,
+     curve_summary_grp,
      pal = pal,
      title = "Lipid_Saturated",
-     dil_batch_var = "Curve_Batch_Name",
      conc_var = "Concentration",
      conc_var_units = "%",
      conc_var_interval = 50,
@@ -772,12 +771,10 @@ test_that("dilution_data, dilution_summary, dil_batch_var, dil_batch_col argumen
   # Create a ggplot table
   testthat::expect_snapshot({
     ggplot_table <- add_ggplot_panel(
-      dilution_table = curve_table,
-      dilution_summary = curve_summary,
+      curve_table,
+      curve_summary,
       grouping_variable = c("Curve_Name",
                             "Curve_Batch_Name"),
-      dil_batch_var = "Curve_Batch_Name",
-      dil_batch_col = c("#377eb8"),
       conc_var = "Concentration",
       conc_var_units = "%",
       conc_var_interval = 50,

@@ -116,7 +116,7 @@ test_that("dilution_summary argument is deprecated", {
 
   testthat::expect_snapshot({
     updated_summary <- update_cog_manual(
-      dilution_summary = curve_summary,
+      curve_summary,
       cog_df,
       col_name_vec = "col_name_vec",
       desc_vec = "desc_vec",
@@ -126,13 +126,13 @@ test_that("dilution_summary argument is deprecated", {
 
   testthat::expect_snapshot({
     updated_summary <- update_cog_auto(
-      dilution_summary = curve_summary
+      curve_summary
     )
   })
 
   testthat::expect_snapshot({
     updated_summary <- convert_to_cog(
-      dilution_summary = curve_summary,
+      curve_summary,
       grouping_variable = c(
         "Curve_Name",
         "Curve_Batch_Name"

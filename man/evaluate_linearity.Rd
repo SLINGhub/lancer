@@ -6,7 +6,6 @@
 \usage{
 evaluate_linearity(
   curve_summary,
-  dilution_summary = lifecycle::deprecated(),
   grouping_variable = c(),
   corrcoef_column = "r_corr",
   corrcoef_min_threshold = 0.8,
@@ -20,10 +19,6 @@ evaluate_linearity(
 \arguments{
 \item{curve_summary}{A data frame or tibble output from
 the function \code{\link[=summarise_curve_data]{summarise_curve_data()}}.}
-
-\item{dilution_summary}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
-\code{dilution_summary} was renamed to
-\code{curve_summary}.}
 
 \item{grouping_variable}{A character vector of
 column names in \code{curve_summary}to indicate which columns should be placed

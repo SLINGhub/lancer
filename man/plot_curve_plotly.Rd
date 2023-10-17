@@ -10,8 +10,6 @@ plot_curve_plotly(
   pal,
   sample_name_var = "Sample_Name",
   curve_batch_var = "Curve_Batch_Name",
-  dilution_data = lifecycle::deprecated(),
-  dil_batch_var = lifecycle::deprecated(),
   conc_var = "Concentration",
   conc_var_units = "\%",
   conc_var_interval = 50,
@@ -35,14 +33,6 @@ to indicate the sample name.}
 \item{curve_batch_var}{Column name in \code{curve_data}
 to indicate the group name of each curve batch,
 used to colour the points in the curve plot.}
-
-\item{dilution_data}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
-\code{dilution_data} was renamed to
-\code{curve_data}.}
-
-\item{dil_batch_var}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
-\code{dil_batch_var} was renamed to
-\code{curve_batch_var}.}
 
 \item{conc_var}{Column name in \code{curve_data} to indicate concentration.}
 

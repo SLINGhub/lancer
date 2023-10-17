@@ -1,22 +1,3 @@
-#' @title Validate Dilution Annotation
-#' @description Validate Dilution Annotation
-#' `r lifecycle::badge("deprecated")`
-#'
-#' `validate_dilution_annot` was renamed to
-#' `validate_curve_batch_annot`.
-#' @keywords internal
-#' @export
-validate_dilution_annot <- function(dilution_annot,
-                                    needed_column = c("Sample_Name")) {
-
-  lifecycle::deprecate_warn(when = "0.0.6.9000",
-                            what = "validate_dilution_annot()",
-                            with = "validate_curve_batch_annot()")
-
-  validate_curve_batch_annot(
-    curve_batch_annot = dilution_annot,
-    needed_column = needed_column)
-}
 
 #' @title Validate Curve Batch Annotation
 #' @description Validate Curve Batch Annotation
@@ -68,25 +49,6 @@ validate_curve_batch_annot <- function(
   )
 }
 
-#' @title Validate Lipid Data Wide
-#' @description Validate Lipid Data in wide form
-#' `r lifecycle::badge("deprecated")`
-#'
-#' `validate_lipid_data_wide` was renamed to
-#' `validate_curve_data_wide`.
-#' @keywords internal
-#' @export
-validate_lipid_data_wide <- function(lipid_data_wide,
-                                     needed_column = c("Sample_Name")) {
-
-  lifecycle::deprecate_warn(when = "0.0.6.9000",
-                            what = "validate_lipid_data_wide()",
-                            with = "validate_curve_data_wide()")
-
-  validate_curve_data_wide(curve_data_wide = lipid_data_wide,
-                           needed_column = needed_column)
-
-}
 
 #' @title Validate Curve Data Wide
 #' @description Validate Curve Data in wide form
@@ -139,30 +101,6 @@ validate_curve_data_wide <- function(curve_data_wide,
   )
 }
 
-#' @title Validate Dilution Table
-#' @description Validate Dilution Table
-#' `r lifecycle::badge("deprecated")`
-#'
-#' `validate_dilution_table` was renamed to
-#' `validate_curve_table`.
-#' @keywords internal
-#' @export
-validate_dilution_table <- function(dilution_table,
-                                    needed_column = c(
-                                      "Transition_Name",
-                                      "Dilution_Batch_Name",
-                                      "Dilution_Percent",
-                                      "Area"
-                                    )) {
-
-  lifecycle::deprecate_warn(when = "0.0.6.9000",
-                            what = "validate_dilution_table()",
-                            with = "validate_curve_table()")
-
-  validate_curve_table(curve_table = dilution_table,
-                       needed_column = needed_column)
-
-}
 
 #' @title Validate Curve Table
 #' @description Validate Curve Table
@@ -230,30 +168,6 @@ validate_curve_table <- function(curve_table,
   )
 }
 
-#' @title Create Dilution Table
-#' @description Create Dilution Table from two data frame or tibble inputs
-#' `r lifecycle::badge("deprecated")`
-#'
-#' `create_dilution_table` was renamed to
-#' `create_curve_table`.
-#' @keywords internal
-#' @export
-create_dilution_table <- function(dilution_annot, lipid_data_wide,
-                                  common_column = c("Sample_Name"),
-                                  signal_var = "Area",
-                                  column_group = "Transition_Name") {
-
-  lifecycle::deprecate_warn(when = "0.0.6.9000",
-                            what = "create_dilution_table()",
-                            with = "create_curve_table()")
-
-  create_curve_table(curve_batch_annot = dilution_annot,
-                     curve_data_wide = lipid_data_wide,
-                     common_column = common_column,
-                     signal_var = signal_var,
-                     column_group = column_group)
-
-}
 
 #' @title Create Curve Table
 #' @description Create Curve Table from two data frame or tibble inputs
@@ -352,36 +266,6 @@ create_curve_table <- function(curve_batch_annot, curve_data_wide,
 
   return(curve_table)
 }
-
-
-#' @title Summarize Dilution Table
-#' @description Get the summary statistics of each group from
-#' the dilution table
-#' `r lifecycle::badge("deprecated")`
-#'
-#' `summarise_dilution_table` was renamed to
-#' `summarise_curve_table`.
-#' @keywords internal
-#' @export
-summarise_dilution_table <- function(dilution_table,
-                                     grouping_variable = c(
-                                       "Transition_Name",
-                                       "Dilution_Batch_Name"
-                                     ),
-                                     conc_var = "Dilution_Percent",
-                                     signal_var = "Area") {
-
-  lifecycle::deprecate_warn(when = "0.0.6.9000",
-                            what = "summarise_dilution_table()",
-                            with = "summarise_curve_table()")
-
-  summarise_curve_table(curve_table = dilution_table,
-                        grouping_variable = grouping_variable,
-                        conc_var = conc_var,
-                        signal_var = signal_var)
-
-}
-
 
 #' @title Summarize Curve Table
 #' @description Get the summary statistics of each group from

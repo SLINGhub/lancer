@@ -58,6 +58,5 @@ Imports:
     scales,
     gridExtra,
     patchwork,
-    performance,
-    lifecycle
+    performance
 VignetteBuilder: knitr

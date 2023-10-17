@@ -4,12 +4,7 @@
 \alias{create_linear_model}
 \title{Create Linear Model}
 \usage{
-create_linear_model(
-  curve_data,
-  conc_var,
-  signal_var,
-  dilution_data = lifecycle::deprecated()
-)
+create_linear_model(curve_data, conc_var, signal_var)
 }
 \arguments{
 \item{curve_data}{A data frame or tibble containing curve data.}
@@ -17,10 +12,6 @@ create_linear_model(
 \item{conc_var}{Column name in \code{curve_data} to indicate concentration.}
 
 \item{signal_var}{Column name in \code{curve_data} to indicate signal.}
-
-\item{dilution_data}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
-\code{dilution_data} was renamed to
-\code{curve_data}.}
 }
 \value{
 A linear model object from \code{stats:lm()} with formula

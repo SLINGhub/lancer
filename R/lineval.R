@@ -4,9 +4,6 @@
 #'
 #' @param curve_summary A data frame or tibble output from
 #' the function [summarise_curve_data()].
-#' @param dilution_summary `r lifecycle::badge("deprecated")`
-#' `dilution_summary` was renamed to
-#' `curve_summary`.
 #' @param grouping_variable A character vector of
 #' column names in `curve_summary`to indicate which columns should be placed
 #' first before the evaluation results. Default: c()
@@ -62,7 +59,6 @@
 #' @rdname evaluate_linearity
 #' @export
 evaluate_linearity <- function(curve_summary,
-                               dilution_summary = lifecycle::deprecated(),
                                grouping_variable = c(),
                                corrcoef_column = "r_corr",
                                corrcoef_min_threshold = 0.8,
@@ -71,13 +67,6 @@ evaluate_linearity <- function(curve_summary,
                                mandel_p_val_column = "mandel_p_val",
                                mandel_p_val_threshold = 0.05,
                                concavity_column = "concavity") {
-
-  if (lifecycle::is_present(dilution_summary)) {
-    lifecycle::deprecate_warn(when = "0.0.6.9000",
-                              what = "evaluate_linearity(dilution_summary)",
-                              with = "evaluate_linearity(curve_summary)")
-    curve_summary <- dilution_summary
-  }
 
   # Check if these column name existed
   col_names <- c(corrcoef_column, pra_column)

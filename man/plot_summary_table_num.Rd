@@ -4,17 +4,10 @@
 \alias{plot_summary_table_num}
 \title{Plot Curve Summary Numeric Table For One Group}
 \usage{
-plot_summary_table_num(
-  curve_summary_grp,
-  dilution_summary_grp = lifecycle::deprecated()
-)
+plot_summary_table_num(curve_summary_grp)
 }
 \arguments{
 \item{curve_summary_grp}{A one row data frame or tibble containing curve summary.}
-
-\item{dilution_summary_grp}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
-\code{dilution_summary_grp} was renamed to
-\code{curve_summary_grp}.}
 }
 \value{
 A \code{gridtable} object consisting of one table. The first

@@ -8,7 +8,6 @@ format_char_cell_colour(
   workbook,
   sheet,
   curve_summary,
-  dilution_summary = lifecycle::deprecated(),
   conditional_column,
   pass_criteria_words
 )
@@ -20,11 +19,7 @@ format_char_cell_colour(
 formatting on \code{workbook}.}
 
 \item{curve_summary}{The summary table generated
-by function \code{\link[=summarise_curve_table]{summarise_curve_table()}} and/or \code{\link[=evaluate_linearity]{evaluate_linearity()}}.}
-
-\item{dilution_summary}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
-\code{dilution_summary} was renamed to
-\code{curve_summary}.}
+by function \code{\link[=summarise_curve_table]{summarise_curve_table()}} and/or \code{\link[=evaluate_linearity]{evaluate_linearity()}}..}
 
 \item{conditional_column}{A string to indicate which column
 in \code{curve_summary} to use.}

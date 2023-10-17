@@ -3,9 +3,6 @@
 #' @param curve_data A data frame or tibble containing curve data.
 #' @param conc_var Column name in `curve_data` to indicate concentration.
 #' @param signal_var Column name in `curve_data` to indicate signal.
-#' @param dilution_data `r lifecycle::badge("deprecated")`
-#' `dilution_data` was renamed to
-#' `curve_data`.
 #' @return A linear model object from `stats:lm()` with formula
 #' `signal_var ~ conc_var` from data `curve_data`.
 #' @examples
@@ -28,15 +25,7 @@
 #' @export
 create_linear_model <- function(curve_data,
                                 conc_var,
-                                signal_var,
-                                dilution_data = lifecycle::deprecated()) {
-
-  if (lifecycle::is_present(dilution_data)) {
-    lifecycle::deprecate_warn(when = "0.0.6.9000",
-                              what = "evaluate_linearity(dilution_data)",
-                              with = "evaluate_linearity(curve_data)")
-    curve_data <- dilution_data
-  }
+                                signal_var) {
 
   conc_var <- paste0("`", conc_var, "`")
   signal_var <- paste0("`", signal_var, "`")
@@ -58,9 +47,6 @@ create_linear_model <- function(curve_data,
 #' @param curve_data A data frame or tibble containing curve data.
 #' @param conc_var Column name in `curve_data` to indicate concentration.
 #' @param signal_var Column name in `curve_data` to indicate signal
-#' @param dilution_data `r lifecycle::badge("deprecated")`
-#' `dilution_data` was renamed to
-#' `curve_data`.
 #' @return A linear model object from `stats:lm()` with formula
 #' `signal_var ~ conc_var + I(conc_var * conc_var)`
 #' from data `curve_data`.
@@ -84,15 +70,7 @@ create_linear_model <- function(curve_data,
 #' @export
 create_quad_model <- function(curve_data,
                               conc_var,
-                              signal_var,
-                              dilution_data = lifecycle::deprecated()) {
-
-  if (lifecycle::is_present(dilution_data)) {
-    lifecycle::deprecate_warn(when = "0.0.6.9000",
-                              what = "create_quad_model(dilution_data)",
-                              with = "create_quad_model(curve_data)")
-    curve_data <- dilution_data
-  }
+                              signal_var) {
 
   conc_var <- paste0("`", conc_var, "`")
   signal_var <- paste0("`", signal_var, "`")
@@ -120,9 +98,6 @@ create_quad_model <- function(curve_data,
 #' @param curve_data A data frame or tibble containing curve data.
 #' @param conc_var Column name in `curve_data` to indicate concentration.
 #' @param signal_var Column name in `curve_data` to indicate signal.
-#' @param dilution_data `r lifecycle::badge("deprecated")`
-#' `dilution_data` was renamed to
-#' `curve_data`.
 #' @return A linear model object from `stats:lm()` with formula
 #' `signal_var ~ conc_var + I(conc_var * conc_var * conc_var)`
 #' from data `diltuion_data`.
@@ -146,15 +121,7 @@ create_quad_model <- function(curve_data,
 #' @export
 create_cubic_model <- function(curve_data,
                                conc_var,
-                               signal_var,
-                               dilution_data = lifecycle::deprecated()) {
-
-  if (lifecycle::is_present(dilution_data)) {
-    lifecycle::deprecate_warn(when = "0.0.6.9000",
-                              what = "create_cubic_model(dilution_data)",
-                              with = "create_cubic_model(curve_data)")
-    curve_data <- dilution_data
-  }
+                               signal_var) {
 
   conc_var <- paste0("`", conc_var, "`")
   signal_var <- paste0("`", signal_var, "`")
@@ -531,9 +498,6 @@ calculate_adl <- function(
 #' @param curve_data A data frame or tibble containing curve data.
 #' @param conc_var Column name in `curve_data` to indicate concentration.
 #' @param signal_var Column name in `curve_data` to indicate signal.
-#' @param dilution_data `r lifecycle::badge("deprecated")`
-#' `dilution_data` was renamed to
-#' `curve_data`.
 #' @return The concavity of the Quadratic Model.
 #' @details The function will return NA if the number of curve points
 #' is less than or equal to three.
@@ -557,16 +521,7 @@ calculate_adl <- function(
 #' @export
 calculate_concavity <- function(curve_data,
                                 conc_var,
-                                signal_var,
-                                dilution_data = lifecycle::deprecated()) {
-
-  if (lifecycle::is_present(dilution_data)) {
-    lifecycle::deprecate_warn(
-      when = "0.0.6.9000",
-      what = "calculate_concavity(dilution_data)",
-      with = "calculate_concavity(curve_data)")
-    curve_data <- dilution_data
-  }
+                                signal_var) {
 
   concavity <- NA
 
@@ -607,9 +562,6 @@ calculate_concavity <- function(curve_data,
 #' @param curve_data A data frame or tibble containing curve data.
 #' @param conc_var Column name in `curve_data` to indicate concentration.
 #' @param signal_var Column name in `curve_data` to indicate signal.
-#' @param dilution_data `r lifecycle::badge("deprecated")`
-#' `dilution_data` was renamed to
-#' `curve_data`.
 #' @return A tibble containing the Goodness of Fit measures of the linear model
 #' The Goodness of Fit measures are the Pearson correlation coefficient (R),
 #' the R^2 and the adjusted R^2.
@@ -635,16 +587,7 @@ calculate_concavity <- function(curve_data,
 #' @export
 calculate_gof_linear <- function(curve_data,
                                  conc_var,
-                                 signal_var,
-                                 dilution_data = lifecycle::deprecated()) {
-
-  if (lifecycle::is_present(dilution_data)) {
-    lifecycle::deprecate_warn(
-      when = "0.0.6.9000",
-      what = "calculate_gof_linear(dilution_data)",
-      with = "calculate_gof_linear(curve_data)")
-    curve_data <- dilution_data
-  }
+                                 signal_var) {
 
   curve_linear_gof <- tibble::tibble(
     r_corr = NA,
@@ -708,9 +651,6 @@ calculate_gof_linear <- function(curve_data,
 #' @param curve_data A data frame or tibble containing curve data.
 #' @param conc_var Column name in `curve_data` to indicate concentration.
 #' @param signal_var Column name in `curve_data` to indicate signal.
-#' @param dilution_data `r lifecycle::badge("deprecated")`
-#' `dilution_data` was renamed to
-#' `curve_data`.
 #' @return A tibble containing Mandel test statistics. The values are
 #' the Mandel test value and its corresponding p value. More information
 #' of the test can be found in
@@ -737,16 +677,7 @@ calculate_gof_linear <- function(curve_data,
 #' @export
 calculate_mandel <- function(curve_data,
                              conc_var,
-                             signal_var,
-                             dilution_data = lifecycle::deprecated()) {
-
-  if (lifecycle::is_present(dilution_data)) {
-    lifecycle::deprecate_warn(
-      when = "0.0.6.9000",
-      what = "calculate_mandel(dilution_data)",
-      with = "calculate_mandel(curve_data)")
-    curve_data <- dilution_data
-  }
+                             signal_var) {
 
   mandel_result <- tibble::tibble(
     mandel_stats = NA,
@@ -810,9 +741,6 @@ calculate_mandel <- function(curve_data,
 #' @param curve_data A data frame or tibble containing curve data.
 #' @param conc_var Column name in `curve_data` to indicate concentration.
 #' @param signal_var Column name in `curve_data` to indicate signal.
-#' @param dilution_data `r lifecycle::badge("deprecated")`
-#' `dilution_data` was renamed to
-#' `curve_data`.
 #' @return The Percent Residual Accuracy (PRA) of the
 #' Linear Model. More information of this value can be found in
 #' \url{https://www.sciencedirect.com/science/article/abs/pii/S0039914018307549}
@@ -838,17 +766,7 @@ calculate_mandel <- function(curve_data,
 #' @export
 calculate_pra_linear <- function(curve_data,
                                  conc_var,
-                                 signal_var,
-                                 dilution_data = lifecycle::deprecated()) {
-
-  if (lifecycle::is_present(dilution_data)) {
-    lifecycle::deprecate_warn(
-      when = "0.0.6.9000",
-      what = "calculate_pra_linear(dilution_data)",
-      with = "calculate_pra_linear(curve_data)")
-    curve_data <- dilution_data
-  }
-
+                                 signal_var) {
   pra_linear <- NA
 
   if (is.null(nrow(curve_data))) {
@@ -902,27 +820,6 @@ calculate_pra_linear <- function(curve_data,
   return(pra_linear)
 }
 
-#' @title Validate Dilution Data
-#' @description Validate Dilution Data
-#' `r lifecycle::badge("deprecated")`
-#'
-#' `validate_dilution_data` was renamed to
-#' `validate_curve_data`.
-#' @keywords internal
-#' @export
-validate_dilution_data <- function(dilution_data,
-                                   conc_var,
-                                   signal_var) {
-
-  lifecycle::deprecate_warn(when = "0.0.6.9000",
-                            what = "validate_dilution_data()",
-                            with = "validate_curve_data()")
-
-  validate_curve_data(curve_data = dilution_data,
-                      conc_var = conc_var,
-                      signal_var = signal_var)
-
-}
 
 #' @title Validate Curve Data
 #' @description Validate Curve Data.
@@ -959,29 +856,6 @@ validate_curve_data <- function(curve_data,
   )
 }
 
-#' @title Summarise Dilution Curve Data For One Group
-#' @description Get the summary statistics of the dilution data
-#' `r lifecycle::badge("deprecated")`
-#'
-#' `summarise_dilution_data` was renamed to
-#' `summarise_curve_data`.
-#' @keywords internal
-#' @export
-summarise_dilution_data <- function(dilution_data,
-                                    conc_var,
-                                    signal_var,
-                                    details = FALSE) {
-
-  lifecycle::deprecate_warn(when = "0.0.6.9000",
-                            what = "summarise_dilution_data()",
-                            with = "summarise_curve_data()")
-
-  summarise_curve_data(curve_data = dilution_data,
-                       conc_var = conc_var,
-                       signal_var = signal_var,
-                       details = details)
-
-}
 
 #' @title Summarise Curve Data For One Group
 #' @description Get the summary statistics of the curve data

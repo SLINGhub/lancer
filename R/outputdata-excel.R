@@ -6,9 +6,6 @@
 #' by function [summarise_curve_table()] and/or
 #' [evaluate_linearity()]
 #' but it can also be any generic data frame or tibble.
-#' @param dilution_summary `r lifecycle::badge("deprecated")`
-#' `dilution_summary` was renamed to
-#' `curve_summary`.
 #' @return A numeric vector each value indicated the
 #' maximum number of characters for each column of the
 #' input data frame or tibble.
@@ -46,16 +43,7 @@
 #' @rdname calculate_column_max_char
 #' @export
 calculate_column_max_char <- function(
-    curve_summary,
-    dilution_summary = lifecycle::deprecated()) {
-
-  if (lifecycle::is_present(dilution_summary)) {
-    lifecycle::deprecate_warn(
-      when = "0.0.6.9000",
-      what = "calculate_column_max_char(dilution_summary)",
-      with = "calculate_column_max_char(curve_summary)")
-    curve_summary <- dilution_summary
-  }
+    curve_summary) {
 
   # Convert factor columns to type character
   # as nchar gives an error if a input vector
@@ -98,9 +86,6 @@ calculate_column_max_char <- function(
 #' by function [summarise_curve_table()] and/or
 #' [evaluate_linearity()]
 #' but it can also be any generic data frame or tibble.
-#' @param dilution_summary `r lifecycle::badge("deprecated")`
-#' `dilution_summary` was renamed to
-#' `curve_summary`.
 #' @param threshold_value A small cut off value such that any
 #' numeric column with a number smaller than this value
 #' will be given the class scientific.
@@ -144,16 +129,7 @@ calculate_column_max_char <- function(
 #' @export
 mark_near_zero_columns <- function(
     curve_summary,
-    dilution_summary = lifecycle::deprecated(),
     threshold_value = 0.01) {
-
-  if (lifecycle::is_present(dilution_summary)) {
-    lifecycle::deprecate_warn(
-      when = "0.0.6.9000",
-      what = "mark_near_zero_columns(dilution_summary)",
-      with = "mark_near_zero_columns(curve_summary)")
-    curve_summary <- dilution_summary
-  }
 
   # Check if we have numeric columns
   # Check to see if numeric column has at least one value
@@ -198,9 +174,6 @@ mark_near_zero_columns <- function(
 #' by function [summarise_curve_table()] and/or
 #' [evaluate_linearity()]
 #' but it can also be any generic data frame or tibble.
-#' @param dilution_summary `r lifecycle::badge("deprecated")`
-#' `dilution_summary` was renamed to
-#' `curve_summary`.
 #' @param workbook A workbook object from `openxlsx`.
 #' @param sheet The name of the sheet to apply the numeric style on `workbook`.
 #' @examples
@@ -245,17 +218,8 @@ mark_near_zero_columns <- function(
 #' @export
 format_num_cell_style <- function(
     curve_summary,
-    dilution_summary = lifecycle::deprecated(),
     workbook,
     sheet) {
-
-  if (lifecycle::is_present(dilution_summary)) {
-    lifecycle::deprecate_warn(
-      when = "0.0.6.9000",
-      what = "format_num_cell_style(dilution_summary)",
-      with = "format_num_cell_style(curve_summary)")
-    curve_summary <- dilution_summary
-  }
 
   # Get the class for each column
   classes <- curve_summary |>
@@ -289,10 +253,7 @@ format_num_cell_style <- function(
 #' @param sheet The name of the sheet to apply the conditional
 #' formatting on `workbook`.
 #' @param curve_summary The summary table generated
-#' by function [summarise_curve_table()] and/or [evaluate_linearity()].
-#' @param dilution_summary `r lifecycle::badge("deprecated")`
-#' `dilution_summary` was renamed to
-#' `curve_summary`.
+#' by function [summarise_curve_table()] and/or [evaluate_linearity()]..
 #' @param conditional_column A string to indicate which column
 #' in `curve_summary` to use.
 #' @param pass_criteria_words A character vector to highlight
@@ -356,17 +317,8 @@ format_char_cell_colour <- function(
     workbook,
     sheet,
     curve_summary,
-    dilution_summary = lifecycle::deprecated(),
     conditional_column,
     pass_criteria_words) {
-
-  if (lifecycle::is_present(dilution_summary)) {
-    lifecycle::deprecate_warn(
-      when = "0.0.6.9000",
-      what = "format_char_cell_colour(dilution_summary)",
-      with = "format_char_cell_colour(curve_summary)")
-    curve_summary <- dilution_summary
-  }
 
   col_index <- which(colnames(curve_summary) %in% conditional_column)
 
@@ -398,9 +350,6 @@ format_char_cell_colour <- function(
 #' @param sheet The name of the sheet to apply the numeric style on `workbook`.
 #' @param curve_summary The summary table generated
 #' by function [summarise_curve_table()] and/or [evaluate_linearity()].
-#' @param dilution_summary `r lifecycle::badge("deprecated")`
-#' `dilution_summary` was renamed to
-#' `curve_summary`.
 #' @param conditional_column A character vector to
 #' indicate which column in `curve_summary` to use.
 #' @param threshold_value The threshold value to indicate a pass or fail.
@@ -469,19 +418,10 @@ format_num_cell_colour <- function(
     workbook,
     sheet,
     curve_summary,
-    dilution_summary = lifecycle::deprecated(),
     conditional_column,
     threshold_value,
     pass_criteria = c("above", "below"),
     pass_equality = TRUE) {
-
-  if (lifecycle::is_present(dilution_summary)) {
-    lifecycle::deprecate_warn(
-      when = "0.0.6.9000",
-      what = "format_num_cell_colour(dilution_summary)",
-      with = "format_num_cell_colour(curve_summary)")
-    curve_summary <- dilution_summary
-  }
 
   col_index <- which(colnames(curve_summary) %in% conditional_column)
 

@@ -7,14 +7,10 @@
 add_plotly_panel(
   curve_table,
   curve_summary = NULL,
-  dilution_table = lifecycle::deprecated(),
-  dilution_summary = lifecycle::deprecated(),
   grouping_variable = c("Curve_Name", "Curve_Batch_Name"),
   sample_name_var = "Sample_Name",
   curve_batch_var = "Curve_Batch_Name",
   curve_batch_col = c("#377eb8", "#4daf4a", "#9C27B0", "#BCAAA4", "#FF8A65", "#EFBBCF"),
-  dil_batch_var = lifecycle::deprecated(),
-  dil_batch_col = lifecycle::deprecated(),
   conc_var = "Concentration",
   conc_var_units = "\%",
   conc_var_interval = 50,
@@ -37,14 +33,6 @@ by function \code{\link[=summarise_curve_table]{summarise_curve_table()}} and/or
 but it can also be any generic data frame or tibble.
 Default: NULL}
 
-\item{dilution_table}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
-\code{dilution_table} was renamed to
-\code{curve_table}.}
-
-\item{dilution_summary}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
-\code{dilution_summary} was renamed to
-\code{curve_summary}.}
-
 \item{grouping_variable}{A character vector of
 column names in \code{curve_table}to indicate how each curve
 should be grouped by. It is also going to be used as a conditional
@@ -63,14 +51,6 @@ Default: 'Curve_Batch_Name'}
 \item{curve_batch_col}{A vector of colours to be used for the curve
 batch group named given in \code{curve_batch_var}.
 Default: c("#377eb8", "#4daf4a", "#9C27B0", "#BCAAA4", "#FF8A65", "#EFBBCF")}
-
-\item{dil_batch_var}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
-\code{dil_batch_var} was renamed to
-\code{curve_batch_var}.}
-
-\item{dil_batch_col}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
-\code{dil_batch_col} was renamed to
-\code{curve_batch_col}.}
 
 \item{conc_var}{Column name in \code{curve_table} to indicate concentration.
 Default: 'Concentration'}

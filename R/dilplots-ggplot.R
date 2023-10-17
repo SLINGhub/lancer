@@ -3,9 +3,6 @@
 #' Plot curve summary character table for one group or batch
 #' @param curve_summary_grp
 #' A one row data frame or tibble containing curve summary
-#' @param dilution_summary_grp `r lifecycle::badge("deprecated")`
-#' `dilution_summary_grp` was renamed to
-#' `curve_summary_grp`.
 #' @return A `gridtable` object consisting of one table. The first
 #' column is the column names of `curve_summary_grp` which
 #' are characters or factors or logical. The second column is their
@@ -46,18 +43,7 @@
 #'
 #' @rdname plot_summary_table_char
 #' @export
-plot_summary_table_char <- function(
-    curve_summary_grp,
-    dilution_summary_grp = lifecycle::deprecated()) {
-
-  if (lifecycle::is_present(dilution_summary_grp)) {
-    lifecycle::deprecate_warn(
-      when = "0.0.6.9000",
-      what = "plot_summary_table_char(dilution_summary_grp)",
-      with = "plot_summary_table_char(curve_summary_grp)")
-    curve_summary_grp <- dilution_summary_grp
-  }
-
+plot_summary_table_char <- function(curve_summary_grp) {
   curve_char_data <- curve_summary_grp |>
     dplyr::select_if(
       function(col) {
@@ -86,9 +72,6 @@ plot_summary_table_char <- function(
 #' or batch.
 #' @param curve_summary_grp
 #' A one row data frame or tibble containing curve summary.
-#' @param dilution_summary_grp `r lifecycle::badge("deprecated")`
-#' `dilution_summary_grp` was renamed to
-#' `curve_summary_grp`.
 #' @return A `gridtable` object consisting of one table. The first
 #' column is the column names of `curve_summary_grp` which
 #' are numeric. The second column is their
@@ -130,16 +113,7 @@ plot_summary_table_char <- function(
 #' @rdname plot_summary_table_num
 #' @export
 plot_summary_table_num <- function(
-    curve_summary_grp,
-    dilution_summary_grp = lifecycle::deprecated()) {
-
-  if (lifecycle::is_present(dilution_summary_grp)) {
-    lifecycle::deprecate_warn(
-      when = "0.0.6.9000",
-      what = "plot_summary_table_num(dilution_summary_grp)",
-      with = "plot_summary_table_num(curve_summary_grp)")
-    curve_summary_grp <- dilution_summary_grp
-  }
+    curve_summary_grp) {
 
   curve_num_data <- curve_summary_grp |>
     mark_near_zero_columns() |>
@@ -172,11 +146,7 @@ plot_summary_table_num <- function(
 
 #' @title Plot Curve Summary Table For One Group
 #' @description Plot curve summary table for one group
-#' @param curve_summary_grp
-#' A one row data frame or tibble containing curve summary.
-#' @param dilution_summary_grp `r lifecycle::badge("deprecated")`
-#' `dilution_summary_grp` was renamed to
-#' `curve_summary_grp`.
+#' @param curve_summary_grp A one row data frame or tibble containing curve summary.
 #' @return A `gridtable` object consisting of two tables. One from
 #' [plot_summary_table_char()] and [plot_summary_table_num()].
 #' @examples
@@ -214,16 +184,7 @@ plot_summary_table_num <- function(
 #'
 #' @rdname plot_summary_table
 #' @export
-plot_summary_table <- function(
-    curve_summary_grp,
-    dilution_summary_grp = lifecycle::deprecated()) {
-
-  if (lifecycle::is_present(dilution_summary_grp)) {
-    lifecycle::deprecate_warn(when = "0.0.6.9000",
-                              what = "plot_summary_table(dilution_summary_grp)",
-                              with = "plot_summary_table(curve_summary_grp)")
-    curve_summary_grp <- dilution_summary_grp
-  }
+plot_summary_table <- function(curve_summary_grp) {
 
   if (is.null(curve_summary_grp) || isTRUE(is.na(curve_summary_grp))) {
     return(NULL)
@@ -316,15 +277,6 @@ create_reg_col_vec <- function(plot_first_half_lin_reg = FALSE,
 #' to indicate the group name of each curve batch,
 #' used to colour the points in the curve plot.
 #' Default: 'Curve_Batch_Name'
-#' @param dilution_data `r lifecycle::badge("deprecated")`
-#' `dilution_data` was renamed to
-#' `curve_data`.
-#' @param dilution_summary_grp `r lifecycle::badge("deprecated")`
-#' `dilution_summary_grp` was renamed to
-#' `curve_summary_grp`.
-#' @param dil_batch_var `r lifecycle::badge("deprecated")`
-#' `dil_batch_var` was renamed to
-#' `curve_batch_var`.
 #' @param conc_var Column name in `curve_table` to indicate concentration.
 #' Default: 'Concentration'
 #' @param conc_var_units Unit of measure for `conc_var`. Default: '%'
@@ -429,39 +381,12 @@ plot_curve_ggplot <- function(
     title = "",
     pal,
     curve_batch_var = "Curve_Batch_Name",
-    dilution_data = lifecycle::deprecated(),
-    dilution_summary_grp = lifecycle::deprecated(),
-    dil_batch_var = lifecycle::deprecated(),
     conc_var = "Concentration",
     conc_var_units = "%",
     conc_var_interval = 50,
     signal_var = "Signal",
     plot_first_half_lin_reg = FALSE,
     plot_last_half_lin_reg = FALSE) {
-
-  if (lifecycle::is_present(dilution_data)) {
-    lifecycle::deprecate_warn(
-      when = "0.0.6.9000",
-      what = "plot_curve_ggplot(dilution_data)",
-      with = "plot_curve_ggplot(curve_data)")
-    curve_data <- dilution_data
-  }
-
-  if (lifecycle::is_present(dilution_summary_grp)) {
-    lifecycle::deprecate_warn(
-      when = "0.0.6.9000",
-      what = "plot_curve_ggplot(dilution_summary_grp)",
-      with = "plot_curve_ggplot(curve_summary_grp)")
-    curve_summary_grp <- dilution_summary_grp
-  }
-
-  if (lifecycle::is_present(dil_batch_var)) {
-    lifecycle::deprecate_warn(
-      when = "0.0.6.9000",
-      what = "plot_curve_ggplot(dil_batch_var)",
-      with = "plot_curve_ggplot(curve_batch_var)")
-    curve_batch_var <- dil_batch_var
-  }
 
   # Number of curve batches
   no_of_dil_batch <- curve_data |>
@@ -767,12 +692,6 @@ plot_curve_ggplot <- function(
 #' the function [summarise_curve_table()] and [evaluate_linearity()]
 #' with `grouping_variable`, `conc_var` and `signal_var` as inputs.
 #' Default: NULL
-#' @param dilution_table `r lifecycle::badge("deprecated")`
-#' `dilution_table` was renamed to
-#' `curve_table`.
-#' @param dilution_summary `r lifecycle::badge("deprecated")`
-#' `dilution_summary` was renamed to
-#' `curve_summary`.
 #' @param grouping_variable A character vector of
 #' column names in `curve_table`to indicate how each curve
 #' should be grouped by.
@@ -784,12 +703,6 @@ plot_curve_ggplot <- function(
 #' @param curve_batch_col A vector of colours to be used for the curve
 #' batch group named given in `curve_batch_var`.
 #' Default: c("#377eb8", "#4daf4a", "#9C27B0", "#BCAAA4", "#FF8A65", "#EFBBCF")
-#' @param dil_batch_var `r lifecycle::badge("deprecated")`
-#' `dil_batch_var` was renamed to
-#' `curve_batch_var`.
-#' @param dil_batch_col `r lifecycle::badge("deprecated")`
-#' `dil_batch_col` was renamed to
-#' `curve_batch_col`.
 #' @param conc_var Column name in `curve_table` to indicate concentration.
 #' Default: 'Concentration'
 #' @param conc_var_units Unit of measure for `conc_var`. Default: '%'
@@ -937,16 +850,12 @@ plot_curve_ggplot <- function(
 add_ggplot_panel <- function(
     curve_table,
     curve_summary = NULL,
-    dilution_table = lifecycle::deprecated(),
-    dilution_summary = lifecycle::deprecated(),
     grouping_variable = c("Curve_Name",
                           "Curve_Batch_Name"),
     curve_batch_var = "Curve_Batch_Name",
     curve_batch_col = c("#377eb8", "#4daf4a",
                        "#9C27B0", "#BCAAA4",
                        "#FF8A65", "#EFBBCF"),
-    dil_batch_var = lifecycle::deprecated(),
-    dil_batch_col = lifecycle::deprecated(),
     conc_var = "Concentration",
     conc_var_units = "%",
     conc_var_interval = 50,
@@ -955,38 +864,6 @@ add_ggplot_panel <- function(
     plot_summary_table = TRUE,
     plot_first_half_lin_reg = FALSE,
     plot_last_half_lin_reg = FALSE) {
-
-  if (lifecycle::is_present(dilution_table)) {
-    lifecycle::deprecate_warn(
-      when = "0.0.6.9000",
-      what = "add_ggplot_panel(dilution_table)",
-      with = "add_ggplot_panel(curve_table)")
-    curve_table <- dilution_table
-  }
-
-  if (lifecycle::is_present(dilution_summary)) {
-    lifecycle::deprecate_warn(
-      when = "0.0.6.9000",
-      what = "add_ggplot_panel(dilution_summary)",
-      with = "add_ggplot_panel(curve_summary)")
-    curve_summary <- dilution_summary
-  }
-
-  if (lifecycle::is_present(dil_batch_var)) {
-    lifecycle::deprecate_warn(
-      when = "0.0.6.9000",
-      what = "add_ggplot_panel(dil_batch_var)",
-      with = "add_ggplot_panel(curve_batch_var)")
-    curve_batch_var <- dil_batch_var
-  }
-
-  if (lifecycle::is_present(dil_batch_col)) {
-    lifecycle::deprecate_warn(
-      when = "0.0.6.9000",
-      what = "add_ggplot_panel(dil_batch_col)",
-      with = "add_ggplot_panel(curve_batch_col)")
-    curve_batch_col <- dil_batch_col
-  }
 
   # Check if curve_table is valid with the relevant columns
   validate_curve_table(

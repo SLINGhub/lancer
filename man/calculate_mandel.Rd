@@ -4,12 +4,7 @@
 \alias{calculate_mandel}
 \title{Calculate Mandel Fitting Test}
 \usage{
-calculate_mandel(
-  curve_data,
-  conc_var,
-  signal_var,
-  dilution_data = lifecycle::deprecated()
-)
+calculate_mandel(curve_data, conc_var, signal_var)
 }
 \arguments{
 \item{curve_data}{A data frame or tibble containing curve data.}
@@ -17,10 +12,6 @@ calculate_mandel(
 \item{conc_var}{Column name in \code{curve_data} to indicate concentration.}
 
 \item{signal_var}{Column name in \code{curve_data} to indicate signal.}
-
-\item{dilution_data}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
-\code{dilution_data} was renamed to
-\code{curve_data}.}
 }
 \value{
 A tibble containing Mandel test statistics. The values are
