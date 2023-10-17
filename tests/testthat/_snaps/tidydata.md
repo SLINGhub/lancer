@@ -41,7 +41,7 @@
        8 Sample_060a B1                          60 Curve_2    8922063
        9 Sample_080a B1                          80 Curve_1      52171
       10 Sample_080a B1                          80 Curve_2    9288742
-      # ... with 14 more rows
+      # i 14 more rows
 
 ---
 
@@ -64,13 +64,11 @@
       i Please use `summarise_curve_table()` instead.
     Output
       # A tibble: 4 x 9
-        Curve_Name Curve_Batc~1 r_corr r2_li~2 r2_ad~3 mande~4 mande~5 pra_l~6 conca~7
-        <chr>      <chr>         <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-      1 Curve_1    B1            0.956   0.913   0.892   70.1  0.00357    66.4   -4.09
-      2 Curve_2    B1            0.972   0.946   0.932    5.67 0.0974     74.8 -735.  
-      3 Curve_1    B2            0.956   0.913   0.892   70.1  0.00357    66.4   -4.09
-      4 Curve_2    B2            0.972   0.946   0.932    5.67 0.0974     74.8 -735.  
-      # ... with abbreviated variable names 1: Curve_Batch_Name, 2: r2_linear,
-      #   3: r2_adj_linear, 4: mandel_stats, 5: mandel_p_val, 6: pra_linear,
-      #   7: concavity
+        Curve_Name Curve_Batch_Name r_corr r2_linear r2_adj_linear mandel_stats
+        <chr>      <chr>             <dbl>     <dbl>         <dbl>        <dbl>
+      1 Curve_1    B1                0.956     0.913         0.892        70.1 
+      2 Curve_2    B1                0.972     0.946         0.932         5.67
+      3 Curve_1    B2                0.956     0.913         0.892        70.1 
+      4 Curve_2    B2                0.972     0.946         0.932         5.67
+      # i 3 more variables: mandel_p_val <dbl>, pra_linear <dbl>, concavity <dbl>
 
