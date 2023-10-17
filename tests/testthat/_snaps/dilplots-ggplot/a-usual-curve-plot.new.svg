@@ -83,7 +83,6 @@
 <circle cx='371.82' cy='159.82' r='5.69' style='stroke-width: 0.71; stroke: #377EB8; fill: #377EB8;' />
 <polyline points='88.11,474.64 108.38,448.27 128.64,421.90 148.91,395.53 169.17,369.15 189.44,342.78 209.70,316.41 229.97,290.04 250.23,263.67 270.50,237.30 290.76,210.93 311.03,184.55 331.29,158.18 351.56,131.81 371.82,105.44 ' style='stroke-width: 1.07; stroke-linecap: butt;' />
 <polyline points='88.11,518.96 108.38,471.63 128.64,427.65 148.91,387.02 169.17,349.73 189.44,315.80 209.70,285.21 229.97,257.97 250.23,234.07 270.50,213.53 290.76,196.33 311.03,182.47 331.29,171.97 351.56,164.81 371.82,161.00 ' style='stroke-width: 1.07; stroke: #FF0000; stroke-linecap: butt;' />
-<polyline points='88.11,380.55 108.38,363.79 128.64,347.03 148.91,330.26 169.17,313.50 189.44,296.74 209.70,279.97 229.97,263.21 250.23,246.45 270.50,229.68 290.76,212.92 311.03,196.15 331.29,179.39 351.56,162.63 371.82,145.86 ' style='stroke-width: 1.07; stroke: #A020F0; stroke-linecap: butt;' />
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
 <text x='69.00' y='542.54' text-anchor='end' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='24.72px' lengthAdjust='spacingAndGlyphs'>0e+00</text>
@@ -102,25 +101,18 @@
 <text x='371.82' y='550.62' text-anchor='middle' style='font-size: 8.80px; fill: #4D4D4D; font-family: sans;' textLength='14.68px' lengthAdjust='spacingAndGlyphs'>150</text>
 <text x='229.97' y='562.76' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='88.66px' lengthAdjust='spacingAndGlyphs'>Concentration (%)</text>
 <text x='26.25' y='92.33' text-anchor='middle' style='font-size: 11.00px; font-family: sans;' textLength='30.58px' lengthAdjust='spacingAndGlyphs'>Signal</text>
-<rect x='121.53' y='45.57' width='216.87' height='28.24' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
-<rect x='132.49' y='51.05' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #F2F2F2;' />
-<line x1='134.22' y1='59.69' x2='148.04' y2='59.69' style='stroke-width: 1.07; stroke-linecap: butt;' />
-<line x1='134.22' y1='59.69' x2='148.04' y2='59.69' style='stroke-width: 1.07; stroke-linecap: butt;' />
-<line x1='134.22' y1='59.69' x2='148.04' y2='59.69' style='stroke-width: 1.07; stroke-linecap: butt;' />
-<rect x='172.47' y='51.05' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #F2F2F2;' />
-<line x1='174.20' y1='59.69' x2='188.02' y2='59.69' style='stroke-width: 1.07; stroke: #FF0000; stroke-linecap: butt;' />
-<line x1='174.20' y1='59.69' x2='188.02' y2='59.69' style='stroke-width: 1.07; stroke: #FF0000; stroke-linecap: butt;' />
-<line x1='174.20' y1='59.69' x2='188.02' y2='59.69' style='stroke-width: 1.07; stroke: #FF0000; stroke-linecap: butt;' />
-<rect x='222.24' y='51.05' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #F2F2F2;' />
-<line x1='223.97' y1='59.69' x2='237.79' y2='59.69' style='stroke-width: 1.07; stroke: #A020F0; stroke-linecap: butt;' />
-<line x1='223.97' y1='59.69' x2='237.79' y2='59.69' style='stroke-width: 1.07; stroke: #A020F0; stroke-linecap: butt;' />
-<line x1='223.97' y1='59.69' x2='237.79' y2='59.69' style='stroke-width: 1.07; stroke: #A020F0; stroke-linecap: butt;' />
-<rect x='299.40' y='51.05' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #F2F2F2;' />
-<circle cx='308.04' cy='59.69' r='5.69' style='stroke-width: 0.71; stroke: none; fill: #377EB8;' />
-<text x='155.25' y='62.71' style='font-size: 8.80px; font-family: sans;' textLength='11.74px' lengthAdjust='spacingAndGlyphs'>Lin</text>
-<text x='195.23' y='62.71' style='font-size: 8.80px; font-family: sans;' textLength='21.53px' lengthAdjust='spacingAndGlyphs'>Quad</text>
-<text x='245.00' y='62.71' style='font-size: 8.80px; font-family: sans;' textLength='48.92px' lengthAdjust='spacingAndGlyphs'>Lin Last Half</text>
-<text x='322.16' y='62.71' style='font-size: 8.80px; font-family: sans;' textLength='10.77px' lengthAdjust='spacingAndGlyphs'>B1</text>
+<rect x='160.11' y='45.57' width='139.72' height='28.24' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
+<rect x='171.07' y='51.05' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #F2F2F2;' />
+<line x1='172.80' y1='59.69' x2='186.62' y2='59.69' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<line x1='172.80' y1='59.69' x2='186.62' y2='59.69' style='stroke-width: 1.07; stroke-linecap: butt;' />
+<rect x='211.05' y='51.05' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #F2F2F2;' />
+<line x1='212.78' y1='59.69' x2='226.60' y2='59.69' style='stroke-width: 1.07; stroke: #FF0000; stroke-linecap: butt;' />
+<line x1='212.78' y1='59.69' x2='226.60' y2='59.69' style='stroke-width: 1.07; stroke: #FF0000; stroke-linecap: butt;' />
+<rect x='260.82' y='51.05' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #F2F2F2;' />
+<circle cx='269.46' cy='59.69' r='5.69' style='stroke-width: 0.71; stroke: none; fill: #377EB8;' />
+<text x='193.83' y='62.71' style='font-size: 8.80px; font-family: sans;' textLength='11.74px' lengthAdjust='spacingAndGlyphs'>Lin</text>
+<text x='233.81' y='62.71' style='font-size: 8.80px; font-family: sans;' textLength='21.53px' lengthAdjust='spacingAndGlyphs'>Quad</text>
+<text x='283.58' y='62.71' style='font-size: 8.80px; font-family: sans;' textLength='10.77px' lengthAdjust='spacingAndGlyphs'>B1</text>
 <text x='10.96' y='37.35' style='font-size: 13.20px; font-family: sans;' textLength='92.47px' lengthAdjust='spacingAndGlyphs'>Lipid_Saturated</text>
 </g>
 <defs>
@@ -432,6 +424,6 @@
 <g clip-path='url(#cpMzk2Ljk2fDcwOS4wNHw1NjUuMDR8NTY1LjA0)'>
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw1NzYuMDA=)'>
-<text x='10.96' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='146.76px' lengthAdjust='spacingAndGlyphs'>A Lin Last Half curve plot</text>
+<text x='10.96' y='14.56' style='font-size: 13.20px; font-family: sans;' textLength='104.94px' lengthAdjust='spacingAndGlyphs'>A usual curve plot</text>
 </g>
 </svg>
